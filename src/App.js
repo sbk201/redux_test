@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "react-dom";
 import "./App.css";
+import Counter from "./Counter.js";
 
 class App extends Component {
 	// constructor(){
@@ -11,7 +12,7 @@ class App extends Component {
 	render(){
 		return (
 			<div>
-				<Test/>
+				<Counter/>
 			</div>
 		);
 	}
@@ -46,7 +47,6 @@ function Repeat(props) {
 function ListOfTenThings(p) {
 	return (
 		<div>
-			<input ref={input=> p.input=input} />
 			<input type="button" name="click" onClick={e=> p.focusText()}/>
 			<Repeat numTimes={10} num2={4}>
 				{(index) => <div key={index}>This is item {index} in the list</div>}
