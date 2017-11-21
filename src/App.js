@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "react-dom";
 import "./App.css";
 import Counter from "./Counter.js";
+// import TodoApp from "./components/TodoApp.js";
+
 
 class App extends Component {
 	// constructor(){

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
 // React component
 class Counter extends Component {
   render() {
-    console.log(this.props);
     const { valueAdd,valueMinus, onIncreaseClick,onMinusClick } = this.props
     return (
       <div>
