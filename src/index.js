@@ -7,6 +7,7 @@ import registerServiceWorker from "./registerServiceWorker";
 import { Provider} from "react-redux";
 import { createStore } from "redux";
 const store = createStore(reducers);
+// console.log(store.getState());
 
 // Do not write in one line,or it gets error:
 // Warning: Failed prop type: Invalid prop `children` of type `array` supplied to `Provider`, expected a single ReactElement.
