@@ -3,6 +3,7 @@ const todo = (state = {}, action) => {
     case 'ADD_TODO':
       return {
         id: action.id,
+        // id: action.id+1,
         text: action.text,
         completed: false
       }
