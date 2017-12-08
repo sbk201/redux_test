@@ -6,7 +6,8 @@ import reducers from './reducers/index';
 import registerServiceWorker from "./registerServiceWorker";
 import { Provider} from "react-redux";
 import { createStore } from "redux";
-const store = createStore(reducers);
+import initData from "./initData";
+const store = createStore(reducers,initData);
 // console.log(store.getState());
 
 // Do not write in one line,or it gets error:

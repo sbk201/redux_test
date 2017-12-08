@@ -20,8 +20,7 @@ const todo = (state = {}, action) => {
       return state
   }
 }
-const initTodos=[{ id: 0, text: "something done", completed: true }, { id: 1, text: "pending thing", completed: false }]
-const todos = (state = initTodos, action) => {
+const todos = (state = [], action) => {
   switch (action.type) {
     case 'ADD_TODO':
       return [
