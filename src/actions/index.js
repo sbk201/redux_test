@@ -5,9 +5,10 @@ export const addNumber = () => {
   }
 }
 
-export const addRecord = () => {
+export const addRecord = (time) => {
   return {
-    type: 'ADD_RECORD'
+    type: 'ADD_RECORD',
+    time
   }
 }
 

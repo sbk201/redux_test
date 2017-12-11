@@ -22,22 +22,9 @@ const Selection=({question,newQuestion})=>{
 		height:2em;
 	`;
 	return (
-		<table>
-			<thead>
-				<tr><th>First</th><th>Second</th></tr>
-				{/*<tr><th>希伯來語及阿拉米語經卷</th><th>希臘語經卷</th></tr>*/}
-			</thead>
-			<tbody>
-				{list.map((name,index)=>(
-					<tr key={index}><td>
-						<Button onClick={e=>checkAnswer(e)}>{name[0]}</Button>
-					</td>
-					<td>
-						<Button  onClick={e=>checkAnswer(e)} >{name[1]}</Button>
-					</td></tr>))}
-			</tbody>
+		<div>
 			
-		</table>
+		</div>
 	);
 };
 

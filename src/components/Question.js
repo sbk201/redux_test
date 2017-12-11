@@ -1,13 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 
 const Question=({question,onClick})=>{
-	const isHide=question.ask ? "hide" : '';
-			// <div>Question : {question.ask} (answer: {question.answer})</div>
+	const isStart=question.ask;
+	const height={height:"2em"};
+	const Header=styled.div`
+		background-color: aliceblue;
+		position: fixed;
+	   top: 0;
+	   left: 0;
+	   width: 100%;
+	`;
+	const Div1=styled.div`
+		display:${isStart? 'none' : 'inherit'}
+	`;
+	const Div2=styled.div`
+		display:${isStart? 'inherit' : 'none'}
+	`;
+	// <div>Question : {question.ask} (answer: {question.answer})</div>
+	const Part=<div style={height}>
+		<Div1><button onClick={onClick}>Start</button></Div1>
+		<Div2>Question : {question.ask}</Div2>
+		</div>;
 	return (
-		<div style={{height: "3em", position: "fixed", backgroundColor: "white", width: "100%", top: "0"}}>
-			<div>Question : {question.ask}</div>
-			<div><button onClick={onClick} className={isHide}>Start</button></div>
+		<div>
+			<Header>
+				{Part}
+			</Header>
+			<div>
+				{Part}
+			</div>
 		</div>
 	);
 };
