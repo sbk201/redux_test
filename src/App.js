@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "react-dom";
 import "./App.css";
 import QuestionContainer from './containers/QuestionContainer'
+import RecordsContainer from './containers/RecordsContainer'
 import SelectionContainer from './containers/SelectionContainer'
 
 
@@ -10,8 +11,9 @@ class App extends Component {
 		return (
 			<div>
 			<QuestionContainer/>
-			<hr/>
+			<RecordsContainer/>
 			<SelectionContainer/>
+			<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...
 			</div>
 		);
 	}

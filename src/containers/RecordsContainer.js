@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { newQuestion,addRecord } from '../actions'
-import Selection from '../components/Selection'
+import Records from '../components/Records'
 
 
 const mapStateToProps = (state) => {
@@ -21,6 +21,6 @@ const mapDispatchToProps = (dispatch) => {
 const SelectionContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Selection)
+)(Records)
 
 export default SelectionContainer

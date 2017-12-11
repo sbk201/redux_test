@@ -1,7 +1,7 @@
 const records = (state = [], action) => {
   switch (action.type) {
     case 'ADD_RECORD':
-      return [...state,action.bool]
+      return [...state,action.time]
     default:
       return state
   }
