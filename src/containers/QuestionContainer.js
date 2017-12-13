@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { newQuestion } from '../actions'
+import { newQuestion,addRecord } from '../actions'
 import Question from '../components/Question'
 
 
@@ -11,8 +11,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onClick:()=>{
+    onClick:(time)=>{
       dispatch(newQuestion());
+      dispatch(addRecord(time));
     }
   }
 }

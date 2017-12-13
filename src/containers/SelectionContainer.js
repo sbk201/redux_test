@@ -5,7 +5,8 @@ import Selection from '../components/Selection'
 
 const mapStateToProps = (state) => {
   return {
-    question:state.question
+    question:state.question,
+    recordAt:state.recordAt,
   }
 }
 
