@@ -4,6 +4,7 @@ import visibilityFilter from './visibilityFilter'
 import question from './question'
 import number from './number'
 import records from './records'
+import recordAt from './recordAt'
 
 const todoApp = combineReducers({
   todos,
@@ -11,6 +12,7 @@ const todoApp = combineReducers({
   number,
   question,
   records,
+  recordAt,
 })
 
 export default todoApp

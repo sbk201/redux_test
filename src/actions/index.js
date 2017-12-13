@@ -5,6 +5,13 @@ export const addNumber = () => {
   }
 }
 
+export const recordAt = (time) => {
+  return {
+    type: 'RECORD_AT',
+    time
+  }
+}
+
 export const addRecord = (time) => {
   return {
     type: 'ADD_RECORD',

@@ -8,6 +8,7 @@ import { Provider} from "react-redux";
 import { createStore } from "redux";
 import initData from "./initData";
 const store = createStore(reducers,initData);
+window.store=store;
 // console.log(store.getState());
 
 // Do not write in one line,or it gets error:

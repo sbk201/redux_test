@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import {questionList} from "../initData";
 
-const Selection=({question,newQuestion})=>{
+const Selection=({question,recordAt,newQuestion})=>{
 	const listOne=questionList.filter(ele=>ele.index==="one");
 	const listTwo=questionList.filter(ele=>ele.index==="two");
 	const list=listOne.map((ele1,th)=>{
@@ -13,6 +13,7 @@ const Selection=({question,newQuestion})=>{
 	const checkAnswer= e=>{
 		const picked=e.target.innerText;
 		const answer=question.answer;
+		// const timeSpent=() - recordAt;
 		picked===answer?
 		newQuestion(new Date()) :
 		console.log('wrong');
