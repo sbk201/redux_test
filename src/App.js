@@ -5,9 +5,19 @@ import styled from "styled-components";
 import QuestionContainer from './containers/QuestionContainer'
 import RecordsContainer from './containers/RecordsContainer'
 import SelectionContainer from './containers/SelectionContainer'
+import { newQuestion,addRecord } from './actions'
 
 class App extends Component {
 	render(){
+		document.addEventListener('keyup',ele=>{
+			// console.log(ele.keyCode)
+			if(ele.keyCode!==17) return;
+			let i=10;
+			while(i--) {
+	      window.store.dispatch(newQuestion());
+	      window.store.dispatch(addRecord(1,'abc'));
+			}
+		})
 		const wraperCss=`
 			display: grid;
 			height:100vh;

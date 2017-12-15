@@ -12,10 +12,11 @@ export const recordAt = (time) => {
   }
 }
 
-export const addRecord = (time) => {
+export const addRecord = (time,question) => {
   return {
     type: 'ADD_RECORD',
-    time
+    time,
+    question,
   }
 }
 

@@ -12,9 +12,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    newQuestion:(time)=>{
+    newQuestion:({time,question})=>{
       dispatch(newQuestion());
-      dispatch(addRecord(time));
+      dispatch(addRecord(time,question));
     }
   }
 }
