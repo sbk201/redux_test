@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import {questionList} from "../initData";
 
-const Selection=({question,recordAt,newQuestion})=>{
+const Selection=({question,newQuestion})=>{
 	const listOne=questionList.filter(ele=>ele.index==="one");
 	const listTwo=questionList.filter(ele=>ele.index==="two");
 	const list=listOne.map((ele1,th)=>{
@@ -15,9 +15,10 @@ const Selection=({question,recordAt,newQuestion})=>{
 		const answer=question.answer;
 		// const timeSpent=() - recordAt;
 		picked===answer?
-		newQuestion(new Date()) :
+		actNewQuestion() :
 		console.log('wrong');
 	};
+	const actNewQuestion=()=>newQuestion({time:new Date(),question:question.answer});
 	const Button=styled.button`
 		width:8em;
 		height:2em;
@@ -47,6 +48,6 @@ Selection.propTypes = {
 	question:PropTypes.shape({
 		ask: PropTypes.string.isRequired,
 		answer: PropTypes.string.isRequired,
-	}).isRequired
+	}).isRequired,
 };
 export default Selection;

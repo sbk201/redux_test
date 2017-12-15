@@ -1,7 +1,8 @@
 const records = (state = [], action) => {
   switch (action.type) {
     case 'ADD_RECORD':
-      return [...state,action.time]
+    const {time,question}=action;
+      return [...state,{time,question}]
     default:
       return state
   }
