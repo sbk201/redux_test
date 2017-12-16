@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { newQuestion,addRecord } from '../actions'
+// import { newQuestion,addRecord } from '../actions'
 import Records from '../components/Records'
 
 const toTimeSpent= records=>{

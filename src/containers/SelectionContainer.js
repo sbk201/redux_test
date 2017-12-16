@@ -15,7 +15,14 @@ const mapDispatchToProps = (dispatch) => {
     newQuestion:({time,question})=>{
       dispatch(newQuestion());
       dispatch(addRecord(time,question));
-    }
+    },
+    testFn:()=>{
+      window.loop(5)(()=>{
+      const answer=window.store.getState().question.answer;
+      dispatch(addRecord(new Date(),answer));
+      dispatch(newQuestion());
+      })
+    },
   }
 }
 
