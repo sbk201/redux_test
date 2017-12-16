@@ -1,7 +1,6 @@
 import GlobalJs from "./global";
 import React, { Component } from "react";
 import "react-dom";
-import "./App.css";
 import styled from "styled-components";
 import QuestionContainer from './containers/QuestionContainer'
 import RecordsContainer from './containers/RecordsContainer'
