@@ -1,16 +1,4 @@
 import {questionList} from "../initData"
-export const addNumber = () => {
-  return {
-    type: 'ADD_NUMBER'
-  }
-}
-
-export const recordAt = (time) => {
-  return {
-    type: 'RECORD_AT',
-    time
-  }
-}
 
 export const addRecord = (time,question) => {
   return {
