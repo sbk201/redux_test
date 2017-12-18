@@ -25,8 +25,9 @@ const mapDispatchToProps = (dispatch) => {
           dispatch(newQuestion());
         });
         return;
-			case 'F3': 
-        console.log('f3')
+			case 'F4': 
+        console.log('f4')
+        console.log(process.env);
 				return;
 			default:return;
 			}
