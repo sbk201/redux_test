@@ -32,10 +32,11 @@ class Selection extends Component {
 		height:2em;
 		display: ${props => props.children ? "inherit" : "none" };
 		`;
+					/*<tr><th>希伯來語 及<br/>阿拉米語經卷</th><th>希臘語經卷</th></tr>*/
 		return (
 			<table>
 				<thead>
-					<tr><th>希伯來語 及<br/>阿拉米語經卷</th><th>希臘語經卷</th></tr>
+					<tr><th>First</th><th>Second</th></tr>
 				</thead>
 				<tbody>
 					{list.map((name,index)=>(

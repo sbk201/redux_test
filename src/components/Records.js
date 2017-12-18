@@ -17,7 +17,6 @@ const Records=({spentArr,hardQuestions})=>{
 		height: 100vh;
 	`;
 	const style1={height: "calc(100vh - 7em)",overflowY: "auto"};
-	console.log(hardQuestions);
 	return (
 		<Wraper>
 			<div>
@@ -37,6 +36,10 @@ const Records=({spentArr,hardQuestions})=>{
 };
 Records.propTypes = {
 	spentArr: PropTypes.arrayOf(PropTypes.shape({
+		time:PropTypes.number.isRequired,
+		question:PropTypes.string.isRequired,
+	}).isRequired).isRequired,
+	hardQuestions: PropTypes.arrayOf(PropTypes.shape({
 		time:PropTypes.number.isRequired,
 		question:PropTypes.string.isRequired,
 	}).isRequired).isRequired,
