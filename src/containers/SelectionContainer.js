@@ -12,8 +12,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		newQuestion:({time,question})=>{
-			dispatch(newQuestion());
 			dispatch(addRecord(time,question));
+			dispatch(newQuestion());
 		},
 		testFn:(e)=>{
 			switch (e.key){
