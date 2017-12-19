@@ -15,7 +15,7 @@ const questionList2=[
 	{full:"Eight",short:"8",index:"two"},
 	{full:"Nine",short:"9",index:"two"},
 	{full:"Ten",short:"10",index:"two"},
-].slice(0,5);
+].slice(0,6);
 const questionList= localSetting.show ? questionList1 : questionList2;
 export {questionList};
 
