@@ -6,7 +6,6 @@ import Selection from "../components/Selection";
 const mapStateToProps = (state) => {
 	return {
 		question:state.question,
-		recordAt:state.recordAt,
 	};
 };
 
