@@ -21,7 +21,6 @@ class Selection extends Component {
 		const checkAnswer= e=>{
 			const picked=e.target.innerText;
 			const answer=question.answer;
-			// const timeSpent=() - recordAt;
 			picked===answer?
 				actNewQuestion() :
 				console.log("wrong");
