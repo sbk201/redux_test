@@ -8,14 +8,11 @@ import { Provider} from "react-redux";
 import { createStore } from "redux";
 import initData from "./initData";
 const store = createStore(reducers,initData);
-console.log(process.env)
 
-// console.log(%%REACT_APP_WEBSITE_NAME)
 if (process.env.REACT_APP_GLOBAL_STORE==='true') {
 	window.store=store;
 	window.getState=store.getState;
 }
-// console.log(store.getState());
 
 // Do not write in one line,or it gets error:
 // Warning: Failed prop type: Invalid prop `children` of type `array` supplied to `Provider`, expected a single ReactElement.

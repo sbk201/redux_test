@@ -14,7 +14,8 @@ const getHardQuestions=theArr=>{
 	const sortQuestion=(a,b)=>a.question>b.question;
 	const sortTime=(a,b)=> a.question!==b.question ? 0 : a.time>b.time;
 	const result=theArr.slice()
-		.sort(sortQuestion).sort(sortTime)
+		// .sort(sortQuestion)
+		.sort(sortTime)
 		.reduce((acc,next)=>acc.find(ele=>ele.question===next.question) ? acc : [...acc,next],[]);
 	return result;
 };
