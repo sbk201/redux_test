@@ -1,7 +1,6 @@
 import {questionList} from "../initData";
 import {ran,uniqueKey} from "../global";
-import getState from "../index";
-
+import store from "../index";
 export const addRecord = (time,question) => {
 	return {
 		type: "ADD_RECORD",
@@ -11,7 +10,7 @@ export const addRecord = (time,question) => {
 };
 
 export const newQuestion = () => {
-	const removeList=getState().records.slice(-5);
+	const removeList=store.getState().records.slice(-5);
 	const list=uniqueKey({
 		self:{arr:questionList,key:"short"},
 		removing:{arr:removeList,key:"question"}});
