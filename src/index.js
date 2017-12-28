@@ -10,6 +10,7 @@ import initData from "./initData";
 import debounce from "lodash/debounce";
 import moment from "moment";
 
+
 const store = createStore(reducers,initData);
 
 if (process.env.REACT_APP_GLOBAL_STORE==="true") {
@@ -19,9 +20,9 @@ if (process.env.REACT_APP_GLOBAL_STORE==="true") {
 
 const getStateArray= ()=>{
 	const oldState=window.localGet('state') || [];
-	const _createAt=moment().format('DMMM h:mm:ss');
-	const _updateAt=()=>({_updateAt:moment().format('DMMM h:mm:ss')});
-	const nowState=()=>({...store.getState(),_createAt,..._updateAt()});
+	const _createdAt=moment().format('DMMM h:mm:ss');
+	const _updatedAt=()=>({_updatedAt:moment().format('DMMM h:mm:ss')});
+	const nowState=()=>({...store.getState(),_createdAt,..._updatedAt()});
 	return oldState.concat(nowState())
 
 };
