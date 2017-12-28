@@ -22,6 +22,19 @@ export const ran=(arr)=> arr[~~(Math.random()*arr.length)];
  	// value: function() { return this[~~(Math.random()*this.length)]; }
 // });
 
+window.localSet=(key,thing)=>
+  typeof thing === 'string' ?
+  localStorage.setItem(key,thing):
+  localStorage.setItem(key,JSON.stringify(thing));
+
+window.localGet=key=> {
+  try{
+    return JSON.parse(localStorage.getItem(key))
+  }catch(e){
+    return localStorage.getItem(key)
+  }
+}
+
 const loop= x => f => {
 	if (x > 0) {
 		f();
