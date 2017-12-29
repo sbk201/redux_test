@@ -34,6 +34,9 @@ window.localGet=key=> {
     return localStorage.getItem(key)
   }
 }
+window.applyState= id=>{
+	window.localGet('state')[id]
+};
 
 const loop= x => f => {
 	if (x > 0) {
