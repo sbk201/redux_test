@@ -18,8 +18,9 @@ const questionList= process.env.REACT_APP_BIBLE==='true' ? questionList1 : quest
 export {questionList};
 const stateSaved=()=>{
 	const stateId=window.localGet('stateId');
-	const stateSaved_=window.localGet('state')[stateId];
-	const {_createdAt, _updatedAt,...stateSaved}=stateSaved_
+	const stateSaved_=window.localGet('state');
+	if (!stateId || !stateSaved_) return null
+	const {_createdAt, _updatedAt,...stateSaved}=stateSaved_[stateId];
 	return stateSaved
 }
 const stateExport=stateSaved() || blank;
