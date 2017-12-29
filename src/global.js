@@ -35,7 +35,11 @@ window.localGet=key=> {
   }
 }
 window.applyState= id=>{
-	window.localGet('state')[id]
+	id===-1 ?
+	window.localSet('stateId',undefined) :
+	window.localSet('stateId',id);
+
+	window.location.reload();
 };
 
 const loop= x => f => {
