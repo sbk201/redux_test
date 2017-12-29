@@ -25,7 +25,7 @@ class Selection extends Component {
 				actNewQuestion() :
 				console.log("wrong");
 		};
-		const actNewQuestion=()=>newQuestion({time:new Date(),question:question.answer});
+		const actNewQuestion=()=>newQuestion({time:~~new Date(),question:question.answer});
 		const Button=styled.button`
 		width:8em;
 		height:2em;
