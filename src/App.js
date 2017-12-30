@@ -2,9 +2,7 @@ import GlobalJs from "./global";
 import React, { Component } from "react";
 import "react-dom";
 import styled from "styled-components";
-import QuestionContainer from './containers/QuestionContainer'
-import RecordsContainer from './containers/RecordsContainer'
-import SelectionContainer from './containers/SelectionContainer'
+// import QuestionContainer from './containers/QuestionContainer'
 
 class App extends Component {
 	render(){
@@ -22,23 +20,13 @@ class App extends Component {
   			}
 		}
 		`
-		const Wraper2=styled.div`
-			${wraperCss}
-			grid-template-rows: 2em 1fr;
-		`
+		// const Wraper2=styled.div`
+		// 	${wraperCss}
+		// 	grid-template-rows: 2em 1fr;
+		// `
 		return (
 			<Wraper1>
-				<Wraper2>
-					<QuestionContainer/>
-					<div style={{overflowY:"auto"}}>
-					<SelectionContainer/>
-					<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...
-					<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...
-					<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...
-					<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...<br/><br/>...
-					</div>
-				</Wraper2>
-				<RecordsContainer/>
+			Todo
 			</Wraper1>
 			
 		);

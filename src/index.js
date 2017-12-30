@@ -10,7 +10,6 @@ import initData from "./initData";
 import debounce from "lodash/debounce";
 import moment from "moment";
 
-
 const store = createStore(reducers,initData);
 
 if (process.env.REACT_APP_GLOBAL_STORE==="true") {
@@ -24,7 +23,6 @@ const getStateArray= ()=>{
 	const _updatedAt=()=>({_updatedAt:moment().format('DMMM h:mm:ss')});
 	const nowState=()=>({...store.getState(),_createdAt,..._updatedAt()});
 	return oldState.concat(nowState())
-
 };
 
 store.subscribe(debounce(
