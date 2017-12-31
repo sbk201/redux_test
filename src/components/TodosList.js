@@ -3,15 +3,12 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const TodosList=({todos,toggleTodo,deleteTodo})=>{
-	console.log(todos);
 	const onClick=(obj)=>{
 		toggleTodo(obj.createdAt);
 	}
 	const onDelete=(obj)=>{
 		deleteTodo(obj.createdAt);
 	}
-	// textDecoration: completed ? 'line-through' : 'none'
-	// display: ${props => props.children ? "inherit" : "none" };
 	const Item=styled.span`
 	text-decoration: ${props => props.done ? 'line-through' : 'none'};
 	`;

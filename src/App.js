@@ -4,6 +4,7 @@ import "react-dom";
 import styled from "styled-components";
 import TodosContainer from './containers/TodosContainer'
 import TodosListContainer from './containers/TodosListContainer'
+import VisibleFilterContainer from './containers/VisibleFilterContainer'
 
 class App extends Component {
 	render(){
@@ -19,6 +20,7 @@ class App extends Component {
 			<Wraper1>
 				<TodosContainer/>
 				<br/>
+				<VisibleFilterContainer/>
 				<TodosListContainer/>
 			</Wraper1>
 			

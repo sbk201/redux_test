@@ -21,3 +21,9 @@ export const deleteTodo = (createdAt) => {
 		createdAt,
 	};
 };
+export const toggleFilter = (filter) => {
+	return {
+		type: "TOGGLE_FILTER",
+		filter,
+	};
+};

@@ -1,4 +1,4 @@
-const blank={todos:[]};
+const blank={todos:[],visibleFilter:'all'};
 // {text:'',done:false,_createdAt:NaN}
 const stateId=window.localGet('stateId');
 const stateSaved=()=>{
