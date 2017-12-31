@@ -1,23 +1,23 @@
-import {questionList} from "../initData";
-import {ran,uniqueKey} from "../global";
-import store from "../index";
-export const addRecord = (time,question) => {
+// import {questionList} from "../initData";
+// import {ran,uniqueKey} from "../global";
+// import store from "../index";
+export const addTodos = ({text, done, createdAt}) => {
 	return {
-		type: "ADD_RECORD",
-		time,
-		question,
+		type: "ADD_TODOS",
+		text,
+		done,
+		createdAt,
 	};
 };
-
-export const newQuestion = () => {
-	const removeList=store.getState().records.slice(-5);
-	const list=uniqueKey({
-		self:{arr:questionList,key:"short"},
-		removing:{arr:removeList,key:"question"}});
-  const q=ran(list);
-  const question={ask:q.full,answer:q.short}
+export const toggleTodo = (createdAt) => {
 	return {
-		type: "NEW_QUESTION"
-		,question
+		type: "TOGGLE_TODO",
+		createdAt,
+	};
+};
+export const deleteTodo = (createdAt) => {
+	return {
+		type: "DELETE_TODO",
+		createdAt,
 	};
 };

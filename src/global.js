@@ -34,7 +34,9 @@ window.localGet=key=> {
     return localStorage.getItem(key)
   }
 }
-window.applyState= id=>{
+window.applyState= _id=>{
+	const lastId= window.localGet('state').length-1;
+	const id= Number.isInteger(_id) ? _id : lastId;
 	id===-1 ?
 	window.localSet('stateId',undefined) :
 	window.localSet('stateId',id);

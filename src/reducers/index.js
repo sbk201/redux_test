@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux'
-import question from './question'
-import records from './records'
+import todos from './todos'
 
 const todoApp = combineReducers({
-  question,
-  records,
+  todos,
 })
 
 export default todoApp

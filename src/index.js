@@ -28,7 +28,7 @@ const getStateArray= ()=>{
 store.subscribe(debounce(
 	()=>{
 		window.localSet("state",getStateArray())
-		console.log(store.getState());
+		// console.log(store.getState());
 	},1500)
 );
 
