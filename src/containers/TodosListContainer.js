@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { toggleTodo,deleteTodo } from '../actions'
+import { toggleTodo,deleteTodo,updateUI } from '../actions'
 import TodosList from '../components/TodosList'
 
 const visibleFilter=(todos,filter)=>{
@@ -13,16 +13,18 @@ const visibleFilter=(todos,filter)=>{
 	})
 }
 const mapStateToProps = (state) => {
-	console.log(visibleFilter(state.todos,state.visibleFilter))
   return {
-    todos:visibleFilter(state.todos,state.visibleFilter)
+    todos:visibleFilter(state.todos,state.visibleFilter),
+    UI:state.localUI.TodosList
   }
 }
 
+const contName='TodosList';
 const mapDispatchToProps = (dispatch) => {
   return {
     toggleTodo:createdAt=>dispatch(toggleTodo(createdAt)) ,
-    deleteTodo:createdAt=>dispatch(deleteTodo(createdAt))
+    deleteTodo:createdAt=>dispatch(deleteTodo(createdAt)),
+    updateUI:cmd=>dispatch(updateUI({...cmd,contName}))
   }
 }
 

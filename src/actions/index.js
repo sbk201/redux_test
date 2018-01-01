@@ -1,6 +1,12 @@
 // import {questionList} from "../initData";
 // import {ran,uniqueKey} from "../global";
 // import store from "../index";
+export const updateUI = (cmd) => {
+	return {
+		type: "UPDATE_UI",
+		...cmd
+	};
+};
 export const addTodos = ({text, done, createdAt}) => {
 	return {
 		type: "ADD_TODOS",
