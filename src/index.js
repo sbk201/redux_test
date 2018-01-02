@@ -8,7 +8,7 @@ import { Provider} from "react-redux";
 import { createStore } from "redux";
 import initData from "./init/initData";
 import debounce from "lodash/debounce";
-import storageState from "./global"
+import storageState from "./init/global"
 
 const store = createStore(reducers,initData);
 

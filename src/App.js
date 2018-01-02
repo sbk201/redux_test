@@ -1,4 +1,4 @@
-import "./global";
+import "./init/global";
 import React, { Component } from "react";
 import "react-dom";
 import styled from "styled-components";

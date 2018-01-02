@@ -1,8 +1,12 @@
-import blankData from "./init/blankData";
+import blankData from "./blankData";
 import moment from "moment";
 import merge from "lodash/merge";
 import clone from "lodash/cloneDeep";
-import flow from "lodash/flow";
+import flow from "lodash/flow"; 
+// import { transform } from "babel-core";
+// import jsonToProptypes from "babel-plugin-json-to-proptypes"
+
+
 
 export const ranUnique=(_self,len,record)=>{
 	const self=Array.isArray(_self) ? _self : [_self];
@@ -58,12 +62,11 @@ const State={
 		localSet('stateId',idLast());
 		window.location.reload();
 	},
-	reset:(_id)=>{
+	reapply:(_id)=>{
 		const id= Number.isInteger(_id) ? _id : idApplied;
 		const newState=flow([merge,clone])(blankData,State.get(id));
-		// const newState=clone(merge(blankData,State.get(id)));
 		State.set(newState);
-		console.log(`reset from id ${id}`);
+		console.log(`reapply from id ${id}`);
 	},
 	save:(store,_createdAt_a,now)=>{
 	const oldState=localGet('state') || [];
@@ -86,6 +89,8 @@ const loop= x => f => {
 		loop (x - 1) (f);
 	}
 };
+
+// const toProp=(json)=> transform(json, {plugins: [jsonToProptypes] });
 Object.assign(window,{localSet, localGet,State,loop})
 
 

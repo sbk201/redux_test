@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const TodosList=({UI,updateUI,todos,toggleTodo,deleteTodo})=>{
+	console.log(todos,UI)
 	const onClick=(obj)=>{
 		toggleTodo(obj.createdAt);
 	}
@@ -32,11 +33,14 @@ const TodosList=({UI,updateUI,todos,toggleTodo,deleteTodo})=>{
 	);
 };
 
-// TodosList.propTypes = {
-	// onClick:PropTypes.func.isRequired,
+TodosList.propTypes = {
+	updateUI:PropTypes.func.isRequired,
+	toggleTodo:PropTypes.func.isRequired,
+	deleteTodo:PropTypes.func.isRequired,
+	todos:PropTypes.arrayOf(PropTypes.shape({})).isRequired
 	// question:PropTypes.shape({
 		// ask: PropTypes.string.isRequired,
 		// answer: PropTypes.string.isRequired,
 	// }).isRequired
-// };
+};
 export default TodosList;
