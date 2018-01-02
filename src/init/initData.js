@@ -1,4 +1,4 @@
-const blank={todos:[],visibleFilter:'all',localUI:{TodosList:{mode:'a',number:0}}};
+import blank from "./blankData";
 // {text:'',done:false,_createdAt:NaN}
 const stateId=window.localGet('stateId');
 const stateSaved=()=>{
@@ -9,5 +9,5 @@ const stateSaved=()=>{
 }
 const stateExport=stateSaved() || blank;
 console.log(`state ${stateId || ''} exported`,stateExport);
-
+export {blank}
 export default stateExport

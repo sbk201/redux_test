@@ -1,5 +1,3 @@
-// import {questionList} from "../initData";
-// import {ran,uniqueKey} from "../global";
 // import store from "../index";
 export const updateUI = (cmd) => {
 	return {

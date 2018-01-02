@@ -32,11 +32,11 @@ const TodosList=({UI,updateUI,todos,toggleTodo,deleteTodo})=>{
 	);
 };
 
-TodosList.propTypes = {
+// TodosList.propTypes = {
 	// onClick:PropTypes.func.isRequired,
 	// question:PropTypes.shape({
 		// ask: PropTypes.string.isRequired,
 		// answer: PropTypes.string.isRequired,
 	// }).isRequired
-};
+// };
 export default TodosList;

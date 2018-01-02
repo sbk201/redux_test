@@ -6,9 +6,9 @@ import reducers from "./reducers/index";
 import registerServiceWorker from "./registerServiceWorker";
 import { Provider} from "react-redux";
 import { createStore } from "redux";
-import initData from "./initData";
+import initData from "./init/initData";
 import debounce from "lodash/debounce";
-import moment from "moment";
+import storageState from "./global"
 
 const store = createStore(reducers,initData);
 
@@ -16,20 +16,10 @@ if (process.env.REACT_APP_GLOBAL_STORE==="true") {
 	window.store=store;
 	window.getState=store.getState;
 }
-
-const getStateArray= ()=>{
-	const oldState=window.localGet('state') || [];
-	const _createdAt=moment().format('DMMM h:mm:ss');
-	const _updatedAt=()=>({_updatedAt:moment().format('DMMM h:mm:ss')});
-	const nowState=()=>({...store.getState(),_createdAt,..._updatedAt()});
-	return oldState.concat(nowState())
-};
-
+const _createdAt=new Date();
 store.subscribe(debounce(
-	()=>{
-		window.localSet("state",getStateArray())
-		// console.log(store.getState());
-	},1500)
+	()=>{storageState.save(store,_createdAt,new Date()); }
+	,1500)
 );
 
 // Do not write in one line,or it gets error:

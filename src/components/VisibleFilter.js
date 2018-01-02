@@ -16,11 +16,11 @@ const VisibleFilter=({visibleFilter,toggleFilter})=>{
 	);
 };
 
-VisibleFilter.propTypes = {
+// VisibleFilter.propTypes = {
 	// onClick:PropTypes.func.isRequired,
 	// question:PropTypes.shape({
 		// ask: PropTypes.string.isRequired,
 		// answer: PropTypes.string.isRequired,
 	// }).isRequired
-};
+// };
 export default VisibleFilter;

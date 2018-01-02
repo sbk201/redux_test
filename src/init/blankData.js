@@ -1,0 +1,1 @@
+export default {todos:[],visibleFilter:'all',localUI:{TodosList:{mode:'a',number:123}}};

@@ -1,4 +1,4 @@
-import GlobalJs from "./global";
+import "./global";
 import React, { Component } from "react";
 import "react-dom";
 import styled from "styled-components";
@@ -8,7 +8,6 @@ import VisibleFilterContainer from './containers/VisibleFilterContainer'
 
 class App extends Component {
 	render(){
-		window.loop=GlobalJs.loop;
 		const Wraper1=styled.div`
 		`
 			// ${wraperCss}
