@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const TodosList=({UI,updateUI,todos,toggleTodo,deleteTodo})=>{
-	console.log(todos,UI)
 	const onClick=(obj)=>{
 		toggleTodo(obj.createdAt);
 	}

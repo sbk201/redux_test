@@ -1,8 +1,7 @@
 import blankData from "./blankData";
-import moment from "moment";
-import merge from "lodash/merge";
-import clone from "lodash/cloneDeep";
-import flow from "lodash/flow"; 
+import {flow,curry,merge,cloneDeep as clone} from "lodash"; 
+// import curry from "lodash/curry"; 
+import {format as dateFormat} from 'date-fns'
 // import { transform } from "babel-core";
 // import jsonToProptypes from "babel-plugin-json-to-proptypes"
 
@@ -64,25 +63,29 @@ const State={
 	},
 	reapply:(_id)=>{
 		const id= Number.isInteger(_id) ? _id : idApplied;
-		const newState=flow([merge,clone])(blankData,State.get(id));
-		State.set(newState);
+		flow([merge,clone,State.set])(blankData,State.get(id));
 		console.log(`reapply from id ${id}`);
 	},
 	save:(store,_createdAt_a,now)=>{
 	const oldState=localGet('state') || [];
-	const _createdAt=moment(_createdAt_a).format('DMMM h:mm:ss');
-	const _updatedAt=()=>({_updatedAt:moment(now).format('DMMM h:mm:ss')});
+	const _createdAt=dateFormat(_createdAt_a,'DMMM h:mm:ss');
+	const _updatedAt=()=>({_updatedAt:dateFormat(now,'DMMM h:mm:ss')});
 	const nowState=()=>({...store.getState(),_createdAt,..._updatedAt()});
+	console.log(_createdAt)
 	localSet('state',oldState.concat(nowState()));
 	},
 	test:(num1,num2)=>{
 		const add=(a,b)=>a+b;
 		const sub5=(a)=>a-5;
 		console.log(flow([add,sub5])(num1,num2));
-	}
+	},
+	test2:()=> flow([add,sub5])
+	,
 }
+		const add=(a,b)=>a+b;
+		const sub5=(a)=>a-5;
 // view,load last,load specific one,unset,reset and merge what I have
-
+window.curry=curry;
 const loop= x => f => {
 	if (x > 0) {
 		f();
@@ -91,7 +94,7 @@ const loop= x => f => {
 };
 
 // const toProp=(json)=> transform(json, {plugins: [jsonToProptypes] });
-Object.assign(window,{localSet, localGet,State,loop})
+Object.assign(window,{localSet, localGet,State,loop,flow,curry,merge,clone})
 
 
 // https://stackoverflow.com/a/30452949/1507207
