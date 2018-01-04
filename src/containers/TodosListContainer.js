@@ -12,14 +12,14 @@ const visibleFilter=(todos,filter)=>{
 		}
 	})
 }
+const contName='TodosList';
 const mapStateToProps = (state) => {
   return {
     todos:visibleFilter(state.todos,state.visibleFilter),
-    UI:state.localUI.TodosList
+    UI:state.localUI[contName]
   }
 }
 
-const contName='TodosList';
 const mapDispatchToProps = (dispatch) => {
   return {
     toggleTodo:createdAt=>dispatch(toggleTodo(createdAt)) ,

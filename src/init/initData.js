@@ -1,5 +1,4 @@
 import blank from "./blankData";
-// {text:'',done:false,_createdAt:NaN}
 const stateId=window.localGet('stateId');
 const stateSaved=()=>{
 	const stateSaved_=window.localGet('state');

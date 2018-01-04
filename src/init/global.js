@@ -1,11 +1,8 @@
 import blankData from "./blankData";
-import {flow,curry,merge,cloneDeep as clone} from "lodash"; 
-// import curry from "lodash/curry"; 
+import {flow,merge,cloneDeep as clone} from "lodash"; 
 import {format as dateFormat} from 'date-fns'
-// import { transform } from "babel-core";
-// import jsonToProptypes from "babel-plugin-json-to-proptypes"
 
-
+export const isDev=process.env.NODE_ENV==='development';
 
 export const ranUnique=(_self,len,record)=>{
 	const self=Array.isArray(_self) ? _self : [_self];
@@ -26,10 +23,12 @@ export const uniqueKey=({self,removing})=>{
 };
 export const ran=(arr)=> arr[~~(Math.random()*arr.length)];
 
-
-// Object.defineProperty(Array.prototype, "ran", {
- 	// value: function() { return this[~~(Math.random()*this.length)]; }
-// });
+export const loop= x => f => {
+	if (x > 0) {
+		f();
+		loop (x - 1) (f);
+	}
+};
 
 const localSet=(key,thing)=>
   typeof thing === 'string' ?
@@ -71,31 +70,16 @@ const State={
 	const _createdAt=dateFormat(_createdAt_a,'DMMM h:mm:ss');
 	const _updatedAt=()=>({_updatedAt:dateFormat(now,'DMMM h:mm:ss')});
 	const nowState=()=>({...store.getState(),_createdAt,..._updatedAt()});
-	console.log(_createdAt)
+	// console.log(_createdAt)
 	localSet('state',oldState.concat(nowState()));
 	},
-	test:(num1,num2)=>{
-		const add=(a,b)=>a+b;
-		const sub5=(a)=>a-5;
-		console.log(flow([add,sub5])(num1,num2));
+	test:()=>{
 	},
-	test2:()=> flow([add,sub5])
-	,
 }
-		const add=(a,b)=>a+b;
-		const sub5=(a)=>a-5;
-// view,load last,load specific one,unset,reset and merge what I have
-window.curry=curry;
-const loop= x => f => {
-	if (x > 0) {
-		f();
-		loop (x - 1) (f);
-	}
-};
 
-// const toProp=(json)=> transform(json, {plugins: [jsonToProptypes] });
-Object.assign(window,{localSet, localGet,State,loop,flow,curry,merge,clone})
-
+// window.addEventListener('keyup', this.props.testFn);
+// window.removeEventListener('keyup', this.props.testFn);
+if(isDev) Object.assign(window,{localSet, localGet,State});
 
 // https://stackoverflow.com/a/30452949/1507207
 export default {...State}

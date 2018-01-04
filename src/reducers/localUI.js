@@ -5,7 +5,6 @@ const localUI = (state = [], action) => {
 	const {type,contName,...other}=action;
 	const stateAdding={[action.contName]:other}
 	const newState=flow(merge,cloneDeep)(state,stateAdding);
-	// const newState=cloneDeep(merge(state,{[action.contName]:other}));
 	return newState
 	default:
 		return state;
