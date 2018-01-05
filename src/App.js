@@ -2,9 +2,7 @@ import "./init/global";
 import React, { Component } from "react";
 import "react-dom";
 import styled from "styled-components";
-import TodosContainer from './containers/TodosContainer'
-import TodosListContainer from './containers/TodosListContainer'
-import VisibleFilterContainer from './containers/VisibleFilterContainer'
+import ApidataContainer from './containers/ApidataContainer'
 
 class App extends Component {
 	render(){
@@ -17,10 +15,7 @@ class App extends Component {
   			// }
 		return (
 			<Wraper1>
-				<TodosContainer/>
-				<br/>
-				<VisibleFilterContainer/>
-				<TodosListContainer/>
+				<ApidataContainer/>
 			</Wraper1>
 			
 		);

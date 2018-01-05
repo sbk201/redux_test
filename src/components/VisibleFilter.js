@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+// import styled from "styled-components";
 
 const VisibleFilter=({visibleFilter,toggleFilter})=>{
 	const toUpperCase=(string)=>string.charAt(0).toUpperCase() + string.slice(1);
@@ -16,11 +16,7 @@ const VisibleFilter=({visibleFilter,toggleFilter})=>{
 	);
 };
 
-// VisibleFilter.propTypes = {
-	// onClick:PropTypes.func.isRequired,
-	// question:PropTypes.shape({
-		// ask: PropTypes.string.isRequired,
-		// answer: PropTypes.string.isRequired,
-	// }).isRequired
-// };
+VisibleFilter.propTypes = {
+	visibleFilter: PropTypes.string
+};
 export default VisibleFilter;
