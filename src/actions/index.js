@@ -31,3 +31,26 @@ export const toggleFilter = (filter) => {
 		filter,
 	};
 };
+const requestPokes=(poke)=> {
+  return {
+    type: "REQUEST_POKES",
+    poke
+  }
+}
+function receivePokes(poke, json) {
+  return {
+    type: "RECEIVE_POKES",
+    poke,
+    json: json.data,
+    receivedAt: Date.now()
+  }
+}
+
+export const fetchPoke=(name)=>{
+	return dispatch => {
+    dispatch(requestPokes(name))
+    return fetch(`https://pokeapi.co/api/v1/sprite/1/`)
+      .then(response => response.json())
+      .then(json => dispatch(receivePokes(name, json)))
+  }
+}

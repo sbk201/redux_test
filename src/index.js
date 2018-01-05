@@ -2,12 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import reducers from "./reducers/index";
+import reducers from "./reducers/_indexReducer";
 import registerServiceWorker from "./registerServiceWorker";
 import { Provider} from "react-redux";
 import { createStore } from "redux";
+import thunkMiddleware from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 import initData from "./init/initData";
-import storageState,{isDev} from "./init/global"
+import storageState,{isDev} from "./init/global";
 import {debounce} from "lodash";
 
 const store = createStore(reducers,initData);

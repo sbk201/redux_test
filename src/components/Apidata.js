@@ -18,8 +18,8 @@ const Apidata=({data})=>{
 			<h1>Apidata</h1>
 			<div>id {data.id}</div>
 			<div>name {data.name}</div>
-			<div>weight {data.weight}</div>
-			<div>height {data.height}</div>
+			<div>image {data.image}</div>
+			<div>modified {data.modified}</div>
 		</div>
 	);
 };
