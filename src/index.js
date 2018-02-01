@@ -5,14 +5,14 @@ import App from "./App";
 import reducers from "./reducers/_indexReducer";
 import registerServiceWorker from "./registerServiceWorker";
 import { Provider} from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import initData from "./init/initData";
 import storageState,{isDev} from "./init/global";
 import {debounce} from "lodash";
 
-const store = createStore(reducers,initData);
+const store = createStore(reducers,initData,applyMiddleware(thunkMiddleware));
 
 const recordState=()=>{
 	const _createdAt=new Date();

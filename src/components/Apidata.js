@@ -1,18 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 // import styled from "styled-components";
-
-const Apidata=({data})=>{
-	const onClick=(input)=>{
-		// const text=input.value;
-		// addTodo(text);
-	};
-	// const Textarea=styled.textarea`
-		// width:95vw;
-		// height:80vh;
-	// `;
-			/*<Textarea value={JSON.stringify(data,null,2)}/>*/
-	// <div>Question : {question.ask} (answer: {question.answer})</div>
+import { Component } from 'react';
+class Apidata extends Component {
+	componentDidMount() {
+		this.props.post();
+  }
+  render(){
+  	const {data}=this.props;
 	return (
 		<div style={{textAlign:"center"}}>
 			<h1>Apidata</h1>
@@ -22,8 +17,9 @@ const Apidata=({data})=>{
 			<div>modified {data.modified}</div>
 		</div>
 	);
-};
-
+  	
+  }
+}
 // Apidata.propTypes = {
 	// text: PropTypes.string,
 	// done: PropTypes.bool,

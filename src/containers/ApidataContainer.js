@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { addTodos } from '../actions'
+import { fetchPoke } from '../actions'
 import Apidata from '../components/Apidata'
 
 
@@ -11,8 +11,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTodo:(text)=>{
-      // dispatch(addTodos({text,createdAt,done}));
+    post:()=>{
+      dispatch(fetchPoke());
     }
   }
 }
