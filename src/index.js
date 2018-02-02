@@ -7,7 +7,6 @@ import registerServiceWorker from "./registerServiceWorker";
 import { Provider} from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunkMiddleware from 'redux-thunk';
-import { createLogger } from 'redux-logger';
 import initData from "./init/initData";
 import storageState,{isDev} from "./init/global";
 import {debounce} from "lodash";

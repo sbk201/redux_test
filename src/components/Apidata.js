@@ -6,7 +6,7 @@ class Apidata extends Component {
 	componentDidMount() {
 		this.props.fetchTodos();
   }
-  onEnter=(e)=>{
+  onEnter(e){
   	const isEnter=e.keyCode===13;
   	const text=e.target.value;
   	if(isEnter&&text) {
@@ -16,12 +16,10 @@ class Apidata extends Component {
   };
   render(){
   	const {data,deleteTodos}=this.props;
-  	const Input=()=>
-  	<input placeholder="text..." style={{width:"98%"}} onKeyUp={e=>this.onEnter(e)}
-  	ref={(input) => { this.textInput = input; }}/>;
+  	const inputAttr={placeholder:"text...",style:{width:"98%"}};
 	return (
 		<div>
-		 <Input/>
+		 <input {...inputAttr} onKeyUp={e=>this.onEnter(e)}/>
 			<div>
 					{data.map((todo,th)=>
 						<div key={th}>{th} {todo.text} <a href="#" onClick={()=>deleteTodos(todo._id)}>X</a></div>

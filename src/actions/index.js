@@ -6,14 +6,6 @@ export const updateUI = (cmd) => {
 		...cmd
 	};
 };
-export const addTodos = ({text, done, createdAt}) => {
-	return {
-		type: "ADD_TODOS",
-		text,
-		done,
-		createdAt,
-	};
-};
 export const toggleTodo = (createdAt) => {
 	return {
 		type: "TOGGLE_TODO",
@@ -32,47 +24,57 @@ export const toggleFilter = (filter) => {
 		filter,
 	};
 };
-const requestPokes=(poke)=> {
-	return {
-		type: "REQUEST_POKES",
-		poke
-	};
-};
-function receiveTodos(json) {
+function receiveTodos(todos) {
 	return {
 		type: "RECEIVE_TODOS",
-		json,
-		receivedAt: Date.now()
+		todos,
 	};
 }
-export const deleteTodos=(id) =>{
+function addTodos(todos) {
 	return {
-		type: "DELETE_TODOS",
-		id
+		type: "ADD_TODOS",
+		todos
+	};
+}
+function removeTodos(_id) {
+	return {
+		type: "REMOVE_TODOS",
+		_id
 	};
 }
 
-export const fetchTodos=(name)=>{
-	let term="apple";
+const link="http://localhost:5000/data";
+export const deleteTodos=(_id)=>{
+	return dispatch => {
+		const data = {_id};
+		axios.delete(link,{data})
+			.then(res=>{
+				if(res.data) dispatch(removeTodos(_id));
+			});
+	};
+};
+
+export const postTodos=(text)=>{
+	return dispatch => {
+		const data = {text};
+		axios.post(link,{},{data})
+			.then((res)=>{
+				dispatch(addTodos(res.data))
+			});
+	};
+};
+
+export const fetchTodos=()=>{
 	// const link='https://api.github.com/users/sbk201'
-	const link="http://localhost:5000/data";
-	const gitLink="https://api.github.com/";
+	// const gitLink="https://api.github.com/";
 	return dispatch => {
 		const config = {headers: {
-			"Access-Control-Allow-Origin": "*",
-			// "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-			// "Access-Control-Allow-Headers": "Authorization"
+			// "Access-Control-Allow-Origin": "*",
 		} };
-		// fetch(link)
-		return axios.get(link,config)
+		axios.get(link,config)
 			.then((res)=>{
 				console.log(res.data)
 				dispatch(receiveTodos(res.data))
 			});
-		// .then((resp) => resp.jsoTODOS())
-		// return fetch(`https://pokeapi.co/api/v1/sprite/1/`,myInit)
-		// .then(response => response.json())
-		// .then(json => console.log(json))
-		// dispatch(receiveTodos(name, json))
 	};
 };
