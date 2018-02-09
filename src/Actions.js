@@ -58,6 +58,7 @@ const link={
 	old:"http://localhost:5000/data",
 	sbu:"http://localhost:5000/allocation/get_sbu",
 	country:"http://localhost:5000/allocation/get_country",
+	customer:"http://localhost:5000/allocation/get_unassigned_cust"
 }
 export const deleteTodos=(_id)=>{
 	return dispatch => {
@@ -112,15 +113,33 @@ export const fetchSbus2=()=>{
 export const fetchCountries=()=>{
 	return dispatch => axios.get(link.country,{});
 };
+export const fetchCustomer=()=>{
+	// try sending params to node server
+	const body = {test:123};
+	return dispatch => axios.get(link.customer,{body});
+};
 export const fetchMain=()=>{
 
 	return async dispatch => {
 		const sbus=(await dispatch(fetchSbus2())).data;
 		dispatch(receiveSbus(sbus));
+		const countries=(await dispatch(fetchCountries())).data;
+		dispatch(receiveCountries(countries));
 		return 'done';
-		// const countries=(await dispatch(fetchCountries())).data;
-		// dispatch(receiveCountries(countries));
 		// const countries=await dispatch(fetchCountries());
 		// return {sbus.data,countries.data}
+	}
+}
+export const fetchMain2=()=>{
+
+	return async dispatch => {
+		console.log('fetchCustomer1')
+		const result=(await dispatch(fetchCustomer())).data;
+		console.log('fetchCustomer2',result)
+		// const sbus=(await dispatch(fetchSbus2())).data;
+		// dispatch(receiveSbus(sbus));
+		// const countries=(await dispatch(fetchCountries())).data;
+		// dispatch(receiveCountries(countries));
+		// return 'done';
 	}
 }

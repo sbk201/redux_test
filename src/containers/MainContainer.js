@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchMain,updateUI } from '../Actions.js'
+import { updateUI,fetchMain,fetchMain2 } from '../Actions.js'
 import Main from '../components/Main'
 const contName="Main";
 const mapStateToProps = (state) => {
@@ -13,12 +13,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   const UI= cmd=>updateUI({...cmd,contName})
   return {
-    fetch: async ()=> {
+    fetch1: async ()=> {
       dispatch(UI({loading:'init'}));
       await dispatch(fetchMain());
       dispatch(UI({loading:'done'}));
     },
     updateUI:cmd=>dispatch(updateUI({...cmd,contName})),
+    fetch2: ()=>dispatch(fetchMain2())
     // postTodos:(text)=> dispatch(postTodos(text)),
     // deleteTodos:(_id)=>console.log(_id),
     // deleteTodos:(_id)=> dispatch(deleteTodos(_id)),

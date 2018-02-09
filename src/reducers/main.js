@@ -5,7 +5,7 @@ const _reducer = (state = {}, action) => {
       return Object.assign({},clone(state),{sbus:action.sbus})
       // return assign(state,clone(action.sbus))
     case 'RECEIVE_COUNTRIES':
-      return action.countries
+      return Object.assign({},clone(state),{countries:action.countries})
     case 'ADD_TODOS':
       return [...state,action.todos]
     case 'REMOVE_TODOS':
