@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
-// import todos from './todos'
-// import visibleFilter from './visibleFilter'
+import main from './main'
 import apidata from './apidata'
 import localUI from './localUI'
 
-const todoApp = combineReducers({
+const _allReducers = combineReducers({
   localUI,
   apidata,
+  main
 })
 
-export default todoApp
+export default _allReducers

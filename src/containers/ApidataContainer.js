@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchTodos,postTodos,deleteTodos } from '../actions'
+import { fetchTodos,postTodos,deleteTodos } from '../Actions.js'
 import Apidata from '../components/Apidata'
 
 

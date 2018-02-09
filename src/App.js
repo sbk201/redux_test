@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import "react-dom";
 import styled from "styled-components";
 import ApidataContainer from './containers/ApidataContainer'
+import MainContainer from './containers/MainContainer'
 
 class App extends Component {
 	render(){
@@ -15,7 +16,7 @@ class App extends Component {
   			// }
 		return (
 			<Wraper1>
-				<ApidataContainer/>
+				<MainContainer/>
 			</Wraper1>
 			
 		);

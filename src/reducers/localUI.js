@@ -1,5 +1,5 @@
 import {merge,cloneDeep,flow} from "lodash";
-const localUI = (state = [], action) => {
+const localUI = (state = {}, action) => {
 	switch (action.type) {
 	case "UPDATE_UI":
 	const {type,contName,...other}=action;

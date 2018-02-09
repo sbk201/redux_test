@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { newQuestion,addRecord } from '../actions'
+import { newQuestion,addRecord } from '../Actions.js'
 import Question from '../components/Question'
 
 

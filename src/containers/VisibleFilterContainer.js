@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { toggleFilter } from '../actions'
+import { toggleFilter } from '../Actions.js'
 import VisibleFilter from '../components/VisibleFilter'
 
 const mapStateToProps = (state) => {

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { addTodos } from '../actions'
+import { addTodos } from '../Actions.js'
 import Todos from '../components/Todos'
 
 
