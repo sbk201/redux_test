@@ -24,8 +24,8 @@ class _Component extends Component {
 		// const country=
 		// http://10.65.1.24/appPortal/customerAllocation/lib/api.php?type=get_unassigned_cust&country=AF&_=1518164820303
 		if(method==="unassigned"){
-			console.log(sbus,countries,sbu,country)
-			this.props.fetch2()
+			// console.log(sbus,countries,sbu,country)
+			this.props.fetch2({sbu,country});
 		}
 	}
 	render(){

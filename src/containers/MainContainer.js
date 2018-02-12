@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(UI({loading:'done'}));
     },
     updateUI:cmd=>dispatch(updateUI({...cmd,contName})),
-    fetch2: ()=>dispatch(fetchMain2())
+    fetch2: (params)=>dispatch(fetchMain2(params))
     // postTodos:(text)=> dispatch(postTodos(text)),
     // deleteTodos:(_id)=>console.log(_id),
     // deleteTodos:(_id)=> dispatch(deleteTodos(_id)),

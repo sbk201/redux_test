@@ -56,9 +56,9 @@ function removeTodos(_id) {
 }
 const link={
 	old:"http://localhost:5000/data",
-	sbu:"http://localhost:5000/allocation/get_sbu",
-	country:"http://localhost:5000/allocation/get_country",
-	customer:"http://localhost:5000/allocation/get_unassigned_cust"
+	sbu:"http://localhost:5000/allocation/sbu",
+	country:"http://localhost:5000/allocation/country",
+	customer:"http://localhost:5000/allocation/unassigned_cust"
 }
 export const deleteTodos=(_id)=>{
 	return dispatch => {
@@ -113,10 +113,8 @@ export const fetchSbus2=()=>{
 export const fetchCountries=()=>{
 	return dispatch => axios.get(link.country,{});
 };
-export const fetchCustomer=()=>{
-	// try sending params to node server
-	const body = {test:123};
-	return dispatch => axios.get(link.customer,{body});
+export const fetchCustomer=(params)=>{
+	return dispatch => axios.get(link.customer,{params});
 };
 export const fetchMain=()=>{
 
@@ -130,11 +128,11 @@ export const fetchMain=()=>{
 		// return {sbus.data,countries.data}
 	}
 }
-export const fetchMain2=()=>{
+export const fetchMain2=(params)=>{
 
 	return async dispatch => {
 		console.log('fetchCustomer1')
-		const result=(await dispatch(fetchCustomer())).data;
+		const result=(await dispatch(fetchCustomer(params))).data;
 		console.log('fetchCustomer2',result)
 		// const sbus=(await dispatch(fetchSbus2())).data;
 		// dispatch(receiveSbus(sbus));
