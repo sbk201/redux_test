@@ -129,11 +129,11 @@ export const fetchMain=()=>{
 	}
 }
 export const fetchMain2=(params)=>{
-
+	console.log(params);
 	return async dispatch => {
-		console.log('fetchCustomer1')
 		const result=(await dispatch(fetchCustomer(params))).data;
-		console.log('fetchCustomer2',result)
+		console.log('fetch',result)
+		// dispatch(receiveCustomer(result));
 		// const sbus=(await dispatch(fetchSbus2())).data;
 		// dispatch(receiveSbus(sbus));
 		// const countries=(await dispatch(fetchCountries())).data;
