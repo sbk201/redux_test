@@ -10,26 +10,15 @@ class _Component extends Component {
 		// const isEnter=e.keyCode===13;
 		// const text=e.target.value;
 	// };
-	onChangeSbu(e){
-		const id=e.target.value;
-	}
-	onChangeCountry(e){
-		const id=e.target.value;
-	}
-	searchMethod(e,method){
+	searchMethod(method){
 		const {sbus,countries}=this.props.data
 		const sbu=this.refs.sbu.value;
 		const country=this.refs.country.value;
-		console.log(this.refs.country)
-		// const country=
-		// http://10.65.1.24/appPortal/customerAllocation/lib/api.php?type=get_unassigned_cust&country=AF&_=1518164820303
-		if(method==="unassigned"){
-			// console.log(sbus,countries,sbu,country)
-			this.props.fetch2({sbu,country});
-		}
+		if(method==='contact') return this.props.updateUI({contact:true});
+		this.props.fetch2({sbu,country,method});
 	}
 	render(){
-  	const {data,loading}=this.props;
+  	const {data,loading,UI}=this.props;
 
   	if(loading!=='done') return <div></div>
   	console.log('data',data);
@@ -45,22 +34,29 @@ class _Component extends Component {
   	//
 	return (
 		<div>
-			<select onChange={e=>this.onChangeSbu(e)} ref="sbu">
+			<select ref="sbu">
 			 	{data.sbus.map(ele=>
 			 		<option {...sbuAttr(ele)}>{ele.SbuName}</option>
 			 	)}
-			</select>
-			<div className="searchMethod">
-			Search By
-				<div><button onClick={(e)=>this.searchMethod(e,"contact")}>Cook Contact</button></div>
-				<div><button onClick={(e)=>this.searchMethod(e,"customer")}>Customer</button></div>
-				<div><button onClick={(e)=>this.searchMethod(e,"unassigned")}>Unassigned Customer</button></div>
-			</div>
-			<select onChange={e=>this.onChangeCountry(e)} ref="country">
+			</select><br/>
+			<select ref="country">
 			 	{data.countries.map(ele=>
 			 		<option {...countryAttr(ele)}>{ele.countryName}</option>
 			 	)}
 			</select>
+			<div className="searchMethod">
+			Search By
+				<div><button onClick={()=>this.searchMethod("contact")}>Cook Contact</button></div>
+				<div><button onClick={()=>this.searchMethod("customer")}>Customer</button></div>
+				<div><button onClick={()=>this.searchMethod("unassigned")}>Unassigned Customer</button></div>
+			</div>
+			<br/>
+			<div style={{display: UI.contact? 'initial' : 'none'}}>
+				<p>Cook Contact With</p>
+				<button>Primary Contact</button><br/>
+				<button>Clinical Specialist</button><br/>
+				<button>Corporate Account Manager</button><br/>
+			</div>
 		</div>
 	);
   	

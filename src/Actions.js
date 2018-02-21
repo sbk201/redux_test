@@ -58,7 +58,8 @@ const link={
 	old:"http://localhost:5000/data",
 	sbu:"http://localhost:5000/allocation/sbu",
 	country:"http://localhost:5000/allocation/country",
-	customer:"http://localhost:5000/allocation/unassigned_cust"
+	customer:"http://localhost:5000/allocation/assigned_cust",
+	unCustomer:"http://localhost:5000/allocation/unassigned_cust"
 }
 export const deleteTodos=(_id)=>{
 	return dispatch => {
@@ -113,9 +114,17 @@ export const fetchSbus2=()=>{
 export const fetchCountries=()=>{
 	return dispatch => axios.get(link.country,{});
 };
-export const fetchCustomer=(params)=>{
+export const fetchUnassignedCustomer=(params)=>{
+	return dispatch => axios.get(link.unCustomer,{params});
+};
+export const fetchAssignedCustomer=(params)=>{
 	return dispatch => axios.get(link.customer,{params});
 };
+// "SELECT GlobalCustName, GlobalCustNbr, parentDistributorName, address1, address2, city, zip, destCountrycode , APACCurrentShipCustomerID
+	// from dimACFCustomer 
+	// WHERE globalCustNbr not in ('ARCHIVE', 'COOK' ,'REP' , 'LOGISTICS' )
+	// AND destCountrycode ='".$country."'
+	// ORDER BY GlobalCustName ";
 export const fetchMain=()=>{
 
 	return async dispatch => {
@@ -128,10 +137,15 @@ export const fetchMain=()=>{
 		// return {sbus.data,countries.data}
 	}
 }
-export const fetchMain2=(params)=>{
-	console.log(params);
+export const fetchMain2=(_params)=>{
+	const {method,...params}=_params;
+	const apiFun={
+		contact:console.log('contact'),
+		customer:fetchAssignedCustomer,
+		unassigned:fetchUnassignedCustomer,
+	}[method]
 	return async dispatch => {
-		const result=(await dispatch(fetchCustomer(params))).data;
+		const result=(await dispatch(apiFun(params))).data;
 		console.log('fetch',result)
 		// dispatch(receiveCustomer(result));
 		// const sbus=(await dispatch(fetchSbus2())).data;
