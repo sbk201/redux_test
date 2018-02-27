@@ -14,7 +14,7 @@ class _Component extends Component {
 		const {sbus,countries}=this.props.data
 		const sbu=this.refs.sbu.value;
 		const country=this.refs.country.value;
-		if(method==='contact') return this.props.updateUI({contact:true});
+		if(method==='contactShow') return this.props.updateUI({contact:true});
 		this.props.fetch2({sbu,country,method});
 	}
 	render(){
@@ -46,14 +46,14 @@ class _Component extends Component {
 			</select>
 			<div className="searchMethod">
 			Search By
-				<div><button onClick={()=>this.searchMethod("contact")}>Cook Contact</button></div>
+				<div><button onClick={()=>this.searchMethod("contactShow")}>Cook Contact</button></div>
 				<div><button onClick={()=>this.searchMethod("customer")}>Customer</button></div>
 				<div><button onClick={()=>this.searchMethod("unassigned")}>Unassigned Customer</button></div>
 			</div>
 			<br/>
 			<div style={{display: UI.contact? 'initial' : 'none'}}>
 				<p>Cook Contact With</p>
-				<button>Primary Contact</button><br/>
+				<button onClick={()=>this.searchMethod("contact")}>Primary Contact</button><br/>
 				<button>Clinical Specialist</button><br/>
 				<button>Corporate Account Manager</button><br/>
 			</div>

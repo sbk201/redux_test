@@ -59,7 +59,8 @@ const link={
 	sbu:"http://localhost:5000/allocation/sbu",
 	country:"http://localhost:5000/allocation/country",
 	customer:"http://localhost:5000/allocation/assigned_cust",
-	unCustomer:"http://localhost:5000/allocation/unassigned_cust"
+	unCustomer:"http://localhost:5000/allocation/unassigned_cust",
+	contact:"http://localhost:5000/allocation/contact"
 }
 export const deleteTodos=(_id)=>{
 	return dispatch => {
@@ -120,6 +121,9 @@ export const fetchUnassignedCustomer=(params)=>{
 export const fetchAssignedCustomer=(params)=>{
 	return dispatch => axios.get(link.customer,{params});
 };
+export const fetchPrimaryContact=(params)=>{
+	return dispatch => axios.get(link.contact,{params});
+};
 // "SELECT GlobalCustName, GlobalCustNbr, parentDistributorName, address1, address2, city, zip, destCountrycode , APACCurrentShipCustomerID
 	// from dimACFCustomer 
 	// WHERE globalCustNbr not in ('ARCHIVE', 'COOK' ,'REP' , 'LOGISTICS' )
@@ -140,7 +144,7 @@ export const fetchMain=()=>{
 export const fetchMain2=(_params)=>{
 	const {method,...params}=_params;
 	const apiFun={
-		contact:console.log('contact'),
+		contact:fetchPrimaryContact,
 		customer:fetchAssignedCustomer,
 		unassigned:fetchUnassignedCustomer,
 	}[method]

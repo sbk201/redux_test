@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
+import ReactDOMServer,{ renderToStaticMarkup } from 'react-dom/server'
+ import "./index.css";
 import reducers from "./reducers/_indexReducer";
 import registerServiceWorker from "./registerServiceWorker";
 import { Provider} from "react-redux";
@@ -10,6 +10,7 @@ import thunkMiddleware from 'redux-thunk';
 import initData from "./init/initData";
 import storageState,{isDev} from "./init/global";
 import {debounce} from "lodash";
+import App from "./App";
 
 const store = createStore(reducers,initData,applyMiddleware(thunkMiddleware));
 

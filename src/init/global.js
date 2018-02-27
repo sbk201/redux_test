@@ -1,4 +1,4 @@
-import blankData from "./blankData";
+import {blankData} from "./initData"
 import {flow,merge,cloneDeep as clone} from "lodash"; 
 import {format as dateFormat} from 'date-fns'
 
