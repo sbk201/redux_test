@@ -7,7 +7,7 @@ const mapStateToProps = (state) => {
   const loading= UI&&UI.loading;
   return {
     data:state.main,
-    UI, loading
+     UI, loading
   }
 }
 const mapDispatchToProps = (dispatch) => {

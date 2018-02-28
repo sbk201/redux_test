@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ReactDOMServer,{ renderToStaticMarkup } from 'react-dom/server'
- import "./index.css";
+import "./index.css";
 import reducers from "./reducers/_indexReducer";
 import registerServiceWorker from "./registerServiceWorker";
 import { Provider} from "react-redux";

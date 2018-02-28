@@ -1,12 +1,12 @@
-import { combineReducers } from 'redux'
-import main from './main'
-import apidata from './apidata'
-import localUI from './localUI'
+import { combineReducers } from 'redux';
+import main from './main';
+import localUI from './localUI';
+import customers from './customers';
 
 const _allReducers = combineReducers({
   localUI,
-  apidata,
-  main
+  main,
+  customers
 })
 
 export default _allReducers

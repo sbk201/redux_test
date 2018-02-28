@@ -42,6 +42,12 @@ function receiveCountries(countries) {
 		countries,
 	};
 }
+function receiveCustomers(Customers) {
+	return {
+		type: "RECEIVE_CUSTOMERS",
+		Customers,
+	};
+}
 function addTodos(todos) {
 	return {
 		type: "ADD_TODOS",
@@ -136,7 +142,7 @@ export const fetchMain=()=>{
 		dispatch(receiveSbus(sbus));
 		const countries=(await dispatch(fetchCountries())).data;
 		dispatch(receiveCountries(countries));
-		return 'done';
+		// return 'done';
 		// const countries=await dispatch(fetchCountries());
 		// return {sbus.data,countries.data}
 	}
@@ -150,8 +156,11 @@ export const fetchMain2=(_params)=>{
 	}[method]
 	return async dispatch => {
 		const result=(await dispatch(apiFun(params))).data;
+		dispatch(receiveCustomers(result));
+		dispatch(updateUI({method,contName:'CustomerList'}))
+		// CustomerList
+		// state.localUI
 		console.log('fetch',result)
-		// dispatch(receiveCustomer(result));
 		// const sbus=(await dispatch(fetchSbus2())).data;
 		// dispatch(receiveSbus(sbus));
 		// const countries=(await dispatch(fetchCountries())).data;
