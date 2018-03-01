@@ -158,13 +158,7 @@ export const fetchMain2=(_params)=>{
 		const result=(await dispatch(apiFun(params))).data;
 		dispatch(receiveCustomers(result));
 		dispatch(updateUI({method,contName:'CustomerList'}))
-		// CustomerList
-		// state.localUI
 		console.log('fetch',result)
-		// const sbus=(await dispatch(fetchSbus2())).data;
-		// dispatch(receiveSbus(sbus));
-		// const countries=(await dispatch(fetchCountries())).data;
-		// dispatch(receiveCountries(countries));
 		// return 'done';
 	}
 }

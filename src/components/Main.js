@@ -21,7 +21,7 @@ class _Component extends Component {
   	const {data,loading,UI}=this.props;
 
   	if(loading!=='done') return <div></div>
-  	console.log('data',data);
+  	// console.log('data',data);
 
   	const sbuAttr=ele=>({
   		key:ele.SbuID,

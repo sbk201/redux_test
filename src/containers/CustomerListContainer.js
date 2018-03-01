@@ -3,28 +3,24 @@ import { updateUI } from '../Actions.js'
 import CustomerList from '../components/CustomerList'
 const contName="CustomerList";
 const mapStateToProps = (state) => {
+
   const UI=state.localUI[contName];
   const loading= UI&&UI.loading;
-  const method= UI&&UI.method;
-  const customers=state.customers || [];
-  const tableHeader={
-    unassigned :{
-      GlobalCustName:'Customer Number',
-      globalCustNbr:'Customer Name'   
-    } ,
-    customer:{
-      GlobalCustName:'Global Customer Name',
-      globalCustNbr:'Global Customer Nbr',
-      custName:'Local Customer Name',
-      localCustNbr:'Local Customer Nbr'
-    },
-    contact:{
-      GlobalEmpName:'Global Employee Name',
-      GlobalEmpNbr:'Global Employee Number'
+  const customers=(()=>{
+    const removeAttr=attr=>ele=>{
+      const {[attr]:_,...rest}=ele;
+      return {...rest}
     }
-  }[method];
+    const custs=state.customers;
+    const ready=custs && UI;
+    if(!ready) return [];
+    const unusedAttr= UI.method==='unassigned';
+    if(unusedAttr) return custs.map(removeAttr('destCountrycode'));
+    return custs
+  })();
+
   return {
-    customers, tableHeader,UI, loading
+    customers,UI, loading
   }
   // console.log('state.method is :',state.method)
   // console.log('match',match);
