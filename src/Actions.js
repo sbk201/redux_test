@@ -130,21 +130,17 @@ export const fetchAssignedCustomer=(params)=>{
 export const fetchPrimaryContact=(params)=>{
 	return dispatch => axios.get(link.contact,{params});
 };
-// "SELECT GlobalCustName, GlobalCustNbr, parentDistributorName, address1, address2, city, zip, destCountrycode , APACCurrentShipCustomerID
-	// from dimACFCustomer 
-	// WHERE globalCustNbr not in ('ARCHIVE', 'COOK' ,'REP' , 'LOGISTICS' )
-	// AND destCountrycode ='".$country."'
-	// ORDER BY GlobalCustName ";
 export const fetchMain=()=>{
 
 	return async dispatch => {
+		const dispatchUI= cmd=>dispatch(updateUI({contName:'Main',...cmd}));
+
+		dispatchUI({status:'loading'});
 		const sbus=(await dispatch(fetchSbus2())).data;
-		dispatch(receiveSbus(sbus));
 		const countries=(await dispatch(fetchCountries())).data;
+		dispatch(receiveSbus(sbus));
 		dispatch(receiveCountries(countries));
-		// return 'done';
-		// const countries=await dispatch(fetchCountries());
-		// return {sbus.data,countries.data}
+		dispatchUI({status:'finished'});
 	}
 }
 export const fetchMain2=(_params)=>{
@@ -155,10 +151,12 @@ export const fetchMain2=(_params)=>{
 		unassigned:fetchUnassignedCustomer,
 	}[method]
 	return async dispatch => {
+		const dispatchUI= cmd=>dispatch(updateUI({contName:'CustomerList',...cmd}));
+		dispatchUI({status:'loading'});
 		const result=(await dispatch(apiFun(params))).data;
 		dispatch(receiveCustomers(result));
-		dispatch(updateUI({method,contName:'CustomerList'}))
-		console.log('fetch',result)
+		dispatchUI({status:'finished',method});
+		// console.log('fetch',result)
 		// return 'done';
 	}
 }

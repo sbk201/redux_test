@@ -3,11 +3,12 @@ import React from "react";
 // import styled from "styled-components";
 import { Component } from 'react';
 class _Component extends Component {
-	componentDidMount() {
-  	}
+	componentDidMount() {}
 	render(){
-  	const {customers,UI}=this.props;
-  	if (!customers.length||!UI) return <div></div>;
+  	const {customers,UI,status:{loading,finished}}=this.props;
+  	if(!finished) return <div></div>;
+  	if(customers.length===0) return <div>No Result</div>;
+  	// if (!customers.length||!UI) return <div></div>;
   	const keys=Object.keys(customers[0]);
   	const method= UI&&UI.method;
 	const headerMatch={
@@ -31,19 +32,24 @@ class _Component extends Component {
   	// console.log('UI is :',UI)
   	const tdStyle={textAlign:'center',border: '1px black solid'};
   	const header=(()=>
-		keys.map((title)=><th style={tdStyle} key={title}>{headerMatch[title]}</th>)
+		keys.map(title=> <th style={tdStyle} key={title}>{headerMatch[title]}</th>)
   	)();
   	const body=(()=>
   		customers.map((customer,index)=>
 			<tr key={index}>
-			{keys.map((key,index2)=>
-				<td style={tdStyle} key={index2}> {customer[key]} </td>
+			{keys.map(key=>
+				<td style={tdStyle} key={key}> {customer[key]} </td>
 			)}
 			</tr>
 		)
 	)();
+	const Count=()=>{
+		return customers.length?
+		(<div>Results :{customers.length}</div>) :
+		(<div>No Results</div>)};
 	return (
 		<div>
+		<Count/>
 			<table>
 				<thead><tr>
 					{header}		

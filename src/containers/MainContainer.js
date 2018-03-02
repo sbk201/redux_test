@@ -4,25 +4,18 @@ import Main from '../components/Main'
 const contName="Main";
 const mapStateToProps = (state) => {
   const UI=state.localUI[contName];
-  const loading= UI&&UI.loading;
+  const loading= UI&&UI.status==='loading';
+  const finished= UI&&UI.status==='finished';
   return {
     data:state.main,
-     UI, loading
+     UI, status:{loading,finished}
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  const UI= cmd=>updateUI({...cmd,contName})
   return {
-    fetch1: async ()=> {
-      dispatch(UI({loading:'init'}));
-      await dispatch(fetchMain());
-      dispatch(UI({loading:'done'}));
-    },
     updateUI:cmd=>dispatch(updateUI({...cmd,contName})),
+    fetch1: async ()=> await dispatch(fetchMain()),
     fetch2: (params)=>dispatch(fetchMain2(params))
-    // postTodos:(text)=> dispatch(postTodos(text)),
-    // deleteTodos:(_id)=>console.log(_id),
-    // deleteTodos:(_id)=> dispatch(deleteTodos(_id)),
   }
 }
 

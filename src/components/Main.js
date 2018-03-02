@@ -11,16 +11,14 @@ class _Component extends Component {
 		// const text=e.target.value;
 	// };
 	searchMethod(method){
-		const {sbus,countries}=this.props.data
 		const sbu=this.refs.sbu.value;
 		const country=this.refs.country.value;
-		// if(method==='contactShow') return this.props.updateUI({contact:true});
 		this.props.fetch2({sbu,country,method});
 	}
 	render(){
-  	const {data,loading,UI}=this.props;
+  	const {data,status:{loading,finished},UI}=this.props;
 
-  	if(loading!=='done') return <div></div>
+  	if(!finished) return <div>Loading</div>
   	// console.log('data',data);
 
   	const sbuAttr=ele=>({
