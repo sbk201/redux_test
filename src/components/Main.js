@@ -13,7 +13,7 @@ class _Component extends Component {
 	searchMethod(method){
 		const sbu=this.refs.sbu.value;
 		const country=this.refs.country.value;
-		this.props.fetch2({sbu,country,method});
+		this.props.fetchCustomers({sbu,country,method});
 	}
 	render(){
   	const {data,status:{loading,finished},UI}=this.props;

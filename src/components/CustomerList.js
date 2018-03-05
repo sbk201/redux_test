@@ -4,6 +4,9 @@ import React from "react";
 import { Component } from 'react';
 class _Component extends Component {
 	componentDidMount() {}
+	test(customer){
+		console.log(customer)
+	}
 	render(){
   	const {customers,UI,status:{loading,finished}}=this.props;
   	if(!finished) return <div></div>;
@@ -38,7 +41,7 @@ class _Component extends Component {
   		customers.map((customer,index)=>
 			<tr key={index}>
 			{keys.map(key=>
-				<td style={tdStyle} key={key}> {customer[key]} </td>
+				<td style={tdStyle} key={key} onClick={()=>this.test(customer)}> {customer[key]} </td>
 			)}
 			</tr>
 		)
