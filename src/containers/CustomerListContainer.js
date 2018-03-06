@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
-import { updateUI } from '../Actions.js'
+import { updateUI,fetchCustomers } from '../Actions.js'
 import CustomerList from '../components/CustomerList'
 const contName="CustomerList";
 const mapStateToProps = (state) => {
-
   const UI=state.localUI[contName];
+  const {pickedSbu,pickedCountry}=state.main;
   const loading= UI&&UI.status==='loading';
   const finished= UI&&UI.status==='finished';
   const customers=(()=>{
@@ -23,23 +23,14 @@ const mapStateToProps = (state) => {
   })();
 
   return {
-    customers,UI, status:{loading,finished}
+    pickedSbu,pickedCountry,customers,UI, status:{loading,finished}
   }
-  // console.log('state.method is :',state.method)
-  // console.log('match',match);
-
-  // unassigned > { GlobalCustName: "Zia Mujeeb Limited", globalCustNbr: "GAF00000001", destCountrycode: "AF" }
-  
-  // customer > { GlobalCustName: "  Genea Ltd - Launceston ", globalCustNbr: "GAU06711000"
-  // , custName: "Genea Ltd - Launceston", localCustNbr: "67110" }
-  
-  // contact > { GlobalEmpName: "Brock Mooney", GlobalEmpNbr: "33189" } > 
-  // { GlobalCustName: "  Genea Ltd - Launceston ", globalCustNbr: "GAU06711000",
-  // custName: "Genea Ltd - Launceston", localCustNbr: "67110" }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUI:cmd=>dispatch(updateUI({...cmd,contName})),
+    fetchCust: (params)=>dispatch(fetchCustomers(params))
+    //  GlobalEmpNbr>>>globalEmpNbr
   }
 }
 

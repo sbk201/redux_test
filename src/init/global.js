@@ -70,8 +70,13 @@ const State={
 	const _createdAt=dateFormat(_createdAt_a,'DMMM h:mm:ss');
 	const _updatedAt=()=>({_updatedAt:dateFormat(now,'DMMM h:mm:ss')});
 	const nowState=()=>({...store.getState(),_createdAt,..._updatedAt()});
-	// console.log(_createdAt)
 	localSet('state',oldState.concat(nowState()));
+	},
+	clear:()=> {
+		const last=State.get(idLast());
+		const length=State.getAll().length-1;
+		localSet('state',last)
+		console.info(`${length} records cleared`);
 	},
 	test:()=>{
 	},

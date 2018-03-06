@@ -4,14 +4,16 @@ import React from "react";
 import { Component } from 'react';
 class _Component extends Component {
 	componentDidMount() {}
-	test(customer){
-		console.log(customer)
+	fetchCust(data){
+		const {pickedSbu,pickedCountry}=this.props;
+		console.log(pickedSbu,pickedCountry,this.props);
+		// this.props.fetchCust({method:'contact_cust',...data})
+		// contact_cust
 	}
 	render(){
   	const {customers,UI,status:{loading,finished}}=this.props;
   	if(!finished) return <div></div>;
   	if(customers.length===0) return <div>No Result</div>;
-  	// if (!customers.length||!UI) return <div></div>;
   	const keys=Object.keys(customers[0]);
   	const method= UI&&UI.method;
 	const headerMatch={
@@ -30,7 +32,6 @@ class _Component extends Component {
 		  GlobalEmpNbr:'Global Employee Number'
 		}
 	}[method];
-  	// if(loading!=='done') return <div></div>
   	// console.log('data',data);
   	// console.log('UI is :',UI)
   	const tdStyle={textAlign:'center',border: '1px black solid'};
@@ -41,7 +42,7 @@ class _Component extends Component {
   		customers.map((customer,index)=>
 			<tr key={index}>
 			{keys.map(key=>
-				<td style={tdStyle} key={key} onClick={()=>this.test(customer)}> {customer[key]} </td>
+				<td style={tdStyle} key={key} onClick={()=>this.fetchCust(customer)}> {customer[key]} </td>
 			)}
 			</tr>
 		)

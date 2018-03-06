@@ -8,6 +8,10 @@ const main = (state = {}, action) => {
       // return Object.assign({},clone(state),{sbus:action.sbus})
     case 'RECEIVE_COUNTRIES':
       return mergeClone(state,{countries:action.countries})
+    case 'PICKED_SBU':
+      return mergeClone(state,{pickedSbu:action.sbu})
+    case 'PICKED_COUNTRY':
+      return mergeClone(state,{pickedCountry:action.country})
     case 'ADD_TODOS':
       return [...state,action.todos]
     case 'REMOVE_TODOS':

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { updateUI,fetchMain,fetchCustomers } from '../Actions.js'
+import { updateUI,fetchMain,fetchCustomers,pickedSbu,pickedCountry } from '../Actions.js'
 import Main from '../components/Main'
 const contName="Main";
 const mapStateToProps = (state) => {
@@ -14,8 +14,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUI:cmd=>dispatch(updateUI({...cmd,contName})),
-    fetch1: async ()=> await dispatch(fetchMain()),
-    fetchCustomers: (params)=>dispatch(fetchCustomers(params))
+    fetch1: ()=> dispatch(fetchMain()),
+    pickedItems:(items)=>{
+      const {sbu,country}=items;
+      dispatch(pickedSbu(sbu));
+      dispatch(pickedCountry(country));
+    },
+    fetchCustomers: params=>dispatch(fetchCustomers(params))
   }
 }
 

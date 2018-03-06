@@ -5,6 +5,11 @@ import { Component } from 'react';
 class _Component extends Component {
 	componentDidMount() {
 		this.props.fetch1()
+		// const that=this;
+		setTimeout(function(){
+			document.querySelectorAll('select')[1].selectedIndex = 2;
+			// this.refs.country.selectedIndex = 2;
+		},1500)
   	}
   	// onEnter(e){
 		// const isEnter=e.keyCode===13;
@@ -13,6 +18,7 @@ class _Component extends Component {
 	searchMethod(method){
 		const sbu=this.refs.sbu.value;
 		const country=this.refs.country.value;
+		this.props.pickedItems({sbu,country})
 		this.props.fetchCustomers({sbu,country,method});
 	}
 	render(){
@@ -47,13 +53,6 @@ class _Component extends Component {
 				<div><button onClick={()=>this.searchMethod("contact")}>Cook Contact</button></div>
 				<div><button onClick={()=>this.searchMethod("customer")}>Customer</button></div>
 				<div><button onClick={()=>this.searchMethod("unassigned")}>Unassigned Customer</button></div>
-			</div>
-			<br/>
-			<div style={{display: UI.contact? 'initial' : 'none'}}>
-				<p>Cook Contact With</p>
-				<button onClick={()=>this.searchMethod("contact")}>Primary Contact</button><br/>
-				<button>Clinical Specialist</button><br/>
-				<button>Corporate Account Manager</button><br/>
 			</div>
 		</div>
 	);

@@ -24,13 +24,16 @@ function receiveCustomers(Customers) {
 		Customers,
 	};
 }
+export const pickedSbu=sbu=>({type: "PICKED_SBU", sbu });
+export const pickedCountry=country=> ( {type: "PICKED_COUNTRY", country });
 const link={
 	old:"http://localhost:5000/data",
 	sbu:"http://localhost:5000/allocation/sbu",
 	country:"http://localhost:5000/allocation/country",
 	customer:"http://localhost:5000/allocation/assigned_cust",
 	unCustomer:"http://localhost:5000/allocation/unassigned_cust",
-	contact:"http://localhost:5000/allocation/contact"
+	contact:"http://localhost:5000/allocation/contact",
+	contact_cust:"http://localhost:5000/allocation/contact_cust"
 }
 
 export const fetchSbus=()=>{
@@ -47,6 +50,9 @@ export const fetchAssignedCustomer=(params)=>{
 };
 export const fetchPrimaryContact=(params)=>{
 	return () => axios.get(link.contact,{params});
+};
+export const fetchContactCust=(params)=>{
+	return () => axios.get(link.contact_cust,{params});
 };
 export const fetchMain=()=>{
 
@@ -65,6 +71,7 @@ export const fetchCustomers=(_params)=>{
 	const {method,...params}=_params;
 	const apiFun={
 		contact:fetchPrimaryContact,
+		contact_cust:fetchContactCust,
 		customer:fetchAssignedCustomer,
 		unassigned:fetchUnassignedCustomer,
 	}[method]
@@ -74,7 +81,7 @@ export const fetchCustomers=(_params)=>{
 		const result=(await dispatch(apiFun(params))).data;
 		dispatch(receiveCustomers(result));
 		dispatchUI({status:'finished',method});
-		// console.log('fetch',result)
+		console.log('fetch',result)
 		// return 'done';
 	}
 }
