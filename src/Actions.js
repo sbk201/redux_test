@@ -75,6 +75,7 @@ export const fetchCustomers=(_params)=>{
 		customer:fetchAssignedCustomer,
 		unassigned:fetchUnassignedCustomer,
 	}[method]
+	console.log(_params);
 	return async dispatch => {
 		const dispatchUI= cmd=>dispatch(updateUI({contName:'CustomerList',...cmd}));
 		dispatchUI({status:'loading'});

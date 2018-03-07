@@ -73,9 +73,8 @@ const State={
 	localSet('state',oldState.concat(nowState()));
 	},
 	clear:()=> {
-		const last=State.get(idLast());
-		const length=State.getAll().length-1;
-		localSet('state',last)
+		const length=State.getAll().length
+		localSet('state',[])
 		console.info(`${length} records cleared`);
 	},
 	test:()=>{

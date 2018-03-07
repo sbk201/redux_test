@@ -1,13 +1,12 @@
 import React from "react";
 // import PropTypes from "prop-types";
-// import styled from "styled-components";
 import { Component } from 'react';
 class _Component extends Component {
 	componentDidMount() {}
 	fetchCust(data){
-		const {pickedSbu,pickedCountry}=this.props;
-		console.log(pickedSbu,pickedCountry,this.props);
-		// this.props.fetchCust({method:'contact_cust',...data})
+		const {pickedSbu:sbu}=this.props;
+		const {GlobalEmpNbr:globalEmpNbr}=data;
+		this.props.fetchCust({method:'contact_cust',sbu,globalEmpNbr})
 		// contact_cust
 	}
 	render(){
@@ -16,21 +15,23 @@ class _Component extends Component {
   	if(customers.length===0) return <div>No Result</div>;
   	const keys=Object.keys(customers[0]);
   	const method= UI&&UI.method;
+  	const headerCu={
+		  GlobalCustName:'Global Customer Name',
+		  globalCustNbr:'Global Customer Nbr',
+		  custName:'Local Customer Name',
+		  localCustNbr:'Local Customer Nbr'
+		};
 	const headerMatch={
 		unassigned :{
 		  GlobalCustName:'Customer Number',
 		  globalCustNbr:'Customer Name'
 		} ,
-		customer:{
-		  GlobalCustName:'Global Customer Name',
-		  globalCustNbr:'Global Customer Nbr',
-		  custName:'Local Customer Name',
-		  localCustNbr:'Local Customer Nbr'
-		},
+		customer:headerCu,
+		contact_cust:headerCu,
 		contact:{
 		  GlobalEmpName:'Global Employee Name',
 		  GlobalEmpNbr:'Global Employee Number'
-		}
+		},
 	}[method];
   	// console.log('data',data);
   	// console.log('UI is :',UI)

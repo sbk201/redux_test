@@ -1,6 +1,6 @@
 import React from "react";
 // import PropTypes from "prop-types";
-// import styled from "styled-components";
+import { Menu,Button } from 'semantic-ui-react'
 import { Component } from 'react';
 class _Component extends Component {
 	componentDidMount() {
@@ -9,7 +9,7 @@ class _Component extends Component {
 		setTimeout(function(){
 			document.querySelectorAll('select')[1].selectedIndex = 2;
 			// this.refs.country.selectedIndex = 2;
-		},1500)
+		},2000)
   	}
   	// onEnter(e){
 		// const isEnter=e.keyCode===13;
@@ -35,9 +35,12 @@ class _Component extends Component {
   		key:ele.countryCode,
   		value:ele.countryCode
   	});
+  	const activeItem='';
 
 	return (
 		<div>
+			<Button.Group buttons={[{content:'one',key:1},{content:'two',key:2}]} onClick={e=>console.log(e.target)}/>
+			<br/>
 			<select ref="sbu">
 			 	{data.sbus.map(ele=>
 			 		<option {...sbuAttr(ele)}>{ele.SbuName}</option>
@@ -50,9 +53,9 @@ class _Component extends Component {
 			</select>
 			<div className="searchMethod">
 			Search By
-				<div><button onClick={()=>this.searchMethod("contact")}>Cook Contact</button></div>
-				<div><button onClick={()=>this.searchMethod("customer")}>Customer</button></div>
-				<div><button onClick={()=>this.searchMethod("unassigned")}>Unassigned Customer</button></div>
+				<div><Button onClick={()=>this.searchMethod("contact")}>Cook Contact</Button></div>
+				<div><Button onClick={()=>this.searchMethod("customer")}>Customer</Button></div>
+				<div><Button onClick={()=>this.searchMethod("unassigned")}>Unassigned Customer</Button></div>
 			</div>
 		</div>
 	);
