@@ -1,29 +1,10 @@
 import axios from "axios";
 // import store from "../index";
-export const updateUI = (cmd) => {
-	return {
-		type: "UPDATE_UI",
-		...cmd
-	};
-};
-function receiveSbus(sbus) {
-	return {
-		type: "RECEIVE_SBUS",
-		sbus,
-	};
-}
-function receiveCountries(countries) {
-	return {
-		type: "RECEIVE_COUNTRIES",
-		countries,
-	};
-}
-function receiveCustomers(Customers) {
-	return {
-		type: "RECEIVE_CUSTOMERS",
-		Customers,
-	};
-}
+export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
+export const receiveSbus=sbus=>({type: "RECEIVE_SBUS", sbus });
+export const receiveCountries=countries=>({type: "RECEIVE_COUNTRIES", countries });
+export const receiveCustomers=Customers=>({type: "RECEIVE_CUSTOMERS", Customers });
+export const receiveContact=contact=>({type: "RECEIVE_CONTACT", contact });
 export const pickedSbu=sbu=>({type: "PICKED_SBU", sbu });
 export const pickedCountry=country=> ( {type: "PICKED_COUNTRY", country });
 const link={
@@ -48,7 +29,7 @@ export const fetchUnassignedCustomer=(params)=>{
 export const fetchAssignedCustomer=(params)=>{
 	return () => axios.get(link.customer,{params});
 };
-export const fetchPrimaryContact=(params)=>{
+export const fetchContact=(params)=>{
 	return () => axios.get(link.contact,{params});
 };
 export const fetchContactCust=(params)=>{
@@ -70,7 +51,7 @@ export const fetchMain=()=>{
 export const fetchCustomers=(_params)=>{
 	const {method,...params}=_params;
 	const apiFun={
-		contact:fetchPrimaryContact,
+		contact:fetchContact,
 		contact_cust:fetchContactCust,
 		customer:fetchAssignedCustomer,
 		unassigned:fetchUnassignedCustomer,
@@ -79,7 +60,10 @@ export const fetchCustomers=(_params)=>{
 	return async dispatch => {
 		const dispatchUI= cmd=>dispatch(updateUI({contName:'CustomerList',...cmd}));
 		dispatchUI({status:'loading'});
-		const result=(await dispatch(apiFun(params))).data;
+		const result= (await dispatch(apiFun(params))).data;
+		method==='contact' ?
+		dispatch(receiveContact(result)) : dispatch(receiveCustomers(result));
+		// if(method==='contact') dispatch(receiveCustomers(result));
 		dispatch(receiveCustomers(result));
 		dispatchUI({status:'finished',method});
 		console.log('fetch',result)

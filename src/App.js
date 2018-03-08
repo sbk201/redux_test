@@ -12,7 +12,7 @@ class App extends Component {
   			// }
 		return (
 			<div>
-				<MainContainer/>
+				<MainContainer/><br/>
 				<CustomerListContainer/>
 			</div>
 			

@@ -1,6 +1,6 @@
 import React from "react";
 // import PropTypes from "prop-types";
-import { Menu,Button } from 'semantic-ui-react'
+import { Message,Button } from 'semantic-ui-react'
 import { Component } from 'react';
 class _Component extends Component {
 	componentDidMount() {
@@ -39,24 +39,25 @@ class _Component extends Component {
 
 	return (
 		<div>
-			<Button.Group buttons={[{content:'one',key:1},{content:'two',key:2}]} onClick={e=>console.log(e.target)}/>
 			<br/>
-			<select ref="sbu">
-			 	{data.sbus.map(ele=>
-			 		<option {...sbuAttr(ele)}>{ele.SbuName}</option>
-			 	)}
-			</select><br/>
-			<select ref="country">
-			 	{data.countries.map(ele=>
-			 		<option {...countryAttr(ele)}>{ele.countryName}</option>
-			 	)}
-			</select>
-			<div className="searchMethod">
-			Search By
-				<div><Button onClick={()=>this.searchMethod("contact")}>Cook Contact</Button></div>
-				<div><Button onClick={()=>this.searchMethod("customer")}>Customer</Button></div>
-				<div><Button onClick={()=>this.searchMethod("unassigned")}>Unassigned Customer</Button></div>
-			</div>
+			<Message>
+				<Message.Header>Select SBU</Message.Header>
+				<select ref="sbu">
+				 	{data.sbus.map(ele=>
+				 		<option {...sbuAttr(ele)}>{ele.SbuName}</option>
+				 	)}
+				</select> <p/>
+				<Message.Header>Select Country</Message.Header>
+				<select ref="country">
+				 	{data.countries.map(ele=>
+				 		<option {...countryAttr(ele)}>{ele.countryName}</option>
+				 	)}
+				</select><p/>
+				<Message.Header> Search By</Message.Header>
+				<Button color="blue" onClick={()=>this.searchMethod("contact")}>Cook Contact</Button>
+				<Button color="blue" onClick={()=>this.searchMethod("customer")}>Customer</Button>
+				<Button color="blue" onClick={()=>this.searchMethod("unassigned")}>Unassigned Customer</Button>
+			</Message>
 		</div>
 	);
   	

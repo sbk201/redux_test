@@ -7,6 +7,7 @@ const mapStateToProps = (state) => {
   const {pickedSbu,pickedCountry}=state.main;
   const loading= UI&&UI.status==='loading';
   const finished= UI&&UI.status==='finished';
+  const contact=state.contact;
   const customers=(()=>{
     if(!finished) return []
     const removeAttr=attr=>ele=>{
@@ -23,7 +24,7 @@ const mapStateToProps = (state) => {
   })();
 
   return {
-    pickedSbu,pickedCountry,customers,UI, status:{loading,finished}
+    pickedSbu,pickedCountry,contact,customers,UI, status:{loading,finished}
   }
 }
 const mapDispatchToProps = (dispatch) => {

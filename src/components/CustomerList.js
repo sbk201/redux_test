@@ -1,5 +1,6 @@
 import React from "react";
 // import PropTypes from "prop-types";
+import { Table } from 'semantic-ui-react'
 import { Component } from 'react';
 class _Component extends Component {
 	componentDidMount() {}
@@ -36,18 +37,20 @@ class _Component extends Component {
   	// console.log('data',data);
   	// console.log('UI is :',UI)
   	const tdStyle={textAlign:'center',border: '1px black solid'};
+
   	const header=(()=>
-		keys.map(title=> <th style={tdStyle} key={title}>{headerMatch[title]}</th>)
+		keys.map(title=> <Table.HeaderCell style={tdStyle} key={title}>{headerMatch[title]}</Table.HeaderCell>)
   	)();
   	const body=(()=>
   		customers.map((customer,index)=>
-			<tr key={index}>
+			<Table.Row key={index}>
 			{keys.map(key=>
-				<td style={tdStyle} key={key} onClick={()=>this.fetchCust(customer)}> {customer[key]} </td>
+				<Table.Cell style={tdStyle} key={key} onClick={()=>this.fetchCust(customer)}> {customer[key]} </Table.Cell>
 			)}
-			</tr>
+			</Table.Row>
 		)
 	)();
+
 	const Count=()=>{
 		return customers.length?
 		(<div>Results :{customers.length}</div>) :
@@ -55,14 +58,16 @@ class _Component extends Component {
 	return (
 		<div>
 		<Count/>
-			<table>
-				<thead><tr>
-					{header}		
-				</tr></thead>
-				<tbody>
-					{body}
-				</tbody>
-			</table>
+		<Table color="blue" inverted>
+	        <Table.Header>
+	          <Table.Row>
+				{header}
+	          </Table.Row>
+	        </Table.Header>
+	        <Table.Body>
+				{body}
+	        </Table.Body>
+    	</Table>
 		</div>
 	);
   	

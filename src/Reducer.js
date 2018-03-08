@@ -42,10 +42,17 @@ const customers = (state = {}, action) => {
   }
 }
 
+const contact = (state = {}, action) => {
+  switch (action.type) {
+    case 'RECEIVE_CONTACT':
+      return action.contact;
+    default:
+      return state
+  }
+}
+
 const allReducers = combineReducers({
-  localUI,
-  main,
-  customers
+  localUI, main, contact, customers,
 })
 
 export default allReducers
