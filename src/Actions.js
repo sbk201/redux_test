@@ -3,8 +3,9 @@ import axios from "axios";
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
 export const receiveSbus=sbus=>({type: "RECEIVE_SBUS", sbus });
 export const receiveCountries=countries=>({type: "RECEIVE_COUNTRIES", countries });
-export const receiveCustomers=Customers=>({type: "RECEIVE_CUSTOMERS", Customers });
+export const receiveCustomers=customers=>({type: "RECEIVE_CUSTOMERS", customers });
 export const receiveContact=contact=>({type: "RECEIVE_CONTACT", contact });
+export const selectCust=globalCustNbr=>({type: "SELECT_CUST", globalCustNbr});
 export const pickedSbu=sbu=>({type: "PICKED_SBU", sbu });
 export const pickedCountry=country=> ( {type: "PICKED_COUNTRY", country });
 const link={
@@ -63,8 +64,6 @@ export const fetchCustomers=(_params)=>{
 		const result= (await dispatch(apiFun(params))).data;
 		method==='contact' ?
 		dispatch(receiveContact(result)) : dispatch(receiveCustomers(result));
-		// if(method==='contact') dispatch(receiveCustomers(result));
-		dispatch(receiveCustomers(result));
 		dispatchUI({status:'finished',method});
 		console.log('fetch',result)
 		// return 'done';

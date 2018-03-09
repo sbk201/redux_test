@@ -1,4 +1,5 @@
 import React from "react";
+import {cloneDeep as clone} from "lodash";
 // import PropTypes from "prop-types";
 import { Table } from 'semantic-ui-react'
 import { Component } from 'react';
@@ -11,11 +12,18 @@ class _Component extends Component {
 		// contact_cust
 	}
 	render(){
-  	const {customers,UI,status:{loading,finished}}=this.props;
+  	const {selectCust,contact,customers,UI,status:{loading,finished}}=this.props;
   	if(!finished) return <div></div>;
-  	if(customers.length===0) return <div>No Result</div>;
-  	const keys=Object.keys(customers[0]);
   	const method= UI&&UI.method;
+	const data= method==='contact' ? contact : customers;
+	const dataKey=(function(){
+		const obj=data[0];
+		const {selected,...rest}=clone(obj);
+		const keys=Object.keys(rest);
+		return keys
+	})();
+  	if(data.length===0) return <div>No Result</div>;
+  			
   	const headerCu={
 		  GlobalCustName:'Global Customer Name',
 		  globalCustNbr:'Global Customer Nbr',
@@ -24,8 +32,8 @@ class _Component extends Component {
 		};
 	const headerMatch={
 		unassigned :{
-		  GlobalCustName:'Customer Number',
-		  globalCustNbr:'Customer Name'
+		  GlobalCustName:'Customer Name',
+		  globalCustNbr:'Customer Number'
 		} ,
 		customer:headerCu,
 		contact_cust:headerCu,
@@ -37,28 +45,32 @@ class _Component extends Component {
   	// console.log('data',data);
   	// console.log('UI is :',UI)
   	const tdStyle={textAlign:'center',border: '1px black solid'};
-
+  	const onClickCell=(param)=> {
+  		method==='contact' ?
+  		this.fetchCust(param) : selectCust(param.globalCustNbr);
+  	}
   	const header=(()=>
-		keys.map(title=> <Table.HeaderCell style={tdStyle} key={title}>{headerMatch[title]}</Table.HeaderCell>)
+		dataKey.map(title=> <Table.HeaderCell style={tdStyle} key={title}>{headerMatch[title]}</Table.HeaderCell>)
   	)();
   	const body=(()=>
-  		customers.map((customer,index)=>
-			<Table.Row key={index}>
-			{keys.map(key=>
-				<Table.Cell style={tdStyle} key={key} onClick={()=>this.fetchCust(customer)}> {customer[key]} </Table.Cell>
+  		data.map((customer,index)=>
+			<Table.Row key={index} onClick={()=>onClickCell(customer)} active>
+			{dataKey.map(key=>
+				<Table.Cell style={tdStyle} key={key}> {customer[key]}</Table.Cell>
 			)}
 			</Table.Row>
 		)
 	)();
 
 	const Count=()=>{
-		return customers.length?
-		(<div>Results :{customers.length}</div>) :
+		return data.length?
+		(<div>Results :{data.length}</div>) :
 		(<div>No Results</div>)};
 	return (
 		<div>
+		<h1>Customer List</h1>
 		<Count/>
-		<Table color="blue" inverted>
+		<Table color="blue" celled selectable inverted>
 	        <Table.Header>
 	          <Table.Row>
 				{header}

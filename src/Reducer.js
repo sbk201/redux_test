@@ -33,16 +33,26 @@ const localUI = (state = {}, action) => {
 	}
 };
 
-const customers = (state = {}, action) => {
+const customers = (state = [], action) => {
   switch (action.type) {
     case 'RECEIVE_CUSTOMERS':
-      return action.Customers;
+      return action.customers;
+    case 'SELECT_CUST':
+    	const id=action.globalCustNbr;
+    	const toggleCust=ele=>{
+    		const isTarget= ele.globalCustNbr===id;
+    		const newStatus=!ele.selected;
+    		if(isTarget) return mergeClone(ele,{selected:newStatus});
+			return ele
+    	}
+    	const newState=state.map(toggleCust);
+      return newState
     default:
       return state
   }
 }
 
-const contact = (state = {}, action) => {
+const contact = (state = [], action) => {
   switch (action.type) {
     case 'RECEIVE_CONTACT':
       return action.contact;
