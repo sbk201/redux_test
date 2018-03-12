@@ -74,6 +74,7 @@ const State={
 		const store=(await import("../index")).default;
 		const createdAt=new Date();
 		State._save(store,createdAt);
+		State.apply(idLast());
 		console.log('saved at',idLast());
 	},
 	clear:()=> {
@@ -82,7 +83,8 @@ const State={
 		localSet('stateId',0)
 		console.info(`${length} records cleared`);
 	},
-	test:()=>{
+	get test(){
+		return this
 	},
 }
 
