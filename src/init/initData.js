@@ -13,6 +13,7 @@ const stateId=localGet('stateId');
 const stateSaved=()=>{
 	const stateSaved_=localGet('state');
 	if (!Number.isInteger(stateId) || !stateSaved_) return null
+	if(!stateSaved_[stateId]) return blankData;
 	const {_createdAt, _updatedAt,...stateSaved}=stateSaved_[stateId];
 	return stateSaved
 }

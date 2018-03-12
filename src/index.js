@@ -17,10 +17,10 @@ const store = createStore(reducers,initData,applyMiddleware(thunkMiddleware));
 
 const recordState=()=>{
 	const _createdAt=new Date();
-	const save=()=>storageState.save(store,_createdAt,new Date());
+	const save=()=>storageState._save(store,_createdAt);
 	store.subscribe(debounce(save,1500));
 }
-if(isDev) recordState();
+if(isDev && false) recordState();
 
 // Do not write in one line,or it gets error:
 // Warning: Failed prop type: Invalid prop `children` of type `array` supplied to `Provider`, expected a single ReactElement.

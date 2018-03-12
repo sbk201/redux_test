@@ -52,7 +52,6 @@ const State={
 	},
 	getAll:()=> State.get('all'),
 	apply:id=>{localSet('stateId',id);window.location.reload();},
-	applyNot:()=>State.apply(undefined),
 	applyLast:()=>State.apply(idLast()),
 	set:(_state)=>{
 		const stateArray=State.get('all').concat(_state);
@@ -65,16 +64,22 @@ const State={
 		flow([merge,clone,State.set])(blankData,State.get(id));
 		console.log(`reapply from id ${id}`);
 	},
-	save:(store,_createdAt_a,now)=>{
+	_save:(store,_createdAt_a)=>{
 	const oldState=localGet('state') || [];
 	const _createdAt=dateFormat(_createdAt_a,'DMMM h:mm:ss');
-	const _updatedAt=()=>({_updatedAt:dateFormat(now,'DMMM h:mm:ss')});
-	const nowState=()=>({...store.getState(),_createdAt,..._updatedAt()});
-	localSet('state',oldState.concat(nowState()));
+	const nowState={...store.getState(),_createdAt};
+	localSet('state',oldState.concat(nowState));
+	},
+	save:async ()=>{
+		const store=(await import("../index")).default;
+		const createdAt=new Date();
+		State._save(store,createdAt);
+		console.log('saved at',idLast());
 	},
 	clear:()=> {
 		const length=State.getAll().length
 		localSet('state',[])
+		localSet('stateId',0)
 		console.info(`${length} records cleared`);
 	},
 	test:()=>{
