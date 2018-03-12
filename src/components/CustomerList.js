@@ -54,7 +54,7 @@ class _Component extends Component {
   	)();
   	const body=(()=>
   		data.map((customer,index)=>
-			<Table.Row key={index} onClick={()=>onClickCell(customer)} active>
+			<Table.Row key={index} onClick={()=>onClickCell(customer)} active={!customer.selected}>
 			{dataKey.map(key=>
 				<Table.Cell style={tdStyle} key={key}> {customer[key]}</Table.Cell>
 			)}
@@ -65,7 +65,8 @@ class _Component extends Component {
 	const Count=()=>{
 		return data.length?
 		(<div>Results :{data.length}</div>) :
-		(<div>No Results</div>)};
+		(<div>No Results</div>)
+	};
 	return (
 		<div>
 		<h1>Customer List</h1>
