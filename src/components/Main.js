@@ -35,7 +35,6 @@ class _Component extends Component {
   		key:ele.countryCode,
   		value:ele.countryCode
   	});
-  	const activeItem='';
 
 	return (
 		<div>

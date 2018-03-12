@@ -3,10 +3,10 @@ import { updateUI,fetchCustomers,selectCust } from '../Actions.js'
 import CustomerList from '../components/CustomerList'
 const contName="CustomerList";
 const mapStateToProps = (state) => {
-  const UI=state.localUI[contName];
+  const UI=state.localUI[contName] || {};
   const {pickedSbu,pickedCountry}=state.main;
-  const loading= UI&&UI.status==='loading';
-  const finished= UI&&UI.status==='finished';
+  const loading= UI.status==='loading';
+  const finished= UI.status==='finished';
   const contact=state.contact;
   const customers=(()=>{
     if(!finished) return []

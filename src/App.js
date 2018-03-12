@@ -10,7 +10,6 @@ class App extends Component {
 			// @media screen and (min-width: 800px) {
 				// grid-template-columns: 1fr 10em;
   			// }
-				{/*<ContactListContainer/>*/}
 		return (
 			<div>
 				<h1>Cook Customer Contact Allocation System</h1>
