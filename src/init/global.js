@@ -1,6 +1,7 @@
 import {blankData} from "./initData"
 import {flow,merge,cloneDeep as clone} from "lodash"; 
 import {format as dateFormat} from 'date-fns'
+import store from '../index';
 
 export const isDev=process.env.NODE_ENV==='development';
 
@@ -46,11 +47,13 @@ const idApplied=localGet('stateId');
 const idLast=()=>localGet('state').length-1;
 const State={
 	get: cmd=> {
-		if(cmd==='all') return localGet('state');
 		if(Number.isInteger(cmd)) return localGet('state')[cmd];
-		return localGet('state')[idLast()];
+		if(cmd==='all') return localGet('state');
+		if(cmd==='saved') return localGet('state')[idLast()];
+		if(!cmd) return store.getState();
 	},
 	getAll:()=> State.get('all'),
+	getSaved:()=> State.get('saved'),
 	apply:id=>{localSet('stateId',id);window.location.reload();},
 	applyLast:()=>State.apply(idLast()),
 	set:(_state)=>{
@@ -71,7 +74,6 @@ const State={
 	localSet('state',oldState.concat(nowState));
 	},
 	save:async ()=>{
-		const store=(await import("../index")).default;
 		const createdAt=new Date();
 		State._save(store,createdAt);
 		State.apply(idLast());

@@ -2,6 +2,7 @@ import React from "react";
 import {cloneDeep as clone} from "lodash";
 import PropTypes from "prop-types";
 import { Pagination as PaginationUI,Table } from 'semantic-ui-react'
+import MyTable from './MyTable';
 import { Component } from 'react';
 class CustomerList extends Component {
 	componentDidMount() {
@@ -13,10 +14,9 @@ class CustomerList extends Component {
 		const {pickedSbu:sbu}=this.props;
 		const {GlobalEmpNbr:globalEmpNbr}=data;
 		this.props.fetchCust({method:'contact_cust',sbu,globalEmpNbr})
-		// contact_cust
 	}
 	render(){
-  	const {updateUI,fetchCust,selectCust}=this.props;
+  	const {updateUI,selectCust}=this.props;
   	const {keyword,contact,customers,UI,status:{loading,finished}}=this.props;
   	if(!finished) return <div></div>;
   	const method=UI.method;
@@ -47,7 +47,6 @@ class CustomerList extends Component {
 		  GlobalEmpNbr:'Global Employee Number'
 		},
 	}[method];
-  	const tdStyle={textAlign:'center',border: '1px black solid'};
   	const onClickCell=(param)=> {
   		method==='contact' ?
   		this.fetchCust(param) : selectCust(param.globalCustNbr);
@@ -80,6 +79,7 @@ class CustomerList extends Component {
 		const end=perItems*(UI.page)-1;
 		return dataFilter.slice(start,end);
 	})(dataFilter);
+  	const tdStyle={textAlign:'center',border: '1px black solid'};
   	const header=(()=>
 		dataKey.map(title=> <Table.HeaderCell style={tdStyle} key={title}>{headerMatch[title]}</Table.HeaderCell>)
   	)();
@@ -99,6 +99,7 @@ class CustomerList extends Component {
 	return (
 		<div>
 		<h1>Customer List</h1>
+		<MyTable/>
 		<Count/>
 		<Pagination/><br/>
 		Filter <input onChange={setKeyword}/>

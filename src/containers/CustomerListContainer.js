@@ -1,8 +1,9 @@
 import { connect } from 'react-redux'
 import { updateUI,fetchCustomers,selectCust } from '../Actions.js'
 import CustomerList from '../components/CustomerList'
+import { Component } from 'react';
 const contName="CustomerList";
-const mapStateToProps = (state) => {
+const mapStateToProps = (state,ownProps) => {
   const UI=state.localUI[contName] || {};
   const {pickedSbu,pickedCountry}=state.main;
   const loading= UI.status==='loading';
