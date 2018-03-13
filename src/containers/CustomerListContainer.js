@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
   const loading= UI.status==='loading';
   const finished= UI.status==='finished';
   const contact=state.contact;
-  const customers=(()=>{
+  const customers=(function (){
     if(!finished) return []
     const removeAttr=attr=>ele=>{
       const {[attr]:_,...rest}=ele;
@@ -34,9 +34,8 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const _Container = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(CustomerList)
 
-export default _Container

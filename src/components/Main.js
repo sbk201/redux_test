@@ -1,8 +1,8 @@
 import React from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { Message,Button } from 'semantic-ui-react'
 import { Component } from 'react';
-class _Component extends Component {
+class Main extends Component {
 	componentDidMount() {
 		this.props.fetch1()
 		// const that=this;
@@ -23,7 +23,6 @@ class _Component extends Component {
 	}
 	render(){
   	const {data,status:{loading,finished},UI}=this.props;
-
   	if(!finished) return <div>Loading</div>
   	// console.log('data',data);
 
@@ -62,9 +61,26 @@ class _Component extends Component {
   	
   }
 }
-// _Component.propTypes = {
-	// text: PropTypes.string,
-	// done: PropTypes.bool,
-	// createdAt: PropTypes.string
-// };
-export default _Component;
+// PropTypes Generator http://rmosolgo.github.io/prop-types/
+Main.propTypes ={
+  UI: PropTypes.shape({
+    status: PropTypes.string
+  }).isRequired,
+  data: PropTypes.shape({
+    countries: PropTypes.arrayOf(PropTypes.shape({
+      countryCode: PropTypes.string.isRequired,
+      countryName: PropTypes.string.isRequired
+    }).isRequired),
+    pickedCountry: PropTypes.string,
+    pickedSbu: PropTypes.string,
+    sbus: PropTypes.arrayOf(PropTypes.shape({
+      SbuID: PropTypes.string.isRequired,
+      SbuName: PropTypes.string.isRequired
+    }).isRequired)
+  }).isRequired,
+  status: PropTypes.shape({
+    finished: PropTypes.bool,
+    loading: PropTypes.bool
+  }).isRequired
+}
+export default Main;

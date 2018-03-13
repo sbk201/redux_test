@@ -1,9 +1,9 @@
 import React from "react";
 import {cloneDeep as clone} from "lodash";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { Pagination as PaginationUI,Table } from 'semantic-ui-react'
 import { Component } from 'react';
-class _Component extends Component {
+class CustomerList extends Component {
 	componentDidMount() {
 		const updateUI=this.props.updateUI;
 		const page=this.props.UI.page || 1;
@@ -16,17 +16,18 @@ class _Component extends Component {
 		// contact_cust
 	}
 	render(){
-  	const {selectCust,contact,customers,UI,updateUI,status:{loading,finished}}=this.props;
+  	const {updateUI,fetchCust,selectCust}=this.props;
+  	const {keyword,contact,customers,UI,status:{loading,finished}}=this.props;
   	if(!finished) return <div></div>;
-  	const method= UI&&UI.method;
+  	const method=UI.method;
 	const data= method==='contact' ? contact : customers;
+  	if(data.length===0) return <div>No Result</div>;
 	const dataKey=(function(){
 		const obj=data[0];
 		const {selected,...rest}=clone(obj);
 		const keys=Object.keys(rest);
 		return keys
 	})();
-  	if(data.length===0) return <div>No Result</div>;
   			
   	const headerCu={
 		  GlobalCustName:'Global Customer Name',
@@ -46,8 +47,6 @@ class _Component extends Component {
 		  GlobalEmpNbr:'Global Employee Number'
 		},
 	}[method];
-  	// console.log('data',data);
-  	// console.log('UI is :',UI)
   	const tdStyle={textAlign:'center',border: '1px black solid'};
   	const onClickCell=(param)=> {
   		method==='contact' ?
@@ -59,20 +58,28 @@ class _Component extends Component {
 		(<div>Results :{data.length} / Selected :{selected.length}</div>) :
 		(<div>No Results</div>)
 	};
+	const dataFilter=(function (data,_keyword){
+		if(!_keyword) return data;
+		const keyword=new RegExp(_keyword,"i");
+		const match=keyword=>ele=> 
+			ele.GlobalCustName.search(keyword)>=0 || ele.custName.search(keyword)>=0;
+		const filtered=data.filter(match(keyword));
+		return filtered;
+	})(data,UI.keyword);
 	const perItems=10;
-	const dataShow=(function(){
-		const start=perItems*(UI.page-1);
-		const end=perItems*(UI.page)-1;
-		return data.slice(start,end);
-	})();
 	const Pagination=()=>{
 		const attributes={
-			totalPages:~~(data.length/perItems)+1,
+			totalPages:~~(dataFilter.length/perItems)+1,
 			defaultActivePage:UI.page,
 			onPageChange:(_,d)=>updateUI({page:d.activePage})
 		};
 		return <PaginationUI {...attributes}/>
 	}
+	const dataShow=(function(dataFilter){
+		const start=perItems*(UI.page-1);
+		const end=perItems*(UI.page)-1;
+		return dataFilter.slice(start,end);
+	})(dataFilter);
   	const header=(()=>
 		dataKey.map(title=> <Table.HeaderCell style={tdStyle} key={title}>{headerMatch[title]}</Table.HeaderCell>)
   	)();
@@ -85,11 +92,16 @@ class _Component extends Component {
 			</Table.Row>
 		)
 	)();
+	const setKeyword=e=>{
+		const keyword=e.target.value;
+		updateUI({keyword,page:1})
+	};
 	return (
 		<div>
 		<h1>Customer List</h1>
 		<Count/>
 		<Pagination/><br/>
+		Filter <input onChange={setKeyword}/>
 		<Table color="blue" celled selectable inverted>
 	        <Table.Header>
 	          <Table.Row>
@@ -106,9 +118,27 @@ class _Component extends Component {
   	
   }
 }
-// _Component.propTypes = {
-	// text: PropTypes.string,
-	// done: PropTypes.bool,
-	// createdAt: PropTypes.string
-// };
-export default _Component;
+// PropTypes Generator http://rmosolgo.github.io/prop-types/
+
+CustomerList.propTypes ={
+  UI: PropTypes.shape({
+    method: PropTypes.string,
+    page: PropTypes.number,
+    status: PropTypes.string
+  }),
+  contact: PropTypes.arrayOf(PropTypes.shape({
+    GlobalEmpName: PropTypes.string.isRequired,
+    GlobalEmpNbr: PropTypes.string.isRequired
+  }).isRequired),
+  customers: PropTypes.arrayOf(PropTypes.shape({
+    GlobalCustName: PropTypes.string.isRequired,
+    custName: PropTypes.string.isRequired,
+    globalCustNbr: PropTypes.string.isRequired,
+    localCustNbr: PropTypes.string.isRequired
+  }).isRequired),
+  status: PropTypes.shape({
+    finished: PropTypes.bool.isRequired,
+    loading: PropTypes.bool.isRequired
+  })
+}
+export default CustomerList;

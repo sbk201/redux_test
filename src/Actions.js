@@ -8,6 +8,7 @@ export const receiveContact=contact=>({type: "RECEIVE_CONTACT", contact });
 export const selectCust=globalCustNbr=>({type: "SELECT_CUST", globalCustNbr});
 export const pickedSbu=sbu=>({type: "PICKED_SBU", sbu });
 export const pickedCountry=country=> ( {type: "PICKED_COUNTRY", country });
+// export const filterItems=(data,keyword)=> ( {type: "FILTER_ITEMS", data,keyword });
 const link={
 	old:"http://localhost:5000/data",
 	sbu:"http://localhost:5000/allocation/sbu",

@@ -3,9 +3,9 @@ import { updateUI,fetchMain,fetchCustomers,pickedSbu,pickedCountry } from '../Ac
 import Main from '../components/Main'
 const contName="Main";
 const mapStateToProps = (state) => {
-  const UI=state.localUI[contName];
-  const loading= UI&&UI.status==='loading';
-  const finished= UI&&UI.status==='finished';
+  const UI=state.localUI[contName] || {};
+  const loading= UI.status==='loading';
+  const finished= UI.status==='finished';
   return {
     data:state.main,
     UI, status:{loading,finished}
@@ -24,9 +24,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const _Container = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Main)
-
-export default _Container
