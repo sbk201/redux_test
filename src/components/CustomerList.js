@@ -47,7 +47,7 @@ class CustomerList extends Component {
 		  GlobalEmpNbr:'Global Employee Number'
 		},
 	}[method];
-  	const onClickCell=(param)=> {
+  	const onClickRow=(param)=> {
   		method==='contact' ?
   		this.fetchCust(param) : selectCust(param.globalCustNbr);
   	}
@@ -80,14 +80,29 @@ class CustomerList extends Component {
 		return dataFilter.slice(start,end);
 	})(dataFilter);
   	const tdStyle={textAlign:'center',border: '1px black solid'};
+  	const tableParams=(function(){
+  		const style={textAlign:'center',border: '1px black solid'}
+  		const output={
+	  		headObj:{
+	  			array:dataKey, style,
+				contentFn:ele=>headerMatch[ele],
+	  		},
+	  		bodyObj:{
+	  			array:dataShow, style,
+	  			rowAttrs:{active: ele=>!ele.selected,onClick:ele=>()=>onClickRow(ele)}
+	  		}
+	  	}
+	return output
+  	})();
+  	
   	const header=(()=>
-		dataKey.map(title=> <Table.HeaderCell style={tdStyle} key={title}>{headerMatch[title]}</Table.HeaderCell>)
+		dataKey.map(title=> <Table.HeaderCell key={title} style={tdStyle}>{headerMatch[title]}</Table.HeaderCell>)
   	)();
   	const body=(()=>
   		dataShow.map((customer,index)=>
-			<Table.Row key={index} onClick={()=>onClickCell(customer)} active={!customer.selected}>
+			<Table.Row key={index} onClick={()=>onClickRow(customer)} active={!customer.selected}>
 			{dataKey.map(key=>
-				<Table.Cell style={tdStyle} key={key}> {customer[key]}</Table.Cell>
+				<Table.Cell key={key} style={tdStyle}> {customer[key]}</Table.Cell>
 			)}
 			</Table.Row>
 		)
@@ -98,22 +113,23 @@ class CustomerList extends Component {
 	};
 	return (
 		<div>
-		<h1>Customer List</h1>
-		<MyTable/>
-		<Count/>
-		<Pagination/><br/>
-		Filter <input onChange={setKeyword}/>
-		<Table color="blue" celled selectable inverted>
-	        <Table.Header>
-	          <Table.Row>
-				{header}
-	          </Table.Row>
-	        </Table.Header>
-	        <Table.Body>
-				{body}
-	        </Table.Body>
-    	</Table>
-		<Pagination/>
+			<h1>Customer List</h1>
+			<MyTable {...tableParams}/>
+			<hr/>
+			<Count/>
+			<Pagination/><br/>
+			Filter <input onChange={setKeyword}/>
+			<Table color="blue" celled selectable inverted>
+		        <Table.Header>
+		          <Table.Row>
+					{header}
+		          </Table.Row>
+		        </Table.Header>
+		        <Table.Body>
+					{body}
+		        </Table.Body>
+	    	</Table>
+			<Pagination/>
 		</div>
 	);
   	

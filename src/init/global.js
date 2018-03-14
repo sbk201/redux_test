@@ -3,6 +3,7 @@ import {flow,merge,cloneDeep as clone} from "lodash";
 import {format as dateFormat} from 'date-fns'
 import store from '../index';
 
+export const mergeClone=(...arg)=>merge(...arg.map(clone));
 export const isDev=process.env.NODE_ENV==='development';
 
 export const ranUnique=(_self,len,record)=>{

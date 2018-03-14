@@ -1,6 +1,5 @@
+import {mergeClone} from './init/global'
 import { combineReducers } from 'redux';
-import {merge,cloneDeep as clone,flow} from "lodash";
-const mergeClone=(...arg)=>merge(...arg.map(clone));
 const main = (state = {}, action) => {
   switch (action.type) {
     case 'RECEIVE_SBUS':
@@ -26,7 +25,7 @@ const localUI = (state = {}, action) => {
 	case "UPDATE_UI":
 	const {type,contName,...other}=action;
 	const stateMerge={[action.contName]:other}
-	const newState=flow(mergeClone)(state,stateMerge);
+	const newState=mergeClone(state,stateMerge);
 	return newState
 	default:
 		return state;
