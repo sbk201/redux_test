@@ -82,17 +82,18 @@ class CustomerList extends Component {
   	const tdStyle={textAlign:'center',border: '1px black solid'};
   	const tableParams=(function(){
   		const style={textAlign:'center',border: '1px black solid'}
-  		const output={
+  		const param={
+  			name:'customer',
 	  		headObj:{
 	  			array:dataKey, style,
 				contentFn:ele=>headerMatch[ele],
 	  		},
 	  		bodyObj:{
 	  			array:dataShow, style,
-	  			rowAttrs:{active: ele=>!ele.selected,onClick:ele=>()=>onClickRow(ele)}
+	  			clickFn:onClickRow
 	  		}
 	  	}
-	return output
+	return param
   	})();
   	
   	const header=(()=>
@@ -114,21 +115,11 @@ class CustomerList extends Component {
 	return (
 		<div>
 			<h1>Customer List</h1>
-			<MyTable {...tableParams}/>
 			<hr/>
 			<Count/>
 			<Pagination/><br/>
 			Filter <input onChange={setKeyword}/>
-			<Table color="blue" celled selectable inverted>
-		        <Table.Header>
-		          <Table.Row>
-					{header}
-		          </Table.Row>
-		        </Table.Header>
-		        <Table.Body>
-					{body}
-		        </Table.Body>
-	    	</Table>
+			<MyTable {...tableParams}/>
 			<Pagination/>
 		</div>
 	);
