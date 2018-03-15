@@ -1,7 +1,7 @@
 import React from "react";
 import {cloneDeep as clone} from "lodash";
 import PropTypes from "prop-types";
-import { Pagination as PaginationUI,Table } from 'semantic-ui-react'
+import { Button,Pagination as PaginationUI,Table } from 'semantic-ui-react'
 import MyTable from './MyTable';
 import { Component } from 'react';
 class CustomerList extends Component {
@@ -29,24 +29,28 @@ class CustomerList extends Component {
 		return keys
 	})();
   			
-  	const headerCu={
+	const headerMatch=(function(){
+		const common={
 		  GlobalCustName:'Global Customer Name',
 		  globalCustNbr:'Global Customer Nbr',
 		  custName:'Local Customer Name',
 		  localCustNbr:'Local Customer Nbr'
 		};
-	const headerMatch={
-		unassigned :{
-		  GlobalCustName:'Customer Name',
-		  globalCustNbr:'Customer Number'
-		} ,
-		customer:headerCu,
-		contact_cust:headerCu,
-		contact:{
-		  GlobalEmpName:'Global Employee Name',
-		  GlobalEmpNbr:'Global Employee Number'
-		},
-	}[method];
+		const head={
+			unassigned :{
+			  GlobalCustName:'Customer Name',
+			  globalCustNbr:'Customer Number'
+			} ,
+			customer:common,
+			contact_cust:common,
+			contact:{
+			  GlobalEmpName:'Global Employee Name',
+			  GlobalEmpNbr:'Global Employee Number'
+			},
+		}[method];
+		return head
+	})();
+	
   	const onClickRow=(param)=> {
   		method==='contact' ?
   		this.fetchCust(param) : selectCust(param.globalCustNbr);
@@ -79,7 +83,6 @@ class CustomerList extends Component {
 		const end=perItems*(UI.page)-1;
 		return dataFilter.slice(start,end);
 	})(dataFilter);
-  	const tdStyle={textAlign:'center',border: '1px black solid'};
   	const tableParams=(function(){
   		const style={textAlign:'center',border: '1px black solid'}
   		const param={
@@ -95,30 +98,19 @@ class CustomerList extends Component {
 	  	}
 	return param
   	})();
-  	
-  	const header=(()=>
-		dataKey.map(title=> <Table.HeaderCell key={title} style={tdStyle}>{headerMatch[title]}</Table.HeaderCell>)
-  	)();
-  	const body=(()=>
-  		dataShow.map((customer,index)=>
-			<Table.Row key={index} onClick={()=>onClickRow(customer)} active={!customer.selected}>
-			{dataKey.map(key=>
-				<Table.Cell key={key} style={tdStyle}> {customer[key]}</Table.Cell>
-			)}
-			</Table.Row>
-		)
-	)();
 	const setKeyword=e=>{
 		const keyword=e.target.value;
 		updateUI({keyword,page:1})
 	};
+	const test=()=>console.log(data.filter(ele=>ele.selected));
 	return (
 		<div>
 			<h1>Customer List</h1>
 			<hr/>
 			<Count/>
 			<Pagination/><br/>
-			Filter <input onChange={setKeyword}/>
+			Filter <input onChange={setKeyword}/><br/>
+			<Button content="Submit" color="blue" onClick={test}/>
 			<MyTable {...tableParams}/>
 			<Pagination/>
 		</div>
