@@ -7,8 +7,9 @@ class Main extends Component {
 		this.props.fetch1()
 		// const that=this;
 		setTimeout(function(){
-			document.querySelectorAll('select')[1].selectedIndex = 2;
-			// this.refs.country.selectedIndex = 2;
+			const dom=document.querySelectorAll('select')[1];
+			if(!dom) return;
+			dom.selectedIndex = 2;
 		},2000)
   	}
   	// onEnter(e){
@@ -22,7 +23,8 @@ class Main extends Component {
 		this.props.fetchCustomers({sbu,country,method});
 	}
 	render(){
-  	const {data,status:{loading,finished},UI}=this.props;
+  	const {pageView,data,status:{loading,finished}}=this.props;
+  	if(pageView!=='search') return <div></div>
   	if(!finished) return <div>Loading</div>
   	// console.log('data',data);
 
@@ -63,9 +65,6 @@ class Main extends Component {
 }
 // PropTypes Generator http://rmosolgo.github.io/prop-types/
 Main.propTypes ={
-  UI: PropTypes.shape({
-    status: PropTypes.string
-  }).isRequired,
   data: PropTypes.shape({
     countries: PropTypes.arrayOf(PropTypes.shape({
       countryCode: PropTypes.string.isRequired,

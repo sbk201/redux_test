@@ -1,13 +1,10 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Table } from 'semantic-ui-react'
-import { mergeClone } from '../init/global'
 import { Component } from 'react';
 class MyTable extends Component {
 	componentDidMount() {}
 	render(){
 		const {headObj,bodyObj,name}=this.props;
-		// console.log(this.props);
 		const header=(function (){
 			const {array, style, contentFn}=headObj
 			const match=title=>{
@@ -23,7 +20,7 @@ class MyTable extends Component {
 		})();
 
 		const body=(function(){
-			const {array, style, rowAttrs}=bodyObj;
+			const {array, style}=bodyObj;
 			const {array:titleArr}=headObj;
 			const getRowAttr=ele=>{
 				if(name==='customer') {
@@ -56,7 +53,6 @@ class MyTable extends Component {
   	
   }
 }
-// PropTypes Generator http://rmosolgo.github.io/prop-types/
 
 
 export default MyTable;

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "react-dom";
 import MainContainer from './containers/MainContainer'
 import CustomerListContainer from './containers/CustomerListContainer'
+import AllocateContainer from './containers/AllocateContainer'
 
 class App extends Component {
 	render(){
@@ -15,6 +16,7 @@ class App extends Component {
 				<h1>Cook Customer Contact Allocation System</h1>
 				<MainContainer/><br/>
 				<CustomerListContainer/>
+				<AllocateContainer/>
 			</div>
 			
 		);

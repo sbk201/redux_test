@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
-import { updateUI,fetchMain,fetchCustomers,pickedSbu,pickedCountry } from '../Actions.js'
-import Main from '../components/Main'
-const contName="Main";
+import { updateUI } from '../Actions.js'
+import Allocate from '../components/Allocate'
+const contName="Allocate";
 const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
   const loading= UI.status==='loading';
@@ -15,17 +15,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUI:cmd=>dispatch(updateUI({...cmd,contName})),
-    fetch1: ()=> dispatch(fetchMain()),
-    pickedItems:(items)=>{
-      const {sbu,country}=items;
-      dispatch(pickedSbu(sbu));
-      dispatch(pickedCountry(country));
-    },
-    fetchCustomers: params=>dispatch(fetchCustomers(params))
   }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Main)
+)(Allocate)

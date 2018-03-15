@@ -1,7 +1,7 @@
 import React from "react";
 import {cloneDeep as clone} from "lodash";
 import PropTypes from "prop-types";
-import { Button,Pagination as PaginationUI,Table } from 'semantic-ui-react'
+import { Button,Pagination as PaginationUI } from 'semantic-ui-react'
 import MyTable from './MyTable';
 import { Component } from 'react';
 class CustomerList extends Component {
@@ -16,8 +16,9 @@ class CustomerList extends Component {
 		this.props.fetchCust({method:'contact_cust',sbu,globalEmpNbr})
 	}
 	render(){
-  	const {updateUI,selectCust}=this.props;
-  	const {keyword,contact,customers,UI,status:{loading,finished}}=this.props;
+  	const {updateUI,selectCust,nextView}=this.props;
+  	const {pageView,contact,customers,UI,status:{loading,finished}}=this.props;
+  	if(pageView!=='search') return <div></div>
   	if(!finished) return <div></div>;
   	const method=UI.method;
 	const data= method==='contact' ? contact : customers;
@@ -100,9 +101,12 @@ class CustomerList extends Component {
   	})();
 	const setKeyword=e=>{
 		const keyword=e.target.value;
-		updateUI({keyword,page:1})
+		updateUI({keyword,page:1});
 	};
-	const test=()=>console.log(data.filter(ele=>ele.selected));
+	const test=()=>{
+		nextView("allocate");
+		console.log(data.filter(ele=>ele.selected));
+	};
 	return (
 		<div>
 			<h1>Customer List</h1>

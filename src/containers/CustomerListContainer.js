@@ -1,14 +1,13 @@
 import { connect } from 'react-redux'
-import { updateUI,fetchCustomers,selectCust } from '../Actions.js'
+import { nextView,updateUI,fetchCustomers,selectCust } from '../Actions.js'
 import CustomerList from '../components/CustomerList'
-import { Component } from 'react';
 const contName="CustomerList";
 const mapStateToProps = (state,ownProps) => {
   const UI=state.localUI[contName] || {};
   const {pickedSbu,pickedCountry}=state.main;
   const loading= UI.status==='loading';
   const finished= UI.status==='finished';
-  const contact=state.contact;
+  const {contact,pageView}=state;
   const customers=(function (){
     if(!finished) return []
     const removeAttr=attr=>ele=>{
@@ -24,7 +23,7 @@ const mapStateToProps = (state,ownProps) => {
     }
   })();
   return {
-    pickedSbu,pickedCountry,contact,customers,UI, status:{loading,finished}
+    pageView,pickedSbu,pickedCountry,contact,customers,UI, status:{loading,finished}
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -32,6 +31,7 @@ const mapDispatchToProps = (dispatch) => {
     updateUI:cmd=>dispatch(updateUI({...cmd,contName})),
     fetchCust: params=>dispatch(fetchCustomers(params)),
     selectCust:id=>dispatch(selectCust(id)),
+    nextView:view=>dispatch(nextView(view)),
   }
 }
 

@@ -1,6 +1,7 @@
 import axios from "axios";
 // import store from "../index";
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
+export const nextView=view=>({type: "NEXT_VIEW", view });
 export const receiveSbus=sbus=>({type: "RECEIVE_SBUS", sbus });
 export const receiveCountries=countries=>({type: "RECEIVE_COUNTRIES", countries });
 export const receiveCustomers=customers=>({type: "RECEIVE_CUSTOMERS", customers });
