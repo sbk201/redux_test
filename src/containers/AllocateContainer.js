@@ -6,10 +6,10 @@ const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
   const loading= UI.status==='loading';
   const finished= UI.status==='finished';
-  const {pageView}=state;
+  const {pageView,employee}=state;
+
   return {
-    data:state.main,pageView,
-    UI, status:{loading,finished}
+    pageView,employee, UI, status:{loading,finished}
   }
 }
 const mapDispatchToProps = (dispatch) => {

@@ -13,7 +13,7 @@ class App extends Component {
   			// }
 		return (
 			<div>
-				<h1>Cook Customer Contact Allocation System</h1>
+				<h1>Cook Customer Contact Allocation</h1>
 				<MainContainer/><br/>
 				<CustomerListContainer/>
 				<AllocateContainer/>

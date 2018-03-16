@@ -1,15 +1,14 @@
 import axios from "axios";
 // import store from "../index";
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
-export const nextView=view=>({type: "NEXT_VIEW", view });
 export const receiveSbus=sbus=>({type: "RECEIVE_SBUS", sbus });
 export const receiveCountries=countries=>({type: "RECEIVE_COUNTRIES", countries });
 export const receiveCustomers=customers=>({type: "RECEIVE_CUSTOMERS", customers });
 export const receiveContact=contact=>({type: "RECEIVE_CONTACT", contact });
+export const receiveEmployee=employee=>({type: "RECEIVE_EMPLOYEE", employee });
 export const selectCust=globalCustNbr=>({type: "SELECT_CUST", globalCustNbr});
 export const pickedSbu=sbu=>({type: "PICKED_SBU", sbu });
 export const pickedCountry=country=> ( {type: "PICKED_COUNTRY", country });
-// export const filterItems=(data,keyword)=> ( {type: "FILTER_ITEMS", data,keyword });
 const link={
 	old:"http://localhost:5000/data",
 	sbu:"http://localhost:5000/allocation/sbu",
@@ -17,7 +16,8 @@ const link={
 	customer:"http://localhost:5000/allocation/assigned_cust",
 	unCustomer:"http://localhost:5000/allocation/unassigned_cust",
 	contact:"http://localhost:5000/allocation/contact",
-	contact_cust:"http://localhost:5000/allocation/contact_cust"
+	contact_cust:"http://localhost:5000/allocation/contact_cust",
+	sbu_employee:"http://localhost:5000/allocation/sbu_employee"
 }
 
 export const fetchSbus=()=>{
@@ -38,11 +38,20 @@ export const fetchContact=(params)=>{
 export const fetchContactCust=(params)=>{
 	return () => axios.get(link.contact_cust,{params});
 };
-export const fetchMain=()=>{
+export const fetchEmployee=(params)=>{
+	return () => axios.get(link.sbu_employee,{params});
+};
+export const nextView=view=>({type: "NEXT_VIEW", view });
 
+export const viewAllocate=params=>{
+	return async dispatch => {
+		const dispatchUI= cmd=>dispatch(updateUI({contName:'Allocate',...cmd}));
+		dispatch(nextView('allocate'));
+	}
+}
+export const fetchMain=()=>{
 	return async dispatch => {
 		const dispatchUI= cmd=>dispatch(updateUI({contName:'Main',...cmd}));
-
 		dispatchUI({status:'loading'});
 		const sbus=(await dispatch(fetchSbus())).data;
 		const countries=(await dispatch(fetchCountries())).data;
@@ -51,7 +60,7 @@ export const fetchMain=()=>{
 		dispatchUI({status:'finished'});
 	}
 }
-export const fetchCustomers=(_params)=>{
+export const fetchGetCustomers=(_params)=>{
 	const {method,...params}=_params;
 	const apiFun={
 		contact:fetchContact,
@@ -63,11 +72,27 @@ export const fetchCustomers=(_params)=>{
 	return async dispatch => {
 		const dispatchUI= cmd=>dispatch(updateUI({contName:'CustomerList',...cmd}));
 		dispatchUI({status:'loading'});
+
 		const result= (await dispatch(apiFun(params))).data;
 		method==='contact' ?
 		dispatch(receiveContact(result)) : dispatch(receiveCustomers(result));
+
 		dispatchUI({status:'finished',method});
-		console.log('fetch',result)
-		// return 'done';
+		console.log('fetch',result);
+	}
+}
+
+export const fetchGetEmployee=params=>{
+	const {sbu,country}=params;
+	return async dispatch => {
+		const employee=(await dispatch(fetchEmployee({sbu,country}))).data
+		dispatch(receiveEmployee(employee));
+	}
+}
+export const afterSearchView=params=>{
+	const {sbu,country}=params;
+	return async dispatch => {
+		dispatch(fetchGetCustomers(params));
+		dispatch(fetchGetEmployee({sbu,country}));
 	}
 }

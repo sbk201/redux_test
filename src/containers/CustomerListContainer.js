@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { nextView,updateUI,fetchCustomers,selectCust } from '../Actions.js'
+import { updateUI,fetchGetCustomers,selectCust,nextView } from '../Actions.js'
 import CustomerList from '../components/CustomerList'
 const contName="CustomerList";
 const mapStateToProps = (state,ownProps) => {
@@ -29,7 +29,7 @@ const mapStateToProps = (state,ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUI:cmd=>dispatch(updateUI({...cmd,contName})),
-    fetchCust: params=>dispatch(fetchCustomers(params)),
+    fetchCust: params=>dispatch(fetchGetCustomers(params)),
     selectCust:id=>dispatch(selectCust(id)),
     nextView:view=>dispatch(nextView(view)),
   }

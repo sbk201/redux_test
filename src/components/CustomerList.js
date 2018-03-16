@@ -10,7 +10,7 @@ class CustomerList extends Component {
 		const page=this.props.UI.page || 1;
 		updateUI({page});
 	}
-	fetchCust(data){
+	fetchCust_(data){
 		const {pickedSbu:sbu}=this.props;
 		const {GlobalEmpNbr:globalEmpNbr}=data;
 		this.props.fetchCust({method:'contact_cust',sbu,globalEmpNbr})
@@ -54,7 +54,7 @@ class CustomerList extends Component {
 	
   	const onClickRow=(param)=> {
   		method==='contact' ?
-  		this.fetchCust(param) : selectCust(param.globalCustNbr);
+  		this.fetchCust_(param) : selectCust(param.globalCustNbr);
   	}
 	const Count=()=>{
 		const selected=data.filter(ele=>ele.selected);
@@ -103,10 +103,6 @@ class CustomerList extends Component {
 		const keyword=e.target.value;
 		updateUI({keyword,page:1});
 	};
-	const test=()=>{
-		nextView("allocate");
-		console.log(data.filter(ele=>ele.selected));
-	};
 	return (
 		<div>
 			<h1>Customer List</h1>
@@ -114,7 +110,7 @@ class CustomerList extends Component {
 			<Count/>
 			<Pagination/><br/>
 			Filter <input onChange={setKeyword}/><br/>
-			<Button content="Submit" color="blue" onClick={test}/>
+			<Button content="Submit" color="blue" onClick={()=>nextView('allocate')}/>
 			<MyTable {...tableParams}/>
 			<Pagination/>
 		</div>

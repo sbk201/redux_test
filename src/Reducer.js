@@ -71,8 +71,17 @@ const contact = (state = [], action) => {
   }
 }
 
+const employee = (state = [], action) => {
+  switch (action.type) {
+    case 'RECEIVE_EMPLOYEE':
+      return action.employee;
+    default:
+      return state
+  }
+}
+
 const allReducers = combineReducers({
-  localUI,pageView, main, contact, customers,
+  localUI,pageView, main, contact, customers,employee
 })
 
 export default allReducers

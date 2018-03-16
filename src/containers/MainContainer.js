@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { updateUI,fetchMain,fetchCustomers,pickedSbu,pickedCountry } from '../Actions.js'
+import { updateUI,fetchMain,afterSearchView,pickedSbu,pickedCountry } from '../Actions.js'
 import Main from '../components/Main'
 const contName="Main";
 const mapStateToProps = (state) => {
@@ -8,8 +8,7 @@ const mapStateToProps = (state) => {
   const finished= UI.status==='finished';
   const {pageView}=state;
   return {
-    data:state.main,pageView,
-    UI, status:{loading,finished}
+    data:state.main,pageView, UI, status:{loading,finished}
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -21,7 +20,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(pickedSbu(sbu));
       dispatch(pickedCountry(country));
     },
-    fetchCustomers: params=>dispatch(fetchCustomers(params))
+    fetchPrepare: params=>dispatch(afterSearchView(params))
   }
 }
 

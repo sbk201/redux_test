@@ -20,7 +20,7 @@ class Main extends Component {
 		const sbu=this.refs.sbu.value;
 		const country=this.refs.country.value;
 		this.props.pickedItems({sbu,country})
-		this.props.fetchCustomers({sbu,country,method});
+		this.props.fetchPrepare({sbu,country,method});
 	}
 	render(){
   	const {pageView,data,status:{loading,finished}}=this.props;
