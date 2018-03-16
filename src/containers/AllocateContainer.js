@@ -6,10 +6,11 @@ const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
   const loading= UI.status==='loading';
   const finished= UI.status==='finished';
-  const {pageView,employee}=state;
+  const {pageView,employee,customers:customers_}=state;
+  const customers=customers_ && customers_.filter(ele=>ele.selected);
 
   return {
-    pageView,employee, UI, status:{loading,finished}
+    pageView,employee,customers, UI, status:{loading,finished}
   }
 }
 const mapDispatchToProps = (dispatch) => {
