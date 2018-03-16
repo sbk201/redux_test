@@ -70,10 +70,10 @@ class CustomerList extends Component {
 		const filtered=data.filter(match(keyword));
 		return filtered;
 	})(data,UI.keyword);
-	const perItems=10;
+	const perItems=7;
 	const Pagination=()=>{
 		const attributes={
-			totalPages:~~(dataFilter.length/perItems)+1,
+			totalPages:Math.ceil(dataFilter.length/perItems),
 			defaultActivePage:UI.page,
 			onPageChange:(_,d)=>updateUI({page:d.activePage})
 		};
