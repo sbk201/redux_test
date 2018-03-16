@@ -42,13 +42,6 @@ export const fetchEmployee=(params)=>{
 	return () => axios.get(link.sbu_employee,{params});
 };
 export const nextView=view=>({type: "NEXT_VIEW", view });
-
-export const viewAllocate=params=>{
-	return async dispatch => {
-		const dispatchUI= cmd=>dispatch(updateUI({contName:'Allocate',...cmd}));
-		dispatch(nextView('allocate'));
-	}
-}
 export const fetchMain=()=>{
 	return async dispatch => {
 		const dispatchUI= cmd=>dispatch(updateUI({contName:'Main',...cmd}));
@@ -68,7 +61,6 @@ export const fetchGetCustomers=(_params)=>{
 		customer:fetchAssignedCustomer,
 		unassigned:fetchUnassignedCustomer,
 	}[method]
-	console.log(_params);
 	return async dispatch => {
 		const dispatchUI= cmd=>dispatch(updateUI({contName:'CustomerList',...cmd}));
 		dispatchUI({status:'loading'});
@@ -76,7 +68,6 @@ export const fetchGetCustomers=(_params)=>{
 		const result= (await dispatch(apiFun(params))).data;
 		method==='contact' ?
 		dispatch(receiveContact(result)) : dispatch(receiveCustomers(result));
-
 		dispatchUI({status:'finished',method});
 		console.log('fetch',result);
 	}

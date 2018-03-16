@@ -70,7 +70,7 @@ class CustomerList extends Component {
 		const filtered=data.filter(match(keyword));
 		return filtered;
 	})(data,UI.keyword);
-	const perItems=7;
+	const perItems=10;
 	const Pagination=()=>{
 		const attributes={
 			totalPages:Math.ceil(dataFilter.length/perItems),
@@ -132,9 +132,9 @@ CustomerList.propTypes ={
   }).isRequired),
   customers: PropTypes.arrayOf(PropTypes.shape({
     GlobalCustName: PropTypes.string.isRequired,
-    custName: PropTypes.string.isRequired,
+    custName: PropTypes.string,
     globalCustNbr: PropTypes.string.isRequired,
-    localCustNbr: PropTypes.string.isRequired
+    localCustNbr: PropTypes.string
   }).isRequired),
   status: PropTypes.shape({
     finished: PropTypes.bool.isRequired,

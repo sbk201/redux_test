@@ -4,9 +4,9 @@ class Allocate extends Component {
 	componentDidMount() {
   	}
 	render(){
-  	const {pageView,employee,status:{loading,finished}}=this.props;
+  	const {pageView,employee}=this.props;
   	if(pageView!=='allocate') return <div></div>
-  		
+
 
 	return (
 		<div>
