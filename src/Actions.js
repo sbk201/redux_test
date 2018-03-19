@@ -7,6 +7,7 @@ export const receiveCustomers=customers=>({type: "RECEIVE_CUSTOMERS", customers 
 export const receiveContact=contact=>({type: "RECEIVE_CONTACT", contact });
 export const receiveEmployee=employee=>({type: "RECEIVE_EMPLOYEE", employee });
 export const selectCust=globalCustNbr=>({type: "SELECT_CUST", globalCustNbr});
+export const selectEmp=GlobalEmpNbr=>({type: "SELECT_EMP", GlobalEmpNbr});
 export const pickedSbu=sbu=>({type: "PICKED_SBU", sbu });
 export const pickedCountry=country=> ( {type: "PICKED_COUNTRY", country });
 const link={

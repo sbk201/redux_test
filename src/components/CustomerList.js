@@ -17,7 +17,8 @@ class CustomerList extends Component {
 	}
 	render(){
   	const {updateUI,selectCust,nextView}=this.props;
-  	const {pageView,contact,customers,UI,status:{loading,finished}}=this.props;
+  	// const {pageView,contact,customers,UI,status:{loading,finished}}=this.props;
+  	const {pageView,contact,customers,UI,status:{finished}}=this.props;
   	if(pageView!=='search') return <div></div>
   	if(!finished) return <div></div>;
   	const method=UI.method;

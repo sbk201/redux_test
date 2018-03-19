@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { updateUI } from '../Actions.js'
+import { updateUI,selectEmp } from '../Actions.js'
 import Allocate from '../components/Allocate'
 const contName="Allocate";
 const mapStateToProps = (state) => {
@@ -16,6 +16,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUI:cmd=>dispatch(updateUI({...cmd,contName})),
+    selectEmp:id=>dispatch(selectEmp(id))
   }
 }
 

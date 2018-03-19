@@ -23,7 +23,8 @@ class Main extends Component {
 		this.props.fetchPrepare({sbu,country,method});
 	}
 	render(){
-  	const {pageView,data,status:{loading,finished}}=this.props;
+  	// const {pageView,data,status:{loading,finished}}=this.props;
+  	const {pageView,data,status:{finished}}=this.props;
   	if(pageView!=='search') return <div></div>
   	if(!finished) return <div>Loading</div>
   	// console.log('data',data);

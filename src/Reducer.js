@@ -75,6 +75,16 @@ const employee = (state = [], action) => {
   switch (action.type) {
     case 'RECEIVE_EMPLOYEE':
       return action.employee;
+    case 'SELECT_EMP':
+      const id=action.GlobalEmpNbr;
+      const toggleEmp=ele=>{
+        const isTarget= ele.GlobalEmpNbr===id;
+        const newStatus=!ele.selected;
+        if(isTarget) return mergeClone(ele,{selected:newStatus});
+      return ele
+      }
+      const newState=state.map(toggleEmp);
+      return newState
     default:
       return state
   }
