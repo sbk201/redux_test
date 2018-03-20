@@ -1,23 +1,26 @@
+import 'es6-shim';
+import 'semantic-ui-css/semantic.min.css';
+import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import reducers from "./reducers/index";
+import reducers from "./Reducer";
 import registerServiceWorker from "./registerServiceWorker";
 import { Provider} from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import thunkMiddleware from 'redux-thunk';
 import initData from "./init/initData";
-import storageState,{isDev} from "./init/global"
+import storageState,{isDev} from "./init/global";
 import {debounce} from "lodash";
+import App from "./App";
 
-const store = createStore(reducers,initData);
+const store = createStore(reducers,initData,applyMiddleware(thunkMiddleware));
 
 const recordState=()=>{
 	const _createdAt=new Date();
-	const save=()=>storageState.save(store,_createdAt,new Date());
+	const save=()=>storageState._save(store,_createdAt);
 	store.subscribe(debounce(save,1500));
 }
-if(isDev) recordState();
+if(isDev && false) recordState();
 
 // Do not write in one line,or it gets error:
 // Warning: Failed prop type: Invalid prop `children` of type `array` supplied to `Provider`, expected a single ReactElement.

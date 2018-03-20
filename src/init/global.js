@@ -1,8 +1,17 @@
-import blankData from "./blankData";
+import {blankData} from "./initData"
 import {flow,merge,cloneDeep as clone} from "lodash"; 
 import {format as dateFormat} from 'date-fns'
+import store from '../index';
 
+global.cancelAnimationFrame = function(callback) {
+  setTimeout(callback, 0);
+};
+
+
+export const mergeClone=(...arg)=>merge(...arg.map(clone));
 export const isDev=process.env.NODE_ENV==='development';
+
+export const uniqueArrKey = key => (ele, pos,self)=> self.findIndex(el2=>el2[key]===ele[key]) === pos;
 
 export const ranUnique=(_self,len,record)=>{
 	const self=Array.isArray(_self) ? _self : [_self];
@@ -46,13 +55,14 @@ const idApplied=localGet('stateId');
 const idLast=()=>localGet('state').length-1;
 const State={
 	get: cmd=> {
-		if(cmd==='all') return localGet('state');
 		if(Number.isInteger(cmd)) return localGet('state')[cmd];
-		return localGet('state')[idLast()];
+		if(cmd==='all') return localGet('state');
+		if(cmd==='saved') return localGet('state')[idLast()];
+		if(!cmd) return store.getState();
 	},
 	getAll:()=> State.get('all'),
+	getSaved:()=> State.get('saved'),
 	apply:id=>{localSet('stateId',id);window.location.reload();},
-	applyNot:()=>State.apply(undefined),
 	applyLast:()=>State.apply(idLast()),
 	set:(_state)=>{
 		const stateArray=State.get('all').concat(_state);
@@ -65,15 +75,26 @@ const State={
 		flow([merge,clone,State.set])(blankData,State.get(id));
 		console.log(`reapply from id ${id}`);
 	},
-	save:(store,_createdAt_a,now)=>{
+	_save:(store,_createdAt_a)=>{
 	const oldState=localGet('state') || [];
 	const _createdAt=dateFormat(_createdAt_a,'DMMM h:mm:ss');
-	const _updatedAt=()=>({_updatedAt:dateFormat(now,'DMMM h:mm:ss')});
-	const nowState=()=>({...store.getState(),_createdAt,..._updatedAt()});
-	// console.log(_createdAt)
-	localSet('state',oldState.concat(nowState()));
+	const nowState={...store.getState(),_createdAt};
+	localSet('state',oldState.concat(nowState));
 	},
-	test:()=>{
+	save:async ()=>{
+		const createdAt=new Date();
+		State._save(store,createdAt);
+		State.apply(idLast());
+		console.log('saved at',idLast());
+	},
+	clear:()=> {
+		const length=State.getAll().length
+		localSet('state',[])
+		localSet('stateId',0)
+		console.info(`${length} records cleared`);
+	},
+	get test(){
+		return this
 	},
 }
 
@@ -82,4 +103,29 @@ const State={
 if(isDev) Object.assign(window,{localSet, localGet,State});
 
 // https://stackoverflow.com/a/30452949/1507207
-export default {...State}
+export default {...State};
+
+;(function() {
+    var lastTime = 0;
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] 
+                                   || window[vendors[x]+'CancelRequestAnimationFrame'];
+    }
+ 
+    if (!window.requestAnimationFrame)
+        window.requestAnimationFrame = function(callback, element) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+            var id = window.setTimeout(function() { callback(currTime + timeToCall); }, 
+              timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
+ 
+    if (!window.cancelAnimationFrame)
+        window.cancelAnimationFrame = function(id) {
+            clearTimeout(id);
+        };
+}());
