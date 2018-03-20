@@ -70,7 +70,7 @@ export const fetchGetCustomers=(_params)=>{
 		method==='contact' ?
 		dispatch(receiveContact(result)) : dispatch(receiveCustomers(result));
 		dispatchUI({status:'finished',method});
-		console.log('fetch',result);
+		// console.log('fetch',result);
 	}
 }
 

@@ -66,8 +66,10 @@ class CustomerList extends Component {
 	const dataFilter=(function (data,_keyword){
 		if(!_keyword) return data;
 		const keyword=new RegExp(_keyword,"i");
-		const match=keyword=>ele=> 
-			ele.GlobalCustName.search(keyword)>=0 || ele.custName.search(keyword)>=0;
+		const match=keyword=>ele=> {
+			const keys=["GlobalCustName", "globalCustNbr", "custName", "localCustNbr"];
+			return keys.some(key=>ele[key] && ele[key].search(keyword)>=0)
+		}
 		const filtered=data.filter(match(keyword));
 		return filtered;
 	})(data,UI.keyword);

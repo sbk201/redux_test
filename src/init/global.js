@@ -6,6 +6,8 @@ import store from '../index';
 export const mergeClone=(...arg)=>merge(...arg.map(clone));
 export const isDev=process.env.NODE_ENV==='development';
 
+export const uniqueArrKey = key => (ele, pos,self)=> self.findIndex(el2=>el2[key]===ele[key]) === pos;
+
 export const ranUnique=(_self,len,record)=>{
 	const self=Array.isArray(_self) ? _self : [_self];
 	const removeList=record.slice(-len);
