@@ -3,6 +3,11 @@ import {flow,merge,cloneDeep as clone} from "lodash";
 import {format as dateFormat} from 'date-fns'
 import store from '../index';
 
+global.cancelAnimationFrame = function(callback) {
+  setTimeout(callback, 0);
+};
+
+
 export const mergeClone=(...arg)=>merge(...arg.map(clone));
 export const isDev=process.env.NODE_ENV==='development';
 
@@ -98,4 +103,29 @@ const State={
 if(isDev) Object.assign(window,{localSet, localGet,State});
 
 // https://stackoverflow.com/a/30452949/1507207
-export default {...State}
+export default {...State};
+
+;(function() {
+    var lastTime = 0;
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] 
+                                   || window[vendors[x]+'CancelRequestAnimationFrame'];
+    }
+ 
+    if (!window.requestAnimationFrame)
+        window.requestAnimationFrame = function(callback, element) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+            var id = window.setTimeout(function() { callback(currTime + timeToCall); }, 
+              timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
+ 
+    if (!window.cancelAnimationFrame)
+        window.cancelAnimationFrame = function(id) {
+            clearTimeout(id);
+        };
+}());
