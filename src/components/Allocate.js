@@ -1,11 +1,13 @@
 import React from "react";
 import { Component } from 'react';
-import { Segment,Button,Modal,Grid,Input,Icon,Label } from 'semantic-ui-react'
+import { mergeClone } from '../init/global';
+import { Segment,Button,Modal,Grid,Input,Icon,Label,Message } from 'semantic-ui-react'
 class Allocate extends Component {
 	componentDidMount() {
+		this.props.updateUI({warning:false,confirm:false});
   	}
 	render(){
-	  	const {pageView,employee,customers,selectEmp,UI,updateUI}=this.props;
+	  	const {pageView,employee,customers,selectEmp,shareObj,UI,updateUI,updateShare}=this.props;
 	  	if(pageView!=='allocate') return <div></div>
 
 		const employeeList=employee.map((ele,i)=>{
@@ -18,7 +20,6 @@ class Allocate extends Component {
 			return <Button {...attr}/>
 		})
 
-
 		const ModalBtn = () => (
 			<Modal trigger={<Button>Select</Button>} style={{margin:'auto',marginTop:0}}>
 			<Modal.Header>Select Employees</Modal.Header>
@@ -27,13 +28,18 @@ class Allocate extends Component {
 			</Modal.Actions>
 			</Modal>
 		)
-		// const isHide=bool=>bool&&{style:{display:'none'}};
+		const isHide=bool=>bool&&{style:{display:'none'}};
 		const selectedEmp=employee.filter(ele=>ele.selected);
-		const onInput=(e,emp)=>{
-			const value=e.target.value;
-			const {GlobalEmpNbr}=emp;
-			// updateUI()
-		}
+		const messageShow=(function(){
+			const messageStyle={style:
+				{display: UI.warning ? '' : 'none',
+				textAlign:'center'},
+			}
+			const warning= (<Message warning {...messageStyle}> <p>{UI.message}</p> </Message>);
+			const confirmBtn=(<Button content="confirm" style={{width:"100%"}}/>);
+			if(UI.confirm) return confirmBtn;
+			if(UI.warning) return warning;
+		})();
 		return (
 			<div>
 			<h1>Allocate Customer</h1>
@@ -47,16 +53,30 @@ class Allocate extends Component {
 	  			<h2>Employee list</h2>
 	  			<ModalBtn/><br/><br/><br/>
 			    <Grid>
-			    	{selectedEmp.map((ele,i)=>
-			    		<Grid.Row key={i}>
-			    			<Grid.Column width={6}><Icon link name='cancel' onClick={()=>selectEmp(ele.GlobalEmpNbr)}/>{ele.GlobalEmpName}</Grid.Column>
-			    			<Grid.Column width={10}>
+			    	{selectedEmp.map((ele,i)=>{
+			    		const share=shareObj[ele.GlobalEmpNbr] || "";
+			    		const attrs={
+			    			value:share,
+			    			onChange: e=>updateShare({e,ele,theShareObj:shareObj}),
+			    		}
+			    		const employeeGrid=
+			    		(<Grid.Row key={i}>
+			    			<Grid.Column width={4}><Icon link name='cancel' onClick={()=>selectEmp(ele.GlobalEmpNbr)}/>{ele.GlobalEmpName}</Grid.Column>
+			    			<Grid.Column width={12}>
 			    				<Input labelPosition='right' type='text'>
-			    					<Label basic>%</Label> <input onChange={e=>onInput(e,ele)}/> 
+			    					<Label basic>%</Label> <input {...attrs}/> 
 		    				 	</Input>
 			    			</Grid.Column>
 			    		</Grid.Row>)
-			    	}
+			    		return employeeGrid
+		    		})}
+		    		<Grid.Row>
+		    			<Grid.Column width={4}></Grid.Column>
+		    			<Grid.Column width={8}>
+		    				{messageShow}
+  						</Grid.Column>
+		    			<Grid.Column width={4}></Grid.Column>
+		    		</Grid.Row>
 				</Grid>
 			</Segment>
 			</div>
