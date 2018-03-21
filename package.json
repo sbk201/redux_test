@@ -3,18 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ajv": "^6.2.1",
+    "ajv-keywords": "^3.1.0",
+    "axios": "^0.17.1",
     "date-fns": "^1.29.0",
+    "es6-shim": "^0.35.3",
     "loadash": "^1.0.0",
+    "raf-polyfill": "^1.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-scripts": "1.0.12",
     "redux": "^3.7.2",
-    "styled-components": "^2.2.4"
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
+    "semantic-ui-css": "^2.3.0",
+    "semantic-ui-react": "^0.78.3"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && rm -rf customerAllocation && mv build customerAllocation",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
