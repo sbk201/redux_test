@@ -10,6 +10,7 @@ export const selectCust=globalCustNbr=>({type: "SELECT_CUST", globalCustNbr});
 export const selectEmp=GlobalEmpNbr=>({type: "SELECT_EMP", GlobalEmpNbr});
 export const pickedSbu=sbu=>({type: "PICKED_SBU", sbu });
 export const pickedCountry=country=> ( {type: "PICKED_COUNTRY", country });
+export const updateShare=params=> ( {type: "UPDATE_SHARE", ...params });
 const link={
 	old:"http://localhost:5000/data",
 	sbu:"http://localhost:5000/allocation/sbu",
