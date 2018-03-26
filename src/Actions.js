@@ -11,6 +11,7 @@ export const selectEmp=GlobalEmpNbr=>({type: "SELECT_EMP", GlobalEmpNbr});
 export const pickedSbu=sbu=>({type: "PICKED_SBU", sbu });
 export const pickedCountry=country=> ( {type: "PICKED_COUNTRY", country });
 export const updateShare=params=> ( {type: "UPDATE_SHARE", ...params });
+export const nextView=view=>({type: "NEXT_VIEW", view });
 const link={
 	old:"http://localhost:5000/data",
 	sbu:"http://localhost:5000/allocation/sbu",
@@ -19,7 +20,8 @@ const link={
 	unCustomer:"http://localhost:5000/allocation/unassigned_cust",
 	contact:"http://localhost:5000/allocation/contact",
 	contact_cust:"http://localhost:5000/allocation/contact_cust",
-	sbu_employee:"http://localhost:5000/allocation/sbu_employee"
+	sbu_employee:"http://localhost:5000/allocation/sbu_employee",
+	delete_allocation:"http://localhost:5000/allocation/delete_allocation",
 }
 
 export const fetchSbus=()=>{
@@ -43,7 +45,19 @@ export const fetchContactCust=(params)=>{
 export const fetchEmployee=(params)=>{
 	return () => axios.get(link.sbu_employee,{params});
 };
-export const nextView=view=>({type: "NEXT_VIEW", view });
+export const deleteAllocation=(params)=>{
+	return () => axios.get(link.delete_allocation,{params});
+};
+
+export const editShare=(params)=>{
+	return async dispatch => {
+		const {customer,selectedEmp}=params;
+		const globalEmpNbr=selectedEmp.map(ele=>ele.GlobalEmpNbr);
+		const globalCustNbr=customer.map(ele=>ele.globalCustNbr);
+		const result=(await dispatch(deleteAllocation({globalCustNbr,globalEmpNbr}))).data;
+		console.log(result);
+	}
+}
 export const fetchMain=()=>{
 	return async dispatch => {
 		const dispatchUI= cmd=>dispatch(updateUI({contName:'Main',...cmd}));

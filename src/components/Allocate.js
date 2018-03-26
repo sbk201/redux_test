@@ -1,6 +1,6 @@
 import React from "react";
 import { Component } from 'react';
-import { mergeClone } from '../init/global';
+// import { mergeClone } from '../init/global';
 import { Segment,Button,Grid,Input,Icon,Label,Message } from 'semantic-ui-react'
 class Allocate extends Component {
 	componentDidMount() {
@@ -8,7 +8,7 @@ class Allocate extends Component {
   	}
 
 	render(){
-	  	const {pageView,employee,customers,selectEmp,shareObj,UI,updateUI,updateShare,updateShare2}=this.props;
+	  	const {pageView,employee,customers,selectEmp,updateShare,editShare}=this.props;
 	  	if(pageView!=='allocate') return <div></div>
 
 		const employeeList=employee.map((ele,i)=>{
@@ -28,7 +28,7 @@ class Allocate extends Component {
 	    			onChange: e=>{
 	    				const value=e.target.value|0;
 	    				const {GlobalEmpNbr}=ele;
-	    				updateShare2({GlobalEmpNbr,value})
+	    				updateShare({GlobalEmpNbr,value})
 	    			},
 	    		}
 	    		const employeeGrid=(
@@ -53,12 +53,10 @@ class Allocate extends Component {
 			const messageStyle={style:
 				{textAlign:'center'},
 			}
-			// const warning= totalShare!==100;
 			const confirm= totalShare===100;
 			const message= (<Message warning {...messageStyle}> <p>Total is {totalShare}%,it must be 100%</p> </Message>);
-			const confirmBtn=(<Button content="Submit" style={{width:"100%"}}/>);
+			const confirmBtn=(<Button content="Submit" style={{width:"100%"}} onClick={()=>editShare({customers,selectedEmp})}/>);
 			return confirm? confirmBtn : message ;
-			return <div style={{height:'4em'}}></div>
 		})();
 		return (
 			<div>
