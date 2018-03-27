@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
   const loading= UI.status==='loading';
   const finished= UI.status==='finished';
   const shareObj= UI.shareObj||{};
-  const {pageView,employee,customers:customers_}=state;
+  const {pageView,employee,customers:customers_,main:{pickedSbu}}=state;
   const customers=(function(){
     if(!customers_) return [];
     const selected= customers_.filter(ele=>ele.selected);
@@ -17,7 +17,7 @@ const mapStateToProps = (state) => {
   })();
 
   return {
-    pageView,employee,customers, shareObj,UI, status:{loading,finished}
+    pageView,pickedSbu,employee,customers, shareObj,UI, status:{loading,finished}
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -30,8 +30,8 @@ const mapDispatchToProps = (dispatch) => {
     },
     updateShare:params=>dispatch(updateShare(params)),
     editShare:params=>{
-      const {customers:customer, selectedEmp}=params;
-      dispatch(editShare({customer,selectedEmp}))
+      const {customers:customer, selectedEmp,pickedSbu:sbuid}=params;
+      dispatch(editShare({customer,selectedEmp,sbuid}))
     },
   }
 }

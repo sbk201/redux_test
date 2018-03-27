@@ -1,5 +1,6 @@
 import axios from "axios";
-// import store from "../index";
+import {isTest,dummyData} from './init/global';
+
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
 export const receiveSbus=sbus=>({type: "RECEIVE_SBUS", sbus });
 export const receiveCountries=countries=>({type: "RECEIVE_COUNTRIES", countries });
@@ -51,10 +52,13 @@ export const deleteAllocation=(params)=>{
 
 export const editShare=(params)=>{
 	return async dispatch => {
-		const {customer,selectedEmp}=params;
-		const globalEmpNbr=selectedEmp.map(ele=>ele.GlobalEmpNbr);
-		const globalCustNbr=customer.map(ele=>ele.globalCustNbr);
-		const result=(await dispatch(deleteAllocation({globalCustNbr,globalEmpNbr}))).data;
+		const {customer,selectedEmp,sbuid}=params;
+		const deleteFn=(function() {
+			const globalEmpNbr=selectedEmp.map(ele=>ele.GlobalEmpNbr);
+			const globalCustNbr=customer.map(ele=>ele.globalCustNbr);
+			return deleteAllocation({globalCustNbr,globalEmpNbr,sbuid});
+		})();
+		const result=(await dispatch(deleteFn)).data;
 		console.log(result);
 	}
 }
@@ -84,6 +88,7 @@ export const fetchGetCustomers=(_params)=>{
 		const result= (await dispatch(apiFun(params))).data;
 		method==='contact' ?
 		dispatch(receiveContact(result)) : dispatch(receiveCustomers(result));
+		if(isTest && method!=='contact') dispatch(receiveCustomers(dummyData.customers.concat(result)));
 		dispatchUI({status:'finished',method});
 		// console.log('fetch',result);
 	}
@@ -94,6 +99,7 @@ export const fetchGetEmployee=params=>{
 	return async dispatch => {
 		const employee=(await dispatch(fetchEmployee({sbu,country}))).data
 		dispatch(receiveEmployee(employee));
+		if(isTest) dispatch(receiveEmployee(dummyData.employee.concat(employee)));
 	}
 }
 export const afterSearchView=params=>{

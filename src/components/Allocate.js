@@ -8,7 +8,7 @@ class Allocate extends Component {
   	}
 
 	render(){
-	  	const {pageView,employee,customers,selectEmp,updateShare,editShare}=this.props;
+	  	const {pageView,pickedSbu,employee,customers,selectEmp,updateShare,editShare}=this.props;
 	  	if(pageView!=='allocate') return <div></div>
 
 		const employeeList=employee.map((ele,i)=>{
@@ -55,7 +55,7 @@ class Allocate extends Component {
 			}
 			const confirm= totalShare===100;
 			const message= (<Message warning {...messageStyle}> <p>Total is {totalShare}%,it must be 100%</p> </Message>);
-			const confirmBtn=(<Button content="Submit" style={{width:"100%"}} onClick={()=>editShare({customers,selectedEmp})}/>);
+			const confirmBtn=(<Button content="Submit" style={{width:"100%"}} onClick={()=>editShare({customers,selectedEmp,pickedSbu})}/>);
 			return confirm? confirmBtn : message ;
 		})();
 		return (

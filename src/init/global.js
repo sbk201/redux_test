@@ -10,6 +10,32 @@ global.cancelAnimationFrame = function(callback) {
 
 export const mergeClone=(...arg)=>merge(...arg.map(clone));
 export const isDev=process.env.NODE_ENV==='development';
+// to stop test mode,edit file .env or .env.local
+export const isTest= isDev && process.env.REACT_APP_TEST_MODE==='true';
+if(isTest) console.warn('Test mode on');
+
+export const dummyData={
+	customers:[
+		{"GlobalCustName": "_TestCust001", "globalCustNbr": "_ATEST001",
+		  "custName": "_testCust001", "localCustNbr": "999999"
+		}, {
+		  "GlobalCustName": "_TestCust002", "globalCustNbr": "_ATEST002",
+		  "custName": "_testCust002", "localCustNbr": "999998"
+		}, {
+		  "GlobalCustName": "_TestCust003", "globalCustNbr": "_ATEST003",
+		  "custName": "_testCust003", "localCustNbr": "999997"
+		}, {
+		  "GlobalCustName": "_TestCust004", "globalCustNbr": "_ATEST004",
+		  "custName": "_testCust004", "localCustNbr": "999996"
+		},
+	],
+	employee:[
+		{"GlobalEmpName": "Test emp1", "GlobalEmpNbr": "999999"},
+		{"GlobalEmpName": "Test emp2", "GlobalEmpNbr": "999998"},
+		{"GlobalEmpName": "Test emp3", "GlobalEmpNbr": "999997"},
+	]
+}
+
 
 export const uniqueArrKey = key => (ele, pos,self)=> self.findIndex(el2=>el2[key]===ele[key]) === pos;
 
