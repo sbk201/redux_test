@@ -1,13 +1,12 @@
 import React from "react";
 import { Component } from 'react';
-import { mergeClone } from '../init/global';
 import { Segment,Button,Modal,Grid,Input,Icon,Label,Message } from 'semantic-ui-react'
 class Allocate extends Component {
 	componentDidMount() {
 		this.props.updateUI({warning:false,confirm:false});
   	}
 	render(){
-	  	const {pageView,employee,customers,selectEmp,shareObj,UI,updateUI,updateShare}=this.props;
+	  	const {pageView,employee,customers,selectEmp,shareObj,UI,updateShare}=this.props;
 	  	if(pageView!=='allocate') return <div></div>
 
 		const employeeList=employee.map((ele,i)=>{
@@ -28,7 +27,6 @@ class Allocate extends Component {
 			</Modal.Actions>
 			</Modal>
 		)
-		const isHide=bool=>bool&&{style:{display:'none'}};
 		const selectedEmp=employee.filter(ele=>ele.selected);
 		const messageShow=(function(){
 			const messageStyle={style:

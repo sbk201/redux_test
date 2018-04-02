@@ -10,6 +10,9 @@ export const selectCust=globalCustNbr=>({type: "SELECT_CUST", globalCustNbr});
 export const selectEmp=GlobalEmpNbr=>({type: "SELECT_EMP", GlobalEmpNbr});
 export const pickedSbu=sbu=>({type: "PICKED_SBU", sbu });
 export const pickedCountry=country=> ( {type: "PICKED_COUNTRY", country });
+export const receiveMessage=message=>({type: "RECEIVE_MESSAGE", message });
+export const getMessage=message=>({type: "GET_MESSAGE", message });
+export const addMessage=message=> ( {type: "ADD_MESSAGE", ...message});
 const link={
 	old:"http://localhost:5000/data",
 	sbu:"http://localhost:5000/allocation/sbu",
@@ -18,7 +21,8 @@ const link={
 	unCustomer:"http://localhost:5000/allocation/unassigned_cust",
 	contact:"http://localhost:5000/allocation/contact",
 	contact_cust:"http://localhost:5000/allocation/contact_cust",
-	sbu_employee:"http://localhost:5000/allocation/sbu_employee"
+	sbu_employee:"http://localhost:5000/allocation/sbu_employee",
+	message:"http://localhost:5000/data",
 }
 
 export const fetchSbus=()=>{
@@ -42,7 +46,17 @@ export const fetchContactCust=(params)=>{
 export const fetchEmployee=(params)=>{
 	return () => axios.get(link.sbu_employee,{params});
 };
+export const fetchMessage=(params)=>{
+	return () => axios.get(link.message,{params});
+};
 export const nextView=view=>({type: "NEXT_VIEW", view });
+export const fetchGetMessage=()=>{
+	return async dispatch => {
+		const message=(await dispatch(fetchMessage())).data;
+		console.log('data get',message)
+		dispatch(receiveMessage(message));
+	}
+}
 export const fetchMain=()=>{
 	return async dispatch => {
 		const dispatchUI= cmd=>dispatch(updateUI({contName:'Main',...cmd}));
@@ -88,3 +102,23 @@ export const afterSearchView=params=>{
 		dispatch(fetchGetEmployee({sbu,country}));
 	}
 }
+
+const getMessageApi=()=>{
+	return axios.get(link.message);
+};
+const addMessageApi=(params)=>{
+	return axios.post(link.message,params);
+};
+export const smart=(function() {
+	return {
+		getMessage: ()=>async dispatch => {
+			const message=(await getMessageApi()).data;
+			dispatch(getMessage(message));
+			console.log('got message,',message)
+		},
+		addMessage: param=> async dispatch => {
+			const {text,date}=(await addMessageApi(param)).data;
+			dispatch(addMessage({text,date}));
+		}
+	}
+})();
