@@ -11,6 +11,9 @@ const message= (state = [], action) => {
   case "GET_MESSAGE":
   case "RECEIVE_MESSAGE":
   return action.message
+  case "DELETE_MESSAGE":
+  const exclude=ele=>ele._id!==action._id;
+  return state.filter(exclude);
   default:
     return state;
   }

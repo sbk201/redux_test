@@ -11,7 +11,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     // addMessage:text=>dispatch(addMessage(text)),
     addMessage:text=>dispatch(smart.addMessage({text})),
-    delMessage:id=>console.log(id),
+    delMessage:id=>dispatch(smart.delMessage(id)),
   }
 }
 
