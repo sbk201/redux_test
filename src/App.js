@@ -2,9 +2,6 @@ import { connect } from 'react-redux'
 import { updateUI,smart } from './Actions.js'
 import React, { Component } from "react";
 import "react-dom";
-
-// import CustomerListContainer from './containers/CustomerListContainer'
-// import AllocateContainer from './containers/AllocateContainer'
 import TodosContainer from './containers/TodosContainer'
 
 const mapStateToProps = (state) => {

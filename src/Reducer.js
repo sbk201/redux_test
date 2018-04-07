@@ -9,7 +9,6 @@ const message= (state = [], action) => {
   // return state
   return [...state,rest]
   case "GET_MESSAGE":
-  case "RECEIVE_MESSAGE":
   return action.message
   case "DELETE_MESSAGE":
   const exclude=ele=>ele._id!==action._id;
