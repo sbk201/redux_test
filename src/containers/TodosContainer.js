@@ -2,9 +2,11 @@ import { connect } from 'react-redux'
 import { updateUI,addMessage,smart } from '../Actions.js'
 import Todos from '../components/Todos'
 const contName="Todos";
-const mapStateToProps = (state) => {
+const mapStateToProps = (state,self) => {
   const {message}=state;
-  return {message}
+  const {children}=self;
+  // console.log(self)
+  return {message,children}
 }
 const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
