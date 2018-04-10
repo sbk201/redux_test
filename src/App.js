@@ -5,6 +5,7 @@ import "react-dom";
 import TodosContainer from './containers/TodosContainer'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import BasicExample from './components/BasicExample';
+import Member from './components/Member';
 
 const mapStateToProps = (state) => {
   return { }
@@ -43,12 +44,16 @@ class App extends Component {
 			<li>
 			  <Link to="/todos">Todos</Link>
 			</li>
+			<li>
+			  <Link to="/member">Member</Link>
+			</li>
 		</ul>
 		<hr />
 
 		<Route exact path="/" component={Home} />
 		<Route path="/about" component={About} />
 		<Route path="/todos" component={TodosContainer} />
+		<Route path="/member" component={Member} />
 	    </div>
 	</Router>
 			
