@@ -22,6 +22,7 @@ const link={
 	contact:"http://localhost:5000/allocation/contact",
 	contact_cust:"http://localhost:5000/allocation/contact_cust",
 	sbu_employee:"http://localhost:5000/allocation/sbu_employee",
+	add_allocation:"http://localhost:5000/allocation/add_allocation",
 	delete_allocation:"http://localhost:5000/allocation/delete_allocation",
 }
 
@@ -47,19 +48,26 @@ export const fetchEmployee=(params)=>{
 	return () => axios.get(link.sbu_employee,{params});
 };
 export const deleteAllocation=(params)=>{
-	return () => axios.get(link.delete_allocation,{params});
+	return axios.get(link.delete_allocation,{params});
+};
+export const addAllocation=(params)=>{
+	return axios.post(link.add_allocation,params);
 };
 
 export const editShare=(params)=>{
 	return async dispatch => {
 		const {customer,selectedEmp,sbuid}=params;
-		const deleteFn=(function() {
+		const globalCustNbr=customer.map(ele=>ele.globalCustNbr);
+		const deleteFn=()=>{
 			const globalEmpNbr=selectedEmp.map(ele=>ele.GlobalEmpNbr);
-			const globalCustNbr=customer.map(ele=>ele.globalCustNbr);
 			return deleteAllocation({globalCustNbr,globalEmpNbr,sbuid});
-		})();
-		const result=(await dispatch(deleteFn)).data;
-		console.log(result);
+		}
+		const addFn=()=>addAllocation({employee:selectedEmp,customerNbr:globalCustNbr,sbuID:sbuid});
+		console.log('selected Emp',selectedEmp)
+		const result=(await deleteFn()).data;
+		console.log('deleted',result);
+		const addResult=(await addFn()).data;
+		console.log('added',addResult);
 	}
 }
 export const fetchMain=()=>{

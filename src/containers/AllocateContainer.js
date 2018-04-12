@@ -33,6 +33,7 @@ const mapDispatchToProps = (dispatch) => {
       const {customers:customer, selectedEmp,pickedSbu:sbuid}=params;
       dispatch(editShare({customer,selectedEmp,sbuid}))
     },
+    
   }
 }
 
