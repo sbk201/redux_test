@@ -11,9 +11,8 @@ const mapStateToProps = (state,self) => {
 const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
-    // addMessage:text=>dispatch(addMessage(text)),
-    addMessage:text=>dispatch(smart.addMessage({text})),
-    delMessage:id=>dispatch(smart.delMessage(id)),
+    addMessage:text=>dispatch(smart.message.add({text})),
+    delMessage:id=>dispatch(smart.message.del(id)),
   }
 }
 

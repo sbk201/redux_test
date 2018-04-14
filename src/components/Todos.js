@@ -1,8 +1,7 @@
 import React from "react";
 import {format as dateFormat} from 'date-fns'
 
-const getProps=props=>{
-	const {message,addMessage,delMessage}=props;
+const getProps=({message,addMessage,delMessage})=>{
 	const onSubmit=e=>{
 		const text=e.target.value;
 		const isEnter= e.charCode===13;

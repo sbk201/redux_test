@@ -6,8 +6,11 @@ import store from '../index';
 global.cancelAnimationFrame = function(callback) {
   setTimeout(callback, 0);
 };
-
-
+export const rests=(obj,_keys)=> {
+	const keys= typeof _keys==='string' ? [_keys] : _keys;
+	return keys.reduce((acc,key)=> ({[key]:obj[key],...acc}),"");
+}
+export const loopObj=(obj,fn)=> Object.entries(obj).map(([key,value])=>fn(key,value));
 export const mergeClone=(...arg)=>merge(...arg.map(clone));
 export const isDev=process.env.NODE_ENV==='development';
 

@@ -17,6 +17,19 @@ const message= (state = [], action) => {
     return state;
   }
 };
+const users= (state = [], action) => {
+  switch (action.type) {
+  case "GET_USERS":
+  return action.users
+  case "ADD_USERS":
+    const {users}=action;
+    // console.log([...state,rest]);
+  // return state
+  return [users,...state]
+  default:
+    return state;
+  }
+};
 
 const localUI = (state = {}, action) => {
 	switch (action.type) {
@@ -31,7 +44,7 @@ const localUI = (state = {}, action) => {
 };
 
 const allReducers = combineReducers({
-  localUI,message
+  localUI,message,users
 })
 
 export default allReducers

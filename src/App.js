@@ -3,23 +3,23 @@ import { updateUI,smart } from './Actions.js'
 import React, { Component } from "react";
 import "react-dom";
 import TodosContainer from './containers/TodosContainer'
+import UsersContainer from './containers/UsersContainer'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import BasicExample from './components/BasicExample';
-import Member from './components/Member';
 
 const mapStateToProps = (state) => {
   return { }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetch:()=>dispatch(smart.getMessage()),
+    fetchMessage:()=>dispatch(smart.message.get()),
   }
 }
 
 class App extends Component {
  
   componentDidMount() {
-    this.props.fetch();
+    this.props.fetchMessage();
   }
 	render(){
 			// ${wraperCss}
@@ -45,7 +45,7 @@ class App extends Component {
 			  <Link to="/todos">Todos</Link>
 			</li>
 			<li>
-			  <Link to="/member">Member</Link>
+			  <Link to="/user">User</Link>
 			</li>
 		</ul>
 		<hr />
@@ -53,7 +53,7 @@ class App extends Component {
 		<Route exact path="/" component={Home} />
 		<Route path="/about" component={About} />
 		<Route path="/todos" component={TodosContainer} />
-		<Route path="/member" component={Member} />
+		<Route path="/user" component={UsersContainer} />
 	    </div>
 	</Router>
 			
