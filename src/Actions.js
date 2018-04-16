@@ -58,16 +58,13 @@ export const editShare=(params)=>{
 	return async dispatch => {
 		const {customer,selectedEmp,sbuid}=params;
 		const globalCustNbr=customer.map(ele=>ele.globalCustNbr);
-		const deleteFn=()=>{
-			const globalEmpNbr=selectedEmp.map(ele=>ele.GlobalEmpNbr);
-			return deleteAllocation({globalCustNbr,globalEmpNbr,sbuid});
-		}
+		const deleteFn=()=> deleteAllocation({globalCustNbr,sbuid});
 		const addFn=()=>addAllocation({employee:selectedEmp,customerNbr:globalCustNbr,sbuID:sbuid});
 		console.log('selected Emp',selectedEmp)
 		const result=(await deleteFn()).data;
-		console.log('deleted',result);
+		console.log('deleted',...result);
 		const addResult=(await addFn()).data;
-		console.log('added',addResult);
+		console.log('added',...addResult);
 	}
 }
 export const fetchMain=()=>{
