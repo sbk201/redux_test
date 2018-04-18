@@ -86,7 +86,7 @@ const employee = (state = [], action) => {
       const newState=state.map(toggleEmp);
       return newState
     }
-    case 'UPDATE_SHARE':{
+    case 'CHECK_SHARE':{
       const v1=action.value|0;
       const v2=v1|| 1;
       const value= v2>100 ? 100 : v2;

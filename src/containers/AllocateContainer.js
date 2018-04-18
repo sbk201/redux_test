@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { updateUI,selectEmp,updateShare,editShare } from '../Actions.js'
+import { smart,updateUI,selectEmp,checkShare } from '../Actions.js'
 import Allocate from '../components/Allocate'
 import { uniqueArrKey } from '../init/global';
 const contName="Allocate";
@@ -7,7 +7,6 @@ const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
   const loading= UI.status==='loading';
   const finished= UI.status==='finished';
-  const shareObj= UI.shareObj||{};
   const {pageView,employee,customers:customers_,main:{pickedSbu}}=state;
   const customers=(function(){
     if(!customers_) return [];
@@ -17,7 +16,7 @@ const mapStateToProps = (state) => {
   })();
 
   return {
-    pageView,pickedSbu,employee,customers, shareObj,UI, status:{loading,finished}
+    pageView,pickedSbu,employee,customers,UI, status:{loading,finished}
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -26,12 +25,12 @@ const mapDispatchToProps = (dispatch) => {
     updateUI:cmd=>dispatchUI(cmd),
     selectEmp:id=>{
       dispatch(selectEmp(id))
-      dispatch(updateShare({GlobalEmpNbr:id}))
+      dispatch(checkShare({GlobalEmpNbr:id}))
     },
-    updateShare:params=>dispatch(updateShare(params)),
+    checkShare:params=>dispatch(checkShare(params)),
     editShare:params=>{
       const {customers:customer, selectedEmp,pickedSbu:sbuid}=params;
-      dispatch(editShare({customer,selectedEmp,sbuid}))
+      dispatch(smart.editShare({customer,selectedEmp,sbuid}))
     },
     
   }

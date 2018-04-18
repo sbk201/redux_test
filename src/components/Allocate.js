@@ -8,7 +8,7 @@ class Allocate extends Component {
   	}
 
 	render(){
-	  	const {pageView,pickedSbu,employee,customers,selectEmp,updateShare,editShare}=this.props;
+	  	const {pageView,pickedSbu,employee,customers,selectEmp,checkShare,editShare}=this.props;
 	  	if(pageView!=='allocate') return <div></div>
 
 		const employeeList=employee.map((ele,i)=>{
@@ -28,7 +28,7 @@ class Allocate extends Component {
 	    			onChange: e=>{
 	    				const value=e.target.value|0;
 	    				const {GlobalEmpNbr}=ele;
-	    				updateShare({GlobalEmpNbr,value})
+	    				checkShare({GlobalEmpNbr,value})
 	    			},
 	    		}
 	    		const employeeGrid=(

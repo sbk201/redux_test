@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { updateUI,fetchMain,afterSearchView,pickedSbu,pickedCountry } from '../Actions.js'
+import { smart,updateUI,pickedSbu,pickedCountry } from '../Actions.js'
 import Main from '../components/Main'
 const contName="Main";
 const mapStateToProps = (state) => {
@@ -14,13 +14,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUI:cmd=>dispatch(updateUI({...cmd,contName})),
-    fetch1: ()=> dispatch(fetchMain()),
+    fetch1: ()=> dispatch(smart.fetchMain()),
     pickedItems:(items)=>{
       const {sbu,country}=items;
       dispatch(pickedSbu(sbu));
       dispatch(pickedCountry(country));
     },
-    fetchPrepare: params=>dispatch(afterSearchView(params))
+    fetchPrepare: params=>dispatch(smart.afterSearchView(params))
   }
 }
 
