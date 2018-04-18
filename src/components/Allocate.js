@@ -3,10 +3,6 @@ import { Component } from 'react';
 // import { mergeClone } from '../init/global';
 import { Segment,Button,Grid,Input,Icon,Label,Message } from 'semantic-ui-react'
 class Allocate extends Component {
-	componentDidMount() {
-		this.props.updateUI({warning:false,confirm:false});
-  	}
-
 	render(){
 	  	const {pageView,pickedSbu,employee,customers,selectEmp,checkShare,editShare}=this.props;
 	  	if(pageView!=='allocate') return <div></div>
@@ -50,9 +46,7 @@ class Allocate extends Component {
 			.reduce((acc,next)=>~~acc + ~~next , 0);
 		})();
 		const messageShow=(function(){
-			const messageStyle={style:
-				{textAlign:'center'},
-			}
+			const messageStyle={style: {textAlign:'center'}}
 			const confirm= totalShare===100;
 			const message= (<Message warning {...messageStyle}> <p>Total is {totalShare}%,it must be 100%</p> </Message>);
 			const confirmBtn=(<Button content="Submit" style={{width:"100%"}} onClick={()=>editShare({customers,selectedEmp,pickedSbu})}/>);
