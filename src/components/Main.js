@@ -5,12 +5,11 @@ import { Component } from 'react';
 class Main extends Component {
 	componentDidMount() {
 		this.props.fetch1()
-		// const that=this;
-		// setTimeout(function(){
-		// 	const dom=document.querySelectorAll('select')[1];
-		// 	if(!dom) return;
-		// 	dom.selectedIndex = 2;
-		// },2000)
+		setTimeout(function(){
+			const dom=document.querySelectorAll('select')[1];
+			if(!dom) return;
+			dom.selectedIndex = 2;
+		},2000)
   	}
   	// onEnter(e){
 		// const isEnter=e.keyCode===13;
