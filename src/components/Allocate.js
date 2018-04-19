@@ -14,7 +14,6 @@ class Allocate extends Component {
 			}
 			return <Button {...attr}/>
 		})
-		const selectedEmp=employee.filter(ele=>ele.selected);
 		const employeeGrid=(emp,i)=>{
 			const {GlobalEmpNbr,GlobalEmpName}=emp;
 			const attrs={
@@ -36,6 +35,7 @@ class Allocate extends Component {
 				</Segment> )
     		return grid
 		}
+		const selectedEmp=employee.filter(ele=>ele.selected);
 		const shareList=selectedEmp.map(employeeGrid);
 		const totalShare=(function() {
 			return selectedEmp.map(ele=>ele.value)
@@ -55,7 +55,6 @@ class Allocate extends Component {
 	render(){
 	  	const {pageView,customerList,employeeList,shareList,messageShow}=this.getProps(this.props);
 	  	if(pageView!=='allocate') return <div></div>
-		const isHide=bool=>bool&&{style:{display:'none'}};
 		return (
 			<div>
 			<h1>Allocate Customer</h1><hr/>

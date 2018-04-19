@@ -51,7 +51,7 @@ const fetchGetCustomers=_params=>{
 		const result= await apiFun(params);
 		method==='contact' ?
 		dispatch(receiveContact(result)) : dispatch(receiveCustomers(result));
-		if(isTest && method!=='contact') dispatch(receiveCustomers(dummyData.customers.concat(result)));
+		// if(isTest && method!=='contact') dispatch(receiveCustomers(dummyData.customers.concat(result)));
 		dispatchUI({status:'finished',method});
 		// console.log('fetch',result);
 	}

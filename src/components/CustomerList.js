@@ -15,97 +15,101 @@ class CustomerList extends Component {
 		const {GlobalEmpNbr:globalEmpNbr}=data;
 		this.props.fetchCust({method:'contact_cust',sbu,globalEmpNbr})
 	}
+	getProps(props){
+		const {updateUI,selectCust,nextView}=props
+  		const {pageView,contact,customers,UI,status:{finished}}=props;
+  		const method=UI.method;
+		const data= method==='contact' ? contact : customers;
+	  	if(data.length===0) return <div>No Result</div>;
+		const dataKey=(function(){
+			const obj=data[0];
+			const {selected,...rest}=obj;
+			const keys=Object.keys(rest);
+			return keys
+		})();
+	  			
+		const headerMatch=(function(){
+			const common={
+			  GlobalCustName:'Global Customer Name',
+			  globalCustNbr:'Global Customer Nbr',
+			  custName:'Local Customer Name',
+			  localCustNbr:'Local Customer Nbr'
+			};
+			const head={
+				unassigned :{
+				  GlobalCustName:'Customer Name',
+				  globalCustNbr:'Customer Number'
+				} ,
+				customer:common,
+				contact_cust:common,
+				contact:{
+				  GlobalEmpName:'Global Employee Name',
+				  GlobalEmpNbr:'Global Employee Number'
+				},
+			}[method];
+			return head
+		})();
+		
+	  	const onClickRow=(param)=> {
+	  		method==='contact' ?
+	  		this.fetchCust_(param) : selectCust(param.globalCustNbr);
+	  	}
+		const Count=()=>{
+			const selected=data.filter(ele=>ele.selected);
+			return data.length?
+			(<div>Results :{data.length} / Selected :{selected.length}</div>) :
+			(<div>No Results</div>)
+		};
+		const dataFilter=(function (data,_keyword){
+			if(!_keyword) return data;
+			const keyword=new RegExp(_keyword,"i");
+			const match=keyword=>ele=> {
+				const keys=["GlobalCustName", "globalCustNbr", "custName", "localCustNbr"];
+				return keys.some(key=>ele[key] && ele[key].search(keyword)>=0)
+			}
+			const filtered=data.filter(match(keyword));
+			return filtered;
+		})(data,UI.keyword);
+		const perItems=10;
+		const Pagination=()=>{
+			const attr={
+				totalPages:Math.ceil(dataFilter.length/perItems),
+				defaultActivePage:UI.page,
+				onPageChange:(_,d)=>updateUI({page:d.activePage})
+			};
+			return <PaginationUI {...attr}/>
+		}
+		const dataShow=(function(dataFilter){
+			const start=perItems*(UI.page-1);
+			const end=perItems*(UI.page)-1;
+			return dataFilter.slice(start,end);
+		})(dataFilter);
+	  	const tableParams=(function(){
+	  		const style={textAlign:'center',border: '1px black solid'}
+	  		const param={
+	  			name:'customer',
+		  		headObj:{
+		  			array:dataKey, style,
+					contentFn:ele=>headerMatch[ele],
+		  		},
+		  		bodyObj:{
+		  			array:dataShow, style,
+		  			clickFn:onClickRow
+		  		}
+		  	}
+		return param
+	  	})();
+		const setKeyword=e=>{
+			const keyword=e.target.value;
+			updateUI({keyword,page:1});
+		};	
+		return {pageView,nextView,finished,setKeyword,tableParams,Count,Pagination}
+	}
 	render(){
-  	const {updateUI,selectCust,nextView}=this.props;
-  	// const {pageView,contact,customers,UI,status:{loading,finished}}=this.props;
-  	const {pageView,contact,customers,UI,status:{finished}}=this.props;
+  	const {pageView,nextView,finished,setKeyword,tableParams,Count,Pagination}=this.getProps(this.props);
   	if(pageView!=='search') return <div></div>
   	if(!finished) return <div></div>;
-  	const method=UI.method;
-	const data= method==='contact' ? contact : customers;
-  	if(data.length===0) return <div>No Result</div>;
-	const dataKey=(function(){
-		const obj=data[0];
-		const {selected,...rest}=clone(obj);
-		const keys=Object.keys(rest);
-		return keys
-	})();
-  			
-	const headerMatch=(function(){
-		const common={
-		  GlobalCustName:'Global Customer Name',
-		  globalCustNbr:'Global Customer Nbr',
-		  custName:'Local Customer Name',
-		  localCustNbr:'Local Customer Nbr'
-		};
-		const head={
-			unassigned :{
-			  GlobalCustName:'Customer Name',
-			  globalCustNbr:'Customer Number'
-			} ,
-			customer:common,
-			contact_cust:common,
-			contact:{
-			  GlobalEmpName:'Global Employee Name',
-			  GlobalEmpNbr:'Global Employee Number'
-			},
-		}[method];
-		return head
-	})();
-	
-  	const onClickRow=(param)=> {
-  		method==='contact' ?
-  		this.fetchCust_(param) : selectCust(param.globalCustNbr);
-  	}
-	const Count=()=>{
-		const selected=data.filter(ele=>ele.selected);
-		return data.length?
-		(<div>Results :{data.length} / Selected :{selected.length}</div>) :
-		(<div>No Results</div>)
-	};
-	const dataFilter=(function (data,_keyword){
-		if(!_keyword) return data;
-		const keyword=new RegExp(_keyword,"i");
-		const match=keyword=>ele=> {
-			const keys=["GlobalCustName", "globalCustNbr", "custName", "localCustNbr"];
-			return keys.some(key=>ele[key] && ele[key].search(keyword)>=0)
-		}
-		const filtered=data.filter(match(keyword));
-		return filtered;
-	})(data,UI.keyword);
-	const perItems=10;
-	const Pagination=()=>{
-		const attributes={
-			totalPages:Math.ceil(dataFilter.length/perItems),
-			defaultActivePage:UI.page,
-			onPageChange:(_,d)=>updateUI({page:d.activePage})
-		};
-		return <PaginationUI {...attributes}/>
-	}
-	const dataShow=(function(dataFilter){
-		const start=perItems*(UI.page-1);
-		const end=perItems*(UI.page)-1;
-		return dataFilter.slice(start,end);
-	})(dataFilter);
-  	const tableParams=(function(){
-  		const style={textAlign:'center',border: '1px black solid'}
-  		const param={
-  			name:'customer',
-	  		headObj:{
-	  			array:dataKey, style,
-				contentFn:ele=>headerMatch[ele],
-	  		},
-	  		bodyObj:{
-	  			array:dataShow, style,
-	  			clickFn:onClickRow
-	  		}
-	  	}
-	return param
-  	})();
-	const setKeyword=e=>{
-		const keyword=e.target.value;
-		updateUI({keyword,page:1});
-	};
+  	
 	return (
 		<div>
 			<h1>Customer List</h1>
