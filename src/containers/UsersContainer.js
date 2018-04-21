@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import React, { Component } from "react";
 import { updateUI,smart } from '../Actions.js'
 import Users from '../components/Users'
-import {rests} from '../init/global';
+import {keeps} from '../init/global';
 const contName="Users";
 class UsersContainer extends Component {
   componentDidMount() {
@@ -10,18 +10,18 @@ class UsersContainer extends Component {
   }
   
   render(){
-    const rest=rests(this.props,"users")
+    const rest=keeps(this.props,"users")
     return (<Users {...rest}/>)
   }
 }
 const mapStateToProps = (state) => {
   // console.log(self)
-  return rests(state,"users")
+  return keeps(state,"users")
 }
 const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
-      fetch:()=>dispatch(smart.users.get())
+      fetch:()=>{dispatch(smart.users.get())}
     // addMessage:text=>dispatch(smart.addMessage({text})),
     // delMessage:id=>dispatch(smart.delMessage(id)),
   }

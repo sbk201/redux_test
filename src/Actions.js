@@ -42,8 +42,8 @@ export const smart=(function() {
 			},
 			add: ()=>async dispatch => {
 				const users=await addUsersApi();
-				dispatch(addUsers(users));
 				console.log('add')
+				dispatch(addUsers(users));
 				// const users=await addUsersApi();
 				// dispatch(getUsers(users));
 				// console.log('got users,',users);
