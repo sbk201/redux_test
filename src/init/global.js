@@ -7,7 +7,10 @@ global.cancelAnimationFrame = function(callback) {
   setTimeout(callback, 0);
 };
 
-
+export const skip=(obj,_keys)=> {
+	const keys= typeof _keys==='string' ? [_keys] : _keys;
+	return keys.reduce((acc,key)=> ({[key]:obj[key],...acc}),"");
+}
 export const mergeClone=(...arg)=>merge(...arg.map(clone));
 export const isDev=process.env.NODE_ENV==='development';
 // to stop test mode,edit file .env or .env.local

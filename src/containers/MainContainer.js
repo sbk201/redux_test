@@ -15,8 +15,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateUI:cmd=>dispatch(updateUI({...cmd,contName})),
     fetch1: ()=> dispatch(smart.fetchMain()),
-    pickedItems:(items)=>{
-      const {sbu,country}=items;
+    pickedItems:({sbu,country})=>{
       dispatch(pickedSbu(sbu));
       dispatch(pickedCountry(country));
     },
