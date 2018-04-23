@@ -21,8 +21,9 @@ const UserList=({users})=>{
 const Register=submit=>{
 	const log=e=>{
 		console.log(this);
+		// console.log(this.email.value);
 	}
-	const Input=({refer,...rest})=><input ref={ele=>this[refer]=ele} {...{...rest}}/>;
+	const Input=({refer,...rest})=><input ref={ele=>this[refer]=ele.value} {...{...rest}}/>;
 	
 	return(
 		<div>
