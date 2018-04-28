@@ -11,6 +11,7 @@ export const keeps=(obj,_keys)=> {
 	return keys.reduce((acc,key)=> ({[key]:obj[key],...acc}),"");
 }
 export const objMap=(obj,fn)=> Object.entries(obj).map(([key,value])=>fn(key,value));
+export const objLoop=(obj,fn)=> Object.entries(obj).reduce((acc,[key,va])=> ({...acc,...fn(key,va)}),{})
 export const mergeClone=(...arg)=>merge(...arg.map(clone));
 export const isDev=process.env.NODE_ENV==='development';
 

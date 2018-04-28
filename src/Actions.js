@@ -15,7 +15,7 @@ const getMessageApi=async ()=>(await axios.get(link.message)).data;
 const addMessageApi=async params=>(await axios.post(link.message,params)).data;
 const delMessageApi=async _id=>(await axios.delete(link.message,{data:{_id}})).data;
 const getUsersApi=async ()=>(await axios.get(link.users)).data;
-const addUsersApi=async params=>(await axios.post(link.users,{})).data;
+const addUsersApi=async params=>(await axios.post(link.users,params)).data;
 
 export const smart=(function() {
 	return {
@@ -40,8 +40,8 @@ export const smart=(function() {
 				dispatch(getUsers(users));
 				console.log('users',users);
 			},
-			add: ()=>async dispatch => {
-				const users=await addUsersApi();
+			add: param=>async dispatch => {
+				const users=await addUsersApi(param);
 				console.log('add')
 				dispatch(addUsers(users));
 				// const users=await addUsersApi();

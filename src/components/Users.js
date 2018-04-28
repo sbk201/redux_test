@@ -1,5 +1,5 @@
 import React from "react";
-import {objMap} from "../init/global";
+import {objMap,objLoop} from "../init/global";
 const getProps=({users})=>{
 
 	// const theMap=users.map(user=> objMap(user,(key,value)=>
@@ -18,27 +18,25 @@ const UserList=({users})=>{
 		<User {...user}/>
 		<hr/></div>))
 }
-const Register=submit=>{
-	const log=e=>{
-		console.log(this);
-		// console.log(this.email.value);
-	}
-	const Input=({refer,...rest})=><input ref={ele=>this[refer]=ele.value} {...{...rest}}/>;
+const Register=({addUser})=>{
+	const getValue=(obj)=>objLoop(obj,(key,va)=>({[key]:va.value}));
+	const submit=e=>addUser(getValue(this));
+	const Input=({refer,...rest})=><input ref={ele=>this[refer]=ele} {...{...rest}}/>;
 	
 	return(
 		<div>
 			<div>Email: <Input refer={"email"} defaultValue="abc@gmail.com"/></div>
 			<div>Username: <Input refer={"username"} defaultValue="jsiu"/></div>
 			<div>Password: <Input refer={"password"} defaultValue="passesword"/></div>
-			<button onClick={log}>Confirm</button>
+			<button onClick={submit}>Confirm</button>
 		</div>
 		)
 }
 const Users = props => {
-	const {users}=props;
+	const {users,addUser}=props;
 	return (<div>
     <h2>Users</h2>
-    <Register/>
+    <Register {...{addUser}}/>
     <hr/>
     <div>
     	<UserList {...{users}}/>

@@ -10,7 +10,7 @@ class UsersContainer extends Component {
   }
   
   render(){
-    const rest=keeps(this.props,"users")
+    const rest=keeps(this.props,["users",'addUser'])
     return (<Users {...rest}/>)
   }
 }
@@ -21,7 +21,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
-      fetch:()=>{dispatch(smart.users.get())}
+      fetch:()=>dispatch(smart.users.get()),
+      addUser:param=>dispatch(smart.users.add(param))
     // addMessage:text=>dispatch(smart.addMessage({text})),
     // delMessage:id=>dispatch(smart.delMessage(id)),
   }
