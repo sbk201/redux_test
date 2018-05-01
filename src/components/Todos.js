@@ -1,7 +1,7 @@
 import React from "react";
 import {format as dateFormat} from 'date-fns'
 
-const getProps=({message,addMessage,delMessage})=>{
+const getProps=({addMessage})=>{
 	const onSubmit=e=>{
 		const text=e.target.value;
 		const isEnter= e.charCode===13;
@@ -10,7 +10,7 @@ const getProps=({message,addMessage,delMessage})=>{
 			e.target.value='';
 		};
 	}
-	return {message,delMessage,onSubmit}
+	return {onSubmit}
 }
 
 const MessageList=({message,delMessage})=> {
@@ -24,7 +24,8 @@ const MessageList=({message,delMessage})=> {
 	return message.map((ele,i)=><Message {...ele} key={i}/>)
 }
 const Todos=props=>{
-	const {message,onSubmit,delMessage}=getProps(props);
+	const {message,delMessage}=props;
+	const {onSubmit}=getProps(props);
 	return (
 		<div>
 			<div><input placeholder="Your message..." onKeyPress={e=>onSubmit(e)}/></div><br/>

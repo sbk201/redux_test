@@ -5,8 +5,6 @@ const message= (state = [], action) => {
   switch (action.type) {
   case "ADD_MESSAGE":
     const {type,...rest}=action;
-    // console.log([...state,rest]);
-  // return state
   return [...state,rest]
   case "GET_MESSAGE":
   return action.message
@@ -23,9 +21,10 @@ const users= (state = [], action) => {
   return action.users
   case "ADD_USERS":
     const {users}=action;
-    // console.log([...state,rest]);
-  // return state
   return [users,...state]
+  case "DEL_USER":
+  const {_id:target}=action;
+  return state.filter(user=>user._id!==target)
   default:
     return state;
   }
