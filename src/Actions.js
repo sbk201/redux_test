@@ -1,7 +1,10 @@
 import axios from "axios";
 import {isTest,dummyData} from './init/global';
+import {offices} from "./data.json";
+
 
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
+const getOffices=offices=>({type: "GET_OFFICES", offices });
 const receiveSbus=sbus=>({type: "RECEIVE_SBUS", sbus });
 const receiveCountries=countries=>({type: "RECEIVE_COUNTRIES", countries });
 const receiveCustomers=customers=>({type: "RECEIVE_CUSTOMERS", customers });
@@ -14,18 +17,12 @@ export const pickedCountry=country=> ( {type: "PICKED_COUNTRY", country });
 export const checkShare=params=> ( {type: "CHECK_SHARE", ...params });
 export const nextView=view=>({type: "NEXT_VIEW", view });
 const link={
-	old:"http://localhost:5000/data",
+	orders:"http://localhost:5000/orders/officeList",
 	sbu:"http://localhost:5000/allocation/sbu",
-	country:"http://localhost:5000/allocation/country",
-	customer:"http://localhost:5000/allocation/assigned_cust",
-	unCustomer:"http://localhost:5000/allocation/unassigned_cust",
-	contact:"http://localhost:5000/allocation/contact",
-	contact_cust:"http://localhost:5000/allocation/contact_cust",
-	sbu_employee:"http://localhost:5000/allocation/sbu_employee",
-	add_allocation:"http://localhost:5000/allocation/add_allocation",
-	delete_allocation:"http://localhost:5000/allocation/delete_allocation",
 }
-
+window.axios=axios;
+// axios.get('/src/data.json',{}).then(res=>console.log('res is',res))
+const getOrdersApi=async () => (await axios.get(link.orders,{})).data;
 const getSbusApi=async () => (await axios.get(link.sbu,{})).data;
 const getCountriesApi=async () => (await axios.get(link.country,{})).data;
 const getUnassignedCustomerApi=async params => (await axios.get(link.unCustomer,{params})).data;
@@ -68,6 +65,20 @@ const fetchGetEmployee=params=>{
 
 export const smart=(function() {
 	return{
+		orders:{
+			get: ()=>async dispatch => {
+				const orders=await getOrdersApi();
+				// dispatch(getOrders(orders));
+				console.log('orders',orders);
+			}
+		},
+		offices:{
+			get: ()=>async dispatch => {
+				// const offices=await getOfficesApi();
+				dispatch(getOffices(offices.data));
+				// console.log('offices',offices);
+			}
+		},
 		fetchGetCustomers,
 		fetchMain:()=>{
 			return async dispatch => {
