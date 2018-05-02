@@ -34,8 +34,7 @@ const Main=props=>{
   	const {pageView,data:{sbus,countries}}=props;
   	const {search ,SbuList,CountryList}=getProps(props);
 	return (
-		<div>
-			<br/>
+		<div> <br/>
 			<Message>
 				<Message.Header>Select SBU</Message.Header>
 			 	<SbuList sbus={sbus}/>

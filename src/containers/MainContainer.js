@@ -17,8 +17,7 @@ class MainContainer extends Component {
   
   render(){
     const rest=keep(this.props,["pageView","data","updateUI", "pickedItems", "fetchSearch"])
-    console.log('render')
-    return (<Main {...rest}/>)
+    return <Main {...rest}/>
   }
 }
 const mapStateToProps = (state) => {
@@ -33,13 +32,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
-    updateUI:cmd=>dispatch(updateUI({...cmd,contName})),
+    updateUI:cmd=>dispatchUI({...cmd,contName}),
     fetch: ()=> dispatch(smart.fetchMain()),
+    fetchSearch: params=>dispatch(smart.afterSearchView(params)),
     pickedItems:({sbu,country})=>{
       dispatch(pickedSbu(sbu));
       dispatch(pickedCountry(country));
-    },
-    fetchSearch: params=>dispatch(smart.afterSearchView(params))
+    }
   }
 }
 
