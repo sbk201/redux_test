@@ -106,7 +106,8 @@ class CustomerList extends Component {
 		return {pageView,nextView,finished,setKeyword,tableParams,Count,Pagination}
 	}
 	render(){
-  	const {pageView,nextView,finished,setKeyword,tableParams,Count,Pagination}=this.getProps(this.props);
+  	const {pageView,nextView}=this.props;
+  	const {finished,setKeyword,tableParams,Count,Pagination}=this.getProps(this.props);
   	if(pageView!=='search') return <div></div>
   	if(!finished) return <div></div>;
   	

@@ -7,7 +7,7 @@ global.cancelAnimationFrame = function(callback) {
   setTimeout(callback, 0);
 };
 
-export const skip=(obj,_keys)=> {
+export const keep=(obj,_keys)=> {
 	const keys= typeof _keys==='string' ? [_keys] : _keys;
 	return keys.reduce((acc,key)=> ({[key]:obj[key],...acc}),"");
 }
