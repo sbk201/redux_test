@@ -42,12 +42,14 @@ export const smart=(function() {
 				dispatch(getUsers(users));
 			},
 			add: param=>async dispatch => {
-				const {user,error}=await addUsersApi(param);
-				if(error) {
-					return console.error(error)
-				}else{
-					dispatch(addUsers(user));
-				}
+				const user=await addUsersApi(param);
+				dispatch(addUsers(user));
+				// const {user,error}=await addUsersApi(param);
+				// if(error) {
+					// return console.error(error)
+				// }else{
+					// dispatch(addUsers(user));
+				// }
 			},
 			del: _id=>async dispatch => {
 				const fine=await delUserApi(_id);
