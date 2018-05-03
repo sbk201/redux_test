@@ -5,60 +5,13 @@ import { Button,Pagination as PaginationUI } from 'semantic-ui-react'
 import MyTable from './MyTable';
 import { Component } from 'react';
 class CustomerList extends Component {
-	componentDidMount() {
-		const updateUI=this.props.updateUI;
-		const page=this.props.UI.page || 1;
-		updateUI({page});
-	}
-	fetchCust_(data){
-		const {pickedSbu:sbu}=this.props;
-		const {GlobalEmpNbr:globalEmpNbr}=data;
-		this.props.fetchCust({method:'contact_cust',sbu,globalEmpNbr})
-	}
 	getProps(props){
-		const {updateUI,selectCust,nextView}=props
-  		const {pageView,contact,customers,UI,status:{finished}}=props;
+		const {updateUI,selectCust,fetchCust}=props
+  		const {contact,data,UI}=props;
   		const method=UI.method;
-		const data= method==='contact' ? contact : customers;
-	  	if(data.length===0) return <div>No Result</div>;
-		const dataKey=(function(){
-			const obj=data[0];
-			const {selected,...rest}=obj;
-			const keys=Object.keys(rest);
-			return keys
-		})();
-	  			
-		const headerMatch=(function(){
-			const common={
-			  GlobalCustName:'Global Customer Name',
-			  globalCustNbr:'Global Customer Nbr',
-			  custName:'Local Customer Name',
-			  localCustNbr:'Local Customer Nbr'
-			};
-			const head={
-				unassigned :{
-				  GlobalCustName:'Customer Name',
-				  globalCustNbr:'Customer Number'
-				} ,
-				customer:common,
-				contact_cust:common,
-				contact:{
-				  GlobalEmpName:'Global Employee Name',
-				  GlobalEmpNbr:'Global Employee Number'
-				},
-			}[method];
-			return head
-		})();
-		
-	  	const onClickRow=(param)=> {
-	  		method==='contact' ?
-	  		this.fetchCust_(param) : selectCust(param.globalCustNbr);
-	  	}
 		const Count=()=>{
 			const selected=data.filter(ele=>ele.selected);
-			return data.length?
-			(<div>Results :{data.length} / Selected :{selected.length}</div>) :
-			(<div>No Results</div>)
+			return (<div>Results :{data.length} / Selected :{selected.length}</div>);
 		};
 		const dataFilter=(function (data,_keyword){
 			if(!_keyword) return data;
@@ -74,17 +27,53 @@ class CustomerList extends Component {
 		const Pagination=()=>{
 			const attr={
 				totalPages:Math.ceil(dataFilter.length/perItems),
-				defaultActivePage:UI.page,
+				defaultActivePage:UI.page||1,
 				onPageChange:(_,d)=>updateUI({page:d.activePage})
 			};
 			return <PaginationUI {...attr}/>
 		}
-		const dataShow=(function(dataFilter){
-			const start=perItems*(UI.page-1);
-			const end=perItems*(UI.page)-1;
-			return dataFilter.slice(start,end);
-		})(dataFilter);
 	  	const tableParams=(function(){
+			const dataShow=(function(){
+				const start=perItems*(UI.page-1);
+				const end=perItems*(UI.page)-1;
+				return dataFilter.slice(start,end);
+			})();
+			const fetchCust_=(data)=>{
+				const {pickedSbu:sbu}=props;
+				const {GlobalEmpNbr:globalEmpNbr}=data;
+				fetchCust({method:'contact_cust',sbu,globalEmpNbr})
+			}
+		  	const onClickRow=(param)=> {
+		  		method==='contact' ?
+		  		fetchCust_(param) : selectCust(param.globalCustNbr);
+		  	}
+			const dataKey=(function(){
+				const obj=data[0];
+				const {selected,...rest}=obj;
+				const keys=Object.keys(rest);
+				return keys
+			})();
+			const headerMatch=(function(){
+				const common={
+				  GlobalCustName:'Global Customer Name',
+				  globalCustNbr:'Global Customer Nbr',
+				  custName:'Local Customer Name',
+				  localCustNbr:'Local Customer Nbr'
+				};
+				const head={
+					unassigned :{
+					  GlobalCustName:'Customer Name',
+					  globalCustNbr:'Customer Number'
+					} ,
+					customer:common,
+					contact_cust:common,
+					contact:{
+					  GlobalEmpName:'Global Employee Name',
+					  GlobalEmpNbr:'Global Employee Number'
+					},
+				}[method];
+				return head
+			})();
 	  		const style={textAlign:'center',border: '1px black solid'}
 	  		const param={
 	  			name:'customer',
@@ -97,19 +86,18 @@ class CustomerList extends Component {
 		  			clickFn:onClickRow
 		  		}
 		  	}
-		return param
+			return param
 	  	})();
 		const setKeyword=e=>{
 			const keyword=e.target.value;
 			updateUI({keyword,page:1});
 		};	
-		return {pageView,nextView,finished,setKeyword,tableParams,Count,Pagination}
+		return {setKeyword,tableParams,Count,Pagination}
 	}
 	render(){
   	const {pageView,nextView}=this.props;
-  	const {finished,setKeyword,tableParams,Count,Pagination}=this.getProps(this.props);
+  	const {setKeyword,tableParams,Count,Pagination}=this.getProps(this.props);
   	if(pageView!=='search') return <div></div>
-  	if(!finished) return <div></div>;
   	
 	return (
 		<div>
@@ -143,10 +131,6 @@ CustomerList.propTypes ={
     custName: PropTypes.string,
     globalCustNbr: PropTypes.string.isRequired,
     localCustNbr: PropTypes.string
-  }).isRequired),
-  status: PropTypes.shape({
-    finished: PropTypes.bool.isRequired,
-    loading: PropTypes.bool.isRequired
-  })
+  }).isRequired)
 }
 export default CustomerList;

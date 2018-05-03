@@ -45,13 +45,15 @@ const fetchGetCustomers=_params=>{
 		unassigned:getUnassignedCustomerApi,
 	}[method]
 	return async dispatch => {
-		const dispatchUI= cmd=>dispatch(updateUI({contName:'CustomerList',...cmd}));
+		const dispatchUI= cmd=>{
+			dispatch(updateUI({contName:'CustomerList',...cmd}))
+		};
 		dispatchUI({status:'loading'});
 
 		const result= await apiFun(params);
 		method==='contact' ?
 		dispatch(receiveContact(result)) : dispatch(receiveCustomers(result));
-		if(isTest && method!=='contact') dispatch(receiveCustomers(dummyData.customers.concat(result)));
+		// if(isTest && method!=='contact') dispatch(receiveCustomers(dummyData.customers.concat(result)));
 		dispatchUI({status:'finished',method});
 		// console.log('fetch',result);
 	}

@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
-import {keep} from '../init/global';
+import {pick} from 'lodash';
 import { smart,updateUI,pickedSbu,pickedCountry } from '../Actions.js'
-import Main from '../components/Main'
 import React, { Component } from "react";
+import Main from '../components/Main'
 const contName="Main";
 
 class MainContainer extends Component {
@@ -16,7 +16,7 @@ class MainContainer extends Component {
   }
   
   render(){
-    const rest=keep(this.props,["pageView","data","updateUI", "pickedItems", "fetchSearch"])
+    const rest=pick(this.props,["pageView","data","updateUI", "pickedItems", "fetchSearch"])
     return <Main {...rest}/>
   }
 }
