@@ -53,7 +53,8 @@ class Allocate extends Component {
 		return  {...props,customerList,employeeList,selectedEmp,shareList,totalShare,messageShow}
 	}
 	render(){
-	  	const {pageView,customerList,employeeList,shareList,messageShow}=this.getProps(this.props);
+		const {pageView}=this.props;
+	  	const {customerList,employeeList,shareList,messageShow}=this.getProps(this.props);
 	  	if(pageView!=='allocate') return <div></div>
 		return (
 			<div>

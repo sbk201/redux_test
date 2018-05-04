@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { Message,Button } from 'semantic-ui-react'
-import { Component } from 'react';
 const getProps=props=>{
 	const search=(method,input)=>{
 		const {pickedItems ,fetchSearch}=props;
@@ -31,7 +30,7 @@ const getProps=props=>{
 	return {search ,SbuList,CountryList}
 }
 const Main=props=>{
-  	const {pageView,data:{sbus,countries}}=props;
+  	const {data:{sbus,countries}}=props;
   	const {search ,SbuList,CountryList}=getProps(props);
 	return (
 		<div> <br/>

@@ -6,17 +6,21 @@ import Main from '../components/Main'
 const contName="Main";
 
 class MainContainer extends Component {
-  shouldComponentUpdate(){
+  shouldComponentUpdate(nextProps){
+    // won't update
     const {sbus,countries}=this.props.data;
     const loaded=sbus&&countries;
-    return !loaded
+    const newView= nextProps.pageView==='search'
+    return !loaded|| !newView
   }
   componentDidMount() {
     this.props.fetch();
   }
   
   render(){
-    const rest=pick(this.props,["pageView","data","updateUI", "pickedItems", "fetchSearch"])
+    const {pageView}=this.props;
+    if(pageView!=='search') return <div></div>;
+    const rest=pick(this.props,["data","updateUI", "pickedItems", "fetchSearch"])
     return <Main {...rest}/>
   }
 }
@@ -26,7 +30,7 @@ const mapStateToProps = (state) => {
   const finished= UI.status==='finished';
   const {pageView}=state;
   return {
-    data:state.main,pageView, UI, status:{loading,finished}
+    data:state.main,pageView, UI, loading,finished
   }
 }
 const mapDispatchToProps = (dispatch) => {

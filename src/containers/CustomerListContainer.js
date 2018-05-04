@@ -13,10 +13,10 @@ class CustomerListContainer extends Component {
   }
   
   render(){
-    const {finished,data}=this.props;
-    if(!finished) return <div></div>;
+    const {finished,pageView,data}=this.props;
+    if(!finished || pageView!=='search') return <div></div>;
     if(!data.length) return <div>No Results</div>
-    const rest=pick(this.props,["pageView","pickedSbu","pickedCountry","data","UI", "status","updateUI" ,"fetchCust" ,"selectCust" ,"nextView" ])
+    const rest=pick(this.props,["pickedSbu","pickedCountry","data","UI", "status","updateUI" ,"fetchCust" ,"selectCust" ,"nextView" ])
     return <CustomerList {...rest}/>
   }
 }
