@@ -5,7 +5,6 @@ import { combineReducers } from 'redux';
 const pageView = (state = "search", action) => {
   switch (action.type) {
     case 'NEXT_VIEW':
-      console.log('change view to '+action.view)
     	return action.view;
     default:
       return state;

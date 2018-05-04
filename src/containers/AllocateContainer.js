@@ -1,8 +1,18 @@
 import { connect } from 'react-redux'
 import { smart,updateUI,selectEmp,checkShare } from '../Actions.js'
 import Allocate from '../components/Allocate'
+import {pick} from 'lodash';
+import React, { Component } from "react";
 import { uniqueArrKey } from '../init/global';
 const contName="Allocate";
+class AllocateContainer extends Component {
+  render(){
+    const {pageView}=this.props;
+    if(pageView!=='allocate') return <div></div>;
+    const rest=pick(this.props,["pageView","pickedSbu","employee","customers","UI","finished","updateUI","selectEmp", "checkShare", "editShare"])
+    return <Allocate {...rest}/>
+  }
+}
 const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
   const loading= UI.status==='loading';
@@ -39,4 +49,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Allocate)
+)(AllocateContainer)
