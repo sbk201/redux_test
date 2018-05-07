@@ -1,6 +1,7 @@
 import React from "react";
 // import PropTypes from "prop-types";
 import { Message,Button } from 'semantic-ui-react'
+
 const getProps=props=>{
 	const search=(method,input)=>{
 		const {pickedItems ,fetchSearch}=props;
@@ -10,12 +11,12 @@ const getProps=props=>{
 		fetchSearch({sbu,country,method});
 	}
   	const SbuList=({sbus=[]})=>{
-	  	const attr=({SbuID})=>({
-	  		key:SbuID,
-	  		value:SbuID
+	  	const attr=({sbuID})=>({
+	  		key:sbuID,
+	  		value:sbuID
 	  	});
   		return (<select ref={ele=>this.sbu=ele}>
-  		  		{sbus.map(ele=> <option {...attr(ele)}>{ele.SbuName}</option>)}
+  		  		{sbus.map(ele=> <option {...attr(ele)}>{ele.sbuName}</option>)}
 	 		</select>)
  	}
   	const CountryList=({countries=[]})=>{

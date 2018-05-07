@@ -14,7 +14,7 @@ const getProps=props=>{
 		if(!_keyword) return data;
 		const keyword=new RegExp(_keyword,"i");
 		const match=keyword=>ele=> {
-			const keys=["GlobalCustName", "globalCustNbr", "custName", "localCustNbr"];
+			const keys=["globalCustName", "globalCustNbr", "custName", "localCustNbr"];
 			return keys.some(key=>ele[key] && ele[key].search(keyword)>=0)
 		}
 		const filtered=data.filter(match(keyword));
@@ -37,7 +37,7 @@ const getProps=props=>{
 		})();
 		const fetchCust_=(data)=>{
 			const {pickedSbu:sbu}=props;
-			const {GlobalEmpNbr:globalEmpNbr}=data;
+			const {globalEmpNbr}=data;
 			fetchCust({method:'contact_cust',sbu,globalEmpNbr})
 		}
 	  	const onClickRow=(param)=> {
@@ -52,21 +52,21 @@ const getProps=props=>{
 		})();
 		const headerMatch=(function(){
 			const common={
-			  GlobalCustName:'Global Customer Name',
+			  globalCustName:'Global Customer Name',
 			  globalCustNbr:'Global Customer Nbr',
 			  custName:'Local Customer Name',
 			  localCustNbr:'Local Customer Nbr'
 			};
 			const head={
 				unassigned :{
-				  GlobalCustName:'Customer Name',
+				  globalCustName:'Customer Name',
 				  globalCustNbr:'Customer Number'
 				} ,
 				customer:common,
 				contact_cust:common,
 				contact:{
-				  GlobalEmpName:'Global Employee Name',
-				  GlobalEmpNbr:'Global Employee Number'
+				  globalEmpName:'Global Employee Name',
+				  globalEmpNbr:'Global Employee Number'
 				},
 			}[method];
 			return head
@@ -116,11 +116,11 @@ CustomerList.propTypes ={
     status: PropTypes.string
   }),
   contact: PropTypes.arrayOf(PropTypes.shape({
-    GlobalEmpName: PropTypes.string.isRequired,
-    GlobalEmpNbr: PropTypes.string.isRequired
+    globalEmpName: PropTypes.string.isRequired,
+    globalEmpNbr: PropTypes.string.isRequired
   }).isRequired),
   customers: PropTypes.arrayOf(PropTypes.shape({
-    GlobalCustName: PropTypes.string.isRequired,
+    globalCustName: PropTypes.string.isRequired,
     custName: PropTypes.string,
     globalCustNbr: PropTypes.string.isRequired,
     localCustNbr: PropTypes.string

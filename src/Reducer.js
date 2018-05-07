@@ -76,9 +76,9 @@ const employee = (state = [], action) => {
     case 'RECEIVE_EMPLOYEE':
       return action.employee;
     case 'SELECT_EMP':{
-      const id=action.GlobalEmpNbr;
+      const id=action.globalEmpNbr;
       const toggleEmp=ele=>{
-        const isTarget= ele.GlobalEmpNbr===id;
+        const isTarget= ele.globalEmpNbr===id;
         const newStatus=!ele.selected;
         if(isTarget) return mergeClone(ele,{selected:newStatus});
       return ele
@@ -91,7 +91,7 @@ const employee = (state = [], action) => {
       const v2=v1|| 1;
       const value= v2>100 ? 100 : v2;
       const newState=state.slice().map(ele=>{
-        if(ele.GlobalEmpNbr===action.GlobalEmpNbr) return mergeClone(ele,{value})
+        if(ele.globalEmpNbr===action.globalEmpNbr) return mergeClone(ele,{value})
           return ele
       })
       return newState;

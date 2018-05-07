@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch) => {
     updateUI:cmd=>dispatchUI(cmd),
     selectEmp:id=>{
       dispatch(selectEmp(id))
-      dispatch(checkShare({GlobalEmpNbr:id}))
+      dispatch(checkShare({globalEmpNbr:id}))
     },
     checkShare:params=>dispatch(checkShare(params)),
     editShare:params=>{

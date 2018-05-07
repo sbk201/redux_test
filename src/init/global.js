@@ -3,10 +3,9 @@ import {flow,merge,cloneDeep as clone} from "lodash";
 import {format as dateFormat} from 'date-fns'
 import store from '../index';
 
-global.cancelAnimationFrame = function(callback) {
-  setTimeout(callback, 0);
-};
 
+export const objMap=(obj,fn)=> Object.entries(obj).map(([key,value])=>fn(key,value));
+export const objLoop=(obj,fn)=> Object.entries(obj).reduce((acc,[key,va])=> ({...acc,...fn(key,va)}),{})
 export const mergeClone=(...arg)=>merge(...arg.map(clone));
 export const isDev=process.env.NODE_ENV==='development';
 // to stop test mode,edit file .env or .env.local
@@ -15,23 +14,23 @@ if(isTest) console.warn('Test mode on');
 
 export const dummyData={
 	customers:[
-		{"GlobalCustName": "_TestCust001", "globalCustNbr": "_ATEST001",
+		{"globalCustName": "_TestCust001", "globalCustNbr": "_ATEST001",
 		  "custName": "_testCust001", "localCustNbr": "999999"
 		}, {
-		  "GlobalCustName": "_TestCust002", "globalCustNbr": "_ATEST002",
+		  "globalCustName": "_TestCust002", "globalCustNbr": "_ATEST002",
 		  "custName": "_testCust002", "localCustNbr": "999998"
 		}, {
-		  "GlobalCustName": "_TestCust003", "globalCustNbr": "_ATEST003",
+		  "globalCustName": "_TestCust003", "globalCustNbr": "_ATEST003",
 		  "custName": "_testCust003", "localCustNbr": "999997"
 		}, {
-		  "GlobalCustName": "_TestCust004", "globalCustNbr": "_ATEST004",
+		  "globalCustName": "_TestCust004", "globalCustNbr": "_ATEST004",
 		  "custName": "_testCust004", "localCustNbr": "999996"
 		},
 	],
 	employee:[
-		{"GlobalEmpName": "Test emp1", "GlobalEmpNbr": "999999"},
-		{"GlobalEmpName": "Test emp2", "GlobalEmpNbr": "999998"},
-		{"GlobalEmpName": "Test emp3", "GlobalEmpNbr": "999997"},
+		{"globalEmpName": "Test emp1", "globalEmpNbr": "999999"},
+		{"globalEmpName": "Test emp2", "globalEmpNbr": "999998"},
+		{"globalEmpName": "Test emp3", "globalEmpNbr": "999997"},
 	]
 }
 
@@ -131,6 +130,9 @@ if(isDev) Object.assign(window,{localSet, localGet,State});
 export default {...State};
 
 ;(function ie9Polyfill() {
+	global.cancelAnimationFrame = function(callback) {
+	  setTimeout(callback, 0);
+	};
 	(function requestAnimationFrame() {
 		var lastTime = 0;
 	    var vendors = ['ms', 'moz', 'webkit', 'o'];

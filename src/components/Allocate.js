@@ -17,14 +17,14 @@ const getProps=props=>{
 	return  {messageShow}
 }
 const CustomerList=({customers})=>customers.map((ele,i)=>
-	<Grid.Row key={i}><Grid.Column>{ele.GlobalCustName} ({ele.globalCustNbr})</Grid.Column></Grid.Row>
+	<Grid.Row key={i}><Grid.Column>{ele.globalCustName} ({ele.globalCustNbr})</Grid.Column></Grid.Row>
 );
 const EmployeeList=({employee,selectEmp})=>{
 	const button=(ele,i)=>{
 		const attr={
-			content:ele.GlobalEmpName,
+			content:ele.globalEmpName,
 			style:{width:"47%",margin: "0.5em 1%",float:'left'},
-			onClick:()=>selectEmp(ele.GlobalEmpNbr),
+			onClick:()=>selectEmp(ele.globalEmpNbr),
 			key:i,active:ele.selected
 		}
 		return <Button {...attr}/>
@@ -33,19 +33,19 @@ const EmployeeList=({employee,selectEmp})=>{
 }
 const ShareList=({employee,selectEmp,checkShare})=>{
 	const employeeGrid=(emp,i)=>{
-		const {GlobalEmpNbr,GlobalEmpName}=emp;
+		const {globalEmpNbr,globalEmpName}=emp;
 		const attrs={
 			value:emp.value,
 			onChange: e=>{
 				const value=e.target.value|0;
-				const {GlobalEmpNbr}=emp;
-				checkShare({GlobalEmpNbr,value})
+				const {globalEmpNbr}=emp;
+				checkShare({globalEmpNbr,value})
 			},
 		}
 		const grid=(
 			<Segment key={i} style={{flexGrow:0}}>
 				<span>
-					<Icon link name='cancel' onClick={()=>selectEmp(GlobalEmpNbr)}/>{GlobalEmpName}
+					<Icon link name='cancel' onClick={()=>selectEmp(globalEmpNbr)}/>{globalEmpName}
 				</span>
 				<Input labelPosition='right' type='text' style={{float:'right'}}>
 					<Label basic>%</Label> <input {...attrs}/> 
