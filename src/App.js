@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "react-dom";
 import MainContainer from './containers/MainContainer'
-import CustomerListContainer from './containers/CustomerListContainer'
+import AdminContainer from './containers/AdminContainer'
 import AllocateContainer from './containers/AllocateContainer'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class App extends Component {
 	render(){
@@ -12,18 +13,19 @@ class App extends Component {
 				// grid-template-columns: 1fr 10em;
   			// }
 		return (
-			<div>
-				<h1>Cook Customer Contact Allocation</h1>
-				<MainContainer/><br/>
-				<CustomerListContainer/>
-				<AllocateContainer/>
-			</div>
-			
+			<Router>
+				<div>
+					<h1>Cook Customer Contact Allocation</h1>
+					<Route exact path="/" component={MainContainer} />
+					<Route path="/allocate" component={AllocateContainer} />
+					<Route path="/admin" component={AdminContainer} />
+				</div>
+			</Router>
 		);
 	}
 }
-			
-			
+
+
 			
 
 export default App;

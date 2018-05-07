@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import {pick} from 'lodash';
 import { smart,updateUI,pickedSbu,pickedCountry } from '../Actions.js'
 import React, { Component } from "react";
+import CustomerListContainer from './CustomerListContainer'
 import Main from '../components/Main'
 const contName="Main";
 
@@ -10,27 +11,23 @@ class MainContainer extends Component {
     // won't update
     const {sbus,countries}=this.props.data;
     const loaded=sbus&&countries;
-    const newView= nextProps.pageView==='search'
-    return !loaded|| !newView
+    return !loaded
   }
   componentDidMount() {
     this.props.fetch();
   }
   
   render(){
-    const {pageView}=this.props;
-    if(pageView!=='search') return <div></div>;
     const rest=pick(this.props,["data","updateUI", "pickedItems", "fetchSearch"])
-    return <Main {...rest}/>
+    return <div><Main {...rest}/><CustomerListContainer/></div>
   }
 }
 const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
   const loading= UI.status==='loading';
   const finished= UI.status==='finished';
-  const {pageView}=state;
   return {
-    data:state.main,pageView, UI, loading,finished
+    data:state.main, UI, loading,finished
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -50,31 +47,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(MainContainer)
-
-
-
-// const mapStateToProps = (state) => {
-//   const UI=state.localUI[contName] || {};
-//   const loading= UI.status==='loading';
-//   const finished= UI.status==='finished';
-//   const {pageView}=state;
-//   return {
-//     data:state.main,pageView, UI, status:{loading,finished}
-//   }
-// }
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     updateUI:cmd=>dispatch(updateUI({...cmd,contName})),
-//     fetch1: ()=> dispatch(smart.fetchMain()),
-//     pickedItems:({sbu,country})=>{
-//       dispatch(pickedSbu(sbu));
-//       dispatch(pickedCountry(country));
-//     },
-//     fetchPrepare: params=>dispatch(smart.afterSearchView(params))
-//   }
-// }
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(Main)

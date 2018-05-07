@@ -13,8 +13,8 @@ class CustomerListContainer extends Component {
   }
   
   render(){
-    const {finished,pageView,data}=this.props;
-    if(!finished || pageView!=='search') return <div></div>;
+    const {finished,data}=this.props;
+    if(!finished) return <div></div>;
     if(!data.length) return <div>No Results</div>
     const rest=pick(this.props,["pickedSbu","pickedCountry","data","UI", "status","updateUI" ,"fetchCust" ,"selectCust" ,"nextView" ])
     return <CustomerList {...rest}/>
@@ -27,7 +27,7 @@ const mapStateToProps = (state,ownProps) => {
   const {pickedSbu,pickedCountry}=state.main;
   const loading= UI.status==='loading';
   const finished= UI.status==='finished';
-  const {contact,customers,pageView}=state;
+  const {contact,customers}=state;
 
   const data=(function () {
     const customers_=(function() {
@@ -39,7 +39,7 @@ const mapStateToProps = (state,ownProps) => {
     return UI.method==='contact' ? contact : customers_;  
   })();
   return {
-    pageView,pickedSbu,pickedCountry,data,UI, loading,finished
+    pickedSbu,pickedCountry,data,UI, loading,finished
   }
 }
 const mapDispatchToProps = (dispatch) => {

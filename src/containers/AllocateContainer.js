@@ -6,10 +6,13 @@ import React, { Component } from "react";
 import { uniqueArrKey } from '../init/global';
 const contName="Allocate";
 class AllocateContainer extends Component {
+  componentDidMount(){
+    const {customers,history}=this.props;    
+    const noData=customers.length<=0;
+    if(noData) history.push('/');
+  }
   render(){
-    const {pageView}=this.props;
-    if(pageView!=='allocate') return <div></div>;
-    const rest=pick(this.props,["pageView","pickedSbu","employee","customers","UI","finished","updateUI","selectEmp", "checkShare", "editShare"])
+    const rest=pick(this.props,["pickedSbu","employee","customers","UI","finished","updateUI","selectEmp", "checkShare", "editShare"])
     return <Allocate {...rest}/>
   }
 }
@@ -17,7 +20,7 @@ const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
   const loading= UI.status==='loading';
   const finished= UI.status==='finished';
-  const {pageView,employee,customers:customers_,main:{pickedSbu}}=state;
+  const {employee,customers:customers_,main:{pickedSbu}}=state;
   const customers=(function(){
     if(!customers_) return [];
     const selected= customers_.filter(ele=>ele.selected);
@@ -26,7 +29,7 @@ const mapStateToProps = (state) => {
   })();
 
   return {
-    pageView,pickedSbu,employee,customers,UI, status:{loading,finished}
+    pickedSbu,employee,customers,UI, status:{loading,finished}
   }
 }
 const mapDispatchToProps = (dispatch) => {

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button,Pagination as PaginationUI } from 'semantic-ui-react'
+import { Link } from "react-router-dom";
 import MyTable from './MyTable';
 const getProps=props=>{
 	const {updateUI,selectCust,fetchCust}=props
@@ -92,7 +93,6 @@ const getProps=props=>{
 	return {setKeyword,tableParams,Count,Pagination}
 }
 const CustomerList=props=>{
-	const {nextView}=props;
   	const {setKeyword,tableParams,Count,Pagination}=getProps(props);
 	return (
 		<div>
@@ -101,7 +101,7 @@ const CustomerList=props=>{
 			<Count/>
 			<Pagination/><br/>
 			Filter <input onChange={setKeyword}/><br/>
-			<Button content="Submit" color="blue" onClick={()=>nextView('allocate')}/>
+			<Link to="/allocate"><Button content="Submit" color="blue"/></Link>
 			<MyTable {...tableParams}/>
 			<Pagination/>
 		</div>

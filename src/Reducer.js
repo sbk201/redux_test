@@ -1,16 +1,6 @@
 import {mergeClone} from './init/global'
 import { combineReducers } from 'redux';
 
-
-const pageView = (state = "search", action) => {
-  switch (action.type) {
-    case 'NEXT_VIEW':
-    	return action.view;
-    default:
-      return state;
-  }
-}
-
 const main = (state = {}, action) => {
   switch (action.type) {
     case 'RECEIVE_SBUS':
@@ -102,7 +92,7 @@ const employee = (state = [], action) => {
 }
 
 const allReducers = combineReducers({
-  localUI,pageView, main, contact, customers,employee
+  localUI, main, contact, customers,employee
 })
 
 export default allReducers
