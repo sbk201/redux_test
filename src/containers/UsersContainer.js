@@ -11,6 +11,8 @@ class UsersContainer extends Component {
   
   render(){
     const rest=keeps(this.props,["users",'addUser','delUser'])
+    if(!this.props.users) return <div>Loading</div>
+      console.log(this.props.users);
     return (<Users {...rest}/>)
   }
 }
@@ -24,6 +26,7 @@ const mapDispatchToProps = (dispatch) => {
       fetch:()=>dispatch(smart.users.get()),
       addUser:param=>dispatch(smart.users.add(param)),
       delUser:param=>dispatch(smart.users.del(param)),
+      dispatchUI,
   }
 }
 

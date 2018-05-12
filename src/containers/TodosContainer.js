@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { updateUI,addMessage,smart } from '../Actions.js'
+import { updateUI,smart } from '../Actions.js'
 import Todos from '../components/Todos'
 const contName="Todos";
 const mapStateToProps = (state,self) => {
@@ -13,6 +13,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addMessage:text=>dispatch(smart.message.add({text})),
     delMessage:id=>dispatch(smart.message.del(id)),
+    dispatchUI,
   }
 }
 
