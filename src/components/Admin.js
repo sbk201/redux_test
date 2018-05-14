@@ -6,7 +6,8 @@ const getProps=props=>{
 	
 }
 const Admin=props=>{
-  	// const {data:{sbus,countries}}=props;
+  	const {gcnCustomers}=props;
+  	console.log('from Admin',gcnCustomers)
   	// const {search ,SbuList,CountryList}=getProps(props);
 	return (
 		<div> 

@@ -7,28 +7,28 @@ const contName="Admin";
 
 class AdminContainer extends Component {
   componentDidMount() {
-    this.props.fetch();
+    this.props.fetch(["20000737","20000744","20000749"]);
   }
   
   render(){
-    const rest=pick(this.props,[])
-    // const rest=pick(this.props,["data","updateUI", "pickedItems", "fetchSearch"])
+    const rest=pick(this.props,["gcnCustomers"])
     return <Admin {...rest}/>
   }
 }
 const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
   const loading= UI.status==='loading';
-  const finished= UI.status==='finished';
+  // const finished= UI.status==='finished';
+  const {gcnCustomers}=state;
   return {
-    data:state.main, UI, loading,finished
+    gcnCustomers  
   }
 }
 const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
-    fetch: ()=> console.log('will fetch'),
+    fetch: param=> dispatch(smart.fetchAdmin(param)),
     // fetch: ()=> dispatch(smart.fetchAdmin()),
   }
 }

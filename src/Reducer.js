@@ -33,6 +33,15 @@ const localUI = (state = {}, action) => {
 	}
 };
 
+const gcnCustomers = (state = [], action) => {
+  switch (action.type) {
+    case 'RECEIVE_GCN_CUSTOMERS':
+      return action.customers;
+    default:
+      return state
+  }
+}
+
 const customers = (state = [], action) => {
   switch (action.type) {
     case 'RECEIVE_CUSTOMERS':
@@ -92,7 +101,7 @@ const employee = (state = [], action) => {
 }
 
 const allReducers = combineReducers({
-  localUI, main, contact, customers,employee
+  localUI, main, contact, customers,gcnCustomers,employee
 })
 
 export default allReducers
