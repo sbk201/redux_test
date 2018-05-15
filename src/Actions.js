@@ -26,6 +26,7 @@ const link={
 	add_allocation:"http://localhost:5000/custAllocation/add_allocation",
 	delete_allocation:"http://localhost:5000/custAllocation/delete_allocation",
 	getNoGcnsOrNameCustDetail:"http://localhost:5000/custAllocation/getNoGcnsOrNameCustDetail",
+	getNoGcnsOrNameCustDetail:"http://localhost:5000/custAllocation/getNoGcnsOrNameCustDetail",
 }
 
 const getSbusApi=async () => (await axios.get(link.sbu,{})).data;
@@ -74,6 +75,12 @@ const fetchGetEmployee=params=>{
 export const smart=(function() {
 	return{
 		fetchGetCustomers,
+		fetchMai2:(customers)=>{
+			return async dispatch=>{
+				// const custDetail=await getNoGcnsOrNameCustDetail({customers});
+				// dispatch(receiveGcnCustomers(custDetail));
+			}
+		},
 		fetchAdmin:(customers)=>{
 			return async dispatch=>{
 				const custDetail=await getNoGcnsOrNameCustDetail({customers});
