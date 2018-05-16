@@ -8,7 +8,6 @@ const contName="Main";
 
 class MainContainer extends Component {
   shouldComponentUpdate(nextProps){
-    // won't update
     const {sbus,countries}=this.props.data;
     const loaded=sbus&&countries;
     return !loaded

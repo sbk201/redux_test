@@ -27,6 +27,7 @@ const EmployeeList=({employee,selectEmp})=>{
 			onClick:()=>selectEmp(ele.globalEmpNbr),
 			key:i,active:ele.selected
 		}
+		if(!ele) return <div key={attr.key}></div>
 		return <Button {...attr}/>
 	}
 	return employee.map(button)

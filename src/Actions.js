@@ -71,45 +71,43 @@ const fetchGetEmployee=params=>{
 	}
 }
 
-export const smart=(function() {
-	return{
-		fetchGetCustomers,
-		fetchAdmin:(customers)=>{
-			return async dispatch=>{
-				const custDetail=await getNoGcnsOrNameCustDetail({customers});
-				dispatch(receiveGcnCustomers(custDetail));
-			}
-		},
-		fetchMain:()=>{
-			return async dispatch => {
-				const dispatchUI= cmd=>dispatch(updateUI({contName:'Main',...cmd}));
-				dispatchUI({status:'loading'});
-				const sbus=await getSbusApi();
-				const countries=await getCountriesApi();
-				dispatch(receiveSbus(sbus));
-				dispatch(receiveCountries(countries));
-				dispatchUI({status:'finished'});
-			}
-		},
-		editShare: params=>{
-			return async dispatch => {
-				const {customer,selectedEmp,sbuid}=params;
-				const globalCustNbr=customer.map(ele=>ele.globalCustNbr);
-				const deleteFn=()=> deleteAllocationApi({globalCustNbr,sbuid});
-				const addFn=()=>addAllocationApi({employee:selectedEmp,customerNbr:globalCustNbr,sbuID:sbuid});
-				console.log('selected Emp',selectedEmp)
-				const delResult=await deleteFn();
-				console.log('deleted',...delResult);
-				const addResult=await addFn();
-				console.log('added',...addResult);
-			}
-		},
-		afterSearchView:params=>{
-			const {sbu,country}=params;
-			return async dispatch => {
-				dispatch(fetchGetCustomers(params));
-				dispatch(fetchGetEmployee({sbu,country}));
-			}
+export const smart= {
+	fetchGetCustomers,
+	fetchAdmin:(customers)=>{
+		return async dispatch=>{
+			const custDetail=await getNoGcnsOrNameCustDetail({customers});
+			dispatch(receiveGcnCustomers(custDetail));
+		}
+	},
+	fetchMain:()=>{
+		return async dispatch => {
+			const dispatchUI= cmd=>dispatch(updateUI({contName:'Main',...cmd}));
+			dispatchUI({status:'loading'});
+			const sbus=await getSbusApi();
+			const countries=await getCountriesApi();
+			dispatch(receiveSbus(sbus));
+			dispatch(receiveCountries(countries));
+			dispatchUI({status:'finished'});
+		}
+	},
+	editShare: params=>{
+		return async dispatch => {
+			const {customer,selectedEmp,sbuid}=params;
+			const globalCustNbr=customer.map(ele=>ele.globalCustNbr);
+			const deleteFn=()=> deleteAllocationApi({globalCustNbr,sbuid});
+			const addFn=()=>addAllocationApi({employee:selectedEmp,customerNbr:globalCustNbr,sbuID:sbuid});
+			console.log('selected Emp',selectedEmp)
+			const delResult=await deleteFn();
+			console.log('deleted',...delResult);
+			const addResult=await addFn();
+			console.log('added',...addResult);
+		}
+	},
+	afterSearchView:params=>{
+		const {sbu,country}=params;
+		return async dispatch => {
+			dispatch(fetchGetCustomers(params));
+			dispatch(fetchGetEmployee({sbu,country}));
 		}
 	}
-})();
+}
