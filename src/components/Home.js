@@ -30,7 +30,7 @@ const getProps=props=>{
   	}
 	return {search ,SbuList,CountryList}
 }
-const Main=props=>{
+const Home=props=>{
   	const {data:{sbus,countries}}=props;
   	const {search ,SbuList,CountryList}=getProps(props);
 	return (
@@ -48,4 +48,4 @@ const Main=props=>{
 		</div>
 	);
 }
-export default Main
+export default Home

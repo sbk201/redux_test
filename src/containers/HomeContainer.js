@@ -3,10 +3,10 @@ import {pick} from 'lodash';
 import { smart,updateUI,pickedSbu,pickedCountry } from '../Actions.js'
 import React, { Component } from "react";
 import CustomerListContainer from './CustomerListContainer'
-import Main from '../components/Main'
-const contName="Main";
+import Home from '../components/Home'
+const contName="Home";
 
-class MainContainer extends Component {
+class HomeContainer extends Component {
   shouldComponentUpdate(nextProps){
     const {sbus,countries}=this.props.data;
     const loaded=sbus&&countries;
@@ -18,7 +18,7 @@ class MainContainer extends Component {
   
   render(){
     const rest=pick(this.props,["data","updateUI", "pickedItems", "fetchSearch"])
-    return <div><Main {...rest}/><CustomerListContainer/></div>
+    return <div><Home {...rest}/><CustomerListContainer/></div>
   }
 }
 const mapStateToProps = (state) => {
@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
-    fetch: ()=> dispatch(smart.fetchMain()),
+    fetch: ()=> dispatch(smart.fetchHome()),
     fetchSearch: params=>dispatch(smart.afterSearchView(params)),
     pickedItems:({sbu,country})=>{
       dispatch(pickedSbu(sbu));
@@ -45,4 +45,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MainContainer)
+)(HomeContainer)

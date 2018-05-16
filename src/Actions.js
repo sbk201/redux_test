@@ -14,30 +14,20 @@ export const pickedSbu=sbu=>({type: "PICKED_SBU", sbu });
 export const pickedCountry=country=> ( {type: "PICKED_COUNTRY", country });
 export const checkShare=params=> ( {type: "CHECK_SHARE", ...params });
 export const nextView=view=>({type: "NEXT_VIEW", view });
-const link={
-	old:"http://localhost:5000/data",
-	sbu:"http://localhost:5000/custAllocation/sbu",
-	country:"http://localhost:5000/custAllocation/country",
-	customer:"http://localhost:5000/custAllocation/assigned_cust",
-	unCustomer:"http://localhost:5000/custAllocation/unassigned_cust",
-	contact:"http://localhost:5000/custAllocation/contact",
-	contact_cust:"http://localhost:5000/custAllocation/contact_cust",
-	sbu_employee:"http://localhost:5000/custAllocation/sbu_employee",
-	add_allocation:"http://localhost:5000/custAllocation/add_allocation",
-	delete_allocation:"http://localhost:5000/custAllocation/delete_allocation",
-	getNoGcnsOrNameCustDetail:"http://localhost:5000/custAllocation/getNoGcnsOrNameCustDetail",
-}
 
-const getSbusApi=async () => (await axios.get(link.sbu,{})).data;
-const getCountriesApi=async () => (await axios.get(link.country,{})).data;
-const getUnassignedCustomerApi=async params => (await axios.get(link.unCustomer,{params})).data;
-const getAssignedCustomerApi=async params => (await axios.get(link.customer,{params})).data;
-const getContactApi=async params => (await axios.get(link.contact,{params})).data;
-const getContactCustApi=async params => (await axios.get(link.contact_cust,{params})).data;
-const getEmployeeApi=async params => (await axios.get(link.sbu_employee,{params})).data;
-const deleteAllocationApi=async params=> (await axios.get(link.delete_allocation,{params})).data;
-const addAllocationApi=async params=> (await axios.post(link.add_allocation,params)).data;
-const getNoGcnsOrNameCustDetail=async params=> (await axios.get(link.getNoGcnsOrNameCustDetail,{params})).data;
+const link=param=> "http://localhost:5000/custAllocation/"+param;
+
+const getSbusApi=async () => (await axios.get(link("sbu"),{})).data;
+const getCountriesApi=async () => (await axios.get(link("country"),{})).data;
+const getUnassignedCustomerApi=async params => (await axios.get(link("unassigned_cust"),{params})).data;
+const getAssignedCustomerApi=async params => (await axios.get(link("assigned_cust"),{params})).data;
+const getContactApi=async params => (await axios.get(link("contact"),{params})).data;
+const getContactCustApi=async params => (await axios.get(link("contact_cust"),{params})).data;
+const getEmployeeApi=async params => (await axios.get(link("sbu_employee"),{params})).data;
+const deleteAllocationApi=async params=> (await axios.delete(link("delete_allocation"),{params})).data;
+const deleteAllocationApi2=async params=> (await axios.delete(link("delete_allocation2"),{params})).data;
+const addAllocationApi=async params=> (await axios.post(link("add_allocation"),params)).data;
+const getNoGcnsOrNameCustDetailApi=async params=> (await axios.get(link("getNoGcnsOrNameCustDetail"),{params})).data;
 
 const fetchGetCustomers=_params=>{
 	const {method,...params}=_params;
@@ -75,13 +65,13 @@ export const smart= {
 	fetchGetCustomers,
 	fetchAdmin:(customers)=>{
 		return async dispatch=>{
-			const custDetail=await getNoGcnsOrNameCustDetail({customers});
+			const custDetail=await getNoGcnsOrNameCustDetailApi({customers});
 			dispatch(receiveGcnCustomers(custDetail));
 		}
 	},
-	fetchMain:()=>{
+	fetchHome:()=>{
 		return async dispatch => {
-			const dispatchUI= cmd=>dispatch(updateUI({contName:'Main',...cmd}));
+			const dispatchUI= cmd=>dispatch(updateUI({contName:'Home',...cmd}));
 			dispatchUI({status:'loading'});
 			const sbus=await getSbusApi();
 			const countries=await getCountriesApi();
@@ -94,7 +84,7 @@ export const smart= {
 		return async dispatch => {
 			const {customer,selectedEmp,sbuid}=params;
 			const globalCustNbr=customer.map(ele=>ele.globalCustNbr);
-			const deleteFn=()=> deleteAllocationApi({globalCustNbr,sbuid});
+			const deleteFn=()=> deleteAllocationApi({globalCustNbr,sbuid,test:"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"});
 			const addFn=()=>addAllocationApi({employee:selectedEmp,customerNbr:globalCustNbr,sbuID:sbuid});
 			console.log('selected Emp',selectedEmp)
 			const delResult=await deleteFn();
