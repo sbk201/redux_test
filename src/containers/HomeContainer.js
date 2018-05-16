@@ -2,10 +2,10 @@ import { connect } from 'react-redux'
 import {pick} from 'lodash';
 import { smart,updateUI } from '../Actions.js'
 import React, { Component } from "react";
-import Mai2 from '../components/Mai2'
-const contName="Mai2";
+import Home from '../components/Home'
+const contName="Home";
 
-class Mai2Container extends Component {
+class HomeContainer extends Component {
   shouldComponentUpdate(nextProps){
     // won't update
     // const {sbus,countries}=this.props.data;
@@ -18,28 +18,30 @@ class Mai2Container extends Component {
   }
   
   render(){
-    const rest=pick(this.props,["data"])
-    return <div><Mai2 {...rest}/></div>
+    const rest=pick(this.props,["sbus","getHospList"])
+    if(!rest.sbus) return <div>Loading</div>
+    return <div><Home {...rest}/></div>
   }
 }
 const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
   const loading= UI.status==='loading';
   const finished= UI.status==='finished';
-  const data={data:'some data'};
+  const {sbus}=state;
   return {
-    data
+    sbus
   }
 }
 const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
-    fetch: ()=> dispatch(smart.fetchMai2()),
+    fetch: ()=> dispatch(smart.fetchHome()),
+    getHospList: (param)=> dispatch(smart.getHospList(param)),
   }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Mai2Container)
+)(HomeContainer)

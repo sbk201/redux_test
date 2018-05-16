@@ -16,7 +16,7 @@ export const checkShare=params=> ( {type: "CHECK_SHARE", ...params });
 export const nextView=view=>({type: "NEXT_VIEW", view });
 const link={
 	old:"http://localhost:5000/data",
-	sbu:"http://localhost:5000/custAllocation/sbu",
+	sbu:"http://localhost:5000/hospAllocation/getSbu",
 	country:"http://localhost:5000/custAllocation/country",
 	customer:"http://localhost:5000/custAllocation/assigned_cust",
 	unCustomer:"http://localhost:5000/custAllocation/unassigned_cust",
@@ -26,10 +26,13 @@ const link={
 	add_allocation:"http://localhost:5000/custAllocation/add_allocation",
 	delete_allocation:"http://localhost:5000/custAllocation/delete_allocation",
 	getNoGcnsOrNameCustDetail:"http://localhost:5000/custAllocation/getNoGcnsOrNameCustDetail",
-	getNoGcnsOrNameCustDetail:"http://localhost:5000/custAllocation/getNoGcnsOrNameCustDetail",
+	getSbu:"http://localhost:5000/hospAllocation/getSbu",
+	getRep:"http://localhost:5000/hospAllocation/getRep",
+	getRep2:"http://10.65.1.24/appPortal/hospitalAllocation/lib/api.php?sbu_id=1396&limit=allocation&type=get_rep",
 }
 
 const getSbusApi=async () => (await axios.get(link.sbu,{})).data;
+const getRepApi=async params => (await axios.get(link.getRep,{params})).data;
 const getCountriesApi=async () => (await axios.get(link.country,{})).data;
 const getUnassignedCustomerApi=async params => (await axios.get(link.unCustomer,{params})).data;
 const getAssignedCustomerApi=async params => (await axios.get(link.customer,{params})).data;
@@ -38,8 +41,7 @@ const getContactCustApi=async params => (await axios.get(link.contact_cust,{para
 const getEmployeeApi=async params => (await axios.get(link.sbu_employee,{params})).data;
 const deleteAllocationApi=async params=> (await axios.get(link.delete_allocation,{params})).data;
 const addAllocationApi=async params=> (await axios.post(link.add_allocation,params)).data;
-const getNoGcnsOrNameCustDetail=async params=> (await axios.get(link.getNoGcnsOrNameCustDetail,{params})).data;
-
+const getNoGcnsOrNameCustDetailApi=async params=> (await axios.get(link.getNoGcnsOrNameCustDetail,{params})).data;
 const fetchGetCustomers=_params=>{
 	const {method,...params}=_params;
 	const apiFun={
@@ -71,52 +73,58 @@ const fetchGetEmployee=params=>{
 		if(isTest) dispatch(receiveEmployee(dummyData.employee.concat(employee)));
 	}
 }
-
-export const smart=(function() {
-	return{
-		fetchGetCustomers,
-		fetchMai2:(customers)=>{
-			return async dispatch=>{
-				// const custDetail=await getNoGcnsOrNameCustDetail({customers});
-				// dispatch(receiveGcnCustomers(custDetail));
-			}
-		},
-		fetchAdmin:(customers)=>{
-			return async dispatch=>{
-				const custDetail=await getNoGcnsOrNameCustDetail({customers});
-				dispatch(receiveGcnCustomers(custDetail));
-			}
-		},
-		fetchMain:()=>{
-			return async dispatch => {
-				const dispatchUI= cmd=>dispatch(updateUI({contName:'Main',...cmd}));
-				dispatchUI({status:'loading'});
-				const sbus=await getSbusApi();
-				const countries=await getCountriesApi();
-				dispatch(receiveSbus(sbus));
-				dispatch(receiveCountries(countries));
-				dispatchUI({status:'finished'});
-			}
-		},
-		editShare: params=>{
-			return async dispatch => {
-				const {customer,selectedEmp,sbuid}=params;
-				const globalCustNbr=customer.map(ele=>ele.globalCustNbr);
-				const deleteFn=()=> deleteAllocationApi({globalCustNbr,sbuid});
-				const addFn=()=>addAllocationApi({employee:selectedEmp,customerNbr:globalCustNbr,sbuID:sbuid});
-				console.log('selected Emp',selectedEmp)
-				const delResult=await deleteFn();
-				console.log('deleted',...delResult);
-				const addResult=await addFn();
-				console.log('added',...addResult);
-			}
-		},
-		afterSearchView:params=>{
-			const {sbu,country}=params;
-			return async dispatch => {
-				dispatch(fetchGetCustomers(params));
-				dispatch(fetchGetEmployee({sbu,country}));
+export const smart= {
+	fetchGetCustomers,
+	fetchHome:(customers)=>{
+		return async dispatch=>{
+			const sbus=await getSbusApi();
+			console.log('got result >>>',sbus)
+			dispatch(receiveSbus(sbus));
+		}
+	},
+	getHospList:({method,...rest})=>{
+		return async dispatch => {
+			if(method==='rep') {
+				const rep=await getRepApi(rest);
+				console.log(rep);
 			}
 		}
+	},
+	fetchAdmin:(customers)=>{
+		return async dispatch=>{
+			const custDetail=await getNoGcnsOrNameCustDetailApi({customers});
+			dispatch(receiveGcnCustomers(custDetail));
+		}
+	},
+	fetchMain:()=>{
+		return async dispatch => {
+			const dispatchUI= cmd=>dispatch(updateUI({contName:'Main',...cmd}));
+			dispatchUI({status:'loading'});
+			const sbus=await getSbusApi();
+			const countries=await getCountriesApi();
+			dispatch(receiveSbus(sbus));
+			dispatch(receiveCountries(countries));
+			dispatchUI({status:'finished'});
+		}
+	},
+	editShare: params=>{
+		return async dispatch => {
+			const {customer,selectedEmp,sbuid}=params;
+			const globalCustNbr=customer.map(ele=>ele.globalCustNbr);
+			const deleteFn=()=> deleteAllocationApi({globalCustNbr,sbuid});
+			const addFn=()=>addAllocationApi({employee:selectedEmp,customerNbr:globalCustNbr,sbuID:sbuid});
+			console.log('selected Emp',selectedEmp)
+			const delResult=await deleteFn();
+			console.log('deleted',...delResult);
+			const addResult=await addFn();
+			console.log('added',...addResult);
+		}
+	},
+	afterSearchView:params=>{
+		const {sbu,country}=params;
+		return async dispatch => {
+			dispatch(fetchGetCustomers(params));
+			dispatch(fetchGetEmployee({sbu,country}));
+		}
 	}
-})();
+}

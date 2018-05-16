@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "react-dom";
-import Mai2Container from './containers/Mai2Container'
+import HomeContainer from './containers/HomeContainer'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class App extends Component {
@@ -17,7 +17,7 @@ class App extends Component {
 			<Router>
 				<div>
 					<h1>Hospital Rep Allocation System</h1>
-					<Route exact path="/" component={Mai2Container} />
+					<Route exact path="/" component={HomeContainer} />
 				</div>
 			</Router>
 		);

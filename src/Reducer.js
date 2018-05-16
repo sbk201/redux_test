@@ -3,9 +3,6 @@ import { combineReducers } from 'redux';
 
 const main = (state = {}, action) => {
   switch (action.type) {
-    case 'RECEIVE_SBUS':
-    	return mergeClone(state,{sbus:action.sbus})
-      // return Object.assign({},clone(state),{sbus:action.sbus})
     case 'RECEIVE_COUNTRIES':
       return mergeClone(state,{countries:action.countries})
     case 'PICKED_SBU':
@@ -16,6 +13,16 @@ const main = (state = {}, action) => {
       return [...state,action.todos]
     case 'REMOVE_TODOS':
       return state.slice().filter(ele=>ele._id!==action._id)
+    default:
+      return state
+  }
+}
+const sbus = (state = [], action) => {
+  switch (action.type) {
+    case 'RECEIVE_SBUS':
+    	return action.sbus
+    case 'PICKED_SBU':
+      return mergeClone(state,{pickedSbu:action.sbu})
     default:
       return state
   }
@@ -101,7 +108,7 @@ const employee = (state = [], action) => {
 }
 
 const allReducers = combineReducers({
-  localUI, main, contact, customers,gcnCustomers,employee
+  localUI,sbus, main, contact, customers,gcnCustomers,employee
 })
 
 export default allReducers
