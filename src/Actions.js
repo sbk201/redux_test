@@ -25,7 +25,6 @@ const getContactApi=async params => (await axios.get(link("contact"),{params})).
 const getContactCustApi=async params => (await axios.get(link("contact_cust"),{params})).data;
 const getEmployeeApi=async params => (await axios.get(link("sbu_employee"),{params})).data;
 const deleteAllocationApi=async params=> (await axios.delete(link("delete_allocation"),{params})).data;
-const deleteAllocationApi2=async params=> (await axios.delete(link("delete_allocation2"),{params})).data;
 const addAllocationApi=async params=> (await axios.post(link("add_allocation"),params)).data;
 const getNoGcnsOrNameCustDetailApi=async params=> (await axios.get(link("getNoGcnsOrNameCustDetail"),{params})).data;
 
@@ -84,7 +83,7 @@ export const smart= {
 		return async dispatch => {
 			const {customer,selectedEmp,sbuid}=params;
 			const globalCustNbr=customer.map(ele=>ele.globalCustNbr);
-			const deleteFn=()=> deleteAllocationApi({globalCustNbr,sbuid,test:"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"});
+			const deleteFn=()=> deleteAllocationApi({globalCustNbr,sbuid});
 			const addFn=()=>addAllocationApi({employee:selectedEmp,customerNbr:globalCustNbr,sbuID:sbuid});
 			console.log('selected Emp',selectedEmp)
 			const delResult=await deleteFn();
