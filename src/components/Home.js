@@ -33,7 +33,7 @@ const Home=props=>{
 				<Message.Header>Search by Name</Message.Header>
 			    <Input refer={"name"} defaultValue="aaabbb"/><br/><br/>
 				<Button color="blue" onClick={()=>search(this,"rep")}>Search by Representative</Button>
-				<Button color="blue" onClick={()=>search(this,"hosp")}>Search by Hospital Name</Button>
+				<Button color="blue" onClick={()=>search(this,"hospital")}>Search by Hospital Name</Button>
 			</Message>
 		</div>
 	);

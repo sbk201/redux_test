@@ -3,6 +3,8 @@ import {isTest,dummyData} from './init/global';
 
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
 const receiveSbus=sbus=>({type: "RECEIVE_SBUS", sbus });
+const receiveHospitals=hospitals=>({type: "RECEIVE_HOSPITALS", hospitals });
+const receiveReps=reps=>({type: "RECEIVE_REPS", reps });
 
 const api=async (method,item,params={})=>{
 	const link= "http://localhost:5000/hospAllocation/"+item;
@@ -18,15 +20,17 @@ export const smart= {
 			dispatch(receiveSbus(sbus));
 		}
 	},
-	getHospList:({method,...rest})=>{
+	getHospList:({method,...params})=>{
 		return async dispatch => {
 			if(method==='rep') {
-				const rep=await api("get","rep",rest);
-				console.log(rep);
+				const reps=await api("get","rep",params);
+				dispatch(receiveReps(reps));
+				console.log(reps);
 			}
-			if(method==='hosp') {
-				const hosp=await api("get","hosp",rest);
-				console.log(hosp);
+			if(method==='hospital') {
+				const hosps=await api("get","hospital",params);
+				dispatch(receiveHospitals(hosps));
+				console.log(hosps);
 			}
 		}
 	},

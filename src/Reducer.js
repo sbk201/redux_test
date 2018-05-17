@@ -1,28 +1,26 @@
 import {mergeClone} from './init/global'
 import { combineReducers } from 'redux';
 
-const main = (state = {}, action) => {
+const sbus = (state = [], action) => {
   switch (action.type) {
-    case 'RECEIVE_COUNTRIES':
-      return mergeClone(state,{countries:action.countries})
-    case 'PICKED_SBU':
-      return mergeClone(state,{pickedSbu:action.sbu})
-    case 'PICKED_COUNTRY':
-      return mergeClone(state,{pickedCountry:action.country})
-    case 'ADD_TODOS':
-      return [...state,action.todos]
-    case 'REMOVE_TODOS':
-      return state.slice().filter(ele=>ele._id!==action._id)
+    case 'RECEIVE_SBUS':
+      return action.sbus
     default:
       return state
   }
 }
-const sbus = (state = [], action) => {
+const reps = (state = [], action) => {
   switch (action.type) {
-    case 'RECEIVE_SBUS':
-    	return action.sbus
-    case 'PICKED_SBU':
-      return mergeClone(state,{pickedSbu:action.sbu})
+    case 'RECEIVE_REPS':
+      return action.reps
+    default:
+      return state
+  }
+}
+const hospitals = (state = [], action) => {
+  switch (action.type) {
+    case 'RECEIVE_HOSPITALS':
+    	return action.hospitals
     default:
       return state
   }
@@ -40,75 +38,8 @@ const localUI = (state = {}, action) => {
 	}
 };
 
-const gcnCustomers = (state = [], action) => {
-  switch (action.type) {
-    case 'RECEIVE_GCN_CUSTOMERS':
-      return action.customers;
-    default:
-      return state
-  }
-}
-
-const customers = (state = [], action) => {
-  switch (action.type) {
-    case 'RECEIVE_CUSTOMERS':
-      return action.customers;
-    case 'SELECT_CUST':
-    	const id=action.globalCustNbr;
-    	const toggleCust=ele=>{
-    		const isTarget= ele.globalCustNbr===id;
-    		const newStatus=!ele.selected;
-    		if(isTarget) return mergeClone(ele,{selected:newStatus});
-			return ele
-    	}
-    	const newState=state.map(toggleCust);
-      return newState
-    default:
-      return state
-  }
-}
-
-const contact = (state = [], action) => {
-  switch (action.type) {
-    case 'RECEIVE_CONTACT':
-      return action.contact;
-    default:
-      return state
-  }
-}
-
-const employee = (state = [], action) => {
-  switch (action.type) {
-    case 'RECEIVE_EMPLOYEE':
-      return action.employee;
-    case 'SELECT_EMP':{
-      const id=action.globalEmpNbr;
-      const toggleEmp=ele=>{
-        const isTarget= ele.globalEmpNbr===id;
-        const newStatus=!ele.selected;
-        if(isTarget) return mergeClone(ele,{selected:newStatus});
-      return ele
-      }
-      const newState=state.map(toggleEmp);
-      return newState
-    }
-    case 'CHECK_SHARE':{
-      const v1=action.value|0;
-      const v2=v1|| 1;
-      const value= v2>100 ? 100 : v2;
-      const newState=state.slice().map(ele=>{
-        if(ele.globalEmpNbr===action.globalEmpNbr) return mergeClone(ele,{value})
-          return ele
-      })
-      return newState;
-    }
-    default:
-      return state
-  }
-}
-
 const allReducers = combineReducers({
-  localUI,sbus, main, contact, customers,gcnCustomers,employee
+  localUI,sbus, reps
 })
 
 export default allReducers
