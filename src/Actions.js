@@ -24,6 +24,10 @@ export const smart= {
 				const rep=await api("get","rep",rest);
 				console.log(rep);
 			}
+			if(method==='hosp') {
+				const hosp=await api("get","hosp",rest);
+				console.log(hosp);
+			}
 		}
 	},
 }
