@@ -39,7 +39,7 @@ const localUI = (state = {}, action) => {
 };
 
 const allReducers = combineReducers({
-  localUI,sbus, reps
+  localUI,sbus, reps,hospitals
 })
 
 export default allReducers
