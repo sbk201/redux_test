@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Button,Pagination as PaginationUI } from 'semantic-ui-react'
 import { Link } from "react-router-dom";
 import MyTable from './MyTable';
+import MyTabl2 from './MyTabl2';
 const getProps=props=>{
 	const {updateUI,selectCust,fetchCust}=props
 		const {data,UI}=props;
@@ -30,6 +31,28 @@ const getProps=props=>{
 		};
 		return <PaginationUI {...attr}/>
 	}
+	const headerMatch=(function(){
+		const common={
+		  globalCustName:'Global Customer Name',
+		  globalCustNbr:'Global Customer Nbr',
+		  custName:'Local Customer Name',
+		  localCustNbr:'Local Customer Nbr'
+		};
+		const head={
+			unassigned :{
+			  globalCustName:'Customer Name',
+			  globalCustNbr:'Customer Number'
+			} ,
+			customer:common,
+			contact_cust:common,
+			contact:{
+			  globalEmpName:'Global Employee Name',
+			  globalEmpNbr:'Global Employee Number'
+			},
+		}[method];
+		return head
+	})();
+	// convert MyTable to input data and column
   	const tableParams=(function(){
 		const dataShow=(function(){
 			const start=perItems*(UI.page-1);
@@ -51,27 +74,6 @@ const getProps=props=>{
 			const keys=Object.keys(rest);
 			return keys
 		})();
-		const headerMatch=(function(){
-			const common={
-			  globalCustName:'Global Customer Name',
-			  globalCustNbr:'Global Customer Nbr',
-			  custName:'Local Customer Name',
-			  localCustNbr:'Local Customer Nbr'
-			};
-			const head={
-				unassigned :{
-				  globalCustName:'Customer Name',
-				  globalCustNbr:'Customer Number'
-				} ,
-				customer:common,
-				contact_cust:common,
-				contact:{
-				  globalEmpName:'Global Employee Name',
-				  globalEmpNbr:'Global Employee Number'
-				},
-			}[method];
-			return head
-		})();
   		const style={textAlign:'center',border: '1px black solid'}
   		const param={
   			name:'customer',
@@ -90,10 +92,11 @@ const getProps=props=>{
 		const keyword=e.target.value;
 		updateUI({keyword,page:1});
 	};	
-	return {setKeyword,tableParams,Count,Pagination}
+	return {setKeyword,tableParams,Count,Pagination,column:headerMatch}
 }
 const CustomerList=props=>{
-  	const {setKeyword,tableParams,Count,Pagination}=getProps(props);
+  	const {setKeyword,tableParams,Count,Pagination,column}=getProps(props);
+  	const {data}=props;
 	return (
 		<div>
 			<h1>Customer List</h1>
@@ -102,6 +105,7 @@ const CustomerList=props=>{
 			<Pagination/><br/>
 			Filter <input onChange={setKeyword}/><br/>
 			<Link to="/allocate"><Button content="Submit" color="blue"/></Link>
+			<MyTabl2 {...{data,column}}/>
 			<MyTable {...tableParams}/>
 			<Pagination/>
 		</div>
