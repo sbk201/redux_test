@@ -92,11 +92,20 @@ const getProps=props=>{
 		const keyword=e.target.value;
 		updateUI({keyword,page:1});
 	};	
-	return {setKeyword,tableParams,Count,Pagination,column:headerMatch}
+	const column=(function() {
+		return {
+			head: {match:headerMatch},
+			body:{
+				onClick:param=>console.log(param)
+			}
+		}
+	})();
+	return {setKeyword,tableParams,Count,Pagination,column}
 }
 const CustomerList=props=>{
   	const {setKeyword,tableParams,Count,Pagination,column}=getProps(props);
   	const {data}=props;
+
 	return (
 		<div>
 			<h1>Customer List</h1>
@@ -105,6 +114,7 @@ const CustomerList=props=>{
 			<Pagination/><br/>
 			Filter <input onChange={setKeyword}/><br/>
 			<Link to="/allocate"><Button content="Submit" color="blue"/></Link>
+
 			<MyTabl2 {...{data,column}}/>
 			<MyTable {...tableParams}/>
 			<Pagination/>

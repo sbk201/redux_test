@@ -3,8 +3,9 @@ import { Table } from 'semantic-ui-react'
 import { Component } from 'react';
 const Header=({data,column})=>{
 	const HeaderCells=()=>{
+		const {match}=column.head
 		const keys=Object.keys(data[0])
-		.map(key=>column[key])
+		.map(key=>match[key])
 		.map((key,i)=><Table.HeaderCell key={i}>{key}</Table.HeaderCell>);
 		return keys
 	}
@@ -12,13 +13,19 @@ const Header=({data,column})=>{
 				<HeaderCells/>
 			</Table.Row></Table.Header>)
 }
-const Body=({data})=>{
-	console.log(data)
-	const Content=()=>data.map(ele=>Object.values(ele))
-	.map((ele,i)=><Table.Row key={i}><Cell rowData={ele}/></Table.Row>)
-	const Cell=({rowData})=>rowData.map((ele,i)=><Table.Cell key={i}>{ele}</Table.Cell>)
-	{/*const Rows=({rowData})=> <Table.Row><Cell {...{rowData}}/></Table.Row>*/}
-	// <Table.Cell>{ele}</Table.Cell>
+const Body=({data,column})=>{
+	const {onClick={},style={}}=column.body;
+	// console.log(data)
+	const getContent=(row,i)=>{
+		const Cell=({rowData})=>rowData.map(([key,value],j)=>{
+			const attrs={
+					style, key:j,onClick:()=>onClick({key,value})
+				}
+				return	<Table.Cell {...{...attrs}}>{value}</Table.Cell>
+		})
+		return <Table.Row key={i}><Cell rowData={row}/></Table.Row>
+	}
+	const Content=()=>data.map(ele=>Object.entries(ele)).map(getContent)
 	return <Table.Body><Content/></Table.Body>
 }
 const MyTabl2=props=>{
@@ -28,7 +35,7 @@ const MyTabl2=props=>{
 	return (
 		<Table color="blue" celled selectable inverted>
 	        <Header {...{data,column}} />
-	        <Body {...{data}}/>
+	        <Body {...{data,column}}/>
     	</Table>
 	);
 }
