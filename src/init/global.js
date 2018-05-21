@@ -1,9 +1,42 @@
 import {blankData} from "./initData"
-import {flow,merge,cloneDeep as clone} from "lodash"; 
+import {flow,merge,cloneDeep as clone,isPlainObject as isObject,isArray} from "lodash"; 
 import {format as dateFormat} from 'date-fns'
 import store from '../index';
+const throwErr= msg=> {throw (Error(msg))};
 
-
+export const toObj=(target,fn)=>{
+	if(isObject(target)) return objectFn(target,fn);
+	if(isArray(target)) return arrayFn(target,fn);
+	function objectFn(object,fn){
+		if(!fn) throwErr('fn must not null')
+		return Object.entries(object).reduce((acc,[key,va])=> ({...acc,...fn(key,va)}),{})
+	}
+	function arrayFn(array,fn_){
+		const fn= fn_ || function(key,va) {return {[key]:va} }; 
+		return array.reduce((acc,[key,va])=> ({...acc,...fn(key,va)}),[]);
+	}
+	throwErr('target is neither object or array');
+	// example
+	// toObj([ ["key1","async"] ,["key2","brench"] ]);
+	// Or
+	// var obj={a:1,b:2};
+	// toObj(obj,(key,value)=>({[key]:value+10}));
+}
+export const toArray=(target,fn)=>{
+	if(isObject(target)) return objectFn(target,fn);
+	if(isArray(target)) throwErr("use map() or reduce() instead");
+	function objectFn(object,fn_){
+		const fn= fn_ || function(key,va) {return {[key]:va} }; 
+		return Object.entries(object).map(([key,value])=>fn(key,value));
+	}
+	throwErr('target is not object');
+	// example
+	// var obj={a:1,b:2}
+	// toArray(obj)
+	// Or
+	// toArray(obj,(key,value)=>({[key]:value+10}))
+}
+window.toArray=toArray;
 export const objMap=(obj,fn)=> Object.entries(obj).map(([key,value])=>fn(key,value));
 export const objLoop=(obj,fn)=> Object.entries(obj).reduce((acc,[key,va])=> ({...acc,...fn(key,va)}),{})
 export const mergeClone=(...arg)=>merge(...arg.map(clone));

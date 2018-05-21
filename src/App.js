@@ -3,7 +3,7 @@ import "react-dom";
 import HomeContainer from './containers/HomeContainer'
 import AdminContainer from './containers/AdminContainer'
 import AllocateContainer from './containers/AllocateContainer'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends Component {
 	render(){

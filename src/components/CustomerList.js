@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button,Pagination as PaginationUI } from 'semantic-ui-react'
 import { Link } from "react-router-dom";
+import {toObj} from "../init/global"; 
 import MyTable from './MyTable';
 import MyTabl2 from './MyTabl2';
 const getProps=props=>{
@@ -65,6 +66,7 @@ const getProps=props=>{
 			fetchCust({method:'contact_cust',sbu,globalEmpNbr})
 		}
 	  	const onClickRow=(param)=> {
+	  		console.log(param);
 	  		method==='contact' ?
 	  		fetchCust_(param) : selectCust(param.globalCustNbr);
 	  	}
@@ -91,12 +93,29 @@ const getProps=props=>{
 	const setKeyword=e=>{
 		const keyword=e.target.value;
 		updateUI({keyword,page:1});
-	};	
+	};
 	const column=(function() {
+		const fetchCust_=(data)=>{
+			const {pickedSbu:sbu}=props;
+			const {globalEmpNbr}=data;
+			fetchCust({method:'contact_cust',sbu,globalEmpNbr})
+		}
+	  	const onClickRow=(param_)=> {
+	  		const param= toObj(param_);
+	  		method==='contact' ?
+	  		fetchCust_(param) : selectCust(param.globalCustNbr);
+	  	}
 		return {
 			head: {match:headerMatch},
 			body:{
-				onClick:param=>console.log(param)
+				row:{
+					rowAttr:({selected})=>({active:!selected}),
+					exclude:"selected",
+					onClick:(param)=>onClickRow(param),
+				},
+				cell:{
+					style:{textAlign: "center"}
+				}
 			}
 		}
 	})();
@@ -114,13 +133,12 @@ const CustomerList=props=>{
 			<Pagination/><br/>
 			Filter <input onChange={setKeyword}/><br/>
 			<Link to="/allocate"><Button content="Submit" color="blue"/></Link>
-
 			<MyTabl2 {...{data,column}}/>
-			<MyTable {...tableParams}/>
 			<Pagination/>
 		</div>
 	);
 }
+			// <MyTable {...tableParams}/>
 // PropTypes Generator http://rmosolgo.github.io/prop-types/
 
 CustomerList.propTypes ={

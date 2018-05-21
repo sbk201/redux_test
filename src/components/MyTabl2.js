@@ -1,12 +1,13 @@
 import React from "react";
 import { Table } from 'semantic-ui-react'
-import { Component } from 'react';
+import {omit} from "lodash"; 
 const Header=({data,column})=>{
 	const HeaderCells=()=>{
 		const {match}=column.head
 		const keys=Object.keys(data[0])
 		.map(key=>match[key])
-		.map((key,i)=><Table.HeaderCell key={i}>{key}</Table.HeaderCell>);
+		.filter(key=>key)
+		.map((key,i)=> <Table.HeaderCell key={i}>{key}</Table.HeaderCell>);
 		return keys
 	}
 	return (<Table.Header><Table.Row>
@@ -14,24 +15,29 @@ const Header=({data,column})=>{
 			</Table.Row></Table.Header>)
 }
 const Body=({data,column})=>{
-	const {onClick={},style={}}=column.body;
-	// console.log(data)
-	const getContent=(row,i)=>{
-		const Cell=({rowData})=>rowData.map(([key,value],j)=>{
-			const attrs={
-					style, key:j,onClick:()=>onClick({key,value})
-				}
-				return	<Table.Cell {...{...attrs}}>{value}</Table.Cell>
-		})
-		return <Table.Row key={i}><Cell rowData={row}/></Table.Row>
+	const f=()=>{};
+	const Cell=({cellsData})=>cellsData.map(([key,value])=>{
+		const {onClick=f,style={}}=column.body.cell;
+		const attrs={
+				style, key,onClick:()=>onClick({key,value})
+			}
+			return	<Table.Cell {...{...attrs}}>{value}</Table.Cell>
+	})
+	const getTheRows=(row_,i)=>{
+		const {rowAttr=f,onClick=f,exclude=""}=column.body.row;
+		const rowFn= r => Object.entries( omit(r,exclude) );
+		const row=rowFn(row_);
+		const attr={
+			onClick:()=>onClick(row),
+			...rowAttr(row_)
+		}
+		return <Table.Row key={i} {...{...attr}}><Cell cellsData={row}/></Table.Row>
 	}
-	const Content=()=>data.map(ele=>Object.entries(ele)).map(getContent)
-	return <Table.Body><Content/></Table.Body>
+	const TheRows=()=>data.map(getTheRows)
+	return <Table.Body><TheRows/></Table.Body>
 }
 const MyTabl2=props=>{
 	const {data,column}=props;
-	// console.log(column)
-	// console.log(data)
 	return (
 		<Table color="blue" celled selectable inverted>
 	        <Header {...{data,column}} />

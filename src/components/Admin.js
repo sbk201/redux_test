@@ -2,9 +2,9 @@ import React from "react";
 // import PropTypes from "prop-types";
 // import { Message,Button } from 'semantic-ui-react'
 
-const getProps=props=>{
-	
-}
+// const getProps=props=>{
+	// 
+// }
 const Admin=props=>{
   	const {gcnCustomers}=props;
   	console.log('from Admin',gcnCustomers)

@@ -21,7 +21,7 @@ const mapStateToProps = (state) => {
   // const finished= UI.status==='finished';
   const {gcnCustomers}=state;
   return {
-    gcnCustomers  
+    gcnCustomers,loading
   }
 }
 const mapDispatchToProps = (dispatch) => {
