@@ -8,8 +8,10 @@ const contName="CustomerList";
 class CustomerListContainer extends Component {
   componentDidMount() {
     const {updateUI}=this.props;
-    const page=this.props.UI.page || 1;
-    updateUI({page});
+    const {page=1,entries=10}=this.props.UI;
+    // const page=this.props.UI.page || 1;
+    // const entries=this.props.UI.entries || 1;
+    updateUI({page,entries});
   }
   
   render(){

@@ -24,14 +24,6 @@ const getProps=props=>{
 		return filtered;
 	})(data,UI.keyword);
 	const perItems=10;
-	const Pagination=()=>{
-		const attr={
-			totalPages:Math.ceil(dataFilter.length/perItems),
-			defaultActivePage:UI.page||1,
-			onPageChange:(_,d)=>updateUI({page:d.activePage})
-		};
-		return <PaginationUI {...attr}/>
-	}
 	const headerMatch=(function(){
 		const common={
 		  globalCustName:'Global Customer Name',
@@ -94,7 +86,7 @@ const getProps=props=>{
 		const keyword=e.target.value;
 		updateUI({keyword,page:1});
 	};
-	const column=(function() {
+	const dataConfig=(function() {
 		const fetchCust_=(data)=>{
 			const {pickedSbu:sbu}=props;
 			const {globalEmpNbr}=data;
@@ -105,9 +97,14 @@ const getProps=props=>{
 	  		method==='contact' ?
 	  		fetchCust_(param) : selectCust(param.globalCustNbr);
 	  	}
-		return {
-			head: {match:headerMatch},
+	  	const {page,entries}=UI;
+	  	const tableConfig={
+			head: {
+				match:headerMatch,
+				style:{textAlign: "center"}
+			},
 			body:{
+				page,entries,
 				row:{
 					rowAttr:({selected})=>({active:!selected}),
 					exclude:"selected",
@@ -116,25 +113,33 @@ const getProps=props=>{
 				cell:{
 					style:{textAlign: "center"}
 				}
-			}
-		}
+			}}
+		return {table:tableConfig}
 	})();
-	return {setKeyword,tableParams,Count,Pagination,column}
+	return {setKeyword,tableParams,Count,dataConfig}
+}
+const Pagination=({data,UI:{entries=10,page=1},updateUI})=>{
+	const attr={
+		totalPages:Math.ceil(data.length/entries),
+		defaultActivePage:page,
+		onPageChange:(_,d)=>updateUI({page:d.activePage})
+	};
+	return <PaginationUI {...attr}/>
 }
 const CustomerList=props=>{
-  	const {setKeyword,tableParams,Count,Pagination,column}=getProps(props);
-  	const {data}=props;
+  	const {setKeyword,tableParams,Count,dataConfig}=getProps(props);
+  	const {data,UI,updateUI}=props;
 
 	return (
 		<div>
 			<h1>Customer List</h1>
 			<hr/>
 			<Count/>
-			<Pagination/><br/>
+			<Pagination {...{data,UI,updateUI}}/><br/>
 			Filter <input onChange={setKeyword}/><br/>
 			<Link to="/allocate"><Button content="Submit" color="blue"/></Link>
-			<MyTabl2 {...{data,column}}/>
-			<Pagination/>
+			<MyTabl2 {...{data,config:dataConfig.table}}/>
+			<Pagination {...{data,UI,updateUI}}/><br/>
 		</div>
 	);
 }
