@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button,Pagination as PaginationUI } from 'semantic-ui-react'
+import { Button} from 'semantic-ui-react'
 import { Link } from "react-router-dom";
 import {toObj} from "../init/global"; 
+import Pagination from "./Pagination";
 import MyTable from './MyTable';
 import MyTabl2 from './MyTabl2';
 const getProps=props=>{
@@ -118,14 +119,6 @@ const getProps=props=>{
 	})();
 	return {setKeyword,tableParams,Count,dataConfig}
 }
-const Pagination=({data,UI:{entries=10,page=1},updateUI})=>{
-	const attr={
-		totalPages:Math.ceil(data.length/entries),
-		defaultActivePage:page,
-		onPageChange:(_,d)=>updateUI({page:d.activePage})
-	};
-	return <PaginationUI {...attr}/>
-}
 const CustomerList=props=>{
   	const {setKeyword,tableParams,Count,dataConfig}=getProps(props);
   	const {data,UI,updateUI}=props;
@@ -135,7 +128,7 @@ const CustomerList=props=>{
 			<h1>Customer List</h1>
 			<hr/>
 			<Count/>
-			<Pagination {...{data,UI,updateUI}}/><br/>
+			<Pagination {...{data,UI,updateUI}}/><br/><br/>
 			Filter <input onChange={setKeyword}/><br/>
 			<Link to="/allocate"><Button content="Submit" color="blue"/></Link>
 			<MyTabl2 {...{data,config:dataConfig.table}}/>
