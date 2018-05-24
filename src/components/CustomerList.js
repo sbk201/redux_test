@@ -5,11 +5,10 @@ import { Link } from "react-router-dom";
 import {toObj} from "../init/global"; 
 import Pagination from "./Pagination";
 import MyTable from './MyTable';
-import MyTabl2 from './MyTabl2';
 const getProps=props=>{
 	const {updateUI,selectCust,fetchCust}=props
-		const {data,UI}=props;
-		const method=UI.method;
+	const {data,UI}=props;
+	const method=UI.method;
 	const Count=()=>{
 		const selected=data.filter(ele=>ele.selected);
 		return (<div>Results :{data.length} / Selected :{selected.length}</div>);
@@ -24,7 +23,6 @@ const getProps=props=>{
 		const filtered=data.filter(match(keyword));
 		return filtered;
 	})(data,UI.keyword);
-	const perItems=10;
 	const headerMatch=(function(){
 		const common={
 		  globalCustName:'Global Customer Name',
@@ -46,43 +44,6 @@ const getProps=props=>{
 		}[method];
 		return head
 	})();
-	// convert MyTable to input data and column
-  	const tableParams=(function(){
-		const dataShow=(function(){
-			const start=perItems*(UI.page-1);
-			const end=perItems*(UI.page)-1;
-			return dataFilter.slice(start,end);
-		})();
-		const fetchCust_=(data)=>{
-			const {pickedSbu:sbu}=props;
-			const {globalEmpNbr}=data;
-			fetchCust({method:'contact_cust',sbu,globalEmpNbr})
-		}
-	  	const onClickRow=(param)=> {
-	  		console.log(param);
-	  		method==='contact' ?
-	  		fetchCust_(param) : selectCust(param.globalCustNbr);
-	  	}
-		const dataKey=(function(){
-			const obj=data[0];
-			const {selected,...rest}=obj;
-			const keys=Object.keys(rest);
-			return keys
-		})();
-  		const style={textAlign:'center',border: '1px black solid'}
-  		const param={
-  			name:'customer',
-	  		headObj:{
-	  			array:dataKey, style,
-				contentFn:ele=>headerMatch[ele],
-	  		},
-	  		bodyObj:{
-	  			array:dataShow, style,
-	  			clickFn:onClickRow
-	  		}
-	  	}
-		return param
-  	})();
 	const setKeyword=e=>{
 		const keyword=e.target.value;
 		updateUI({keyword,page:1});
@@ -114,29 +75,28 @@ const getProps=props=>{
 				cell:{
 					style:{textAlign: "center"}
 				}
-			}}
+			}
+		}
 		return {table:tableConfig}
 	})();
-	return {setKeyword,tableParams,Count,dataConfig}
+	return {setKeyword,Count,data:dataFilter,dataConfig}
 }
 const CustomerList=props=>{
-  	const {setKeyword,tableParams,Count,dataConfig}=getProps(props);
-  	const {data,UI,updateUI}=props;
+  	const {setKeyword,Count,data,dataConfig}=getProps(props);
+  	const {UI,updateUI}=props;
 
 	return (
 		<div>
 			<h1>Customer List</h1>
 			<hr/>
 			<Count/>
-			<Pagination {...{data,UI,updateUI}}/><br/><br/>
-			Filter <input onChange={setKeyword}/><br/>
-			<Link to="/allocate"><Button content="Submit" color="blue"/></Link>
-			<MyTabl2 {...{data,config:dataConfig.table}}/>
+			Filter <input onChange={setKeyword}/> <br/><br/>
+ 			<Pagination {...{data,UI,updateUI}}/> <Link to="/allocate"><Button content="Submit" color="blue"/></Link><br/>
+			<MyTable {...{data,config:dataConfig.table}}/>
 			<Pagination {...{data,UI,updateUI}}/><br/>
 		</div>
 	);
 }
-			// <MyTable {...tableParams}/>
 // PropTypes Generator http://rmosolgo.github.io/prop-types/
 
 CustomerList.propTypes ={
