@@ -13,6 +13,19 @@ const getProps=props=>{
 		const selected=data.filter(ele=>ele.selected);
 		return (<div>Results :{data.length} / Selected :{selected.length}</div>);
 	};
+	const Entries=()=>{
+		return (
+			<div>
+				Entries 
+	 			<select value={UI.entries} onChange={e=>updateUI({entries:e.target.value})}>
+	 				<option>10</option>
+	 				<option>15</option>
+	 				<option>25</option>
+	 				<option>50</option>
+	 			</select>
+			</div>
+			)
+	}
 	const dataFilter=(function (data,_keyword){
 		if(!_keyword) return data;
 		const keyword=new RegExp(_keyword,"i");
@@ -79,10 +92,10 @@ const getProps=props=>{
 		}
 		return {table:tableConfig}
 	})();
-	return {setKeyword,Count,data:dataFilter,dataConfig}
+	return {setKeyword,Count,data:dataFilter,dataConfig,Entries}
 }
 const CustomerList=props=>{
-  	const {setKeyword,Count,data,dataConfig}=getProps(props);
+  	const {setKeyword,Count,data,dataConfig,Entries}=getProps(props);
   	const {UI,updateUI}=props;
 
 	return (
@@ -91,7 +104,9 @@ const CustomerList=props=>{
 			<hr/>
 			<Count/>
 			Filter <input onChange={setKeyword}/> <br/><br/>
- 			<Pagination {...{data,UI,updateUI}}/> <Link to="/allocate"><Button content="Submit" color="blue"/></Link><br/>
+			<Entries/><br/><br/>
+ 			<Pagination {...{data,UI,updateUI}}/> 
+ 			<Link to="/allocate"><Button content="Submit" color="blue"/></Link><br/>
 			<MyTable {...{data,config:dataConfig.table}}/>
 			<Pagination {...{data,UI,updateUI}}/><br/>
 		</div>
