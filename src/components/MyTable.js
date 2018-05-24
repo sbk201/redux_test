@@ -57,11 +57,11 @@ MyTable.propTypes ={
 	config:T.shape({
 		head: T.shape({
 			match: T.shape({
-				custName: T.string.isRequired,
-				globalCustName: T.string.isRequired,
-				globalCustNbr: T.string.isRequired,
-				localCustNbr: T.string.isRequired
-			}).isRequired,
+				custName: T.string,
+				globalCustName: T.string,
+				globalCustNbr: T.string,
+				localCustNbr: T.string
+			}),
 			style: T.shape({})
 		}).isRequired,
 		body: T.shape({
