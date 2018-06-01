@@ -5,16 +5,16 @@ import { Message,Button } from 'semantic-ui-react'
 const getProps=props=>{
 	const {getHospList}=props;
   	const search=(that,method)=>{
-  		const sbuID=that.sbu.value;
+  		const sbuId=that.sbu.value;
   		const keyword=that.name.value;
-  		getHospList({keyword,sbuID,method,limit:"allocation"});
+  		getHospList({keyword,sbuId,method,limit:"allocation"});
   	};
 	return {search}
 }
 const SbuList=({sbus=[]})=>{
-	const attr=({sbuID})=>({
-		key:sbuID,
-		value:sbuID
+	const attr=({sbuId})=>({
+		key:sbuId,
+		value:sbuId
 	});
 	return (<select ref={ele=>this.sbu=ele}>
 	  		{sbus.map(ele=> <option {...attr(ele)}>{ele.sbuCode}</option>)}
@@ -31,7 +31,7 @@ const Home=props=>{
 				<Message.Header>Select SBU</Message.Header>
 			 	<SbuList sbus={sbus}/><br/><br/>
 				<Message.Header>Search by Name</Message.Header>
-			    <Input refer={"name"} defaultValue="aaabbb"/><br/><br/>
+			    <Input refer={"name"} defaultValue="aka"/><br/><br/>
 				<Button color="blue" onClick={()=>search(this,"rep")}>Search by Representative</Button>
 				<Button color="blue" onClick={()=>search(this,"hospital")}>Search by Hospital Name</Button>
 			</Message>

@@ -11,9 +11,9 @@ const getProps=props=>{
 		fetchSearch({sbu,country,method});
 	}
   	const SbuList=({sbus=[]})=>{
-	  	const attr=({sbuID})=>({
-	  		key:sbuID,
-	  		value:sbuID
+	  	const attr=({sbuId})=>({
+	  		key:sbuId,
+	  		value:sbuId
 	  	});
   		return (<select ref={ele=>this.sbu=ele}>
   		  		{sbus.map(ele=> <option {...attr(ele)}>{ele.sbuName}</option>)}
