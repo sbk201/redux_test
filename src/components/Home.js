@@ -7,6 +7,9 @@ const getProps=props=>{
   	const search=(that,method)=>{
   		const sbuId=that.sbu.value;
   		const keyword=that.name.value;
+
+  		const hospitalId=[]
+  		if(method==="repId") return getHospList({keyword,sbuId,method,hospitalId,limit:"allocation"});
   		getHospList({keyword,sbuId,method,limit:"allocation"});
   	};
 	return {search}
@@ -34,6 +37,8 @@ const Home=props=>{
 			    <Input refer={"name"} defaultValue="aka"/><br/><br/>
 				<Button color="blue" onClick={()=>search(this,"rep")}>Search by Representative</Button>
 				<Button color="blue" onClick={()=>search(this,"hospital")}>Search by Hospital Name</Button>
+				<Button color="blue" onClick={()=>search(this,"repId")}>Search by rep id</Button>
+				<Button color="blue" onClick={()=>search(this,"hospId")}>Search by hosp id</Button>
 			</Message>
 		</div>
 	);

@@ -32,6 +32,11 @@ export const smart= {
 				dispatch(receiveHospitals(hosps));
 				console.log(hosps);
 			}
+			if(method==='repId') {
+				const hosps=await api("get","hospital",params);
+				// dispatch(receiveHospitals(hosps));
+				console.log(hosps);
+			}
 		}
 	},
 }
