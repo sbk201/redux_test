@@ -1,5 +1,5 @@
 import axios from "axios";
-import {isTest,dummyData} from './init/global';
+// import {isTest,dummyData} from './init/global';
 
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
 const receiveSbus=sbus=>({type: "RECEIVE_SBUS", sbus });
@@ -30,7 +30,7 @@ export const smart= {
 	fetchHospital:({method,...params})=>{
 		return async dispatch => {
 			const hosps=await api("get","hospital",params);
-			dispatch(receiveReps(hosps));
+			dispatch(receiveHospitals(hosps));
 			console.log(hosps);
 		}
 	}

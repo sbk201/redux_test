@@ -3,6 +3,7 @@ import {pick} from 'lodash';
 import { smart,updateUI } from '../Actions.js'
 import React, { Component } from "react";
 import Home from '../components/Home'
+import HomeListContainer from '../containers/HomeListContainer'
 const contName="Home";
 
 class HomeContainer extends Component {
@@ -18,15 +19,16 @@ class HomeContainer extends Component {
   }
   
   render(){
-    const rest=pick(this.props,["sbus","getList","fetchHospital","fetchRep"])
+    const rest=pick(this.props,["sbus","fetchHospital","fetchRep"])
     if(!rest.sbus) return <div>Loading</div>
-    return <div><Home {...rest}/></div>
+    return <div>
+      <Home {...rest}/>
+      <HomeListContainer/>  
+      </div>
   }
 }
 const mapStateToProps = (state) => {
-  const UI=state.localUI[contName] || {};
-  const loading= UI.status==='loading';
-  const finished= UI.status==='finished';
+  // const UI=state.localUI[contName] || {};
   const {sbus}=state;
   return {
     sbus
