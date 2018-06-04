@@ -18,7 +18,7 @@ class HomeContainer extends Component {
   }
   
   render(){
-    const rest=pick(this.props,["sbus","getHospList"])
+    const rest=pick(this.props,["sbus","getList","fetchHospital","fetchRep"])
     if(!rest.sbus) return <div>Loading</div>
     return <div><Home {...rest}/></div>
   }
@@ -37,7 +37,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
     fetch: ()=> dispatch(smart.fetchHome()),
-    getHospList: (param)=> dispatch(smart.getHospList(param)),
+    fetchHospital: param=> dispatch(smart.fetchHospital(param)),
+    fetchRep: param=> dispatch(smart.fetchRep(param)),
+    getList: (param)=> dispatch(smart.getHospList(param)),
   }
 }
 

@@ -20,23 +20,18 @@ export const smart= {
 			dispatch(receiveSbus(sbus));
 		}
 	},
-	getHospList:({method,...params})=>{
+	fetchRep:({method,...params})=>{
 		return async dispatch => {
-			if(method==='rep') {
-				const reps=await api("get","rep",params);
-				dispatch(receiveReps(reps));
-				console.log(reps);
-			}
-			if(method==='hospital') {
-				const hosps=await api("get","hospital",params);
-				dispatch(receiveHospitals(hosps));
-				console.log(hosps);
-			}
-			if(method==='repId') {
-				const hosps=await api("get","hospital",params);
-				// dispatch(receiveHospitals(hosps));
-				console.log(hosps);
-			}
+			const reps=await api("get","rep",params);
+			dispatch(receiveReps(reps));
+			console.log(reps);
 		}
 	},
+	fetchHospital:({method,...params})=>{
+		return async dispatch => {
+			const hosps=await api("get","hospital",params);
+			dispatch(receiveReps(hosps));
+			console.log(hosps);
+		}
+	}
 }

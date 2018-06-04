@@ -3,14 +3,15 @@ import React from "react";
 import { Message,Button } from 'semantic-ui-react'
 
 const getProps=props=>{
-	const {getHospList}=props;
+	const {getList,fetchHospital,fetchRep}=props;
   	const search=(that,method)=>{
   		const sbuId=that.sbu.value;
   		const keyword=that.name.value;
 
-  		const hospitalId=[]
-  		if(method==="repId") return getHospList({keyword,sbuId,method,hospitalId,limit:"allocation"});
-  		getHospList({keyword,sbuId,method,limit:"allocation"});
+  		if(method==="repId") return fetchRep({repId:[59,61,63]});
+  		if(method==="hospId") return fetchHospital({hospitalId:[1042,1044,1046,1048]});
+  		if(method==='rep') return fetchRep({keyword,sbuId,limit:"allocation"});
+  		if(method==='hospital') return fetchHospital({keyword,limit:"allocation"});
   	};
 	return {search}
 }
