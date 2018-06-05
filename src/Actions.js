@@ -2,6 +2,7 @@ import axios from "axios";
 // import {isTest,dummyData} from './init/global';
 
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
+export const selectReps=id=>({type: "SELECT_REP", id });
 const receiveSbus=sbus=>({type: "RECEIVE_SBUS", sbus });
 const receiveHospitals=hospitals=>({type: "RECEIVE_HOSPITALS", hospitals });
 const receiveReps=reps=>({type: "RECEIVE_REPS", reps });
@@ -24,7 +25,7 @@ export const smart= {
 		return async dispatch => {
 			const reps=await api("get","rep",params);
 			dispatch(receiveReps(reps));
-			console.log(reps);
+			// console.log(reps);
 		}
 	},
 	fetchHospital:({method,...params})=>{

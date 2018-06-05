@@ -1,4 +1,5 @@
 import {mergeClone} from './init/global'
+import {deepClone} from 'lodash';
 import { combineReducers } from 'redux';
 
 const sbus = (state = [], action) => {
@@ -13,6 +14,10 @@ const reps = (state = [], action) => {
   switch (action.type) {
     case 'RECEIVE_REPS':
       return action.reps
+    case 'SELECT_REP':
+      const id=action.id;
+      const toggle=ele=> ele.repId===id ? {...ele,selected:!ele.selected} : ele
+      return state.map(toggle);
     default:
       return state
   }

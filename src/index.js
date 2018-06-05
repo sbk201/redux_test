@@ -14,7 +14,6 @@ import {debounce} from "lodash";
 import App from "./App";
 
 const store = createStore(reducers,initData,applyMiddleware(thunkMiddleware));
-
 const recordState=()=>{
 	const _createdAt=new Date();
 	const save=()=>storageState._save(store,_createdAt);

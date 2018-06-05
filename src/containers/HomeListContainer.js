@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import {pick} from 'lodash';
-import {updateUI } from '../Actions.js'
+import {smart,updateUI,selectReps } from '../Actions.js'
 import React, { Component } from "react";
 import HomeList from '../components/HomeList'
 const contName="HomeList";
@@ -18,22 +18,24 @@ class HomeContainer extends Component {
   }
   
   render(){
-    const rest=pick(this.props,["reps"])
+    const rest=pick(this.props,["reps","sbus","fetchRep","selectReps"])
     if(!(rest.reps || rest.hospitals)) return <div>Loading</div>
     return <HomeList {...rest}/>
   }
 }
 const mapStateToProps = (state) => {
   // const UI=state.localUI[contName] || {};
-  const {reps}=state;
+  const {reps,sbus}=state;
   return {
-    reps
+    reps,sbus
   }
 }
 const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
+    fetchRep: param=> dispatch(smart.fetchRep(param)),
     updateUI:cmd=>dispatchUI({...cmd,contName}),
+    selectReps:id=>dispatch(selectReps(id))
   }
 }
 
