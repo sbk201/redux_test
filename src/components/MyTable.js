@@ -4,10 +4,11 @@ import {omit} from "lodash";
 import T from "prop-types";
 
 const Header=({data,config})=>{
-	const {match,style}=config.head
+	const {match,style={}}=config.head || {}
 	const HeaderCells=()=>{
+		const matchKey=key=> match ? match[key] : key;
 		const keys=Object.keys(data[0])
-		.map(key=>match[key])
+		.map(matchKey)
 		.filter(key=>key)
 		.map((key,i)=> <Table.HeaderCell key={i}>{key}</Table.HeaderCell>);
 		return keys
@@ -17,20 +18,21 @@ const Header=({data,config})=>{
 			</Table.Row></Table.Header>)
 }
 const Body=({data:rawData,config})=>{
+	const configBody= config.body || {cell:{},row:{}}
 	const data=(function() {
-		const {page=1,entries=rawData.length}=config.body;
+		const {page=1,entries=rawData.length}=configBody;
 		return rawData.slice((page-1)*entries,page*entries);
 		})();
 	const f=()=>{};
 	const Cell=({cellsData})=>cellsData.map(([key,value])=>{
-		const {onClick=f,style={}}=config.body.cell;
+		const {onClick=f,style={}}=configBody.cell;
 		const attrs={
 				style, key,onClick:()=>onClick({key,value})
 			}
 			return	<Table.Cell {...{...attrs}}>{value}</Table.Cell>
 	})
 	const getTheRows=(row_,i)=>{
-		const {rowAttr=f,onClick=f,exclude=""}=config.body.row;
+		const {rowAttr=f,onClick=f,exclude=""}=configBody.row;
 		const rowFn= r => Object.entries( omit(r,exclude) );
 		const row=rowFn(row_);
 		const attr={
@@ -63,9 +65,11 @@ MyTable.propTypes ={
 				localCustNbr: T.string
 			}),
 			style: T.shape({})
-		}).isRequired,
+		}),
 		body: T.shape({
-		}).isRequired
+			row: T.shape({}),
+			cell: T.shape({})
+		})
 	}).isRequired
 };
 export default MyTable;
