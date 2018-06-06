@@ -17,7 +17,7 @@ export const smart= {
 	fetchHome:()=>{
 		return async dispatch=>{
 			const sbus=await api("get","sbu");
-			console.log('got result >>>',sbus)
+			// console.log('got result >>>',sbus)
 			dispatch(receiveSbus(sbus));
 		}
 	},

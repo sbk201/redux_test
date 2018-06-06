@@ -37,7 +37,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchRep: param=> dispatch(smart.fetchRep(param)),
     updateUI:cmd=>dispatchUI({...cmd,contName}),
-    selectReps:id=>dispatch(selectReps(id))
+    selectReps:id=>dispatch(selectReps(id)),
+    showHospitals:id=>dispatch(smart.fetchRep(id))
   }
 }
 

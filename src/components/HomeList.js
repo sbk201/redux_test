@@ -3,6 +3,7 @@ import React from "react";
 import Pagination from './Pagination';
 import Table from "./MyTable";
 import {pick} from "lodash";
+import { Button } from 'semantic-ui-react'
 
 const getProps=props=>{
 	const {UI,updateUI,sbus=[],reps,hospitals,fetchRep,selectReps}=props;
@@ -18,6 +19,10 @@ const getProps=props=>{
 		const repId=row.filter(([key,v])=>key==='repId').map(([key,v])=>v)[0]
 		selectReps(repId);
 		// fetchRep({repId:[59,61,63]});
+	}
+	const showHospitals=data=>{
+		const repId=data.filter(ele=>ele.selected).map(ele=>ele.repId);
+		fetchRep({repId});
 	}
   	const {page,entries}=UI;
 	const config={
@@ -53,17 +58,17 @@ const getProps=props=>{
 			</div>
 			)
 	}
-	return {title,data,config,Entries}
+	return {title,data,config,Entries,showHospitals}
 }
 const HomeList=props=>{
   	const {UI,updateUI}=props;
-  	const {title,data,config,Entries}=getProps(props);
+  	const {title,data,config,Entries,showHospitals}=getProps(props);
 	// const Input=({refer,...rest})=><input ref={ele=>this[refer]=ele} {...{...rest}}/>;
 	return (
 		<div> 
 			<h3>{title}</h3>
 			<Entries/><br/><br/>
-			<Pagination {...{data,UI,updateUI}}/><br/>
+			<Pagination {...{data,UI,updateUI}}/> <Button color="blue" onClick={()=>showHospitals(data)}>Show Hospitals For Selected</Button><br/>
 			<Table {...{data,config}} />
 			<Pagination {...{data,UI,updateUI}}/><br/>
 		</div>
