@@ -17,7 +17,7 @@ const getProps=props=>{
 		return (
 			<div>
 				Entries 
-	 			<select value={UI.entries} onChange={e=>updateUI({entries:e.target.value})}>
+	 			<select value={UI.entries} onChange={e=>updateUI({page:1,entries:e.target.value})}>
 	 				<option>10</option>
 	 				<option>15</option>
 	 				<option>25</option>
