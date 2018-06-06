@@ -14,20 +14,22 @@ class HomeContainer extends Component {
     return true
   }
   componentDidMount() {
-    // this.props.fetch();
+    const {updateUI}=this.props;
+    const {page=1,entries=10}=this.props.UI;
+    updateUI({page,entries});
   }
   
   render(){
-    const rest=pick(this.props,["reps","sbus","fetchRep","selectReps"])
+    const rest=pick(this.props,["UI","updateUI","reps","sbus","fetchRep","selectReps"])
     if(!(rest.reps || rest.hospitals)) return <div>Loading</div>
     return <HomeList {...rest}/>
   }
 }
 const mapStateToProps = (state) => {
-  // const UI=state.localUI[contName] || {};
+  const UI=state.localUI[contName] || {};
   const {reps,sbus}=state;
   return {
-    reps,sbus
+    reps,sbus,UI
   }
 }
 const mapDispatchToProps = (dispatch) => {

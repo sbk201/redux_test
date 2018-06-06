@@ -1,11 +1,11 @@
 import React from "react";
 // import PropTypes from "prop-types";
-// import { Message,Button } from 'semantic-ui-react'
+import Pagination from './Pagination';
 import Table from "./MyTable";
 import {pick} from "lodash";
 
 const getProps=props=>{
-	const {sbus=[],reps,hospitals,fetchRep,selectReps}=props;
+	const {UI,updateUI,sbus=[],reps,hospitals,fetchRep,selectReps}=props;
 	const sbuCode=id=>sbus.filter(ele=>~~ ele.sbuId=== ~~ id)[0].sbuCode;
 	// console.log(sbuCode("1258"))
 	const repMatch={repId:"Rep ID",globalEmpNbr:"Global Empployee Number",globalEmpName:"Global Employee Name",repLocalName:"Local Employee Name",sbuId:"SBU Code",SBU:"SBU",countryCode:"Country",managerEmailId:"Email"}
@@ -19,12 +19,14 @@ const getProps=props=>{
 		selectReps(repId);
 		// fetchRep({repId:[59,61,63]});
 	}
+  	const {page,entries}=UI;
 	const config={
 		head:{
 			match:repMatch, 
 			style:{textAlign: "center"}
 		},
 		body:{
+			page,entries,
 			row:{
 				rowAttr:({selected})=>({active:!selected}),
 				exclude:"selected",
@@ -38,16 +40,32 @@ const getProps=props=>{
 	const data=data_raw;
 	const title= reps ? 'Representative' : 'Hospitals';
 
-	return {title,data,config}
+	const Entries=()=>{
+		return (
+			<div>
+				Entries 
+	 			<select value={UI.entries} onChange={e=>updateUI({page:1,entries:e.target.value})}>
+	 				<option>10</option>
+	 				<option>15</option>
+	 				<option>25</option>
+	 				<option>50</option>
+	 			</select>
+			</div>
+			)
+	}
+	return {title,data,config,Entries}
 }
 const HomeList=props=>{
-  	// const {reps}=props;
-  	const {title,data,config}=getProps(props);
+  	const {UI,updateUI}=props;
+  	const {title,data,config,Entries}=getProps(props);
 	// const Input=({refer,...rest})=><input ref={ele=>this[refer]=ele} {...{...rest}}/>;
 	return (
 		<div> 
 			<h3>{title}</h3>
+			<Entries/><br/><br/>
+			<Pagination {...{data,UI,updateUI}}/><br/>
 			<Table {...{data,config}} />
+			<Pagination {...{data,UI,updateUI}}/><br/>
 		</div>
 	);
 }
