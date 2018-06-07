@@ -6,7 +6,7 @@ import {pick} from "lodash";
 import { Button } from 'semantic-ui-react'
 
 const getProps=props=>{
-	const {UI,updateUI,sbus=[],reps,hospitals,fetchRep,selectReps}=props;
+	const {UI,updateUI,sbus=[],reps,hospitals,fetchRep,fetchAllocation,selectReps}=props;
 	const sbuCode=id=>sbus.filter(ele=>~~ ele.sbuId=== ~~ id)[0].sbuCode;
 	// console.log(sbuCode("1258"))
 	const repMatch={repId:"Rep ID",globalEmpNbr:"Global Empployee Number",globalEmpName:"Global Employee Name",repLocalName:"Local Employee Name",sbuId:"SBU Code",SBU:"SBU",countryCode:"Country",managerEmailId:"Email"}
@@ -22,7 +22,7 @@ const getProps=props=>{
 	}
 	const showHospitals=data=>{
 		const repId=data.filter(ele=>ele.selected).map(ele=>ele.repId);
-		fetchRep({repId});
+		fetchAllocation({repId});
 	}
   	const {page,entries}=UI;
 	const config={
