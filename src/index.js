@@ -1,6 +1,7 @@
 import 'es6-shim';
 import 'semantic-ui-css/semantic.min.css';
 import "./index.css";
+// import  './init/firebase';
 import React from "react";
 import ReactDOM from "react-dom";
 import reducers from "./Reducer";
@@ -12,7 +13,6 @@ import initData from "./init/initData";
 import storageState,{isDev} from "./init/global";
 import {debounce} from "lodash";
 import App from "./App";
-
 const store = createStore(reducers,initData,applyMiddleware(thunkMiddleware));
 const recordState=()=>{
 	const _createdAt=new Date();

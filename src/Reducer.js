@@ -1,5 +1,4 @@
 import {mergeClone} from './init/global'
-import {deepClone} from 'lodash';
 import { combineReducers } from 'redux';
 
 const sbus = (state = [], action) => {

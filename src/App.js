@@ -16,7 +16,7 @@ class App extends Component {
 		return (
 			<Router>
 				<div>
-					<h1>Hospital Rep Allocation System</h1>
+					<h1>FireBase testing</h1>
 					<Route exact path="/" component={HomeContainer} />
 				</div>
 			</Router>
