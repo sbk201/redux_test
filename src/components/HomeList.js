@@ -5,7 +5,7 @@ import Table from "./MyTable";
 import {pick} from "lodash";
 
 const getProps=props=>{
-	const {sbus=[],reps,hospitals,fetchRep,selectReps}=props;
+	const {sbus=[],reps,selectReps}=props;
 	const sbuCode=id=>sbus.filter(ele=>~~ ele.sbuId=== ~~ id)[0].sbuCode;
 	// console.log(sbuCode("1258"))
 	const repMatch={repId:"Rep ID",globalEmpNbr:"Global Empployee Number",globalEmpName:"Global Employee Name",repLocalName:"Local Employee Name",sbuId:"SBU Code",SBU:"SBU",countryCode:"Country",managerEmailId:"Email"}

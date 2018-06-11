@@ -23,22 +23,6 @@
   </head>
   <body>
 
-    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyB-ThB2xa6uP9OYvrD1JGQp7_7A7_eBmhs",
-        authDomain: "something-4aa24.firebaseapp.com",
-        databaseURL: "https://something-4aa24.firebaseio.com",
-        projectId: "something-4aa24",
-        storageBucket: "something-4aa24.appspot.com",
-        messagingSenderId: "591089591007"
-      };
-      firebase.initializeApp(config);
-      var dbRef=firebase.database().ref('text');
-      dbRef.on('value',snap=>console.log(snap.val()));
-      console.log(firebase);
-    </script>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
