@@ -1,11 +1,13 @@
 import React from "react";
 // import PropTypes from "prop-types";
-import firebase from '../init/firebase';
+import firebase,{FirebaseUI} from '../fireAuth';
+
 
 const getProps=props=>{
 	return {}
 }
 const Home=props=>{
+	props.checkUser();
 	console.log(firebase.auth());
   	// const {sbus}=props;
   	// const {search}=getProps(props);
@@ -15,6 +17,7 @@ const Home=props=>{
 		<div> 
 		Home
 			<br/>
+			<FirebaseUI/>
 		</div>
 	);
 }

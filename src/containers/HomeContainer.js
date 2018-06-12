@@ -1,9 +1,8 @@
 import { connect } from 'react-redux'
 import {pick} from 'lodash';
-import { smart,updateUI } from '../Actions.js'
+import { checkUser,smart,updateUI } from '../Actions.js'
 import React, { Component } from "react";
 import Home from '../components/Home'
-import HomeListContainer from '../containers/HomeListContainer'
 const contName="Home";
 
 class HomeContainer extends Component {
@@ -15,11 +14,12 @@ class HomeContainer extends Component {
     return true
   }
   componentDidMount() {
+    // this.props.checkUser();
     // console.log(db);
   }
   
   render(){
-    const rest=pick(this.props,["sbus","fetchHospital","fetchRep"])
+    const rest=pick(this.props,["checkUser"])
     return <div>
       <Home {...rest}/> 
       </div>
@@ -27,16 +27,15 @@ class HomeContainer extends Component {
 }
 const mapStateToProps = (state) => {
   // const UI=state.localUI[contName] || {};
-  const {sbus}=state;
+  const {}=state;
   return {
-    sbus
   }
 }
 const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
-    fetch: ()=> dispatch(smart.fetchHome()),
+    checkUser:()=>dispatch(checkUser())
   }
 }
 
