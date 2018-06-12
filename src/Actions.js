@@ -10,10 +10,12 @@ const delUser=_id=>({type: "DEL_USER", _id });
 const link={
 	message:"http://localhost:5000/data",
 	users:"http://localhost:5000/users",
-	login:"http://localhost:5000/users/login",
+	login:"https://localhost:5000/users/login",
+	sess:"https://localhost:5000/users/sess",
 }
 
 
+const sessApi=async ()=>(await axios.get(link.sess)).data;
 const loginApi=async param=>(await axios.post(link.login,param)).data;
 const getMessageApi=async ()=>(await axios.get(link.message)).data;
 const addMessageApi=async param=>(await axios.post(link.message,param)).data;
@@ -41,8 +43,14 @@ export const smart=(function() {
 		},
 		users:{
 			login:param=>async dispatch =>{
-				const logged=await loginApi(param);
-				console.log('got from login ',logged)
+				console.log('session test');
+				const logged=await sessApi();
+				console.log(logged);
+
+				// const logged=await loginApi(param)
+				// if(!logged) return console.error('server got some error');
+				// console.log('got from login ',logged)
+
 				// dispatch(addUsers(user));
 			},
 			get: ()=>async dispatch => {
