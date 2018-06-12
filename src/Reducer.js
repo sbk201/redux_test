@@ -1,30 +1,10 @@
 import {mergeClone} from './init/global'
 import { combineReducers } from 'redux';
 
-const sbus = (state = [], action) => {
+const userProfile = (state = [], action) => {
   switch (action.type) {
-    case 'RECEIVE_SBUS':
-      return action.sbus
-    default:
-      return state
-  }
-}
-const reps = (state = [], action) => {
-  switch (action.type) {
-    case 'RECEIVE_REPS':
-      return action.reps
-    case 'SELECT_REP':
-      const id=action.id;
-      const toggle=ele=> ele.repId===id ? {...ele,selected:!ele.selected} : ele
-      return state.map(toggle);
-    default:
-      return state
-  }
-}
-const hospitals = (state = [], action) => {
-  switch (action.type) {
-    case 'RECEIVE_HOSPITALS':
-    	return action.hospitals
+    case 'RECEIVE_USER_PROFILE':
+    	return action.userProfile
     default:
       return state
   }
@@ -43,7 +23,7 @@ const localUI = (state = {}, action) => {
 };
 
 const allReducers = combineReducers({
-  localUI,sbus, reps,hospitals
+  localUI,userProfile,
 })
 
 export default allReducers

@@ -4,13 +4,12 @@ import axios from "axios";
 
 export const checkUser=()=>{
 	return async dispatch=>{
-		firebase.auth().onAuthStateChanged(user=> user ?
-			console.log('logged in',user) : console.log('not login'))
+		firebase.auth().onAuthStateChanged(user=> dispatch(receiveUserProfile(user)))
 	}
 }
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
 // export const selectReps=id=>({type: "SELECT_REP", id });
-// const receiveSbus=sbus=>({type: "RECEIVE_SBUS", sbus });
+const receiveUserProfile=userProfile=>({type: "RECEIVE_USER_PROFILE", userProfile });
 // const receiveHospitals=hospitals=>({type: "RECEIVE_HOSPITALS", hospitals });
 // const receiveReps=reps=>({type: "RECEIVE_REPS", reps });
 

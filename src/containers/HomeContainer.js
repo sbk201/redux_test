@@ -14,12 +14,12 @@ class HomeContainer extends Component {
     return true
   }
   componentDidMount() {
-    // this.props.checkUser();
+    this.props.checkUser();
     // console.log(db);
   }
   
   render(){
-    const rest=pick(this.props,["checkUser"])
+    const rest=pick(this.props,["checkUser","userProfile"])
     return <div>
       <Home {...rest}/> 
       </div>
@@ -27,8 +27,9 @@ class HomeContainer extends Component {
 }
 const mapStateToProps = (state) => {
   // const UI=state.localUI[contName] || {};
-  const {}=state;
+  const {userProfile}=state;
   return {
+    userProfile
   }
 }
 const mapDispatchToProps = (dispatch) => {
