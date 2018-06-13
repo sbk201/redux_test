@@ -11,13 +11,11 @@ const Home=props=>{
 	console.log(firebase.auth());
 	// const Input=({refer,...rest})=><input ref={ele=>this[refer]=ele} {...{...rest}}/>;
 	const UserState=()=>{
-		const isLogged=userProfile || false;
-		const email=userProfile&& userProfile.email;
-		const state= isLogged ?
-		email : 'not logged in';
-		return <div>{state}</div>
+		if(!userProfile) return <div>Not logged in</div>
+		const {email,displayName}=userProfile;
+		return <div>Hello {displayName} , email: {email}</div>
 	}
-	const signOut=()=> firebase.auth().signOut().then(console.log('Signed Out'));
+	const signOut=()=> firebase.auth().signOut().then(props.checkUser());
 	return (
 		<div> 
 		Home
