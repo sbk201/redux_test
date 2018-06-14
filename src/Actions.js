@@ -37,7 +37,6 @@ export const smart= {
 	},
 	fetchAllocation:({method,...params})=>{
 		return async dispatch => {
-			console.log(params)
 			const allocation=await api("get","allocation",params);
 			// dispatch(receiveHospitals(hosps));
 			console.log(allocation);
