@@ -75,17 +75,26 @@ const getProps=props=>{
 			</div>
 			)
 	}
-	return {title,data:data_raw,config,Entries,showHospitals}
+	const BulkBtn=()=>{
+		if(UI.show==='rep'){
+			return <Button color="blue" onClick={()=>showHospitals(data_raw)}>Show Hospitals For Selected</Button>
+		}
+		if(UI.show==='hosp'){
+			return <Button color="blue" onClick={()=>console.log('under develop')}>Assign Rep</Button>
+		}
+		throw Error(`UI.show must be either rep or hosp,UI.show=${UI.show}`)
+	}
+	return {title,data:data_raw,config,Entries,BulkBtn,showHospitals}
 }
 const HomeList=props=>{
   	const {UI,updateUI}=props;
-  	const {title,data,config,Entries,showHospitals}=getProps(props);
+  	const {title,data,config,Entries,BulkBtn,showHospitals}=getProps(props);
 	// const Input=({refer,...rest})=><input ref={ele=>this[refer]=ele} {...{...rest}}/>;
 	return (
 		<div> 
 			<h3>{title}</h3>
 			<Entries/><br/><br/>
-			<Pagination {...{data,UI,updateUI}}/> <Button color="blue" onClick={()=>showHospitals(data)}>Show Hospitals For Selected</Button><br/>
+			<Pagination {...{data,UI,updateUI}}/> <BulkBtn/><br/>
 			<Table {...{data,config}} />
 			<Pagination {...{data,UI,updateUI}}/><br/>
 		</div>
