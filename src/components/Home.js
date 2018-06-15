@@ -35,7 +35,7 @@ const Home=props=>{
 				<Message.Header>Select SBU</Message.Header>
 			 	<SbuList sbus={sbus}/><br/><br/>
 				<Message.Header>Search by Name</Message.Header>
-			    <Input refer={"name"} defaultValue=""/><br/><br/>
+			    <Input refer="name" defaultValue=""/><br/><br/>
 				<Button color="blue" onClick={()=>search(this,"rep")}>Search by Representative</Button>
 				<Button color="blue" onClick={()=>search(this,"hospital")}>Search by Hospital Name</Button>
 				<Button color="blue" onClick={()=>search(this,"repId")}>Search by rep id</Button>

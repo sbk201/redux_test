@@ -21,21 +21,26 @@ export const smart= {
 			dispatch(receiveSbus(sbus));
 		}
 	},
-	fetchRep:({method,...params})=>{
+	fetchRep:(params)=>{
 		return async dispatch => {
+  			const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName:'HomeList'}));
+			dispatchUI({status:'loading'})
 			const reps=await api("get","rep",params);
 			dispatch(receiveReps(reps));
-			// console.log(reps);
+			dispatchUI({status:'finished',show:'rep',page:1})
 		}
 	},
-	fetchHospital:({method,...params})=>{
+	fetchHospital:(params)=>{
 		return async dispatch => {
+  			const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName:'HomeList'}));
+			dispatchUI({status:'loading'})
 			const hosps=await api("get","hospital",params);
 			dispatch(receiveHospitals(hosps));
+			dispatchUI({status:'finished',show:'hosp',page:1})
 			console.log(hosps);
 		}
 	},
-	fetchAllocation:({method,...params})=>{
+	fetchAllocation:({...params})=>{
 		return async dispatch => {
 			const allocation=await api("get","allocation",params);
 			// dispatch(receiveHospitals(hosps));

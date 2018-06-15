@@ -1,48 +1,48 @@
 import { connect } from 'react-redux'
-import {pick} from 'lodash';
+import {omit} from 'lodash';
 import {smart,updateUI,selectReps } from '../Actions.js'
 import React, { Component } from "react";
 import HomeList from '../components/HomeList'
 const contName="HomeList";
 
-class HomeContainer extends Component {
+class HomeListContainer extends Component {
   shouldComponentUpdate(nextProps){
-    // won't update
-    // const {reps,countries}=this.props.data;
-    // const loaded=reps&&countries;
-    // return !loaded
     return true
   }
   componentDidMount() {
     const {updateUI}=this.props;
     const {page=1,entries=10}=this.props.UI;
-    updateUI({page,entries});
+    const status=this.props.UI.status || 'init';
+    updateUI({page,entries,status});
   }
   
   render(){
-    const rest=pick(this.props,["UI","updateUI","reps","sbus","fetchRep","fetchHospital","selectReps"])
-    if(!(rest.reps || rest.hospitals)) return <div>Loading</div>
+
+    const rest=omit(this.props,[""])
+    const status=rest.UI.status
+    if(status==='init') return <div></div>
+    if(status==='loading') return <div>Loading</div>
     return <HomeList {...rest}/>
   }
 }
 const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
-  const {reps,sbus}=state;
+  const {sbus,reps,hospitals}=state;
   return {
-    reps,sbus,UI
+    UI,sbus,reps,hospitals
   }
 }
 const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
     fetchRep: param=> dispatch(smart.fetchRep(param)),
+    fetchHospital:id=>dispatch(smart.fetchHospital(id)),
     updateUI:cmd=>dispatchUI({...cmd,contName}),
     selectReps:id=>dispatch(selectReps(id)),
-    fetchHospital:id=>dispatch(smart.fetchHospital(id))
   }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomeContainer)
+)(HomeListContainer)

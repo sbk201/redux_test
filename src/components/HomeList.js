@@ -7,13 +7,25 @@ import { Button } from 'semantic-ui-react'
 
 const getProps=props=>{
 	const {UI,updateUI,sbus=[],reps,hospitals,fetchRep,fetchHospital,selectReps}=props;
-	const sbuCode=id=>sbus.filter(ele=>~~ ele.sbuId=== ~~ id)[0].sbuCode;
+	const sbuCode=id=>{
+		return sbus.filter(ele=>~~ ele.sbuId=== ~~ id)[0].sbuCode
+	};
 	// console.log(sbuCode("1258"))
-	const repMatch={repId:"Rep ID",globalEmpNbr:"Global Empployee Number",globalEmpName:"Global Employee Name",repLocalName:"Local Employee Name",sbuId:"SBU Code",SBU:"SBU",countryCode:"Country",managerEmailId:"Email"}
-	const data_raw=(function() {
-		const repAttrs=[...Object.keys(repMatch),"selected"];
-		// if(reps) return reps.map(ele=>({...ele})).map(ele=>pick(ele,repAttrs));
-		if(reps) return reps.map(ele=>({...ele,SBU:sbuCode(ele.sbuId)})).map(ele=>pick(ele,repAttrs));
+	const [headMatch,data_raw]=(function() {
+		if(UI.show==='rep'){
+			const repMatch={repId:"Rep ID",globalEmpNbr:"Global Employee Number",globalEmpName:"Global Employee Name",repLocalName:"Local Employee Name",sbuId:"SBU Code",SBU:"SBU",countryCode:"Country",managerEmailId:"Email"}
+			const repAttrs=[...Object.keys(repMatch),"selected"];
+			const repData=reps.map(ele=>({...ele,SBU:sbuCode(ele.sbuId)})).map(ele=>pick(ele,repAttrs));
+			return [repMatch,repData];
+		}
+		if(UI.show==='hosp'){
+			const hospMatch={hospitalFId:"Falkor ID",hospitalNameInEnglish:"Name",hospitalNameInLocal:"Local Name"
+			,addressLine_1:"Address", prefectureName:"Prefecture",city:"City",postCode:"Post Code"}
+			const hospAttrs=[...Object.keys(hospMatch),"selected"];
+			const hospData=hospitals.map(ele=>pick(ele,hospAttrs));
+			return [hospMatch,hospData];
+		}
+		return [{},[]]
 	})();
 	const clickRow=row=>{
 		const repId=row.filter(([key,v])=>key==='repId').map(([key,v])=>v)[0]
@@ -27,7 +39,7 @@ const getProps=props=>{
   	const {page,entries}=UI;
 	const config={
 		head:{
-			match:repMatch, 
+			match:headMatch, 
 			style:{textAlign: "center"}
 		},
 		body:{
@@ -42,8 +54,7 @@ const getProps=props=>{
 			}
 		}
 	}
-	const data=data_raw;
-	const title= reps ? 'Representative' : 'Hospitals';
+	const title= UI.show==='rep' ? 'Representative' : 'Hospitals';
 
 	const Entries=()=>{
 		return (
@@ -58,7 +69,7 @@ const getProps=props=>{
 			</div>
 			)
 	}
-	return {title,data,config,Entries,showHospitals}
+	return {title,data:data_raw,config,Entries,showHospitals}
 }
 const HomeList=props=>{
   	const {UI,updateUI}=props;

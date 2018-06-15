@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import {pick} from 'lodash';
+import {omit} from 'lodash';
 import { smart,updateUI } from '../Actions.js'
 import React, { Component } from "react";
 import Home from '../components/Home'
@@ -8,10 +8,6 @@ const contName="Home";
 
 class HomeContainer extends Component {
   shouldComponentUpdate(nextProps){
-    // won't update
-    // const {sbus,countries}=this.props.data;
-    // const loaded=sbus&&countries;
-    // return !loaded
     return true
   }
   componentDidMount() {
@@ -19,7 +15,7 @@ class HomeContainer extends Component {
   }
   
   render(){
-    const rest=pick(this.props,["sbus","fetchHospital","fetchRep"])
+    const rest=omit(this.props,["fetch"])
     if(!rest.sbus) return <div>Loading</div>
     return <div>
       <Home {...rest}/>
@@ -39,8 +35,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
     fetch: ()=> dispatch(smart.fetchHome()),
-    fetchHospital: param=> dispatch(smart.fetchHospital(param)),
     fetchRep: param=> dispatch(smart.fetchRep(param)),
+    fetchHospital: param=> dispatch(smart.fetchHospital(param)),
     getList: (param)=> dispatch(smart.getHospList(param)),
   }
 }
