@@ -20,7 +20,7 @@ class HomeContainer extends Component {
   }
   
   render(){
-    const rest=pick(this.props,["UI","updateUI","reps","sbus","fetchRep","fetchAllocation","selectReps"])
+    const rest=pick(this.props,["UI","updateUI","reps","sbus","fetchRep","fetchHospital","selectReps"])
     if(!(rest.reps || rest.hospitals)) return <div>Loading</div>
     return <HomeList {...rest}/>
   }
@@ -38,7 +38,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchRep: param=> dispatch(smart.fetchRep(param)),
     updateUI:cmd=>dispatchUI({...cmd,contName}),
     selectReps:id=>dispatch(selectReps(id)),
-    fetchAllocation:id=>dispatch(smart.fetchAllocation(id))
+    fetchHospital:id=>dispatch(smart.fetchHospital(id))
   }
 }
 

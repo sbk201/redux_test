@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { smart,updateUI,selectCust,nextView } from '../Actions.js'
+import { smart,updateUI,selectCust } from '../Actions.js'
 import {pick,omit} from 'lodash';
 import React, { Component } from "react";
 import CustomerList from '../components/CustomerList'
@@ -16,7 +16,8 @@ class CustomerListContainer extends Component {
     const {finished,data}=this.props;
     if(!finished) return <div></div>;
     if(!data.length) return <div>No Results</div>
-    const rest=pick(this.props,["pickedSbu","pickedCountry","data","UI", "status","updateUI" ,"fetchCust" ,"selectCust" ,"nextView" ])
+    const useful=["pickedSbu","pickedCountry","data","UI", "status","updateUI" ,"fetchCust" ,"selectCust"];
+    const rest=pick(this.props,useful)
     return <CustomerList {...rest}/>
   }
 }
@@ -47,7 +48,6 @@ const mapDispatchToProps = (dispatch) => {
     updateUI:cmd=>dispatch(updateUI({...cmd,contName})),
     fetchCust: params=>dispatch(smart.fetchGetCustomers(params)),
     selectCust:id=>dispatch(selectCust(id)),
-    nextView:view=>dispatch(nextView(view)),
   }
 }
 
