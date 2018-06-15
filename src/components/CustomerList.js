@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button,Pagination as PaginationUI } from 'semantic-ui-react'
+import { Button,Pagination as PaginationUI} from 'semantic-ui-react'
 import { Link } from "react-router-dom";
 import MyTable from './MyTable';
+import Pagination from 'Pagination';
 const getProps=props=>{
 	const {updateUI,selectCust,fetchCust}=props
 		const {data,UI}=props;
@@ -22,20 +23,20 @@ const getProps=props=>{
 		return filtered;
 	})(data,UI.keyword);
 	const perItems=10;
-	const Pagination=()=>{
-		const attr={
-			totalPages:Math.ceil(dataFilter.length/perItems),
-			defaultActivePage:UI.page||1,
-			onPageChange:(_,d)=>updateUI({page:d.activePage})
-		};
-		return <PaginationUI {...attr}/>
-	}
+	// const Pagination=()=>{
+	// 	const attr={
+	// 		totalPages:Math.ceil(dataFilter.length/perItems),
+	// 		defaultActivePage:UI.page||1,
+	// 		onPageChange:(_,d)=>updateUI({page:d.activePage})
+	// 	};
+	// 	return <PaginationUI {...attr}/>
+	// }
+	const dataShow=(function(){
+		const start=perItems*(UI.page-1);
+		const end=perItems*(UI.page)-1;
+		return dataFilter.slice(start,end);
+	})();
   	const tableParams=(function(){
-		const dataShow=(function(){
-			const start=perItems*(UI.page-1);
-			const end=perItems*(UI.page)-1;
-			return dataFilter.slice(start,end);
-		})();
 		const fetchCust_=(data)=>{
 			const {pickedSbu:sbu}=props;
 			const {globalEmpNbr}=data;
@@ -90,20 +91,20 @@ const getProps=props=>{
 		const keyword=e.target.value;
 		updateUI({keyword,page:1});
 	};	
-	return {setKeyword,tableParams,Count,Pagination}
+	return {setKeyword,tableParams,Count,data:dataShow,UI,updateUI}
 }
 const CustomerList=props=>{
-  	const {setKeyword,tableParams,Count,Pagination}=getProps(props);
+  	const {setKeyword,tableParams,Count,data,UI,updateUI}=getProps(props);
 	return (
 		<div>
 			<h1>Customer List</h1>
 			<hr/>
 			<Count/>
-			<Pagination/><br/>
+			<Pagination {...{data,UI,updateUI}}/><br/>
 			Filter <input onChange={setKeyword}/><br/>
 			<Link to="/allocate"><Button content="Submit" color="blue"/></Link>
 			<MyTable {...tableParams}/>
-			<Pagination/>
+			<Pagination {...{data,UI,updateUI}}/>
 		</div>
 	);
 }
