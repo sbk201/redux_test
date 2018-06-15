@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import {omit} from 'lodash';
-import {smart,updateUI,selectReps } from '../Actions.js'
+import {smart,updateUI,selectReps,selectHosps } from '../Actions.js'
 import React, { Component } from "react";
 import HomeList from '../components/HomeList'
 const contName="HomeList";
@@ -39,6 +39,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchHospital:id=>dispatch(smart.fetchHospital(id)),
     updateUI:cmd=>dispatchUI({...cmd,contName}),
     selectReps:id=>dispatch(selectReps(id)),
+    selectHosps:id=>dispatch(selectHosps(id)),
   }
 }
 

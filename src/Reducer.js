@@ -26,6 +26,10 @@ const hospitals = (state = [], action) => {
   switch (action.type) {
     case 'RECEIVE_HOSPITALS':
     	return action.hospitals
+    case 'SELECT_HOSPITALS':
+      const id=action.id;
+      const toggle=ele=> ele.hospitalFId===id ? {...ele,selected:!ele.selected} : ele
+      return state.map(toggle);
     default:
       return state
   }

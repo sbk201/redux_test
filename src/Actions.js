@@ -3,6 +3,7 @@ import axios from "axios";
 
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
 export const selectReps=id=>({type: "SELECT_REP", id });
+export const selectHosps=id=>({type: "SELECT_HOSPITALS", id });
 const receiveSbus=sbus=>({type: "RECEIVE_SBUS", sbus });
 const receiveHospitals=hospitals=>({type: "RECEIVE_HOSPITALS", hospitals });
 const receiveReps=reps=>({type: "RECEIVE_REPS", reps });
