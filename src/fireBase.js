@@ -1,9 +1,9 @@
 import React from "react";
 import firebase from 'firebase/app';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import firebaseui from 'firebaseui'
 import "firebase/firestore";
 import "firebase/auth";
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import firebaseui from 'firebaseui'
 const config = {
     apiKey: "AIzaSyDfyjrFzDcgKr2ObU_q--O0eNy-vt-6b9s",
     authDomain: "cloud-ab742.firebaseapp.com",
@@ -13,14 +13,15 @@ const config = {
     messagingSenderId: "724326141542"
 };
 firebase.initializeApp(config);
+const db=firebase.firestore();
+db.settings({timestampsInSnapshots: true});
+// db.collection("messages")
+    // .onSnapshot(data=>console.log(data))
+export const coll=name=>db.collection(name);
 
 const uiConfig = {
-  // Popup signin flow rather than redirect flow.
   signInFlow: 'popup',
   credentialHelper:firebaseui.auth.CredentialHelper.NONE,
-  // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-  // signInSuccessUrl: false,
-  // We will display Google and Facebook as auth providers.
   signInOptions: [
     {
       provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,

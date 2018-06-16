@@ -1,4 +1,4 @@
-import firebase from './fireAuth';
+import firebase,{coll} from './fireBase';
 import axios from "axios";
 // import {isTest,dummyData} from './init/global';
 
@@ -27,18 +27,13 @@ export const smart= {
 			// dispatch(receiveSbus(sbus));
 		}
 	},
-	// fetchRep:({method,...params})=>{
-	// 	return async dispatch => {
-	// 		const reps=await api("get","rep",params);
-	// 		dispatch(receiveReps(reps));
-	// 		// console.log(reps);
-	// 	}
-	// },
-	// fetchHospital:({method,...params})=>{
-	// 	return async dispatch => {
-	// 		const hosps=await api("get","hospital",params);
-	// 		dispatch(receiveHospitals(hosps));
-	// 		console.log(hosps);
-	// 	}
-	// }
+	fetchingMessage:()=>{
+		return async dispatch => {
+			coll('messages').onSnapshot(snap=>{
+				console.log('on change');
+				console.log(snap.docs.map(doc=>doc.data()))
+				// snap.docChanges().forEach(change=> console.log(change.doc.data()))
+			})
+		}
+	},
 }
