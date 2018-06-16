@@ -1,6 +1,7 @@
 import React from "react";
 import firebase from 'firebase/app';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import firebaseui from 'firebaseui'
 import "firebase/firestore";
 import "firebase/auth";
 const config = {
@@ -16,21 +17,21 @@ firebase.initializeApp(config);
 const uiConfig = {
   // Popup signin flow rather than redirect flow.
   signInFlow: 'popup',
+  credentialHelper:firebaseui.auth.CredentialHelper.NONE,
   // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
   // signInSuccessUrl: false,
   // We will display Google and Facebook as auth providers.
   signInOptions: [
-    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    {
+      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      requireDisplayName: false
+    },
     firebase.auth.GithubAuthProvider.PROVIDER_ID,
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
   ],
-  callbacks: { signInSuccessWithAuthResult :()=>false}
+  callbacks: { signInSuccessWithAuthResult :()=>window.location.reload()}
 };
-
-export const FirebaseUI=({userProfile,checkUser})=> {
-  const signOut=()=> firebase.auth().signOut().then(checkUser());
-  if(userProfile) return <button onClick={signOut}>Sign Out</button>
-  return <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
-} ;
+export const signOut=(checkUser)=> firebase.auth().signOut().then(checkUser());
+export const FirebaseUI=()=> <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>;
 
 export default firebase
