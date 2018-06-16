@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import {pick} from 'lodash';
+import {omit} from 'lodash';
 import { checkUser,smart,updateUI } from '../Actions.js'
 import React, { Component } from "react";
 import Home from '../components/Home'
@@ -7,6 +7,13 @@ const contName="Home";
 
 class HomeContainer extends Component {
   shouldComponentUpdate(nextProps){
+    const now=this.props.userProfile;
+    const past=nextProps.userProfile;
+    console.log('nextProps is :',nextProps);
+    console.log(this.props.userProfile);
+
+    if(~~now!==~~past) return false
+        
     // won't update
     // const {sbus,countries}=this.props.data;
     // const loaded=sbus&&countries;
@@ -19,8 +26,9 @@ class HomeContainer extends Component {
   }
   
   render(){
-    const rest=pick(this.props,["checkUser","userProfile"])
+    const rest=omit(this.props,[""])
     return <div>
+      
       <Home {...rest}/> 
       </div>
   }

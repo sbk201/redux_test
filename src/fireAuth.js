@@ -26,6 +26,11 @@ const uiConfig = {
   ],
   callbacks: { signInSuccessWithAuthResult :()=>false}
 };
-export const FirebaseUI=()=> <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/> ;
+
+export const FirebaseUI=({userProfile,checkUser})=> {
+  const signOut=()=> firebase.auth().signOut().then(checkUser());
+  if(userProfile) return <button onClick={signOut}>Sign Out</button>
+  return <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
+} ;
 
 export default firebase
