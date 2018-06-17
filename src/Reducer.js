@@ -4,7 +4,15 @@ import { combineReducers } from 'redux';
 const userProfile = (state = [], action) => {
   switch (action.type) {
     case 'RECEIVE_USER_PROFILE':
-    	return action.userProfile
+      return action.userProfile
+    default:
+      return state
+  }
+}
+const messages = (state = [], action) => {
+  switch (action.type) {
+    case 'RECEIVE_MESSAGES':
+    	return action.messages
     default:
       return state
   }
@@ -23,7 +31,7 @@ const localUI = (state = {}, action) => {
 };
 
 const allReducers = combineReducers({
-  localUI,userProfile,
+  localUI,userProfile,messages
 })
 
 export default allReducers

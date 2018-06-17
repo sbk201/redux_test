@@ -2,15 +2,17 @@ import firebase,{coll} from './fireBase';
 import axios from "axios";
 // import {isTest,dummyData} from './init/global';
 
-export const checkUser=()=>{
-	return async dispatch=>{
-		firebase.auth().onAuthStateChanged(user=> dispatch(receiveUserProfile(user)))
-	}
-}
+export const addText=params=>dispatch=>coll('messages').add(params);
+
+
+export const checkUser=()=> dispatch=>
+	firebase.auth().onAuthStateChanged(user=> dispatch(receiveUserProfile(user)))
+
+
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
 // export const selectReps=id=>({type: "SELECT_REP", id });
 const receiveUserProfile=userProfile=>({type: "RECEIVE_USER_PROFILE", userProfile });
-// const receiveHospitals=hospitals=>({type: "RECEIVE_HOSPITALS", hospitals });
+const receiveMessages=messages=>({type: "RECEIVE_MESSAGES", messages });
 // const receiveReps=reps=>({type: "RECEIVE_REPS", reps });
 
 const api=async (method,item,params={})=>{
@@ -30,8 +32,9 @@ export const smart= {
 	fetchingMessage:()=>{
 		return async dispatch => {
 			coll('messages').onSnapshot(snap=>{
-				console.log('on change');
-				console.log(snap.docs.map(doc=>doc.data()))
+				const convert=doc=>({...doc.data(),id:doc.id});
+				const output=snap.docs.map(convert);
+				dispatch(receiveMessages(output));
 				// snap.docChanges().forEach(change=> console.log(change.doc.data()))
 			})
 		}

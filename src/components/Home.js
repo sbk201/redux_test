@@ -12,7 +12,6 @@ import { Button } from 'semantic-ui-react'
 const Home=props=>{
 	// const {}=getProps(props);
 	const {userProfile={}}=props;
-	// const Input=({refer,...rest})=><input ref={ele=>this[refer]=ele} {...{...rest}}/>;
 	return (
 		<div> 
 			<UserBarC/>
