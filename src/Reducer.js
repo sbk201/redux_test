@@ -1,7 +1,7 @@
 import {mergeClone} from './init/global'
 import { combineReducers } from 'redux';
 
-const userProfile = (state = [], action) => {
+const userProfile = (state = null, action) => {
   switch (action.type) {
     case 'RECEIVE_USER_PROFILE':
       return action.userProfile

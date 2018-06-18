@@ -1,9 +1,10 @@
+import React from "react";
 import {blankData} from "./initData"
 import {flow,merge,cloneDeep as clone} from "lodash"; 
 import {format as dateFormat} from 'date-fns'
 import store from '../index';
 
-
+export const _Input=that=>({refer,...rest})=><input ref={ele=>that[refer]=ele} {...{...rest}}/>;
 export const objMap=(obj,fn)=> Object.entries(obj).map(([key,value])=>fn(key,value));
 export const objLoop=(obj,fn)=> Object.entries(obj).reduce((acc,[key,va])=> ({...acc,...fn(key,va)}),{})
 export const mergeClone=(...arg)=>merge(...arg.map(clone));

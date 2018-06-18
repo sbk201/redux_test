@@ -1,8 +1,9 @@
 import firebase,{coll} from './fireBase';
 import axios from "axios";
 // import {isTest,dummyData} from './init/global';
-
+window.coll=coll;
 export const addText=params=>dispatch=>coll('messages').add(params);
+export const delText=id=>dispatch=>coll('messages').doc(id).delete();
 
 
 export const checkUser=()=> dispatch=>
@@ -39,4 +40,16 @@ export const smart= {
 			})
 		}
 	},
+	updateUserProfile:name=>{
+		return async dispatch => {
+			const user = firebase.auth().currentUser;
+			user.updateProfile({
+			  displayName: name
+			}).then(function() {
+				console.log('updated')
+			}).catch(function(error) {
+			  console.error(error);
+			});
+		}
+	}
 }
