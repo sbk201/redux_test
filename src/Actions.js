@@ -4,6 +4,7 @@ import axios from "axios";
 window.coll=coll;
 export const addText=params=>dispatch=>coll('messages').add(params);
 export const delText=id=>dispatch=>coll('messages').doc(id).delete();
+export const updateMessage=({id,...params})=>dispatch=>coll('messages').doc(id).update(params);
 
 
 export const checkUser=()=> dispatch=>

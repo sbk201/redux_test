@@ -25,10 +25,11 @@ const ChatWindow=props=>{
 		const params={
 			text:this.text.value,
 			createdAt:(new Date()),
-			user:user.displayName
+			user:(user&&user.displayName)||'NO-NAME'
 		}
 		addText(params);
 	};
+	console.log(messages);
 	return (
 		<div> 
 

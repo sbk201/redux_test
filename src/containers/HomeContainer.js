@@ -29,8 +29,8 @@ class HomeContainer extends Component {
   const rest=omit(this.props,[""])
   const save=()=>rest.updateUserProfile(this.username.value);
   const user=rest.userProfile;
-  if(!user) return <div>loading user</div>
-  if(!user.displayName) return <Fill save={save}/>
+  // if(!user) return <div>loading user</div>
+  if(user && !user.displayName) return <Fill save={save}/>
   return <Home {...rest}/>
   }
 }

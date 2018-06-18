@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import {omit} from 'lodash';
-import { checkUser,addText,delText,smart,updateUI } from '../Actions.js'
+import { checkUser,addText,updateMessage,smart,updateUI } from '../Actions.js'
 import React, { Component } from "react";
 import ChatWindow from '../components/ChatWindow'
 const contName="ChatWindowContainer";
@@ -36,7 +36,7 @@ const mapDispatchToProps = (dispatch) => {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
     checkUser:()=>dispatch(checkUser()),
     addText:params=>dispatch(addText(params)),
-    delText:id=>dispatch(delText(id)),
+    delText:id=>dispatch(updateMessage({id,removed:true})),
     fetchingMessage:()=>dispatch(smart.fetchingMessage())
   }
 }
