@@ -48,8 +48,9 @@ export const smart= {
 			const {uid}=user;
 			await user.updateProfile({displayName: name }).catch(console.error);
 	        await coll("users").doc(uid).set({name, uid}).catch(console.error);
+	        dispatch(receiveUserProfile({...user,displayName:name}));
 	        console.log('updated userProfile');
-	        dispatchUI({modal:false});
+	        // dispatchUI({modal:false});
 	    }
 	}
 }

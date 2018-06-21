@@ -8,13 +8,6 @@ import {_Input} from '../init/global';
 const contName="HomeContainer";
 
 class HomeContainer extends Component {
-  shouldComponentUpdate(nextProps){
-    // won't update
-    // const {sbus,countries}=this.props.data;
-    // const loaded=sbus&&countries;
-    // return !loaded
-    return true
-  }
   componentDidMount() {
     this.props.checkUser();
   }
@@ -27,7 +20,10 @@ class HomeContainer extends Component {
           <Button onClick={save}>Submit</Button>
           </div>)
     const rest=omit(this.props,[""])
-    const save=()=>rest.updateUserProfile(this.username.value);
+    const save=()=>{
+      rest.updateUserProfile(this.username.value);
+      rest.updateAllUI({contName:'UserBarContainer',modal:false});
+    };
     const user=rest.userProfile;
     console.log('HomeContainer runs');
     if(user && !user.displayName) return <Fill save={save}/>
@@ -44,6 +40,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
+    updateAllUI:cmd=>dispatch(updateUI({...cmd})),
     updateUI:cmd=>dispatchUI({...cmd,contName}),
     updateUserProfile:name=>dispatch(smart.updateUserProfile(name)),
     checkUser:()=>dispatch(checkUser()),

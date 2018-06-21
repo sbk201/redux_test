@@ -6,9 +6,6 @@ import UserSign from '../components/UserSign';
 
 const contName="UserBarContainer";
 class UserBarContainer extends Component {
-  shouldComponentUpdate(nextProps){
-    return true
-  }
   componentDidMount() {}
   
   render(){
