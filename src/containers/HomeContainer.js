@@ -20,18 +20,18 @@ class HomeContainer extends Component {
   }
   
   render(){
-  const Input=_Input(this);
-  const Fill=({save})=><div>
-    Pick Your Username <br/>
-    <Input refer={"username"}></Input> <br/>
-    <Button onClick={save}>Submit</Button>
-    </div>
-  const rest=omit(this.props,[""])
-  const save=()=>rest.updateUserProfile(this.username.value);
-  const user=rest.userProfile;
-  // if(!user) return <div>loading user</div>
-  if(user && !user.displayName) return <Fill save={save}/>
-  return <Home {...rest}/>
+    const Input=_Input(this);
+    const Fill=({save})=>(<div>
+          Pick Your Username <br/>
+          <Input refer={"username"}></Input> <br/>
+          <Button onClick={save}>Submit</Button>
+          </div>)
+    const rest=omit(this.props,[""])
+    const save=()=>rest.updateUserProfile(this.username.value);
+    const user=rest.userProfile;
+    console.log('HomeContainer runs');
+    if(user && !user.displayName) return <Fill save={save}/>
+    return <Home {...rest}/>
   }
 }
 const mapStateToProps = (state) => {

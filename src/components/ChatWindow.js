@@ -22,10 +22,11 @@ const ChatWindow=props=>{
   	const Input=_Input(this);
 	// const send=()=>coll('messages').add({text:this.text.value});
 	const send=()=>{
+		const {displayName='NO-NAME',uid=null}=user;
 		const params={
 			text:this.text.value,
 			createdAt:(new Date()),
-			user:(user&&user.displayName)||'NO-NAME'
+			user:displayName, uid
 		}
 		addText(params);
 	};

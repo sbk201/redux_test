@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import {omit} from 'lodash';
-import { checkUser,addText,updateMessage,smart,updateUI } from '../Actions.js'
+import { checkUser,addText,updateMessage,smart,updateUI } from '../Actions'
 import React, { Component } from "react";
 import ChatWindow from '../components/ChatWindow'
 const contName="ChatWindowContainer";

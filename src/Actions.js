@@ -43,14 +43,13 @@ export const smart= {
 	},
 	updateUserProfile:name=>{
 		return async dispatch => {
+			const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName:"UserBarContainer"}));
 			const user = firebase.auth().currentUser;
-			user.updateProfile({
-			  displayName: name
-			}).then(function() {
-				console.log('updated')
-			}).catch(function(error) {
-			  console.error(error);
-			});
-		}
+			const {uid}=user;
+			await user.updateProfile({displayName: name }).catch(console.error);
+	        await coll("users").doc(uid).set({name, uid}).catch(console.error);
+	        console.log('updated userProfile');
+	        dispatchUI({modal:false});
+	    }
 	}
 }
