@@ -13,14 +13,11 @@ class HomeListContainer extends Component {
     const {updateUI}=this.props;
     const {page=1,entries=10}=this.props.UI;
     const status=this.props.UI.status || 'init';
-    updateUI({page,entries,status});
-  }
-  
+    updateUI({page,entries,status});}
   render(){
-
     const rest=omit(this.props,[""])
     const status=rest.UI.status
-    if(status==='init') return <div></div>
+    if(!status || status==='init') return <div></div>
     if(status==='loading') return <div>Loading</div>
     return <HomeList {...rest}/>
   }
