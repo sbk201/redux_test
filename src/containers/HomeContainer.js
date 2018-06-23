@@ -22,7 +22,7 @@ class HomeContainer extends Component {
     const rest=omit(this.props,[""])
     const save=()=>{
       rest.updateUserProfile(this.username.value);
-      rest.updateAllUI({contName:'UserBarContainer',modal:false});
+      // rest.updateAllUI({contName:'UserBarContainer',modal:false});
     };
     const user=rest.userProfile;
     console.log('HomeContainer runs');

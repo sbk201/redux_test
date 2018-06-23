@@ -30,7 +30,7 @@ const uiConfig = {
     firebase.auth.GithubAuthProvider.PROVIDER_ID,
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
   ],
-  callbacks: { signInSuccessWithAuthResult :window.location.reload}
+  callbacks: { signInSuccessWithAuthResult :()=>false}
 };
 export const signOut=(checkUser)=> firebase.auth().signOut().then(checkUser());
 export const FirebaseUI=()=> <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>;
