@@ -17,7 +17,10 @@ const getProps=props=>{
 const UserSign=props=>{
   	const {SignButton,UI,toggleModal}=getProps(props);
   	const {userProfile}=props;
-  	if(userProfile) return <div></div>
+  	// if(userProfile) return <div> <SignButton/></div>
+  	// no modal >
+  	// have modal and signIn,
+  	// have modal displayName input
 	return (
 		<span> 
 			<SignButton/>

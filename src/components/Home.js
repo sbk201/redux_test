@@ -1,5 +1,5 @@
 import React from "react";
-import UserBarC from '../containers/UserBarC';
+import UserBarContainer from '../containers/UserBarContainer';
 import ChatWindowContainer from '../containers/ChatWindowContainer';
 
 // import PropTypes from "prop-types";
@@ -11,7 +11,7 @@ const Home=props=>{
 	// const {}=getProps(props);
 	return (
 		<div> 
-			<UserBarC/>
+			<UserBarContainer/>
 			<br/>
 			<ChatWindowContainer/>
 		</div>

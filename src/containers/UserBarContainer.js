@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import React, { Component } from "react";
 import {omit} from 'lodash';
 import { checkUser,updateUI } from '../Actions.js'
-import UserSign from '../components/UserSign';
+import UserBar from '../components/UserBar';
 
 const contName="UserBarContainer";
 class UserBarContainer extends Component {
@@ -33,23 +33,3 @@ export default connect(
   mapDispatchToProps
 )(UserBarContainer)
 
-const getProps=props=>{
-  const {userProfile}=props;
-  const UserState=()=>{
-    if(!userProfile) return <div></div>
-    const {email,displayName}=userProfile;
-    return <div>Hello {displayName} , email: {email}</div>
-  }
-	return {UserState}
-}
-const UserBar=props=>{
-  	const {userProfile,checkUser,UI,updateUI}=props;
-  	const {UserState}=getProps(props);
-	return (
-		<div>  
-      <UserState/>
-      <UserSign {...{userProfile,checkUser,UI,updateUI}}/>
-		</div>
-	);
-}
-export {UserBar}
