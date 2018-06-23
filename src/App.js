@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "react-dom";
-import HomeContainer from './containers/HomeContainer'
+import HomeConta from './containers/HomeConta'
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends Component {
@@ -10,14 +10,15 @@ class App extends Component {
 			// @media screen and (min-width: 800px) {
 				// grid-template-columns: 1fr 10em;
   			// }
-					// <Route exact path="/" component={MainContainer} />
-					// <Route path="/allocate" component={AllocateContainer} />
-					// <Route path="/admin" component={AdminContainer} />
+					// <Route exact path="/" component={MainConta} />
+					// <Route path="/allocate" component={AllocateConta} />
+					// <Route path="/admin" component={AdminConta} />
 		return (
 			<Router>
 				<div>
 					<h1>FireBase testing</h1>
-					<Route exact path="/" component={HomeContainer} />
+					<Route exact path="/" component={HomeConta} />
+					<Route path="/signIn" component={HomeConta} />
 				</div>
 			</Router>
 		);

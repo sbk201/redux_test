@@ -5,9 +5,9 @@ import React, { Component } from "react";
 import Home from '../components/Home'
 import { Button } from 'semantic-ui-react'
 import {_Input} from '../init/global';
-const contName="HomeContainer";
+const contName="HomeConta";
 
-class HomeContainer extends Component {
+class HomeConta extends Component {
   componentDidMount() {
     this.props.checkUser();
   }
@@ -22,10 +22,10 @@ class HomeContainer extends Component {
     const rest=omit(this.props,[""])
     const save=()=>{
       rest.updateUserProfile(this.username.value);
-      // rest.updateAllUI({contName:'UserBarContainer',modal:false});
+      // rest.updateAllUI({contName:'UserBarConta',modal:false});
     };
     const user=rest.userProfile;
-    console.log('HomeContainer runs');
+    console.log('HomeConta runs');
     if(user && !user.displayName) return <Fill save={save}/>
     return <Home {...rest}/>
   }
@@ -50,4 +50,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomeContainer)
+)(HomeConta)

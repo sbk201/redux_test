@@ -10,15 +10,17 @@ const getProps=props=>{
     const {email,displayName}=userProfile;
     return <div>Hello {displayName} , email: {email}</div>
   }
-	return {UserState}
+  const Sign=()=> <div>{userProfile ? "Logout" : "Login"}</div>
+	return {UserState,Sign}
 }
 const UserBar=props=>{
   	const {userProfile,checkUser,UI,updateUI}=props;
-  	const {UserState}=getProps(props);
+  	const {UserState,Sign}=getProps(props);
+      
 	return (
 		<div>  
-      <UserState/>
       <UserSign {...{userProfile,checkUser,UI,updateUI}}/>
+      <UserState/>
 		</div>
 	);
 }
