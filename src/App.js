@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "react-dom";
 import HomeConta from './containers/HomeConta'
+import SignInConta from './containers/SignInConta'
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends Component {
@@ -18,7 +19,7 @@ class App extends Component {
 				<div>
 					<h1>FireBase testing</h1>
 					<Route exact path="/" component={HomeConta} />
-					<Route path="/signIn" component={HomeConta} />
+					<Route path="/signIn" component={SignInConta} />
 				</div>
 			</Router>
 		);

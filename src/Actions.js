@@ -8,11 +8,15 @@ export const updateMessage=({id,...params})=>dispatch=>coll('messages').doc(id).
 
 
 export const checkUser=()=> dispatch=>
-	firebase.auth().onAuthStateChanged(user=> dispatch(receiveUserProfile(user)))
+	firebase.auth().onAuthStateChanged(user=> {
+		dispatch(receiveUserInfo(user))
+		dispatch(receiveUserProfile(user))
+	})
 
 
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
 // export const selectReps=id=>({type: "SELECT_REP", id });
+const receiveUserInfo=userInfo=>({type: "RECEIVE_USER_INFO", userInfo });
 const receiveUserProfile=userProfile=>({type: "RECEIVE_USER_PROFILE", userProfile });
 const receiveMessages=messages=>({type: "RECEIVE_MESSAGES", messages });
 // const receiveReps=reps=>({type: "RECEIVE_REPS", reps });
