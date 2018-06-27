@@ -12,6 +12,7 @@ export const checkUser=()=> dispatch=>
 		dispatch(receiveUserInfo(user))
 		dispatch(receiveUserProfile(user))
 	})
+// export const signInUser=user=> dispatch=> dispatch(receiveUserInfo(user))
 
 
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
@@ -28,6 +29,21 @@ const api=async (method,item,params={})=>{
 	if(method==='delete') return (await axios.delete(link,{params})).data
 }
 export const smart= {
+	signInUser:user=> {
+		return async dispatch=>{
+			const {uid}=user;
+	        await coll("users").doc(uid).set({uid}).catch(console.error);
+			// const dbUser=(await coll('users').doc(user.uid).get()).data();
+			dispatch(receiveUserInfo(user))
+		}
+	},
+	checkUse2:user=> {
+		return async dispatch=>{
+			console.log('checkUse2',user)
+			dispatch(receiveUserInfo(user))
+			// dispatch(receiveUserProfile(user))
+		}
+	},
 	fetchHome:()=>{
 		return async dispatch=>{
 			const sbus=await api("get","sbu");

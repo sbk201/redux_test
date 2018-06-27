@@ -19,7 +19,7 @@ db.settings({timestampsInSnapshots: true});
     // .onSnapshot(data=>console.log(data))
 export const coll=name=>db.collection(name);
 
-const uiConfig = {
+const uiConfig=(checkUse2) => ({
   signInFlow: 'popup',
   credentialHelper:firebaseui.auth.CredentialHelper.NONE,
   signInOptions: [
@@ -30,9 +30,9 @@ const uiConfig = {
     firebase.auth.GithubAuthProvider.PROVIDER_ID,
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
   ],
-  callbacks: { signInSuccessWithAuthResult :()=>false}
-};
+  callbacks: { signInSuccessWithAuthResult :({user})=>{checkUse2(user)}}
+});
 export const signOut=(checkUser)=> firebase.auth().signOut().then(checkUser());
-export const FirebaseUI=()=> <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>;
+export const FirebaseUI=({checkUse2})=> <StyledFirebaseAuth uiConfig={uiConfig(checkUse2)} firebaseAuth={firebase.auth()}/>;
 
 export default firebase

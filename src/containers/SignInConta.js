@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import React, { Component } from "react";
 import {omit} from 'lodash';
-import { checkUser,updateUI } from '../Actions.js'
+import { smart,updateUI } from '../Actions.js'
 import SignIn from '../components/SignIn';
 import {FirebaseUI} from '../fireBase';
 
@@ -11,9 +11,10 @@ class SignInConta extends Component {
   
   render(){
     const rest=omit(this.props,[""])
-    const {userProfile}=rest;
-    if(!userProfile) return <FirebaseUI/>
-      // if(userProfile && !userProfile)
+    const {userInfo={},checkUse2}=rest;
+    const {username}=userInfo ||{};
+    if(!userInfo) return <FirebaseUI {...{checkUse2}}/>
+    if(userInfo && !username) return <div>has userInfo,no displayName</div>
     // no userProfile >> FirebaseUI/
     // has userProfile,no displayName >> Fill/
     // has userProfile,has displayName >> navigate to /home
@@ -23,15 +24,16 @@ class SignInConta extends Component {
 }
 const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
-  const {userProfile}=state;
+  const {userInfo}=state;
   return {
-    userProfile,UI
+    userInfo,UI
   }
 }
 const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
-    updateUI:cmd=>dispatchUI({...cmd,contName})
+    updateUI:cmd=>dispatchUI({...cmd,contName}),
+    checkUse2:user=>dispatch(smart.checkUse2(user))
   }
 }
 
