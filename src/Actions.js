@@ -40,7 +40,10 @@ export const smart= {
 	checkUse2:user=> {
 		return async dispatch=>{
 			console.log('checkUse2',user)
-			dispatch(receiveUserInfo(user))
+			const username_=(await coll('users').doc(user.uid).get());
+			const username= username_.data() ? username_.data().name : null;
+			console.log({...user,username});
+			dispatch(receiveUserInfo({...user,username}))
 			// dispatch(receiveUserProfile(user))
 		}
 	},
@@ -69,6 +72,7 @@ export const smart= {
 			await user.updateProfile({displayName: name }).catch(console.error);
 	        await coll("users").doc(uid).set({name, uid}).catch(console.error);
 	        dispatch(receiveUserProfile({...user,displayName:name}));
+			dispatch(receiveUserInfo({...user,username:name}))
 	        console.log('updated userProfile');
 	        // dispatchUI({modal:false});
 	    }

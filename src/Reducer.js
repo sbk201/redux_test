@@ -13,7 +13,7 @@ const userProfile = (state = null, action) => {
 const userInfo = (state = null, action) => {
   switch (action.type) {
     case 'RECEIVE_USER_INFO':
-      const list=["uid","email"]
+      const list=["uid","email","username"]
       return pick(action.userInfo,list)
     default:
       return state
