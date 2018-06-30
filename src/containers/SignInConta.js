@@ -6,6 +6,7 @@ import SignIn from '../components/SignIn';
 import {FirebaseUI} from '../fireBase';
 import {_Input} from '../init/global';
 import { Button } from 'semantic-ui-react'
+import { Redirect } from "react-router-dom";
 
 const contName="SignInConta";
 class SignInConta extends Component {
@@ -27,12 +28,12 @@ class SignInConta extends Component {
     const {userInfo={},checkUse2}=rest;
     const {username}=userInfo ||{};
     if(!userInfo) return <FirebaseUI {...{checkUse2}}/>
-    if(userInfo && !username) return <div>has userInfo,no displayName<br/><Fill save={(name)=>rest.updateUserProfile(name)}/></div>
+    if(userInfo && !username) return <div><Fill save={(name)=>rest.updateUserProfile(name)}/></div>
     // no userProfile >> FirebaseUI/
     // has userProfile,no displayName >> Fill/
     // has userProfile,has displayName >> navigate to /home
     // <FirebaseUI/>
-    return <SignIn {...rest}/>
+    return <Redirect to="/"/>
   }
 }
 const mapStateToProps = (state) => {

@@ -25,7 +25,6 @@ class HomeConta extends Component {
       // rest.updateAllUI({contName:'UserBarConta',modal:false});
     };
     const user=rest.userProfile;
-    console.log('HomeConta runs');
     if(user && !user.displayName) return <Fill save={save}/>
     return <Home {...rest}/>
   }

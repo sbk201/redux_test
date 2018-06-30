@@ -30,7 +30,6 @@ const ChatWindow=props=>{
 		}
 		addText(params);
 	};
-	console.log(messages);
 	return (
 		<div> 
 
