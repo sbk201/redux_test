@@ -1,5 +1,6 @@
 import firebase,{coll} from './fireBase';
 import axios from "axios";
+import {isEmpty} from "lodash";
 // import {isTest,dummyData} from './init/global';
 window.coll=coll;
 export const addText=params=>dispatch=>coll('messages').add(params);
@@ -17,7 +18,10 @@ export const checkUser=()=> dispatch=>
 
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
 // export const selectReps=id=>({type: "SELECT_REP", id });
-const receiveUserInfo=userInfo=>({type: "RECEIVE_USER_INFO", userInfo });
+const receiveUserInfo=(userInfo={})=>{
+	console.log('t1',userInfo);
+	return {type: "RECEIVE_USER_INFO", userInfo }
+};
 const receiveUserProfile=userProfile=>({type: "RECEIVE_USER_PROFILE", userProfile });
 const receiveMessages=messages=>({type: "RECEIVE_MESSAGES", messages });
 // const receiveReps=reps=>({type: "RECEIVE_REPS", reps });
@@ -37,13 +41,17 @@ export const smart= {
 			dispatch(receiveUserInfo(user))
 		}
 	},
-	checkUse2:user=> {
+	checkUse2:(user_={})=> {
 		return async dispatch=>{
+			window.firebase=firebase;
+			const user= user_ || firebase.auth().currentUser;
 			console.log('checkUse2',user)
+			if(isEmpty(user)) return dispatch(receiveUserInfo());
+			console.log(user)
 			const username_=(await coll('users').doc(user.uid).get());
-			const username= username_.data() ? username_.data().name : null;
-			console.log({...user,username});
-			dispatch(receiveUserInfo({...user,username}))
+			// const username= username_.data() ? username_.data().name : null;
+			// console.log({...user,username});
+			// dispatch(receiveUserInfo({...user,username}))
 			// dispatch(receiveUserProfile(user))
 		}
 	},
@@ -66,15 +74,12 @@ export const smart= {
 	},
 	updateUserProfile:name=>{
 		return async dispatch => {
-			const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName:"UserBarConta"}));
+			// const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName:"UserBarConta"}));
 			const user = firebase.auth().currentUser;
 			const {uid}=user;
 			await user.updateProfile({displayName: name }).catch(console.error);
 	        await coll("users").doc(uid).set({name, uid}).catch(console.error);
-	        dispatch(receiveUserProfile({...user,displayName:name}));
 			dispatch(receiveUserInfo({...user,username:name}))
-	        console.log('updated userProfile');
-	        // dispatchUI({modal:false});
 	    }
 	}
 }

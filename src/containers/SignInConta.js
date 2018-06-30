@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import React, { Component } from "react";
 import {omit} from 'lodash';
 import { smart,updateUI } from '../Actions.js'
-import SignIn from '../components/SignIn';
 import {FirebaseUI} from '../fireBase';
 import {_Input} from '../init/global';
 import { Button } from 'semantic-ui-react'
@@ -10,12 +9,13 @@ import { Redirect } from "react-router-dom";
 
 const contName="SignInConta";
 class SignInConta extends Component {
-  componentDidMount() {}
+  componentDidMount() {
+    const {checkUse2,updateUI}=this.props;
+
+    this.props.checkUse2();
+  }
   
   render(){
-
-
-
     const Fill=({save})=>{
       const Input=_Input(this);
       return (<div>
@@ -25,14 +25,10 @@ class SignInConta extends Component {
             </div>)
     }
     const rest=omit(this.props,[""])
-    const {userInfo={},checkUse2}=rest;
+    const {UI,userInfo={},checkUse2}=rest;
     const {username}=userInfo ||{};
     if(!userInfo) return <FirebaseUI {...{checkUse2}}/>
-    if(userInfo && !username) return <div><Fill save={(name)=>rest.updateUserProfile(name)}/></div>
-    // no userProfile >> FirebaseUI/
-    // has userProfile,no displayName >> Fill/
-    // has userProfile,has displayName >> navigate to /home
-    // <FirebaseUI/>
+    if(userInfo && !username) return <div><Fill save={rest.updateUserProfile}/></div>
     return <Redirect to="/"/>
   }
 }

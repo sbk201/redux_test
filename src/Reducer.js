@@ -2,14 +2,14 @@ import {mergeClone} from './init/global'
 import { combineReducers } from 'redux';
 import {pick} from 'lodash';
 
-const userProfile = (state = null, action) => {
-  switch (action.type) {
-    case 'RECEIVE_USER_PROFILE':
-      return action.userProfile
-    default:
-      return state
-  }
-}
+// const userProfile = (state = null, action) => {
+//   switch (action.type) {
+//     case 'RECEIVE_USER_PROFILE':
+//       return action.userProfile
+//     default:
+//       return state
+//   }
+// }
 const userInfo = (state = null, action) => {
   switch (action.type) {
     case 'RECEIVE_USER_INFO':
@@ -41,7 +41,7 @@ const localUI = (state = {}, action) => {
 };
 
 const allReducers = combineReducers({
-  localUI,userProfile,userInfo,messages
+  localUI,userInfo,messages
 })
 
 export default allReducers

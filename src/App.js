@@ -11,9 +11,6 @@ class App extends Component {
 			// @media screen and (min-width: 800px) {
 				// grid-template-columns: 1fr 10em;
   			// }
-					// <Route exact path="/" component={MainConta} />
-					// <Route path="/allocate" component={AllocateConta} />
-					// <Route path="/admin" component={AdminConta} />
 		return (
 			<Router>
 				<div>

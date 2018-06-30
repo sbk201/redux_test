@@ -1,39 +1,28 @@
 import { connect } from 'react-redux'
 import {omit} from 'lodash';
-import { checkUser,smart,updateUI } from '../Actions.js'
+import { smart,updateUI } from '../Actions.js'
 import React, { Component } from "react";
 import Home from '../components/Home'
-import { Button } from 'semantic-ui-react'
-import {_Input} from '../init/global';
+import { Redirect } from "react-router-dom";
 const contName="HomeConta";
 
 class HomeConta extends Component {
   componentDidMount() {
-    this.props.checkUser();
+    this.props.checkUse2();
   }
   
   render(){
-    const Input=_Input(this);
-    const Fill=({save})=>(<div>
-          Pick Your Username <br/>
-          <Input refer={"username"}></Input> <br/>
-          <Button onClick={save}>Submit</Button>
-          </div>)
     const rest=omit(this.props,[""])
-    const save=()=>{
-      rest.updateUserProfile(this.username.value);
-      // rest.updateAllUI({contName:'UserBarConta',modal:false});
-    };
-    const user=rest.userProfile;
-    if(user && !user.displayName) return <Fill save={save}/>
+    const user=rest.userInfo;
+    // if(user && !user.displayName) return <Redirect to="/signIn"/>
     return <Home {...rest}/>
   }
 }
 const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
-  const {userProfile}=state;
+  const {userInfo}=state;
   return {
-    userProfile,UI
+    userInfo,UI
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -42,7 +31,7 @@ const mapDispatchToProps = (dispatch) => {
     updateAllUI:cmd=>dispatch(updateUI({...cmd})),
     updateUI:cmd=>dispatchUI({...cmd,contName}),
     updateUserProfile:name=>dispatch(smart.updateUserProfile(name)),
-    checkUser:()=>dispatch(checkUser()),
+    checkUse2:()=>dispatch(smart.checkUse2()),
   }
 }
 
