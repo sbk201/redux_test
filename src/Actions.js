@@ -6,25 +6,14 @@ window.coll=coll;
 export const addText=params=>dispatch=>coll('messages').add(params);
 export const delText=id=>dispatch=>coll('messages').doc(id).delete();
 export const updateMessage=({id,...params})=>dispatch=>coll('messages').doc(id).update(params);
-
-
-export const checkUser=()=> dispatch=>
-	firebase.auth().onAuthStateChanged(user=> {
-		dispatch(receiveUserInfo(user))
-		dispatch(receiveUserProfile(user))
-	})
-// export const signInUser=user=> dispatch=> dispatch(receiveUserInfo(user))
+export const signOut=()=> dispatch=> dispatch({type: "SIGN_OUT"})
 
 
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
-// export const selectReps=id=>({type: "SELECT_REP", id });
+const receiveMessages=messages=>({type: "RECEIVE_MESSAGES", messages });
 const receiveUserInfo=(userInfo={})=>{
-	console.log('t1',userInfo);
 	return {type: "RECEIVE_USER_INFO", userInfo }
 };
-const receiveUserProfile=userProfile=>({type: "RECEIVE_USER_PROFILE", userProfile });
-const receiveMessages=messages=>({type: "RECEIVE_MESSAGES", messages });
-// const receiveReps=reps=>({type: "RECEIVE_REPS", reps });
 
 const api=async (method,item,params={})=>{
 	const link= "http://localhost:5000/hospAllocation/"+item;
@@ -38,21 +27,20 @@ export const smart= {
 			const {uid}=user;
 	        await coll("users").doc(uid).set({uid}).catch(console.error);
 			// const dbUser=(await coll('users').doc(user.uid).get()).data();
+			console.log('signInUser');
 			dispatch(receiveUserInfo(user))
 		}
 	},
-	checkUse2:(user_={})=> {
+	checkUse3:()=> {
 		return async dispatch=>{
-			window.firebase=firebase;
-			const user= user_ || firebase.auth().currentUser;
-			console.log('checkUse2',user)
-			if(isEmpty(user)) return dispatch(receiveUserInfo());
-			console.log(user)
-			const username_=(await coll('users').doc(user.uid).get());
-			// const username= username_.data() ? username_.data().name : null;
-			// console.log({...user,username});
-			// dispatch(receiveUserInfo({...user,username}))
-			// dispatch(receiveUserProfile(user))
+			firebase.auth().onAuthStateChanged(async user=> {
+				if(!user) return dispatch(receiveUserInfo({logged:false}));
+				// dispatch(receiveUserInfo({...user,logged:true}))
+				const username_=(await coll('users').doc(user.uid).get());
+				const username= username_.data() ? username_.data().name : null;
+				dispatch(receiveUserInfo({...user,username,logged:true}))
+				console.log('checkUse3',user);
+			})
 		}
 	},
 	fetchHome:()=>{
@@ -79,6 +67,7 @@ export const smart= {
 			const {uid}=user;
 			await user.updateProfile({displayName: name }).catch(console.error);
 	        await coll("users").doc(uid).set({name, uid}).catch(console.error);
+	        console.log('updateUserProfile')
 			dispatch(receiveUserInfo({...user,username:name}))
 	    }
 	}

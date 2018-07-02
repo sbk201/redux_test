@@ -1,27 +1,30 @@
 import React from "react";
-import Modal from 'react-modal';
 // import PropTypes from "prop-types";
-import UserSign from '../components/UserSign';
 import { Link } from "react-router-dom";
+import {authSignOut} from "../fireBase";
 
 
 const getProps=props=>{
-  const {userInfo}=props;
+  const {userInfo,signOut}=props;
+  const logged=userInfo && userInfo.logged;
+  console.log('got',userInfo);
   const UserState=()=>{
-    if(!userInfo) return <div></div>
+    if(!logged) return <div></div>
     const {email,displayName}=userInfo;
     return <div>Hello {displayName} , email: {email}</div>
   }
-  const Sign=()=> <div>{userInfo ? "Logout" : "Login"}</div>
-	return {UserState,Sign}
+  const OrInOut=()=> logged? 
+  <div onClick={()=>authSignOut(signOut)}>Sign Out</div>
+  :<Link to="./signIn">Sign In/Up</Link>
+	return {UserState,OrInOut}
 }
 const UserBar=props=>{
-  	const {userInfo,checkUser,UI,updateUI}=props;
-  	const {UserState,Sign}=getProps(props);
+  	// const {}=props;
+  	const {UserState,OrInOut}=getProps(props);
       
 	return (
 		<div>  
-      <Link to="./signIn">Sign In/Up</Link>
+      <OrInOut/>
       <UserState/>
 		</div>
 	);

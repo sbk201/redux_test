@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import React, { Component } from "react";
 import {omit} from 'lodash';
-import { checkUser,updateUI } from '../Actions.js'
+import { smart,signOut,updateUI } from '../Actions.js'
 import UserBar from '../components/UserBar';
 
 const contName="UserBarConta";
@@ -15,16 +15,17 @@ class UserBarConta extends Component {
 }
 const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
-  const {userProfile}=state;
+  const {userInfo}=state;
   return {
-    userProfile,UI
+    userInfo,UI
   }
 }
 const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
-    checkUser:()=>dispatch(checkUser())
+    checkUse3:()=>dispatch(smart.checkUse3()),
+    signOut:()=>dispatch(signOut())
   }
 }
 

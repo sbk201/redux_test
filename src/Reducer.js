@@ -12,8 +12,10 @@ import {pick} from 'lodash';
 // }
 const userInfo = (state = null, action) => {
   switch (action.type) {
+    case 'SIGN_OUT':
+    return {logged:false}
     case 'RECEIVE_USER_INFO':
-      const list=["uid","email","username"]
+      const list=["uid","email","username","logged"]
       return pick(action.userInfo,list)
     default:
       return state

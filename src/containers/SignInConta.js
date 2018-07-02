@@ -10,9 +10,8 @@ import { Redirect } from "react-router-dom";
 const contName="SignInConta";
 class SignInConta extends Component {
   componentDidMount() {
-    const {checkUse2,updateUI}=this.props;
-
-    this.props.checkUse2();
+    const {checkUse3}=this.props;
+    this.props.checkUse3();
   }
   
   render(){
@@ -24,11 +23,18 @@ class SignInConta extends Component {
               <Button onClick={()=>save(this.username.value)}>Submit</Button>
             </div>)
     }
+    /*
+
+    got to check current user,then render firebaseUI
+
+    */
     const rest=omit(this.props,[""])
-    const {UI,userInfo={},checkUse2}=rest;
+    const {UI,userInfo={},checkUse3}=rest;
     const {username}=userInfo ||{};
-    if(!userInfo) return <FirebaseUI {...{checkUse2}}/>
-    if(userInfo && !username) return <div><Fill save={rest.updateUserProfile}/></div>
+    const logged=userInfo && userInfo.logged;
+    if(!logged) return <div>firebaseUI <FirebaseUI/></div>
+    if(logged && !username) return <div><Fill save={rest.updateUserProfile}/></div>
+      console.log('redirect to home',userInfo,username)
     return <Redirect to="/"/>
   }
 }
@@ -43,7 +49,7 @@ const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
-    checkUse2:user=>dispatch(smart.checkUse2(user)),
+    checkUse3:user=>dispatch(smart.checkUse3(user)),
     updateUserProfile:user=>dispatch(smart.updateUserProfile(user)),
   }
 }

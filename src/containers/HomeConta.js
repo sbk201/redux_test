@@ -8,12 +8,15 @@ const contName="HomeConta";
 
 class HomeConta extends Component {
   componentDidMount() {
-    this.props.checkUse2();
+    this.props.checkUse3();
+    // this.props.checkUse2();
   }
   
   render(){
     const rest=omit(this.props,[""])
     const user=rest.userInfo;
+    const {logged}=user || {};
+    if(logged===undefined) return <div>Checking User</div>
     // if(user && !user.displayName) return <Redirect to="/signIn"/>
     return <Home {...rest}/>
   }
@@ -28,10 +31,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
-    updateAllUI:cmd=>dispatch(updateUI({...cmd})),
     updateUI:cmd=>dispatchUI({...cmd,contName}),
     updateUserProfile:name=>dispatch(smart.updateUserProfile(name)),
-    checkUse2:()=>dispatch(smart.checkUse2()),
+    checkUse3:()=>dispatch(smart.checkUse3()),
   }
 }
 
