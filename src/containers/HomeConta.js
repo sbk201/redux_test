@@ -17,7 +17,7 @@ class HomeConta extends Component {
     const user=rest.userInfo;
     const {logged}=user || {};
     if(logged===undefined) return <div>Checking User</div>
-    // if(user && !user.displayName) return <Redirect to="/signIn"/>
+    if(!user.username) return <Redirect to="/signIn"/>
     return <Home {...rest}/>
   }
 }

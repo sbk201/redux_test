@@ -17,16 +17,16 @@ const getProps=props=>{
 	return {Messages}
 }
 const ChatWindow=props=>{
-	const {messages,addText,userProfile:user}=props;
+	const {messages,addText,userInfo:user}=props;
 	const {Messages}=getProps(props);
   	const Input=_Input(this);
 	// const send=()=>coll('messages').add({text:this.text.value});
 	const send=()=>{
-		const {displayName='NO-NAME',uid=null}=user;
+		const {username='NO-NAME',uid=null}=user;
 		const params={
 			text:this.text.value,
 			createdAt:(new Date()),
-			user:displayName, uid
+			user:username, uid
 		}
 		addText(params);
 	};

@@ -23,17 +23,13 @@ class SignInConta extends Component {
               <Button onClick={()=>save(this.username.value)}>Submit</Button>
             </div>)
     }
-    /*
-
-    got to check current user,then render firebaseUI
-
-    */
     const rest=omit(this.props,[""])
     const {UI,userInfo={},checkUse3}=rest;
     const {username}=userInfo ||{};
     const logged=userInfo && userInfo.logged;
+    if(logged===null || logged===undefined ) return <div></div>
     if(!logged) return <div>firebaseUI <FirebaseUI/></div>
-    if(logged && !username) return <div><Fill save={rest.updateUserProfile}/></div>
+    if(!username) return <div><Fill save={rest.updateUserProfile}/></div>
       console.log('redirect to home',userInfo,username)
     return <Redirect to="/"/>
   }

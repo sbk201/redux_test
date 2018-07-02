@@ -24,9 +24,9 @@ class ChatWindowConta extends Component {
 }
 const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
-  const {userProfile,messages}=state;
+  const {userInfo,messages}=state;
   return {
-    userProfile,UI,messages
+    userInfo,UI,messages
   }
 }
 const mapDispatchToProps = (dispatch) => {

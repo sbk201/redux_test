@@ -26,7 +26,6 @@ export const smart= {
 		return async dispatch=>{
 			const {uid}=user;
 	        await coll("users").doc(uid).set({uid}).catch(console.error);
-			// const dbUser=(await coll('users').doc(user.uid).get()).data();
 			console.log('signInUser');
 			dispatch(receiveUserInfo(user))
 		}
@@ -35,11 +34,9 @@ export const smart= {
 		return async dispatch=>{
 			firebase.auth().onAuthStateChanged(async user=> {
 				if(!user) return dispatch(receiveUserInfo({logged:false}));
-				// dispatch(receiveUserInfo({...user,logged:true}))
 				const username_=(await coll('users').doc(user.uid).get());
 				const username= username_.data() ? username_.data().name : null;
 				dispatch(receiveUserInfo({...user,username,logged:true}))
-				console.log('checkUse3',user);
 			})
 		}
 	},
