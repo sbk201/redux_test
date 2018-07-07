@@ -24,7 +24,6 @@ const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
-    checkUse3:()=>dispatch(smart.checkUse3()),
     signOut:()=>dispatch(signOut())
   }
 }

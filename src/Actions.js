@@ -11,9 +11,7 @@ export const signOut=()=> dispatch=> dispatch({type: "SIGN_OUT"})
 
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
 const receiveMessages=messages=>({type: "RECEIVE_MESSAGES", messages });
-const receiveUserInfo=(userInfo={})=>{
-	return {type: "RECEIVE_USER_INFO", userInfo }
-};
+const receiveUserInfo=(userInfo={})=> ({type: "RECEIVE_USER_INFO", userInfo });
 
 const api=async (method,item,params={})=>{
 	const link= "http://localhost:5000/hospAllocation/"+item;
@@ -30,7 +28,7 @@ export const smart= {
 			dispatch(receiveUserInfo(user))
 		}
 	},
-	checkUse3:()=> {
+	checkUser:()=> {
 		return async dispatch=>{
 			firebase.auth().onAuthStateChanged(async user=> {
 				if(!user) return dispatch(receiveUserInfo({logged:false}));
@@ -57,15 +55,15 @@ export const smart= {
 			})
 		}
 	},
-	updateUserProfile:name=>{
+	updateUserName:name=>{
 		return async dispatch => {
 			// const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName:"UserBarConta"}));
 			const user = firebase.auth().currentUser;
 			const {uid}=user;
 			await user.updateProfile({displayName: name }).catch(console.error);
 	        await coll("users").doc(uid).set({name, uid}).catch(console.error);
-	        console.log('updateUserProfile')
-			dispatch(receiveUserInfo({...user,username:name}))
+	        console.log('updateUserName')
+			dispatch(receiveUserInfo({...user,username:name,logged:true}))
 	    }
 	}
 }

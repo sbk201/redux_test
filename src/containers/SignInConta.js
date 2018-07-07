@@ -10,8 +10,8 @@ import { Redirect } from "react-router-dom";
 const contName="SignInConta";
 class SignInConta extends Component {
   componentDidMount() {
-    const {checkUse3}=this.props;
-    this.props.checkUse3();
+    const {checkUser}=this.props;
+    this.props.checkUser();
   }
   
   render(){
@@ -24,12 +24,12 @@ class SignInConta extends Component {
             </div>)
     }
     const rest=omit(this.props,[""])
-    const {UI,userInfo={},checkUse3}=rest;
+    const {UI,userInfo={}}=rest;
     const {username}=userInfo ||{};
     const logged=userInfo && userInfo.logged;
     if(logged===null || logged===undefined ) return <div></div>
     if(!logged) return <div>firebaseUI <FirebaseUI/></div>
-    if(!username) return <div><Fill save={rest.updateUserProfile}/></div>
+    if(!username) return <div><Fill save={rest.updateUserName}/></div>
       console.log('redirect to home',userInfo,username)
     return <Redirect to="/"/>
   }
@@ -45,8 +45,8 @@ const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
-    checkUse3:user=>dispatch(smart.checkUse3(user)),
-    updateUserProfile:user=>dispatch(smart.updateUserProfile(user)),
+    checkUser:user=>dispatch(smart.checkUser(user)),
+    updateUserName:user=>dispatch(smart.updateUserName(user)),
   }
 }
 

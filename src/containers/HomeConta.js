@@ -8,8 +8,7 @@ const contName="HomeConta";
 
 class HomeConta extends Component {
   componentDidMount() {
-    this.props.checkUse3();
-    // this.props.checkUse2();
+    this.props.checkUser();
   }
   
   render(){
@@ -32,8 +31,7 @@ const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
-    updateUserProfile:name=>dispatch(smart.updateUserProfile(name)),
-    checkUse3:()=>dispatch(smart.checkUse3()),
+    checkUser:()=>dispatch(smart.checkUser()),
   }
 }
 
