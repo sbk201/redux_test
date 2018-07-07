@@ -6,12 +6,12 @@ import {_Input} from '../init/global';
 // import PropTypes from "prop-types";
 const byKey=key=>(a,b)=>a[key]>b[key];
 const getProps=props=>{
-	const {delText}=props;
+	const {removeText}=props;
 	const Messages=({messages})=>{
 		return messages.sort(byKey('createdAt')).map((age,i)=>{
-			const Delete=()=><Button onClick={()=>delText(age.id)}>X</Button>
+			const Delete=()=><Button onClick={()=>removeText(age.id)}>X</Button>
 			const attrs={key:i,id:age.id};
-			return <div {...{...attrs}}><Delete/> {age.user} : {age.text}</div>
+			return <div {...{...attrs}}><Delete/>{age.removed && "(removed)"} {age.user} : {age.text}</div>
 		})
 	}
 	return {Messages}

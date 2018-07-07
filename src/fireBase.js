@@ -19,6 +19,7 @@ db.settings({timestampsInSnapshots: true});
     // .onSnapshot(data=>console.log(data))
 export const coll=name=>db.collection(name);
 
+
 const uiConfig= {
   signInFlow: 'popup',
   credentialHelper:firebaseui.auth.CredentialHelper.NONE,
@@ -36,3 +37,20 @@ export const authSignOut=(fn)=> firebase.auth().signOut().then(fn());
 export const FirebaseUI=()=> <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>;
 
 export default firebase
+
+window.firebase=firebase;
+window.dbBatch =()=> db.batch();
+window.coll=coll;
+/*
+var toNull=()=>firebase.firestore.FieldValue.delete();
+var batch=dbBatch();
+var messages=State.get().messages.map(age=>({id:age.id,removed:age.removed}))
+messages.forEach(({id,removed})=>{
+  const ref=coll('messages').doc(id);
+  const output_={private:toNull(),public:toNull()};
+  const output=removed? {...output_,private:true} : {...output_,public:true}
+  console.log(output)
+  batch.update(ref,output)
+})
+batch.commit().then(res=>console.log(res));
+*/

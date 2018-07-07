@@ -2,7 +2,6 @@ import firebase,{coll} from './fireBase';
 import axios from "axios";
 import {isEmpty} from "lodash";
 // import {isTest,dummyData} from './init/global';
-window.coll=coll;
 export const addText=params=>dispatch=>coll('messages').add(params);
 export const delText=id=>dispatch=>coll('messages').doc(id).delete();
 export const updateMessage=({id,...params})=>dispatch=>coll('messages').doc(id).update(params);
@@ -10,6 +9,7 @@ export const signOut=()=> dispatch=> dispatch({type: "SIGN_OUT"})
 
 
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
+const updateMessag2=({id,...params})=>coll('messages').doc(id).update(params);
 const receiveMessages=messages=>({type: "RECEIVE_MESSAGES", messages });
 const receiveUserInfo=(userInfo={})=> ({type: "RECEIVE_USER_INFO", userInfo });
 
@@ -19,7 +19,12 @@ const api=async (method,item,params={})=>{
 	if(method==='post') return (await axios.post(link,params)).data
 	if(method==='delete') return (await axios.delete(link,{params})).data
 }
+const toNull=()=>firebase.firestore.FieldValue.delete();
 export const smart= {
+	removeText:id=>{
+		const cmd={removed:true,private:true,public:toNull()};
+		return async dispatch=>updateMessag2({id,...cmd});
+	},
 	signInUser:user=> {
 		return async dispatch=>{
 			const {uid}=user;
