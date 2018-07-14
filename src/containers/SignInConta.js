@@ -10,7 +10,6 @@ import { Redirect } from "react-router-dom";
 const contName="SignInConta";
 class SignInConta extends Component {
   componentDidMount() {
-    const {checkUser}=this.props;
     this.props.checkUser();
   }
   
@@ -24,7 +23,7 @@ class SignInConta extends Component {
             </div>)
     }
     const rest=omit(this.props,[""])
-    const {UI,userInfo={}}=rest;
+    const {userInfo={}}=rest;
     const {username}=userInfo ||{};
     const logged=userInfo && userInfo.logged;
     if(logged===null || logged===undefined ) return <div></div>

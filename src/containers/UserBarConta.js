@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import React, { Component } from "react";
 import {omit} from 'lodash';
-import { smart,signOut,updateUI } from '../Actions.js'
+import { signOut,updateUI } from '../Actions.js'
 import UserBar from '../components/UserBar';
 
 const contName="UserBarConta";

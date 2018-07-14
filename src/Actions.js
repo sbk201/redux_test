@@ -1,6 +1,6 @@
 import firebase,{coll} from './fireBase';
 import axios from "axios";
-import {isEmpty} from "lodash";
+// import {isEmpty} from "lodash";
 // import {isTest,dummyData} from './init/global';
 export const addText=params=>dispatch=>coll('messages').add(params);
 export const delText=id=>dispatch=>coll('messages').doc(id).delete();
@@ -50,14 +50,23 @@ export const smart= {
 			// dispatch(receiveSbus(sbus));
 		}
 	},
-	fetchingMessage:()=>{
+	fetchingMessage:uid=>{
 		return async dispatch => {
-			coll('messages').onSnapshot(snap=>{
-				const convert=doc=>({...doc.data(),id:doc.id});
-				const output=snap.docs.map(convert);
-				dispatch(receiveMessages(output));
+			// const pub=await coll('messages').where('public','==',true).onSnapshot(snap=>{
+			coll('messages').where('public','==',true).onSnapshot(snap=>{
+				// const convert=doc=>({...doc.data(),id:doc.id});
+				// const output=snap.docs.map(convert);
+				getAll();
+				// return output
 				// snap.docChanges().forEach(change=> console.log(change.doc.data()))
 			})
+			const getAll=async ()=>{
+				const pub=(await coll('messages').where('public','==',true).get()).docs;
+				const pri= uid? 
+				(await coll('messages').where('private','==',true).where('uid','==',uid).get()).docs : [];
+				const result=[...pub,...pri].map(doc=>doc.data());
+				dispatch(receiveMessages(result));
+			}
 		}
 	},
 	updateUserName:name=>{
