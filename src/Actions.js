@@ -54,17 +54,17 @@ export const smart= {
 		return async dispatch => {
 			// const pub=await coll('messages').where('public','==',true).onSnapshot(snap=>{
 			coll('messages').where('public','==',true).onSnapshot(snap=>{
-				// const convert=doc=>({...doc.data(),id:doc.id});
 				// const output=snap.docs.map(convert);
 				getAll();
 				// return output
 				// snap.docChanges().forEach(change=> console.log(change.doc.data()))
 			})
 			const getAll=async ()=>{
+				const convert=doc=>({...doc.data(),id:doc.id});
 				const pub=(await coll('messages').where('public','==',true).get()).docs;
 				const pri= uid? 
 				(await coll('messages').where('private','==',true).where('uid','==',uid).get()).docs : [];
-				const result=[...pub,...pri].map(doc=>doc.data());
+				const result=[...pub,...pri].map(convert);
 				dispatch(receiveMessages(result));
 			}
 		}
