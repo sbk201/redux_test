@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
-    addText:params=>dispatch(addText(params)),
+    addText:params=>dispatch(addText({...params,public:true})),
     removeText:id=>dispatch(smart.removeText(id)),
     fetchingMessage:uid=>dispatch(smart.fetchingMessage(uid))
   }

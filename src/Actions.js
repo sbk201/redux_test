@@ -54,10 +54,7 @@ export const smart= {
 		return async dispatch => {
 			// const pub=await coll('messages').where('public','==',true).onSnapshot(snap=>{
 			coll('messages').where('public','==',true).onSnapshot(snap=>{
-				// const output=snap.docs.map(convert);
 				getAll();
-				// return output
-				// snap.docChanges().forEach(change=> console.log(change.doc.data()))
 			})
 			const getAll=async ()=>{
 				const convert=doc=>({...doc.data(),id:doc.id});
