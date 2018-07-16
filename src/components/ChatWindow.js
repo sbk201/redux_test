@@ -9,7 +9,8 @@ const getProps=props=>{
 	const {userInfo:{uid},removeText}=props;
 	const Messages=({messages})=>{
 		return messages.sort(byKey('createdAt')).map((age,i)=>{
-			const delStyle= uid===age.uid ? {}: {visibility: "hidden"};
+			const hideBool=uid!==age.uid || age.removed;
+			const delStyle=  hideBool ? {visibility: "hidden"} : {};
 			const Delete=()=><Button circular onClick={()=>removeText(age.id)} style={delStyle}>X</Button>
 			const attrs={key:i,id:age.id,style:{margin:"0.1em"}};
 			return <div {...{...attrs}}><Delete/>{age.removed && "(removed)"} {age.user} : {age.text}</div>
