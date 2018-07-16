@@ -125,7 +125,7 @@ const State={
 
 // window.addEventListener('keyup', this.props.testFn);
 // window.removeEventListener('keyup', this.props.testFn);
-if(isDev) Object.assign(window,{localSet, localGet,State});
+if(isDev) Object.assign(window,{localSet, localGet,State,st:State.get});
 
 // https://stackoverflow.com/a/30452949/1507207
 export default {...State};
