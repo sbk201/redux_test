@@ -15,30 +15,25 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		// fetch:()=>dispatch(smart.getMessage()),
+		fetch:()=>dispatch(smart.getIdeas()),
 	};
 };
-const CHART_DATA = {
-	columns: [
-		["data1", 30, 20, 50, 40, 60, 50],
-		["data2", 200, 130, 90, 240, 130, 220],
-		["data3", 300, 200, 160, 400, 250, 250]
-	],
-	type: "donut"
-};
+// const CHART_DATA = {
+// 	columns: [
+// 		["data1", 30, 20, 50, 40, 60, 50],
+// 		["data2", 200, 130, 90, 240, 130, 220],
+// 		["data3", 300, 200, 160, 400, 250, 250]
+// 	],
+// 	type: "donut"
+// };
 window.theData=dataImport;
 class App extends Component {
  
 	componentDidMount() {
-	// this.props.fetch();
+		this.props.fetch();
 
 	}
 	render(){
-		// ${wraperCss}
-		// grid-template-columns: 1fr 6em;
-		// @media screen and (min-width: 800px) {
-		// grid-template-columns: 1fr 10em;
-		// }
-		// <TodosContainer/>
 		var addArea=arr=>arr.map(([key,va])=>["Area "+key,va]);
 		var toChart=arr=>({columns:arr,type:"donut"});
 		const theData=flow(statBy("Area"),Object.entries,addArea,toChart)(dataImport);

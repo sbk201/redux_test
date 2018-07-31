@@ -1,18 +1,11 @@
 import {mergeClone} from './init/global'
 import { combineReducers } from 'redux';
 
-const message= (state = [], action) => {
+const ideas= (state = [], action) => {
   switch (action.type) {
-  case "ADD_MESSAGE":
-    const {type,...rest}=action;
-    // console.log([...state,rest]);
-  // return state
-  return [...state,rest]
-  case "GET_MESSAGE":
-  return action.message
-  case "DELETE_MESSAGE":
-  const exclude=ele=>ele._id!==action._id;
-  return state.filter(exclude);
+  case "GET_IDEAS":
+  console.log(action.ideas);
+  return action.ideas
   default:
     return state;
   }
@@ -31,7 +24,7 @@ const localUI = (state = {}, action) => {
 };
 
 const allReducers = combineReducers({
-  localUI,message
+  localUI,ideas
 })
 
 export default allReducers

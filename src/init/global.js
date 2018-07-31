@@ -16,7 +16,6 @@ export const objLoop2=(obj,fn)=> Object.entries(obj).reduce((acc,[key,va])=>(Obj
 export const sumOfObjectBy=(array,key)=>array.reduce((self,value)=>self+value[key],0)
 
 const toEntrie2=it=>Array.isArray(it)? it.map(e=>Object.entries(e)[0]) : Object.entries(it);
-const toEntries=it=>Array.isArray(it)? it : Object.entries(it);
 export const accum=(target,fn)=> toEntrie2(target).reduce((self,pair)=>self+fn(pair),0);
 export const map=(target,fn)=> toEntrie2(target).map(pair=>fn(pair));
 export const statBy=curry((theKey,array)=>
@@ -200,7 +199,7 @@ const State={
 
 // window.addEventListener('keyup', this.props.testFn);
 // window.removeEventListener('keyup', this.props.testFn);
-if(isDev) Object.assign(window,{localSet, localGet,State,flow,toEntries,statBy});
+if(isDev) Object.assign(window,{localSet, localGet,State,flow,statBy});
 
 // https://stackoverflow.com/a/30452949/1507207
 export default {...State};
