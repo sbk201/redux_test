@@ -20,12 +20,12 @@ class App extends Component {
 	componentDidMount() {
 		this.props.fetch();
 	}
+				// <DonutCont name="Status"/>
+				// <DonutCont name="Area"/>
 	render(){
 		return (
 			<div>
 				<h1>D3 Demo</h1>
-				<DonutCont name="Status"/>
-				<DonutCont name="Area"/>
 				<HistoCont/>
 
 			</div>

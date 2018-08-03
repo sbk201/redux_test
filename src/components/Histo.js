@@ -1,10 +1,9 @@
 import React from "react";
-import "react-billboardjs/lib/billboard.css";
-import BillboardChart from "react-billboardjs";
 import {differenceInDays,format as dateFormat} from "date-fns";
 import {statBy,objLoop2} from "../init/global";
 import {flow} from "lodash";
 import { Select } from "semantic-ui-react";
+import ReactHighcharts from "react-highcharts";
 
 const getProps=props=>{
 	const {ideas,updateUI,UI}=props;
@@ -31,53 +30,37 @@ const getProps=props=>{
 		};
 		return getScope(ele);
 	});
-	const statSpent=arr=>{
+	const countScope=arr=>{
 		const scopeInit = objLoop2(scopeObj, (([key, value]) => 0));
 		return arr.reduce((self, scope) => {
 			const times=self[scope] + 1;
-			return Object.assign({},self,{[scope]: times});
+			return {...self,[scope]: times};
 		} , scopeInit);
 	};
-	const toChart=arr=>({columns:arr,type:"bar"});
-	const separate=arr=>arr.reduce(([titles,values],[title,value])=>[[...titles,title],[...values,value]],[[],[]]);
-	const combine=arr=>[["test",...arr.map(ele=>ele[1])]];
-	const data= flow(patchSpent,toDateSpent,toScopeName,statSpent,Object.entries,combine,toChart)(ideas);
-	// toChart
-	// const titles=preData[0]
-	// const data=toChart(["",...preData[1]]);
-	// console.log('preData is :',preData)
-			// 
-	console.log('data is :',data)
-	const titles=["1 to 7 days", "8 to 30 days", "31 to 60 days", "61 to 120 days", "over 120 days"]
-	const formatFn=(v,id)=> console.log(v,id) || id
+	const toData=obj=>Object.entries(obj).map(([name,y])=>({name,y}));
+	const data= flow(patchSpent,toDateSpent,toScopeName,countScope,toData)(ideas);
+	console.log("data is :",data);
 	const config={
-		// bar: {width: {ratio: 0.5 }},
-    	// labels:{format:formatFn}
-    	axis: {
-		    x: {
-		        type: 'category',
-		        categories: titles
-		    }
-		}
+		chart: {type: "column"},
+		title: {text: "Time Spent to Complete ideas"},
+		// subtitle: { text: ""},
+		xAxis: {type: "category"},
+		yAxis: {
+			title: {text: "Ideas"}
+		},
+		legend: {enabled: false },
+ 		"series": [
+			{"name": "Ideas", "colorByPoint": true, data }
+		],
 	};
+
 	return {data,config};
 };
 const Histo=props=>{
 	const {data,config}=getProps(props);
-	const _data={columns: [
-		["data1", 30, 200, 100, 400, 150, 250],
-    ],}
-	// const test={
-	//   data: {
-	//     columns: [
-	// 	["data1", 30, 200, 100, 400, 150, 250],
-	//     ],
-	//     type: "bar"
-	//   },
-	// }
 	return (
 		<div>
-			<BillboardChart {...{data,...config}}/>
+			<ReactHighcharts {...{config}}/>
 		</div>
 	);
 };
