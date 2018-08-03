@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
 import { updateUI } from '../Actions.js'
-import Donut from '../components/Donut'
-const contName="Donut";
-const mapStateToProps = (state,{name}) => {
+import Histo from '../components/Histo'
+const contName="Histo";
+const mapStateToProps = (state) => {
   const {ideas}=state;
   const UI=state.localUI[contName] || {};
-  return {ideas,name,UI}
+  return {ideas,UI}
 }
 const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
@@ -18,4 +18,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Donut)
+)(Histo)
