@@ -1,8 +1,7 @@
 import React from "react";
-import {differenceInDays,format as dateFormat} from "date-fns";
+import {differenceInDays} from "date-fns";
 import {statBy,objLoop2} from "../init/global";
 import {flow} from "lodash";
-import { Select } from "semantic-ui-react";
 import ReactHighcharts from "react-highcharts";
 
 const getProps=props=>{
@@ -39,8 +38,8 @@ const getProps=props=>{
 	};
 	const toData=obj=>Object.entries(obj).map(([name,y])=>({name,y}));
 	const data= flow(patchSpent,toDateSpent,toScopeName,countScope,toData)(ideas);
-	console.log("data is :",data);
 	const config={
+		credits: false,
 		chart: {type: "column"},
 		title: {text: "Time Spent to Complete ideas"},
 		// subtitle: { text: ""},
@@ -50,7 +49,7 @@ const getProps=props=>{
 		},
 		legend: {enabled: false },
  		"series": [
-			{"name": "Ideas", "colorByPoint": true, data }
+			{"name": "Ideas",  data }
 		],
 	};
 
