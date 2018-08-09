@@ -1,11 +1,22 @@
 import { connect } from 'react-redux'
 import { updateUI } from '../Actions.js'
 import Histo from '../components/Histo'
-const contName="Histo";
+import {omit} from "lodash";
+import React, { Component } from "react";
+
+
+const contName="HistoCont";
+class HistoCont extends Component {
+  render(){
+    const rest= omit(this.props,[""]);
+        
+    return <Histo {...rest}/>;
+  }
+}
 const mapStateToProps = (state) => {
   const {ideas}=state;
   const UI=state.localUI[contName] || {};
-  return {ideas,UI}
+  return {ideas}
 }
 const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
@@ -18,4 +29,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Histo)
+)(HistoCont)

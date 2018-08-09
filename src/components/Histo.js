@@ -1,11 +1,12 @@
 import React from "react";
 import {differenceInDays} from "date-fns";
-import {statBy,objLoop2} from "../init/global";
+import {objLoop2} from "../init/global";
 import {flow} from "lodash";
+import { Container } from "semantic-ui-react";
 import ReactHighcharts from "react-highcharts";
 
 const getProps=props=>{
-	const {ideas,updateUI,UI}=props;
+	const {ideas}=props;
 	const scopeObj = {
 		"1 to 7 days": 7,
 		"8 to 30 days": 30,
@@ -40,8 +41,13 @@ const getProps=props=>{
 	const data= flow(patchSpent,toDateSpent,toScopeName,countScope,toData)(ideas);
 	const config={
 		credits: false,
-		chart: {type: "column"},
-		title: {text: "Time Spent to Complete ideas"},
+		chart: {
+			type: "column",
+			height: 300,
+			width: 380,
+			backgroundColor:null,
+		},
+		title: {text: ""},
 		// subtitle: { text: ""},
 		xAxis: {type: "category"},
 		yAxis: {
@@ -53,14 +59,19 @@ const getProps=props=>{
 		],
 	};
 
-	return {data,config};
+	const Containerion=({children})=>
+		<Container style={{backgroundColor:"#DDDDDD",width: "30rem", padding: "1rem",marginBottom: "1rem"}}>
+			{children}
+		</Container>;
+	return {config,Containerion};
 };
 const Histo=props=>{
-	const {data,config}=getProps(props);
+	const {config,Containerion}=getProps(props);
 	return (
-		<div>
+		<Containerion>
+			<div style={{height:"3rem"}}><span style={{fontSize:"1.5rem"}}>Time Spent to Complete</span></div><hr/>
 			<ReactHighcharts {...{config}}/>
-		</div>
+		</Containerion>
 	);
 };
 // PropTypes Generator http://rmosolgo.github.io/prop-types/

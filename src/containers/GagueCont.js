@@ -1,31 +1,22 @@
 import { connect } from "react-redux";
 import { updateUI } from "../Actions.js";
-import Donut from "../components/Donut";
+import Gague from "../components/Gague";
 import {omit} from "lodash";
 import React, { Component } from "react";
 
-const contName="DonutCont";
-class DonutCont extends Component {
+const contName="GagueCont";
+class GagueCont extends Component {
 	componentDidMount(){}
-	shouldComponentUpdate(next){
-    const isArea= this.props.name==='Area';
-    const filterChanged=this.props.filter1!==next.filter1;
-    if(!isArea && filterChanged) return false
-    return true
-	}
 	render(){
-		const isArea= this.props.name==='Area';
-		const rest= isArea ? this.props : omit(this.props,["filter1"]);
-        
-		return <Donut {...rest}/>;
+		const rest= omit(this.props,[""]);
+		return <Gague {...rest}/>;
 	}
 }
 
 const mapStateToProps = (state,{name}) => {
 	const {ideas}=state;
 	const UI=state.localUI[contName] || {};
-	const {filter1}=UI;
-	return {ideas,name,filter1};
+	return {ideas};
 };
 const mapDispatchToProps = (dispatch) => {
 	const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
@@ -38,4 +29,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(DonutCont);
+)(GagueCont);

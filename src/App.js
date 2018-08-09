@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import "react-dom";
 import DonutCont from "./containers/DonutCont";
 import HistoCont from "./containers/HistoCont";
+import GagueCont from "./containers/GagueCont";
 import dataImport from "./data";
 
 const mapStateToProps = (state) => {
@@ -16,20 +17,19 @@ const mapDispatchToProps = (dispatch) => {
 }
 window.theData=dataImport;
 class App extends Component {
- 
 	componentDidMount() {
 		this.props.fetch();
 	}
-				// <DonutCont name="Area"/>
 	render(){
 		return (
 			<div>
 				<h1>D3 Demo</h1>
-				<div style={{display:"flex"}}>
-					<DonutCont name="Status"/>
-					<DonutCont name="Area"/>
+				<div className="container-fluid row">
+					<div className="col-md-6"><DonutCont name="Status"/></div>					
+					<div className="col-md-6"><DonutCont name="Area"/></div>					
+					<div className="col-md-6"><HistoCont/></div>					
+					<div className="col-md-6"><GagueCont/></div>					
 				</div>
-				<HistoCont/>
 
 			</div>
 		);
