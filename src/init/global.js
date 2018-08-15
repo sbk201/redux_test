@@ -1,11 +1,12 @@
 import {blankData} from "./initData"
 import {curry,flow,merge,cloneDeep as clone} from "lodash"; 
-import {format as dateFormat} from 'date-fns'
+import {format as dateFormat,differenceInDays} from 'date-fns'
 import store from '../index';
-
+window.differenceInDays=differenceInDays;
 global.cancelAnimationFrame = function(callback) {
   setTimeout(callback, 0);
 };
+
 
 export const objMap=(obj,fn)=> Object.entries(obj).map(([key,va])=>fn([key,va]));
 export const objMap2=(obj,fn)=> Object.entries(obj).map(([key,va])=>({[key]:fn([key,va])}));

@@ -3,12 +3,11 @@ import React from "react";
 import {statBy} from "../init/global";
 import {Containerion} from "../init/project";
 import {flow} from "lodash";
-import { Select,Container } from "semantic-ui-react";
+import { Select } from "semantic-ui-react";
 import ReactHighcharts from "react-highcharts";
 
 const getProps=props=>{
 	const {ideas,name,updateUI,filter1}=props;
-	console.log(filter1);
 	const title=`Status in ${name}`;
 	const isArea=name==="Area";
 	const statusFilter=filter1;
@@ -88,11 +87,11 @@ const getProps=props=>{
 };
 
 const Donut=props=>{
-	const {data,Selection,Containerion,config,title}=getProps(props);
+	const {Selection,Containerion,config,title}=getProps(props);
 	
 	return (
 		<Containerion>
-			<div style={{height:"3rem"}}><span style={{fontSize:"1.5rem"}}>{title}</span> <Selection style={{fontSize:"1rem"}}/></div><hr/>
+			<div style={{height:"3rem"}}><span style={{fontSize:"2rem"}}>{title}</span> <Selection style={{fontSize:"1rem"}}/></div><hr/>
 			<ReactHighcharts {...{config}}/>
 		</Containerion>
 	);

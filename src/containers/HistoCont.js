@@ -15,7 +15,7 @@ class HistoCont extends Component {
 }
 const mapStateToProps = (state) => {
   const {ideas}=state;
-  const UI=state.localUI[contName] || {};
+  // const UI=state.localUI[contName] || {};
   return {ideas}
 }
 const mapDispatchToProps = (dispatch) => {

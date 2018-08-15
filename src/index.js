@@ -1,4 +1,5 @@
 import 'es6-shim';
+import storageState,{isDev} from "./init/global";
 import 'semantic-ui-css/semantic.min.css';
 import "./index.css";
 import React from "react";
@@ -9,7 +10,6 @@ import { Provider} from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunkMiddleware from 'redux-thunk';
 import initData from "./init/initData";
-import storageState,{isDev} from "./init/global";
 import {debounce} from "lodash";
 import App from "./App";
 

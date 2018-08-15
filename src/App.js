@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import "react-dom";
 import DonutCont from "./containers/DonutCont";
 import HistoCont from "./containers/HistoCont";
-import GagueCont from "./containers/GagueCont";
+import GaugeCont from "./containers/GaugeCont";
 import dataImport from "./data";
 
 const mapStateToProps = (state) => {
@@ -28,7 +28,7 @@ class App extends Component {
 					<div className="col-md-6"><DonutCont name="Status"/></div>					
 					<div className="col-md-6"><DonutCont name="Area"/></div>					
 					<div className="col-md-6"><HistoCont/></div>					
-					<div className="col-md-6"><GagueCont/></div>					
+					<div className="col-md-6"><GaugeCont/></div>					
 				</div>
 
 			</div>

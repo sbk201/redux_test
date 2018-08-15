@@ -1,21 +1,21 @@
 import { connect } from "react-redux";
 import { updateUI } from "../Actions.js";
-import Gague from "../components/Gague";
+import Gauge from "../components/Gauge";
 import {omit} from "lodash";
 import React, { Component } from "react";
 
-const contName="GagueCont";
-class GagueCont extends Component {
+const contName="GaugeCont";
+class GaugeCont extends Component {
 	componentDidMount(){}
 	render(){
 		const rest= omit(this.props,[""]);
-		return <Gague {...rest}/>;
+		return <Gauge {...rest}/>;
 	}
 }
 
 const mapStateToProps = (state,{name}) => {
 	const {ideas}=state;
-	const UI=state.localUI[contName] || {};
+	// const UI=state.localUI[contName] || {};
 	return {ideas};
 };
 const mapDispatchToProps = (dispatch) => {
@@ -29,4 +29,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(GagueCont);
+)(GaugeCont);

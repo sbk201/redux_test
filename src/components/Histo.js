@@ -1,7 +1,9 @@
 import React from "react";
 import {differenceInDays} from "date-fns";
 import {objLoop2} from "../init/global";
+import {Containerion} from "../init/project";
 import {flow} from "lodash";
+
 import { Container } from "semantic-ui-react";
 import ReactHighcharts from "react-highcharts";
 
@@ -58,18 +60,13 @@ const getProps=props=>{
 			{"name": "Ideas",  data }
 		],
 	};
-
-	const Containerion=({children})=>
-		<Container style={{backgroundColor:"#DDDDDD",width: "30rem", padding: "1rem",marginBottom: "1rem"}}>
-			{children}
-		</Container>;
-	return {config,Containerion};
+	return {config};
 };
 const Histo=props=>{
-	const {config,Containerion}=getProps(props);
+	const {config}=getProps(props);
 	return (
 		<Containerion>
-			<div style={{height:"3rem"}}><span style={{fontSize:"1.5rem"}}>Time Spent to Complete</span></div><hr/>
+			<div style={{height:"3rem"}}><span style={{fontSize:"2rem"}}>Time Spent to Complete</span></div><hr/>
 			<ReactHighcharts {...{config}}/>
 		</Containerion>
 	);
