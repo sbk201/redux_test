@@ -9,14 +9,11 @@ export const getIdeas=ideas=>({type: "GET_IDEAS", ideas });
 // const link={
 	// message:"http://localhost:5000/data",
 // }
-// const getMessageApi=async ()=>(await axios.get(link.message)).data;
-// const addMessageApi=async params=>(await axios.post(link.message,params)).data;
-// const delMessageApi=async _id=>(await axios.delete(link.message,{data:{_id}})).data;
 export const smart=(function() {
 	return {
 		getIdeas: ()=>async dispatch => {
-			const get=()=>isDev ? dataImport : getIdeasApi();
-			dispatch(getIdeas(await get()));
+			// const get=()=>isDev ? dataImport : getIdeasApi();
+			// dispatch(getIdeas(await get()));
 		},
 		// getMessage: ()=>async dispatch => {
 		// 	const message=await getMessageApi();

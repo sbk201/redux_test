@@ -2,10 +2,6 @@ import { connect } from "react-redux";
 import { smart } from "./Actions.js";
 import React, { Component } from "react";
 import "react-dom";
-import DonutCont from "./containers/DonutCont";
-import HistoCont from "./containers/HistoCont";
-import GaugeCont from "./containers/GaugeCont";
-import dataImport from "./data";
 
 const mapStateToProps = (state) => {
 	return { };
@@ -15,7 +11,6 @@ const mapDispatchToProps = (dispatch) => {
 		fetch:()=>dispatch(smart.getIdeas()),
 	};
 }
-window.theData=dataImport;
 class App extends Component {
 	componentDidMount() {
 		this.props.fetch();
@@ -23,12 +18,10 @@ class App extends Component {
 	render(){
 		return (
 			<div>
-				<h1>D3 Demo</h1>
+				<h1>Main App</h1>
 				<div className="container-fluid row">
-					<div className="col-md-6"><DonutCont name="Status"/></div>					
-					<div className="col-md-6"><DonutCont name="Area"/></div>					
-					<div className="col-md-6"><HistoCont/></div>					
-					<div className="col-md-6"><GaugeCont/></div>					
+					<div className="col-xs-6" style={{backgroundColor:"lightblue"}}>Part A</div>					
+					<div className="col-xs-6" style={{backgroundColor:"green"}}>Part B</div>		
 				</div>
 
 			</div>
