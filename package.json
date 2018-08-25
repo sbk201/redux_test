@@ -10,21 +10,18 @@
     "loadash": "^1.0.0",
     "raf-polyfill": "^1.0.0",
     "react": "^16.2.0",
+    "react-bootstrap": "^0.32.3",
     "react-dom": "^16.2.0",
-    "react-highcharts": "^16.0.2",
     "react-redux": "^5.0.6",
     "react-scripts": "1.0.12",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0",
-    "semantic-ui-css": "^2.3.0",
-    "semantic-ui-react": "^0.78.3"
+    "redux-thunk": "^2.2.0"
   },
-  "homepage": "https://portal.cookapac.com/ecom/WebParts/John3_dev/",
+  "homepage": "/",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && npm run forEcom",
-    "forEcom": "rm -rf dist && mv build dist && rm dist/asset-manifest.json dist/manifest.json",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
