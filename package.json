@@ -25,7 +25,7 @@
   "homepage": ".",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && rm -rf customerAllocation && mv build customerAllocation",
+    "build": "react-scripts build",
     "jsiu_build": "react-scripts build && rm -rf customerAllocation && mv build ../express_test/public/customerAllocation",
     "test": "mocha -w --reporter dot",
     "test_": "react-scripts test --env=jsdom",

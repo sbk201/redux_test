@@ -1,4 +1,3 @@
-import {blankData} from "./initData"
 import {flow,merge,cloneDeep as clone} from "lodash"; 
 import {format as dateFormat} from 'date-fns'
 import store from '../index';
@@ -93,11 +92,6 @@ const State={
 		localSet('state',stateArray);
 		localSet('stateId',idLast());
 		window.location.reload();
-	},
-	reapply:(_id)=>{
-		const id= Number.isInteger(_id) ? _id : idApplied;
-		flow([merge,clone,State.set])(blankData,State.get(id));
-		console.log(`reapply from id ${id}`);
 	},
 	_save:(store,_createdAt_a)=>{
 	const oldState=localGet('state') || [];
