@@ -5,10 +5,10 @@ import { Nav,NavItem,NavDropdown,MenuItem,Navbar,FormControl,FormGroup,Button } 
 const UINavbar=props=>{
 
 	return (
-		<Navbar inverse collapseOnSelect>
+		<Navbar collapseOnSelect>
 			<Navbar.Header>
 				<Navbar.Brand>
-					<a href="#brand"><img src={brand} style={{width:"4em"}}/></a>
+					<a href="#brand" style={{padding:"0.5rem"}}><img src={brand} style={{width:"2em"}}/></a>
 				</Navbar.Brand>
 				<Navbar.Toggle />
 			</Navbar.Header>
