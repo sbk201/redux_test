@@ -3,6 +3,7 @@ import { smart } from "./Actions.js";
 import React, { Component } from "react";
 import "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Gallery from "./components/Gallery";
 import UIGrids from "./components/UIGrids";
 import UINavbar from "./components/UINavbar";
 
@@ -23,14 +24,13 @@ class App extends Component {
 	render(){
 		return (
 			<div>
-				<h1>Main App</h1>
 				<Router>
 					<div>
-						<UINavbar/>
+						<UINavbar/><br/><br/><br/>
 						<Switch>
 							<Route exact path="/" component={UIGrids} />
+							<Route path="/gallery" component={Gallery} />
 							<Route component={NoMatch} />
-							{/*<Route path="/allocate" component={AllocateContainer} />*/}
 						</Switch>
 					</div>
 				</Router>
