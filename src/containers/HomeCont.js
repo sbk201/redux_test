@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import Home from '../components/Home'
 const contName="Home";
 
-class HomeContainer extends Component {
+class HomeCont extends Component {
   componentDidMount() {
     // this.props.fetch();
   }
@@ -30,4 +30,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomeContainer)
+)(HomeCont)

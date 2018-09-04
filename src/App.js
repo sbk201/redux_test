@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Gallery from "./components/Gallery";
 import UIGrids from "./components/UIGrids";
 import UINavbar from "./components/UINavbar";
+import FormFillCont from "./containers/FormFillCont";
 
 const mapStateToProps = (state) => {
 	return { };
@@ -30,6 +31,7 @@ class App extends Component {
 						<Switch>
 							<Route exact path="/" component={UIGrids} />
 							<Route path="/gallery" component={Gallery} />
+							<Route path="/formFill" component={FormFillCont} />
 							<Route component={NoMatch} />
 						</Switch>
 					</div>

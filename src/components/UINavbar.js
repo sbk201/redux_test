@@ -18,6 +18,7 @@ const UINavbar=props=>{
 			<Navbar.Collapse>
 				<Nav>
 					<NavIt link="/gallery"> Gallery </NavIt>
+					<NavIt link="/formFill"> Form </NavIt>
 					<NavIt link="/123123"> 404 </NavIt>
 				</Nav>
 				<Nav pullRight>
