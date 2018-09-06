@@ -1,6 +1,6 @@
 import React from "react";
 import brand from '../img/brand.png';
-import { Nav,NavItem,NavDropdown,MenuItem,Navbar } from "react-bootstrap";
+import { Nav,NavItem,Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const UINavbar=props=>{
@@ -9,7 +9,7 @@ const UINavbar=props=>{
 		<Navbar collapseOnSelect fixedTop>
 			<Navbar.Header>
 				<Navbar.Brand style={{paddingTop:"0.5rem",paddingBottom:"0.5rem"}}>
-					<Link to="/" style={{padding:"0.5rem"}}><img src={brand} style={{width:"2em"}}/></Link>
+					<Link to="/" style={{padding:"0.5rem"}}><img src={brand} style={{width:"2em"}} alt=""/></Link>
 					Main App
 				</Navbar.Brand>
 

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import {pick,omit} from 'lodash';
+import {omit} from 'lodash';
 import {updateUI} from '../Actions.js'
 import React, { Component } from "react";
 import FormFill from '../components/FormFill'

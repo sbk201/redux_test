@@ -7,7 +7,16 @@ global.cancelAnimationFrame = function(callback) {
   setTimeout(callback, 0);
 };
 
-
+export const switchFP=(val="",fp)=> fp(val).find(ele=>ele[0])[1];
+/*
+switchFP(5,x=>[
+  [x>3,"x is bigger than 3"],
+  [x>5,"x is bigger than 5"],
+  [x<5,"x is smaller than 5"],
+  [x===5,"x is equal to 5"],
+  [true,"default case,it's not a number"]
+])
+*/
 export const objMap=(obj,fn)=> Object.entries(obj).map(([key,va])=>fn([key,va]));
 export const objMap2=(obj,fn)=> Object.entries(obj).map(([key,va])=>({[key]:fn([key,va])}));
 
