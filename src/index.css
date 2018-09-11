@@ -10,3 +10,6 @@ body {
 .bb-legend-item text{
 	width:3em;
 }
+input[type="radio"]{
+	transform:scale(1.5);
+}

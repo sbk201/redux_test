@@ -1,11 +1,18 @@
 import {mergeClone} from './init/global'
 import { combineReducers } from 'redux';
 
-const ideas= (state = [], action) => {
+const formInputs= (state = [], action) => {
   switch (action.type) {
-  case "GET_IDEAS":
-  console.log(action.ideas);
-  return action.ideas
+  case "SET_INPUTS":
+  return action.inputs
+  case "INSERT_INPUTS":
+  // const {inputs}=action;
+  // console.log('runs2')
+  // const existed=state.some(ele=>ele.id===inputs.id);
+  // console.log(existed,inputs);
+  // console.log(existed ? state.map(ele=>ele.id===inputs.id && inputs) : state.concat(inputs) )
+  // return existed ? state.map(ele=>ele.id===inputs.id && inputs) : state.concat(inputs) ;
+  return state
   default:
     return state;
   }
@@ -24,7 +31,7 @@ const localUI = (state = {}, action) => {
 };
 
 const allReducers = combineReducers({
-  localUI,ideas
+  localUI,formInputs
 })
 
 export default allReducers

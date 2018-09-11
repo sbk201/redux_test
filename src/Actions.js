@@ -4,7 +4,8 @@ export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
 export const getMessage=message=>({type: "GET_MESSAGE", message });
 export const addMessage=message=> ( {type: "ADD_MESSAGE", ...message});
 export const delMessage=_id=> ( {type: "DELETE_MESSAGE", _id});
-export const getIdeas=ideas=>({type: "GET_IDEAS", ideas });
+export const setInputs=inputs=>({type: "SET_INPUTS",inputs});
+export const insertInputs=inputs=>({type: "INSERT_INPUTS",inputs});
 // const link={
 	// message:"http://localhost:5000/data",
 // }
