@@ -1,5 +1,5 @@
 import React from "react";
-import { FormGroup,ControlLabel,FormControl,HelpBlock,Radio } from "react-bootstrap";
+import { FormGroup,ControlLabel,FormControl,HelpBlock,ToggleButton,ToggleButtonGroup  } from "react-bootstrap";
 import {defaults,pick} from "lodash";
 import {switchFP} from "../init/global";
 // import PropTypes from "prop-types";
@@ -8,21 +8,19 @@ const upperCase=string=>string.charAt(0).toUpperCase() + string.substr(1);
 // const Radios=theProps=>
 const InputField=params =>{
 	const { id, label, hide, help, validationState=null,...props }=params;
+	const f=()=>{};
 	if(hide) return <div></div>;
-	if(props.type==="radio")
+	if(props.type==="radio"){
+		const pValue=switchFP(props.value,x=>[[!x,null],[x!=="true",false],[true,true]])
+		const options=props.options.map(([name,value])=> 
+			<ToggleButton key={name} value={value} onChange={props.onChange}>{name}</ToggleButton>);
 		return (
-			<FormGroup controlId={"radio123"}>
-		      <Radio name="radioGroup" inline>
-		        1
-		      </Radio>{" "}
-		      <Radio name="radioGroup" inline>
-		        2
-		      </Radio>{" "}
-		      <Radio name="radioGroup" inline>
-		        3
-		      </Radio>
-		    </FormGroup>
-		);
+			<ToggleButtonGroup type="checkbox" value={pValue} onChange={f}>
+				<ControlLabel>{label}</ControlLabel><br/>
+				      {options}
+				{help && <HelpBlock>{help}</HelpBlock>}
+			</ToggleButtonGroup>
+		);}
 	return (
 		<FormGroup controlId={id} validationState={validationState}>
 			<ControlLabel>{label}</ControlLabel>

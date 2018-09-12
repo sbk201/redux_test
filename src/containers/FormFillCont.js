@@ -38,24 +38,17 @@ const getFormItem=(UI,updateUI)=>[{
 } ,{
   id:"salary",
   label:"Salary",
-  type:"radio",
-  options:["1","2","3","4"],
   hide: !UI.age || UI.age<18,
   validationState:switchFP(UI.salary,x=>[[!x,null], [!Number.isInteger(x),"error"], [true,"success"]]),
   help: switchFP(UI.salary,x=>[ [!Number.isInteger(x),"must be a number"], [true,null] ]),
   onChange:e=>updateUI({salary:e.target.value})
 },{
-//   id:"salary",
-//   label:"Salary",
-//   hide: !UI.age || UI.age<18,
-//   validationState:switchFP(UI.salary,x=>[[!x,null], [!Number.isInteger(x),"error"], [true,"success"]]),
-//   help: switchFP(UI.salary,x=>[ [!Number.isInteger(x),"must be a number"], [true,null] ]),
-//   onChange:e=>updateUI({salary:e.target.value})
-// },{
   id:"isRich",
   label:"Are you Rich?",
-  hide: !UI.salary || UI.salary<10000,
+  // hide: !UI.salary || UI.salary<10000,
+  value:UI.isRich,
   type:"radio",
+  options:[["rich",true],["poor",false]],
   // validationState:switchFP(UI.isRich,x=>[[!x,null], [,"error"], [true,"success"]]),
   // help: switchFP(UI.isRich,x=>[ [!Number.isInteger(x),"must be a number"], [true,null] ]),
   onChange:e=>updateUI({isRich:e.target.value})
