@@ -43,6 +43,12 @@ const getFormItem=(UI,updateUI)=>[{
   help: switchFP(UI.salary,x=>[ [!Number.isInteger(x),"must be a number"], [true,null] ]),
   onChange:e=>updateUI({salary:e.target.value})
 },{
+  id:"interest",
+  label:"Interest",
+  options:[["sport","sport"],["music","music"],["games","games"]],
+  type:"checkbox",
+  onChange:value=>updateUI({interest:value})
+},{
   id:"isRich",
   label:"Are you Rich?",
   // hide: !UI.salary || UI.salary<10000,
@@ -51,7 +57,7 @@ const getFormItem=(UI,updateUI)=>[{
   options:[["rich",true],["poor",false]],
   // validationState:switchFP(UI.isRich,x=>[[!x,null], [,"error"], [true,"success"]]),
   // help: switchFP(UI.isRich,x=>[ [!Number.isInteger(x),"must be a number"], [true,null] ]),
-  onChange:e=>updateUI({isRich:e.target.value})
+  onChange:value=>updateUI({isRich:value})
 },{
   id:"toy",
   label:"Toy",

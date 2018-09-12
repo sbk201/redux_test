@@ -1,5 +1,5 @@
 import React from "react";
-import { FormGroup,ControlLabel,FormControl,HelpBlock,ToggleButton,ToggleButtonGroup  } from "react-bootstrap";
+import { Button,FormGroup,ControlLabel,FormControl,HelpBlock,ToggleButton,ToggleButtonGroup  } from "react-bootstrap";
 import {defaults,pick} from "lodash";
 import {switchFP} from "../init/global";
 // import PropTypes from "prop-types";
@@ -7,17 +7,27 @@ const upperCase=string=>string.charAt(0).toUpperCase() + string.substr(1);
 
 // const Radios=theProps=>
 const InputField=params =>{
+	window.switchFP=switchFP;
 	const { id, label, hide, help, validationState=null,...props }=params;
 	const f=()=>{};
 	if(hide) return <div></div>;
+	const onChangeValue=e=>props.onChange(e.target.value);
+	const getOptions=onChange=>props.options.map(([name,value])=> 
+			<ToggleButton key={name} value={value} onChange={onChangeValue}>{name}</ToggleButton>)
 	if(props.type==="radio"){
 		const pValue=switchFP(props.value,x=>[[!x,null],[x!=="true",false],[true,true]])
-		const options=props.options.map(([name,value])=> 
-			<ToggleButton key={name} value={value} onChange={props.onChange}>{name}</ToggleButton>);
 		return (
 			<ToggleButtonGroup type="checkbox" value={pValue} onChange={f}>
 				<ControlLabel>{label}</ControlLabel><br/>
-				      {options}
+				      {getOptions(onChangeValue)}
+				{help && <HelpBlock>{help}</HelpBlock>}
+			</ToggleButtonGroup>
+		);}
+	if(props.type==="checkbox"){
+		return (
+			<ToggleButtonGroup type="checkbox" onChange={props.onChange} style={{display:"block"}}>
+				<ControlLabel>{label}</ControlLabel><br/>
+				      {getOptions()}
 				{help && <HelpBlock>{help}</HelpBlock>}
 			</ToggleButtonGroup>
 		);}
@@ -46,9 +56,12 @@ const FormFill=props=>{
 	return (
 		<form>
 			<InputField {...getConfig("age")} />
+			<InputField {...getConfig("isRich")} />
+			<InputField {...getConfig("interest")} />
 			<InputField {...getConfig("salary")} />
 			<InputField {...getConfig("toy")} />
-			<InputField {...getConfig("isRich")} />
+			<br/><br/>
+    		<Button>Submit</Button>
 		</form>
 	);
 };
