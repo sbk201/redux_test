@@ -29,18 +29,19 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 // const updateUI_=ele=> ({...ele,onChange:e=>updateUI({[ele.id]:~~e.target.value,...pick(ele,["validationState","help","hide","value"])})})
+const isInt=x=>Number.isInteger(x);
 const getFormItem=(UI,updateUI)=>[{
   id:"age",
   label:"Age",
-  validationState:switchFP(UI.age,x=>[[!x,null], [!Number.isInteger(x),"error"], [x<12,"error"], [true,"success"]]),
-  help: switchFP(UI.age,x=>[ [!x,null], [!Number.isInteger(x),"Must be a Number??"], [x<12,"must older than 12"], [true,null] ]),
-  onChange:e=>updateUI({age:~~e.target.value})
+  validationState:switchFP(UI.age,x=>[[!x,null], [!isInt(x),"error"], [x<12,"error"], [true,"success"]]),
+  help: switchFP(UI.age,x=>[ [!x,null], [!isInt(x),"Must be a Number?"], [x<12,"must older than 12"], [true,null] ]),
+  onChange:e=>updateUI({age:e.target.value})
 } ,{
   id:"salary",
   label:"Salary",
   hide: !UI.age || UI.age<18,
-  validationState:switchFP(UI.salary,x=>[[!x,null], [!Number.isInteger(x),"error"], [true,"success"]]),
-  help: switchFP(UI.salary,x=>[ [!Number.isInteger(x),"must be a number"], [true,null] ]),
+  validationState:switchFP(UI.salary,x=>[[!x,null], [!isInt(x),"error"], [true,"success"]]),
+  help: switchFP(UI.salary,x=>[ [!isInt(x),"must be a number"], [true,null] ]),
   onChange:e=>updateUI({salary:e.target.value})
 },{
   id:"interest",

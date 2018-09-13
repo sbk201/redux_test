@@ -6,8 +6,10 @@ window.differenceInDays=differenceInDays;
 global.cancelAnimationFrame = function(callback) {
   setTimeout(callback, 0);
 };
-
-export const switchFP=(val="",fp)=> fp(val).find(ele=>ele[0])[1];
+export const switchFP=(val="",fp)=> {
+  const res=fp(val).find(ele=>ele[0]);
+  return res ? res[1] : null;
+};
 /*
 switchFP(5,x=>[
   [x>3,"x is bigger than 3"],
