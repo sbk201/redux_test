@@ -33,16 +33,17 @@ const isInt=x=>Number.isInteger(x);
 const getFormItem=(UI,updateUI)=>[{
   id:"age",
   label:"Age",
+  type:"number",
   validationState:switchFP(UI.age,x=>[[!x,null], [!isInt(x),"error"], [x<12,"error"], [true,"success"]]),
   help: switchFP(UI.age,x=>[ [!x,null], [!isInt(x),"Must be a Number?"], [x<12,"must older than 12"], [true,null] ]),
-  onChange:e=>updateUI({age:e.target.value})
+  onChange:value=>updateUI({age:value})
 } ,{
   id:"salary",
   label:"Salary",
   hide: !UI.age || UI.age<18,
   validationState:switchFP(UI.salary,x=>[[!x,null], [!isInt(x),"error"], [true,"success"]]),
   help: switchFP(UI.salary,x=>[ [!isInt(x),"must be a number"], [true,null] ]),
-  onChange:e=>updateUI({salary:e.target.value})
+  onChange:value=>updateUI({salary:value})
 },{
   id:"interest",
   label:"Interest",
@@ -65,7 +66,7 @@ const getFormItem=(UI,updateUI)=>[{
   hide: !UI.age || UI.age<12 || UI.age>=18,
   validationState:switchFP(UI.toy,x=>[[!x,null], [x.length<4,"error"], [true,"success"]]),
   help: switchFP(UI.toy,x=>[ [x.length<4,"must write at least 5 letters"], [true,null] ]),
-  onChange:e=>updateUI({toy:e.target.value})
+  onChange:value=>updateUI({toy:value})
 }]
 // .map(updateUI_)
 export default connect(
