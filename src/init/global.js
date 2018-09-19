@@ -6,6 +6,10 @@ window.differenceInDays=differenceInDays;
 global.cancelAnimationFrame = function(callback) {
   setTimeout(callback, 0);
 };
+export const rename=(obj,from,to)=>{
+  const {[from]:_,...rest}=obj;
+  return {...rest,[to]:_};
+}
 export const switchFP=(val="",fp)=> {
   const res=fp(val).find(ele=>ele[0]);
   return res ? res[1] : null;
@@ -65,7 +69,7 @@ export const assignWhereArr =(_array,_args)=>{
   return loops(_array,toArr(_args));
 }
 
-// window.lib={objMap,objMap2,objLoop,objLoop2,sumOfObjectBy,map,accum,statBy,toEntrie2,differenceInDays,assignWhere,assignWhereArr,format};
+window.lib={objMap,objMap2,objLoop,objLoop2,sumOfObjectBy,map,accum,statBy,toEntrie2,differenceInDays,assignWhere,assignWhereArr};
 
 
 /*

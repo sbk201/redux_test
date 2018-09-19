@@ -1,7 +1,7 @@
 import React from "react";
 import { Button,FormGroup,ControlLabel,FormControl,HelpBlock,ToggleButton,ToggleButtonGroup  } from "react-bootstrap";
 import {defaults,pick} from "lodash";
-import {switchFP} from "../init/global";
+import {switchFP,objLoop2,rename} from "../init/global";
 // import PropTypes from "prop-types";
 const upperCase=string=>string.charAt(0).toUpperCase() + string.substr(1);
 
@@ -13,7 +13,6 @@ const InputField=params =>{
 	const onChangeNumber=e=>{
 		const value=e.target.value;
 		const isNumber=(~~value).toString()===value;
-		console.log(`${value} is number? ${isNumber}`)
 		return isNumber ? props.onChange(~~value) : props.onChange(value);
 	}
 	const f=()=>{};
@@ -54,10 +53,20 @@ const InputField=params =>{
 		</FormGroup>);
 };
 const getProps=props=>{
-	const {UI,updateUI,getFormItem}=props;
-	// const formValues=defaults(UI.formValues);
+	const {UI,updateUI,getFormItem,getFormIte2,getFormIte3}=props;
 	const getConfig=id=>{
-		const formItem=getFormItem(UI,updateUI).find(ele=>ele.id===id);
+		const test=getFormIte2(UI,updateUI).find(ele=>ele.id===id);
+		const test2=objLoop2(test,([key,va])=>{
+		  if(key==="valid" || key==="help" ) return va(UI[id])
+		  if(key==="hide") return va(UI)
+		  return va
+		});
+		const test3=rename(test2,"valid","validationState")
+				
+		const formItem=getFormIte3(id);
+		// const formItem=test3;
+		// const formItem=getFormItem(UI,updateUI).find(ele=>ele.id===id);
+		// id=== "age" && console.log(formItem,)
 		const newID="formControl"+upperCase(formItem.id);
 		return {...formItem,id: newID};
 	};
