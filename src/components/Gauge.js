@@ -81,12 +81,8 @@ const getProps=props=>{
 	  const diff=differenceInDays(DateDue,Created);
 	  return diff>120 ? times : times+1;
 	},0)
-	console.log(number)
 	const theValue=Math.round(number/ideas.length*100);
-	// const config={...rawConfig,series:{data:[theValue]}}
-	// const config=rawConfig;
 	const config=rawConfig(theValue);
-	console.log(config)
 	return {config};
 };
 const Gauge=props=>{

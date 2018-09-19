@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react';
 import {omit} from "lodash"; 
 import T from "prop-types";
 
@@ -29,7 +29,8 @@ const Body=({data:rawData,config})=>{
 		const attrs={
 				style, key,onClick:()=>onClick({key,value})
 			}
-			return	<Table.Cell {...{...attrs}}>{value}</Table.Cell>
+		const output= key==="Detail"? <div dangerouslySetInnerHTML={{__html: value}}></div> : value;
+		return <Table.Cell {...{...attrs}}>{output}</Table.Cell>
 	})
 	const getTheRows=(row_,i)=>{
 		const {rowAttr=f,onClick=f,exclude=""}=configBody.row;
@@ -48,7 +49,7 @@ const MyTable=props=>{
 	const {data,config}=props;
 	if(data.length===0) return <div>No Result</div>
 	return (
-		<Table color="blue" celled selectable inverted>
+		<Table style={{backgroundColor:'rgba(0,0,0, 0.15)'}} celled selectable inverted>
 	        <Header {...{data,config}} />
 	        <Body {...{data,config}}/>
     	</Table>
@@ -58,12 +59,7 @@ const MyTable=props=>{
 MyTable.propTypes ={
 	config:T.shape({
 		head: T.shape({
-			match: T.shape({
-				custName: T.string,
-				globalCustName: T.string,
-				globalCustNbr: T.string,
-				localCustNbr: T.string
-			}),
+			match: T.shape({}),
 			style: T.shape({})
 		}),
 		body: T.shape({

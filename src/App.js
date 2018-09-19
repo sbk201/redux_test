@@ -2,9 +2,10 @@ import { connect } from "react-redux";
 import { smart } from "./Actions.js";
 import React, { Component } from "react";
 import "react-dom";
-import DonutCont from "./containers/DonutCont";
-import HistoCont from "./containers/HistoCont";
-import GaugeCont from "./containers/GaugeCont";
+import Donut from "./containers/DonutCont";
+import Histo from "./containers/HistoCont";
+import Gauge from "./containers/GaugeCont";
+import Table from "./containers/TableCont";
 import dataImport from "./data";
 
 const mapStateToProps = (state) => {
@@ -25,10 +26,11 @@ class App extends Component {
 			<div>
 				<h1>D3 Demo</h1>
 				<div className="container-fluid row">
-					<div className="col-md-6"><DonutCont name="Status"/></div>					
-					<div className="col-md-6"><DonutCont name="Area"/></div>					
-					<div className="col-md-6"><HistoCont/></div>					
-					<div className="col-md-6"><GaugeCont/></div>					
+					<div className="col-md-6"><Donut name="Status"/></div>					
+					<div className="col-md-6"><Donut name="Area"/></div>					
+					<div className="col-md-6"><Histo/></div>
+					<div className="col-md-6"><Gauge/></div>
+					<div className="col-md-12"><Table/></div>
 				</div>
 
 			</div>
