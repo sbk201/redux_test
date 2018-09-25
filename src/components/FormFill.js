@@ -53,24 +53,13 @@ const InputField=params =>{
 		</FormGroup>);
 };
 const getProps=props=>{
-	const {UI,updateUI,getFormItem,getFormIte2,getFormIte3}=props;
+	const {UI,updateUI,getFormIte4,allItem}=props;
 	const getConfig=id=>{
-		const test=getFormIte2(UI,updateUI).find(ele=>ele.id===id);
-		const test2=objLoop2(test,([key,va])=>{
-		  if(key==="valid" || key==="help" ) return va(UI[id])
-		  if(key==="hide") return va(UI)
-		  return va
-		});
-		const test3=rename(test2,"valid","validationState")
 				
-		const formItem=getFormIte3(id);
-		// const formItem=test3;
-		// const formItem=getFormItem(UI,updateUI).find(ele=>ele.id===id);
-		// id=== "age" && console.log(formItem,)
-		const newID="formControl"+upperCase(formItem.id);
+		const formItem=allItem.find(ele=>ele.id===id);
+		const newID="formControl"+upperCase(id);
 		return {...formItem,id: newID};
 	};
-	// const getConfig=id=>_getConfig(id,props);
 	return {getConfig};
 };
 const FormFill=props=>{
@@ -80,13 +69,16 @@ const FormFill=props=>{
 	return (
 		<form>
 			<InputField {...getConfig("age")} />
-			<InputField {...getConfig("isRich")} />
-			<InputField {...getConfig("interest")} />
-			<InputField {...getConfig("salary")} />
-			<InputField {...getConfig("toy")} />
+			<InputField {...getConfig("age2")} />
 			<br/><br/>
     		<Button>Submit</Button>
 		</form>
 	);
 };
 export default FormFill;
+
+			// <InputField {...getConfig("age")} />
+			// <InputField {...getConfig("isRich")} />
+			// <InputField {...getConfig("interest")} />
+			// <InputField {...getConfig("salary")} />
+			// <InputField {...getConfig("toy")} />
