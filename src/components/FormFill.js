@@ -53,9 +53,8 @@ const InputField=params =>{
 		</FormGroup>);
 };
 const getProps=props=>{
-	const {UI,updateUI,getFormIte4,allItem}=props;
+	const {UI,updateUI,allItem}=props;
 	const getConfig=id=>{
-				
 		const formItem=allItem.find(ele=>ele.id===id);
 		const newID="formControl"+upperCase(id);
 		return {...formItem,id: newID};
