@@ -1,9 +1,8 @@
 import { connect } from 'react-redux'
-import {omit,flow,deepClone} from 'lodash';
 import {updateUI} from '../Actions.js'
 import React, { Component } from "react";
 import FormFill from '../components/FormFill'
-import {switchFP,rename,objLoop,objLoop2} from "../init/global";
+import {switchFP,objLoop,objLoop2} from "../init/global";
 const contName="FormFill";
 
 class FormFillCont extends Component {
@@ -17,7 +16,7 @@ class FormFillCont extends Component {
     const allRaw=getAllFormItem(UI,updateUI).map(setValid);
     const allItem=allRaw.map(setHide).map(toValid);
     const rest={...this.props,allItem};
-    return <div><FormFill {...rest}/></div>
+    if(1) return <div><FormFill {...rest}/></div>
 
     function gets(){
       const setValid=item=> objLoop2(item,([key,va])=>{
