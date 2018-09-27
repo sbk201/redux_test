@@ -7,6 +7,7 @@ const upperCase=string=>string.charAt(0).toUpperCase() + string.substr(1);
 
 const getProps=props=>{
 	const {allItem}=props;
+	console.log(allItem);
 	const getConfig=id=>{
 		const formItem=allItem.find(ele=>ele.id===id);
 		const newID="formControl"+upperCase(id);

@@ -50,21 +50,23 @@ const mapDispatchToProps = (dispatch) => {
 
 const getAllFormItem=(UI,updateUI)=>{
   const isInt=x=>Number.isInteger(x);
+  const checkNum=(x,message="Must be a Number")=>[!isInt(x),message];
   const f=(it,id)=>it.find(e=>e.id===id);
+  const switchFun=fun=>v=>switchFP(v,fun);
   return [{
     id:"age",
     label:"Age 10",
     type:"number",
-    valid:v=>switchFP(v,x=>[ [!x,null], [!isInt(x),"error"], [x<10,"error"], [true,"success"] ]),
-    help: v=>switchFP(v,x=>[ [!x,null], [!isInt(x),"Must be a Number?"], [x<10,"must older than 10"], [true,null] ]),
+    valid: switchFun( x=>[ [!x,null], checkNum(x,"error"), [x<10,"error"], [true,"success"] ] ),
+    help:  switchFun( x=>[ [!x,null], checkNum(x), [x<10,"must older than 10"], [true,null] ] ),
     onChange:value=>updateUI({age:value})
   } ,{
     id:"age2",
     label:"Age 20",
     type:"number",
     hide: it=>{return console.log(it) || f(it,"age").valid!=="success"},
-    valid:v=>switchFP(v,x=>[ [!x,null], [!isInt(x),"error"], [x<10,"error"], [true,"success"] ]),
-    help: v=>switchFP(v,x=>[ [!x,null], [!isInt(x),"Must be a Number?"], [x<10,"must older than 10"], [true,null] ]),
+    valid: switchFun( x=>[ [!x,null], checkNum(x,"error"), [x<10,"error"], [true,"success"] ] ),
+    help: switchFun( x=>[ [!x,null], checkNum(x), [x<10,"must older than 10"], [true,null] ] ),
     onChange:value=>updateUI({age:value})
   }]
 }
