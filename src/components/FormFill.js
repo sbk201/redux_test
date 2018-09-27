@@ -5,10 +5,10 @@ import {switchFP,objLoop2,rename} from "../init/global";
 // import PropTypes from "prop-types";
 const upperCase=string=>string.charAt(0).toUpperCase() + string.substr(1);
 
-// const Radios=theProps=>
 const InputField=params =>{
 	window.switchFP=switchFP;
 	const { id, label, hide, help, validationState=null,...props }=params;
+	if(hide) return <div></div>;
 	const onChangeValue=e=>props.onChange(e.target.value);
 	const onChangeNumber=e=>{
 		const value=e.target.value;
@@ -16,7 +16,6 @@ const InputField=params =>{
 		return isNumber ? props.onChange(~~value) : props.onChange(value);
 	}
 	const f=()=>{};
-	if(hide) return <div></div>;
 	const getOptions=onChange=>props.options.map(([name,value])=> 
 			<ToggleButton key={name} value={value} onChange={onChangeValue}>{name}</ToggleButton>)
 	if(props.type==="radio"){
@@ -27,7 +26,8 @@ const InputField=params =>{
 				      {getOptions(onChangeValue)}
 				{help && <HelpBlock>{help}</HelpBlock>}
 			</ToggleButtonGroup>
-		);}
+		);
+	}
 	if(props.type==="checkbox"){
 		return (
 			<ToggleButtonGroup type="checkbox" onChange={onChangeValue} style={{display:"block"}}>
@@ -35,7 +35,8 @@ const InputField=params =>{
 				      {getOptions()}
 				{help && <HelpBlock>{help}</HelpBlock>}
 			</ToggleButtonGroup>
-		);}
+		);
+	}
 	if(props.type==="number"){
 		return (
 		<FormGroup controlId={id} validationState={validationState}>
@@ -62,7 +63,6 @@ const getProps=props=>{
 	return {getConfig};
 };
 const FormFill=props=>{
-  	// const {UI,updateUI}=props;
   	const {getConfig}=getProps(props);
   	
 	return (

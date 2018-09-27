@@ -48,25 +48,27 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-// const updateUI_=ele=> ({...ele,onChange:e=>updateUI({[ele.id]:~~e.target.value,...pick(ele,["validationState","help","hide","value"])})})
-const isInt=x=>Number.isInteger(x);
 
-const getAllFormItem=(UI,updateUI)=>[{
-  id:"age",
-  label:"Age 10",
-  type:"number",
-  valid:v=>switchFP(v,x=>[ [!x,null], [!isInt(x),"error"], [x<10,"error"], [true,"success"] ]),
-  help: v=>switchFP(v,x=>[ [!x,null], [!isInt(x),"Must be a Number?"], [x<10,"must older than 10"], [true,null] ]),
-  onChange:value=>updateUI({age:value})
-} ,{
-  id:"age2",
-  label:"Age 20",
-  type:"number",
-  hide: it=>{return it[0].valid!=="success"},
-  valid:v=>switchFP(v,x=>[ [!x,null], [!isInt(x),"error"], [x<10,"error"], [true,"success"] ]),
-  help: v=>switchFP(v,x=>[ [!x,null], [!isInt(x),"Must be a Number?"], [x<10,"must older than 10"], [true,null] ]),
-  onChange:value=>updateUI({age:value})
-}]
+const getAllFormItem=(UI,updateUI)=>{
+  const isInt=x=>Number.isInteger(x);
+  const f=(it,id)=>it.find(e=>e.id===id);
+  return [{
+    id:"age",
+    label:"Age 10",
+    type:"number",
+    valid:v=>switchFP(v,x=>[ [!x,null], [!isInt(x),"error"], [x<10,"error"], [true,"success"] ]),
+    help: v=>switchFP(v,x=>[ [!x,null], [!isInt(x),"Must be a Number?"], [x<10,"must older than 10"], [true,null] ]),
+    onChange:value=>updateUI({age:value})
+  } ,{
+    id:"age2",
+    label:"Age 20",
+    type:"number",
+    hide: it=>{return console.log(it) || f(it,"age").valid!=="success"},
+    valid:v=>switchFP(v,x=>[ [!x,null], [!isInt(x),"error"], [x<10,"error"], [true,"success"] ]),
+    help: v=>switchFP(v,x=>[ [!x,null], [!isInt(x),"Must be a Number?"], [x<10,"must older than 10"], [true,null] ]),
+    onChange:value=>updateUI({age:value})
+  }]
+}
 
 export default connect(
   mapStateToProps,
