@@ -10,10 +10,10 @@ export const rename=(obj,from,to)=>{
   const {[from]:_,...rest}=obj;
   return {...rest,[to]:_};
 }
-export const switchFP=(val="",fp)=> {
+export const switchFP=curry((val="",fp)=> {
   const res=fp(val).find(ele=>ele[0]);
   return res ? res[1] : null;
-};
+});
 /*
 switchFP(5,x=>[
   [x>3,"x is bigger than 3"],

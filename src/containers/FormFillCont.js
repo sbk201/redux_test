@@ -68,6 +68,13 @@ const getAllFormItem=(UI,updateUI)=>{
     valid: switchFun( x=>[ [!x,null], checkNum(x,"error"), [x<10,"error"], [true,"success"] ] ),
     help: switchFun( x=>[ [!x,null], checkNum(x), [x<10,"must older than 10"], [true,null] ] ),
     onChange:value=>updateUI({age:value})
+  },{
+    id:"date",
+    label:"Pick a Date",
+    type:"date",
+    // valid: switchFun( x=>[ [!x,null], checkNum(x,"error"), [x<10,"error"], [true,"success"] ] ),
+    // help: switchFun( x=>[ [!x,null], checkNum(x), [x<10,"must older than 10"], [true,null] ] ),
+    onChange:value=>updateUI({date:value})
   }]
 }
 

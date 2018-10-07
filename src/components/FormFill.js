@@ -4,7 +4,6 @@ import InputField from "./InputField";
 // import PropTypes from "prop-types";
 const upperCase=string=>string.charAt(0).toUpperCase() + string.substr(1);
 
-
 const getProps=props=>{
 	const {allItem}=props;
 	console.log(allItem);
@@ -22,6 +21,7 @@ const FormFill=props=>{
 		<form>
 			<InputField {...getConfig("age")} />
 			<InputField {...getConfig("age2")} />
+			<InputField {...getConfig("date")} />
 			<br/><br/>
     		<Button>Submit</Button>
 		</form>

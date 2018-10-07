@@ -1,5 +1,7 @@
 import React from "react";
 import { FormGroup,ControlLabel,FormControl,HelpBlock,ToggleButton,ToggleButtonGroup  } from "react-bootstrap";
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
 import {switchFP} from "../init/global";
 
 const InputField=params =>{
@@ -38,6 +40,30 @@ const InputField=params =>{
 		<FormGroup controlId={id} validationState={validationState}>
 			<ControlLabel>{label}</ControlLabel>
 			<FormControl {...{props,onChange:onChangeNumber,type:"text"}} />
+			{help && <HelpBlock>{help}</HelpBlock>}
+		</FormGroup>);
+	}
+	const onDayChange=(selectedDay, modifiers, dayPickerInput) =>{
+		const value = dayPickerInput.getInput().value;
+		props.onChange(value);
+		// this.setState({
+		//   selectedDay,
+		//   isEmpty: !input.value.trim(),
+		//   isDisabled: modifiers.disabled === true,
+		// });
+	}
+	if(props.type==="date"){
+		return (
+		<FormGroup controlId={id} validationState={validationState}>
+			<ControlLabel>{label}</ControlLabel>
+			<DayPickerInput 
+				value={props.value}
+				onDayChange={onDayChange}
+				dayPickerProps={{
+				selectedDays: props.value,
+				disabledDays: {daysOfWeek: [0, 6], },
+			}}/>
+			{/*<FormControl {...{props,onChange:onChangeNumber,type:"text"}} />*/}
 			{help && <HelpBlock>{help}</HelpBlock>}
 		</FormGroup>);
 	}
