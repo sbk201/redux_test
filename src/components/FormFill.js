@@ -30,9 +30,3 @@ const FormFill=props=>{
 	);
 };
 export default FormFill;
-
-			// <InputField {...getConfig("age")} />
-			// <InputField {...getConfig("isRich")} />
-			// <InputField {...getConfig("interest")} />
-			// <InputField {...getConfig("salary")} />
-			// <InputField {...getConfig("toy")} />
