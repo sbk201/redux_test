@@ -7,7 +7,7 @@ import {switchFP} from "../init/global";
 const InputField=params =>{
 	const { id, label, hide, help, validationState=null,...props }=params;
 	if(hide) return <div></div>;
-	const onChangeValue=e=>props.onChange(e.target.value);
+	const onChangeValue=e=> props.onChange(e.target.value);
 	const onChangeNumber=e=>{
 		const value=e.target.value;
 		const isNumber=(~~value).toString()===value;
@@ -19,38 +19,32 @@ const InputField=params =>{
 	if(props.type==="radio"){
 		const pValue=switchFP(props.value,x=>[[!x,null],[x!=="true",false],[true,true]])
 		return (
-			<ToggleButtonGroup type="checkbox" value={pValue} onChange={f}>
-				<ControlLabel>{label}</ControlLabel><br/>
-				      {getOptions(onChangeValue)}
-				{help && <HelpBlock>{help}</HelpBlock>}
-			</ToggleButtonGroup>
+			<FormGroup controlId={id}>
+				<ToggleButtonGroup type="checkbox" value={pValue} onChange={f}>
+					<ControlLabel>{label}</ControlLabel><br/>
+					      {getOptions(onChangeValue)}
+					{help && <HelpBlock>{help}</HelpBlock>}
+				</ToggleButtonGroup>
+				<br/>
+			</FormGroup>
 		);
 	}
 	if(props.type==="checkbox"){
 		return (
-			<ToggleButtonGroup type="checkbox" onChange={onChangeValue} style={{display:"block"}}>
-				<ControlLabel>{label}</ControlLabel><br/>
-				      {getOptions()}
-				{help && <HelpBlock>{help}</HelpBlock>}
-			</ToggleButtonGroup>
+			<FormGroup controlId={id}>
+				<ToggleButtonGroup type="checkbox" onChange={props.onChange} style={{display:"block"}}>
+					<ControlLabel>{label}</ControlLabel><br/>
+					      {getOptions()}
+					{help && <HelpBlock>{help}</HelpBlock>}
+				</ToggleButtonGroup>
+				<br/>
+				<br/>
+			</FormGroup>
 		);
-	}
-	if(props.type==="number"){
-		return (
-		<FormGroup controlId={id} validationState={validationState}>
-			<ControlLabel>{label}</ControlLabel>
-			<FormControl {...{props,onChange:onChangeNumber,type:"text"}} />
-			{help && <HelpBlock>{help}</HelpBlock>}
-		</FormGroup>);
 	}
 	const onDayChange=(selectedDay, modifiers, dayPickerInput) =>{
 		const value = dayPickerInput.getInput().value;
 		props.onChange(value);
-		// this.setState({
-		//   selectedDay,
-		//   isEmpty: !input.value.trim(),
-		//   isDisabled: modifiers.disabled === true,
-		// });
 	}
 	if(props.type==="date"){
 		return (
@@ -68,10 +62,18 @@ const InputField=params =>{
 		</FormGroup>);
 	}
 
+	if(props.type==="number"){
+		return (
+		<FormGroup controlId={id} validationState={validationState}>
+			<ControlLabel>{label}</ControlLabel>
+			<FormControl {...{props,onChange:onChangeNumber,type:"text"}} />
+			{help && <HelpBlock>{help}</HelpBlock>}
+		</FormGroup>);
+	}
 	return (
 		<FormGroup controlId={id} validationState={validationState}>
 			<ControlLabel>{label}</ControlLabel>
-			<FormControl {...props} />
+			<FormControl {...{props,onChange: onChangeValue}} />
 			{help && <HelpBlock>{help}</HelpBlock>}
 		</FormGroup>);
 };

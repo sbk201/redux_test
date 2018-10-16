@@ -6,7 +6,6 @@ const upperCase=string=>string.charAt(0).toUpperCase() + string.substr(1);
 
 const getProps=props=>{
 	const {allItem}=props;
-	console.log(allItem);
 	const getConfig=id=>{
 		const formItem=allItem.find(ele=>ele.id===id);
 		const newID="formControl"+upperCase(id);
@@ -20,7 +19,10 @@ const FormFill=props=>{
 	return (
 		<form>
 			<InputField {...getConfig("age")} />
-			<InputField {...getConfig("age2")} />
+			<InputField {...getConfig("salary")} />
+			<InputField {...getConfig("interest")} />
+			<InputField {...getConfig("isRich")} />
+			<InputField {...getConfig("toy")} />
 			<InputField {...getConfig("date")} />
 			<br/><br/>
     		<Button>Submit</Button>
