@@ -28,6 +28,7 @@ export const objMap2=(obj,fn)=> Object.entries(obj).map(([key,va])=>({[key]:fn([
 
 export const objLoop=(obj,fn)=> Object.entries(obj).reduce((acc,[key,va])=>(Object.assign({},acc,fn([key,va]))),{});
 export const objLoop2=(obj,fn)=> Object.entries(obj).reduce((acc,[key,va])=>(Object.assign({},acc,{[key]:fn([key,va])})),{});
+export const objLoop3=fn=>obj=> Object.entries(obj).reduce((acc,[key,va])=>(Object.assign({},acc,fn([key,va]))),{});
 export const sumOfObjectBy=(array,key)=>array.reduce((self,value)=>self+value[key],0)
 
 const toEntrie2=it=>Array.isArray(it)? it.map(e=>Object.entries(e)[0]) : Object.entries(it);
