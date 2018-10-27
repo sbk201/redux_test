@@ -45,24 +45,26 @@ const getAllFormItem=(UI,updateUI)=>{
 		if(key==="valid") return {"validationState":va};
 		return obj(key,va);
 	});
-	const setValid=item=> objLoop2(item,([key,va])=>{
-		if(key==="valid" || key==="help" ) return va(UI[item.id]);
-		return va;
-	});
+  const setValid=item=> objLoop2(item,([key,va])=>{
+    if(key==="valid" || key==="help" ) {
+      return switchFP(UI[item.id],va);
+    }
+    return va;
+  });
 	const raw=[
 		{
 			id:"age",
 			label:"Age 10",
 			type:"number",
-			valid: switchFun( x=>[ [!x,null], checkNum(x,"error"), [x<10,"error"], [true,"success"] ] ),
-			help:  switchFun( x=>[ [!x,null], checkNum(x), [x<10,"must more than 10"], [true,null] ] ),
+			valid: x=>[ [!x,null], checkNum(x,"error"), [x<10,"error"], [true,"success"] ] ,
+			help:  x=>[ [!x,null], checkNum(x), [x<10,"must more than 10"], [true,null] ] ,
 		} ,{
 			id:"salary",
 			label:"Salary",
 			type:"number",
 			hide: it=> f(it,"age").valid!=="success",
-			valid: switchFun( x=>[ [!x,null], checkNum(x,"error"), [x<10,"error"], [true,"success"] ] ),
-			help:  switchFun( x=>[ [!x,null], checkNum(x), [x<10,"must more than 10"], [true,null] ] ),
+			valid: x=>[ [!x,null], checkNum(x,"error"), [x<10,"error"], [true,"success"] ] ,
+			help:  x=>[ [!x,null], checkNum(x), [x<10,"must more than 10"], [true,null] ] ,
 		},{
 			id:"interest",
 			label:"Interest (checkbox)",
@@ -77,8 +79,8 @@ const getAllFormItem=(UI,updateUI)=>{
 		},{
 			id:"toy",
 			label:"Toy",
-			valid: switchFun( x=>[ [!x,null], [x.length<5,"error"], [true,"success"] ] ),
-			help:  switchFun( x=>[ [x.length<6,"must write at least 5 letters"], [true,null] ] ),
+			valid: x=>[ [!x,null], [x.length<5,"error"], [true,"success"] ] ,
+			help:  x=>[ [x.length<6,"must write at least 5 letters"], [true,null] ] ,
 		},{
 			id:"date",
 			label:"Pick a Date",

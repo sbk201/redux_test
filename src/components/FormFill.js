@@ -15,7 +15,7 @@ const getProps=props=>{
 };
 const FormFill=props=>{
   	const {getConfig}=getProps(props);
-  	
+  	const submit=()=>console.log(props.UI)
 	return (
 		<form>
 			<InputField {...getConfig("age")} />
@@ -25,7 +25,7 @@ const FormFill=props=>{
 			<InputField {...getConfig("toy")} />
 			<InputField {...getConfig("date")} />
 			<br/><br/>
-    		<Button>Submit</Button>
+    		<Button onClick={submit}>Submit</Button>
 		</form>
 	);
 };
