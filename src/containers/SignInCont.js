@@ -7,8 +7,8 @@ import {_Input} from '../init/global';
 import { Button } from 'semantic-ui-react'
 import { Redirect } from "react-router-dom";
 
-const contName="SignInConta";
-class SignInConta extends Component {
+const contName="SignInCont";
+class SignInCont extends Component {
   componentDidMount() {
     this.props.checkUser();
   }
@@ -52,5 +52,5 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SignInConta)
+)(SignInCont)
 

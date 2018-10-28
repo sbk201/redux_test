@@ -2,11 +2,11 @@ import { connect } from 'react-redux'
 import {pick} from 'lodash';
 import { smart,updateUI,pickedSbu,pickedCountry } from '../Actions.js'
 import React, { Component } from "react";
-import CustomerListConta from './CustomerListConta'
+import CustomerListCont from './CustomerListCont'
 import Main from '../components/Main'
 const contName="Main";
 
-class MainConta extends Component {
+class MainCont extends Component {
   shouldComponentUpdate(nextProps){
     // won't update
     const {sbus,countries}=this.props.data;
@@ -19,7 +19,7 @@ class MainConta extends Component {
   
   render(){
     const rest=pick(this.props,["data","updateUI", "pickedItems", "fetchSearch"])
-    return <div><Main {...rest}/><CustomerListConta/></div>
+    return <div><Main {...rest}/><CustomerListCont/></div>
   }
 }
 const mapStateToProps = (state) => {
@@ -46,4 +46,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MainConta)
+)(MainCont)

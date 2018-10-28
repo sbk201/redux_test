@@ -4,9 +4,9 @@ import { smart,updateUI } from '../Actions.js'
 import React, { Component } from "react";
 import Home from '../components/Home'
 import { Redirect } from "react-router-dom";
-const contName="HomeConta";
+const contName="HomeCont";
 
-class HomeConta extends Component {
+class HomeCont extends Component {
   componentDidMount() {
     this.props.checkUser();
   }
@@ -38,4 +38,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomeConta)
+)(HomeCont)

@@ -3,9 +3,9 @@ import {omit} from 'lodash';
 import { addText,smart,updateUI } from '../Actions'
 import React, { Component } from "react";
 import ChatWindow from '../components/ChatWindow'
-const contName="ChatWindowConta";
+const contName="ChatWindowCont";
 
-class ChatWindowConta extends Component {
+class ChatWindowCont extends Component {
   shouldComponentUpdate(nextProps){
     // won't update
     // const {sbus,countries}=this.props.data;
@@ -43,4 +43,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ChatWindowConta)
+)(ChatWindowCont)

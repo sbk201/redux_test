@@ -4,8 +4,8 @@ import {omit} from 'lodash';
 import { signOut,updateUI } from '../Actions.js'
 import UserBar from '../components/UserBar';
 
-const contName="UserBarConta";
-class UserBarConta extends Component {
+const contName="UserBarCont";
+class UserBarCont extends Component {
   componentDidMount() {}
   
   render(){
@@ -31,5 +31,5 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserBarConta)
+)(UserBarCont)
 

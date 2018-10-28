@@ -1,6 +1,6 @@
 import React from "react";
-import UserBarConta from '../containers/UserBarConta';
-import ChatWindowConta from '../containers/ChatWindowConta';
+import UserBarCont from '../containers/UserBarCont';
+import ChatWindowCont from '../containers/ChatWindowCont';
 
 // import PropTypes from "prop-types";
 // const getProps=props=>{
@@ -11,9 +11,9 @@ const Home=props=>{
 	// const {}=getProps(props);
 	return (
 		<div> 
-			<UserBarConta/>
+			<UserBarCont/>
 			<br/>
-			<ChatWindowConta/>
+			<ChatWindowCont/>
 		</div>
 	);
 }

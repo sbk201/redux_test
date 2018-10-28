@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "react-dom";
-import HomeConta from './containers/HomeConta'
-import SignInConta from './containers/SignInConta'
+import HomeCont from './containers/HomeCont'
+import SignInCont from './containers/SignInCont'
+// import AdminCont from './containers/AdminCont'
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends Component {
@@ -15,8 +16,8 @@ class App extends Component {
 			<Router>
 				<div>
 					<h1>FireBase testing</h1>
-					<Route exact path="/" component={HomeConta} />
-					<Route path="/signIn" component={SignInConta} />
+					<Route exact path="/" component={HomeCont} />
+					<Route path="/signIn" component={SignInCont} />
 				</div>
 			</Router>
 		);
