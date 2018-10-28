@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "react-dom";
 import HomeCont from './containers/HomeCont'
 import SignInCont from './containers/SignInCont'
-// import AdminCont from './containers/AdminCont'
+import AdminCont from './containers/AdminCont'
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends Component {
@@ -18,6 +18,7 @@ class App extends Component {
 					<h1>FireBase testing</h1>
 					<Route exact path="/" component={HomeCont} />
 					<Route path="/signIn" component={SignInCont} />
+					<Route path="/admin" component={AdminCont} />
 				</div>
 			</Router>
 		);

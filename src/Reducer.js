@@ -13,6 +13,16 @@ const userInfo = (state = null, action) => {
       return state
   }
 }
+
+const users = (state = [], action) => {
+  switch (action.type) {
+    case 'RECEIVE_ALL_USERS':
+    console.log(action.users)
+      return action.users;
+    default:
+      return state
+  }
+}
 const messages = (state = [], action) => {
   switch (action.type) {
     case 'RECEIVE_MESSAGES':
@@ -35,7 +45,7 @@ const localUI = (state = {}, action) => {
 };
 
 const allReducers = combineReducers({
-  localUI,userInfo,messages
+  localUI,userInfo,messages,users
 })
 
 export default allReducers

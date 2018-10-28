@@ -12,6 +12,7 @@ export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
 const updateMessag2=({id,...params})=>coll('messages').doc(id).update(params);
 const receiveMessages=messages=>({type: "RECEIVE_MESSAGES", messages });
 const receiveUserInfo=(userInfo={})=> ({type: "RECEIVE_USER_INFO", userInfo });
+const receiveAllUsers=(users=[])=> ({type: "RECEIVE_ALL_USERS", users });
 
 const api=async (method,item,params={})=>{
 	const link= "http://localhost:5000/hospAllocation/"+item;
@@ -48,6 +49,14 @@ export const smart= {
 			const sbus=await api("get","sbu");
 			console.log('got result >>>',sbus)
 			// dispatch(receiveSbus(sbus));
+		}
+	},
+	fetchUsers:()=>{
+		return async dispatch=>{
+			const ref=await coll('users').get();
+			const data=ref.docs.map(e=>e.data());
+			console.log(data);
+			dispatch(receiveAllUsers(data));
 		}
 	},
 	fetchingMessage:uid=>{
