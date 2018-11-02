@@ -3,7 +3,8 @@ import "react-dom";
 import HomeCont from './containers/HomeCont'
 import SignInCont from './containers/SignInCont'
 import AdminCont from './containers/AdminCont'
-import { BrowserRouter as Router, Route } from "react-router-dom";
+// import TaskCont from './containers/TaskCont'
+import { HashRouter , Route } from "react-router-dom";
 
 class App extends Component {
 	render(){
@@ -13,14 +14,14 @@ class App extends Component {
 				// grid-template-columns: 1fr 10em;
   			// }
 		return (
-			<Router>
+			<HashRouter hashType="noslash">
 				<div>
 					<h1>FireBase testing</h1>
 					<Route exact path="/" component={HomeCont} />
 					<Route path="/signIn" component={SignInCont} />
 					<Route path="/admin" component={AdminCont} />
 				</div>
-			</Router>
+			</HashRouter>
 		);
 	}
 }

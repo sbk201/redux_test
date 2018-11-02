@@ -39,6 +39,7 @@ export const FirebaseUI=()=> <StyledFirebaseAuth uiConfig={uiConfig} firebaseAut
 export default firebase
 
 window.firebase=firebase;
+window.db =()=> db;
 window.dbBatch =()=> db.batch();
 window.coll=coll;
 /*

@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import {pick} from 'lodash';
-import { smart,updateUI } from '../Actions.js'
+import { smart,updateUI,pickedSbu,pickedCountry } from '../Actions.js'
 import React, { Component } from "react";
-import Admin from '../components/Admin'
-const contName="Admin";
+import Task from '../components/Task'
+const contName="Task";
 
 class AdminCont extends Component {
   componentDidMount() {
@@ -11,16 +11,16 @@ class AdminCont extends Component {
   }
   
   render(){
-    const rest=pick(this.props,["users","userInfo"])
-    if(!rest.users) return <div>Loading</div>
-    return <Admin {...rest} />
+    // const rest=pick(this.props,["data","updateUI", "pickedItems", "fetchSearch"])
+    return <Task />
   }
 }
 const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
-  const users=state.users;
+  const loading= UI.status==='loading';
+  const finished= UI.status==='finished';
   return {
-    users
+    // data:state.main, UI, loading,finished
   }
 }
 const mapDispatchToProps = (dispatch) => {

@@ -55,7 +55,6 @@ export const smart= {
 		return async dispatch=>{
 			const ref=await coll('users').get();
 			const data=ref.docs.map(e=>e.data());
-			console.log(data);
 			dispatch(receiveAllUsers(data));
 		}
 	},
@@ -75,14 +74,14 @@ export const smart= {
 			}
 		}
 	},
-	updateUserName:name=>{
+	updateUserInfo:name=>{
 		return async dispatch => {
 			// const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName:"UserBarConta"}));
 			const user = firebase.auth().currentUser;
 			const {uid}=user;
 			await user.updateProfile({displayName: name }).catch(console.error);
-	        await coll("users").doc(uid).set({name, uid}).catch(console.error);
-	        console.log('updateUserName')
+	        await coll("users").doc(uid).set({name, uid,rold:"user"}).catch(console.error);
+	        console.log('updateUserInfo')
 			dispatch(receiveUserInfo({...user,username:name,logged:true}))
 	    }
 	}

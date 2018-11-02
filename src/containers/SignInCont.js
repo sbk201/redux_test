@@ -28,7 +28,7 @@ class SignInCont extends Component {
     const logged=userInfo && userInfo.logged;
     if(logged===null || logged===undefined ) return <div></div>
     if(!logged) return <div>firebaseUI <FirebaseUI/></div>
-    if(!username) return <div><Fill save={rest.updateUserName}/></div>
+    if(!username) return <div><Fill save={rest.updateUserInfo}/></div>
       console.log('redirect to home',userInfo,username)
     return <Redirect to="/"/>
   }
@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
     checkUser:user=>dispatch(smart.checkUser(user)),
-    updateUserName:user=>dispatch(smart.updateUserName(user)),
+    updateUserInfo:user=>dispatch(smart.updateUserInfo(user)),
   }
 }
 
