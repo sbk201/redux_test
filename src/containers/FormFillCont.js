@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import {updateUI} from "../Actions.js";
 import React, { Component } from "react";
 import FormFill from "../components/FormFill";
-import {switchFP,objLoop,objLoop2,objLoop3} from "../init/global";
+import {switchFP,objLoop2,objLoop3} from "../init/global";
 const contName="FormFill";
 
 class FormFillCont extends Component {
@@ -33,8 +33,6 @@ const getAllFormItem=(UI,updateUI)=>{
 	const isInt=x=>Number.isInteger(x);
 	const checkNum=(x,message="Must be a Number")=>[!isInt(x),message];
 	const f=(it,id)=>it.find(e=>e.id===id);
-	const hideFn=id=>it=>it.find(e=>e.id===id);
-	const switchFun=fun=>v=>switchFP(v,fun);
 	const addition=ele=>({...ele,onChange:v=>updateUI({[ele.id]:v})});
   const obj=(k,v)=>({[k]:v});
   const setHide=raw=>objLoop3(([key,va])=>{
@@ -92,48 +90,6 @@ const getAllFormItem=(UI,updateUI)=>{
 	// const allRaw=getAllFormItem(UI,updateUI).map(setValid);
 	
 };
-/*
-[{
-  id:"age",
-  label:"Age 10",
-  type:"number",
-  valid: switchFun( x=>[ [!x,null], checkNum(x,"error"), [x<10,"error"], [true,"success"] ] ),
-  help:  switchFun( x=>[ [!x,null], checkNum(x), [x<10,"must more than 10"], [true,null] ] ),
-  onChange:value=>updateUI({age:value})
-} ,{
-  id:"salary",
-  label:"Salary",
-  type:"number",
-  hide: it=> hideFn(it,"age").valid!=="success",
-  valid: switchFun( x=>[ [!x,null], checkNum(x,"error"), [x<10,"error"], [true,"success"] ] ),
-  help:  switchFun( x=>[ [!x,null], checkNum(x), [x<10,"must more than 10"], [true,null] ] ),
-  onChange:value=>updateUI({salary:value})
-},{
-  id:"interest",
-  label:"Interest (checkbox)",
-  type:"checkbox",
-  options:[ ["sport","sport"],["music","music"],["games","games"] ],
-  onChange:value=>updateUI({interest:value})
-},{
-  id:"isRich",
-  label:"Are you Rich? (radio)",
-  type:"radio",
-  options:[ ["rich",true],["poor",false] ],
-  onChange:value=>updateUI({isRich:value})
-},{
-  id:"toy",
-  label:"Toy",
-  valid: switchFun( x=>[ [!x,null], [x.length<4,"error"], [true,"success"] ] ),
-  help:  switchFun( x=>[ [x.length<4,"must write at least 5 letters"], [true,null] ] ),
-  onChange:value=>updateUI({toy:value})
-},{
-  id:"date",
-  label:"Pick a Date",
-  type:"date",
-  hide: it=> f(it,"age").valid!=="success",
-  onChange:value=>updateUI({date:value})
-}]
-*/
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps

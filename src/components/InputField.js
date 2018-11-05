@@ -57,7 +57,6 @@ const InputField=params =>{
 				selectedDays: props.value,
 				disabledDays: {daysOfWeek: [0, 6], },
 			}}/>
-			{/*<FormControl {...{props,onChange:onChangeNumber,type:"text"}} />*/}
 			{help && <HelpBlock>{help}</HelpBlock>}
 		</FormGroup>);
 	}
