@@ -2,14 +2,18 @@ import React from "react";
 // import PropTypes from "prop-types";
 
 const getProps=props=>{
-	return {}
+	const Item=({todo})=><div>{todo._id} , {todo.info}</div>
+	const itemFn=(todo,i)=> <Item todo={todo} key={i}/>;
+	const Items=({todos})=>todos.map(itemFn)
+	return {Items}
 }
 const Todo=props=>{
-  	// const {data:{sbus,countries}}=props;
-  	// const {search ,SbuList,CountryList}=getProps(props);
+  	const {todos}=props;
+  	const {Items}=getProps(props);
 	return (
 		<div> 
-			home component
+			<h1>Todos component</h1>
+			<div><Items todos={todos}/></div>
 		</div>
 	);
 }

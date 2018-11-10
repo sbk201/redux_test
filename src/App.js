@@ -14,13 +14,13 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
 	return {
-		fetch:()=>dispatch(smart.getIdeas()),
+		// fetch:()=>dispatch(smart.getIdeas()),
 	};
 };
 const NoMatch=()=><div>404 Page Not Found</div>;
 class App extends Component {
 	componentDidMount() {
-		this.props.fetch();
+		// this.props.fetch();
 	}
 	// <UIGrids/>
 	render(){

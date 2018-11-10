@@ -7,6 +7,7 @@
     "date-fns": "^1.29.0",
     "es6-shim": "^0.35.3",
     "es7-object-polyfill": "^0.0.5",
+    "firebase": "^5.0.4",
     "loadash": "^1.0.0",
     "raf-polyfill": "^1.0.0",
     "react": "^16.2.0",

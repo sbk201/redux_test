@@ -30,8 +30,17 @@ const localUI = (state = {}, action) => {
 	}
 };
 
+const todos= (state = [], action) => {
+  switch (action.type) {
+  case "GET_TODOS":
+  return action.todos;
+  default:
+    return state;
+  }
+};
+
 const allReducers = combineReducers({
-  localUI,formInputs
+  localUI,formInputs,todos
 })
 
 export default allReducers

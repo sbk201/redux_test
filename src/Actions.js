@@ -1,4 +1,5 @@
 import {isDev} from "./init/global";
+import firebase,{coll} from './fireBase';
 // import store from "../index";
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
 export const getMessage=message=>({type: "GET_MESSAGE", message });
@@ -6,33 +7,15 @@ export const addMessage=message=> ( {type: "ADD_MESSAGE", ...message});
 export const delMessage=_id=> ( {type: "DELETE_MESSAGE", _id});
 export const setInputs=inputs=>({type: "SET_INPUTS",inputs});
 export const insertInputs=inputs=>({type: "INSERT_INPUTS",inputs});
-// const link={
-	// message:"http://localhost:5000/data",
-// }
-// const api=async (method,item,params={})=>{
-//     const link2= "http://localhost:5000/custAllocation/"+item;
-//     if(method==='get') return (await axios.get(link2,{params})).data
-//     if(method==='post') return (await axios.post(link2,params)).data
-//     if(method==='delete') return (await axios.delete(link2,{params})).data
-// }
-export const smart=(function() {
-	return {
-		getIdeas: ()=>async dispatch => {
-			// const get=()=>isDev ? dataImport : getIdeasApi();
-			// dispatch(getIdeas(await get()));
-		},
-		// getMessage: ()=>async dispatch => {
-		// 	const message=await getMessageApi();
-		// 	dispatch(getMessage(message));
-		// 	console.log('got message,',message);
-		// },
-		// addMessage: param=> async dispatch => {
-		// 	const {text,date}=await addMessageApi(param);
-		// 	dispatch(addMessage({text,date}));
-		// },
-		// delMessage: _id=> async dispatch => {
-		// 	const result=await delMessageApi(_id);
-		// 	dispatch(delMessage(_id));
-		// }
+
+export const getTodos=todos=>({type: "GET_TODOS", todos });
+
+const toNull=firebase.firestore.FieldValue.delete;
+
+export const smart={
+	fetchTodos: ()=> async dispatch=>{
+		const data=(await coll('todos').get()).docs.map(e=>e.data());
+		dispatch(getTodos(data));
+		console.log(data);
 	}
-})();
+}
