@@ -7,6 +7,7 @@ import Gallery from "./components/Gallery";
 import UIGrids from "./components/UIGrids";
 import UINavbar from "./components/UINavbar";
 import FormFillCont from "./containers/FormFillCont";
+import TodoCont from "./containers/TodoCont";
 
 const mapStateToProps = (state) => {
 	return { };
@@ -32,6 +33,7 @@ class App extends Component {
 							<Route exact path="/" component={UIGrids} />
 							<Route path="/gallery" component={Gallery} />
 							<Route path="/formFill" component={FormFillCont} />
+							<Route path="/todo" component={TodoCont} />
 							<Route component={NoMatch} />
 						</Switch>
 					</div>
