@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import {pick} from 'lodash';
-import { smart,updateUI,pickedSbu,pickedCountry } from '../Actions.js'
+import { smart,updateUI } from '../Actions.js'
 import React, { Component } from "react";
 import Admin from '../components/Admin'
 const contName="Admin";
@@ -11,19 +11,16 @@ class AdminCont extends Component {
   }
   
   render(){
-    const rest=pick(this.props,["users"]);
+    const rest=pick(this.props,["users","userInfo"])
     if(!rest.users) return <div>Loading</div>
-    return <Admin {...rest}/>
+    return <Admin {...rest} />
   }
 }
 const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
-  const loading= UI.status==='loading';
-  const finished= UI.status==='finished';
   const users=state.users;
   return {
     users
-    // data:state.main, UI, loading,finished
   }
 }
 const mapDispatchToProps = (dispatch) => {

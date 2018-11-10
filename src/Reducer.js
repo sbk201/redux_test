@@ -17,7 +17,6 @@ const userInfo = (state = null, action) => {
 const users = (state = [], action) => {
   switch (action.type) {
     case 'RECEIVE_ALL_USERS':
-    console.log(action.users)
       return action.users;
     default:
       return state

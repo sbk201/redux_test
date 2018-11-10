@@ -1,18 +1,20 @@
 import React from "react";
+import UserBarCont from '../containers/UserBarCont';
 // import PropTypes from "prop-types";
 
-const getProps=props=>{
-	const {users}=props;
-	const getUser=({name,uid})=><div key={uid}>({uid}) {name}</div>
-	const Users=()=>users.map(getUser);
+const getProps=({users})=>{
+	const U=user=><div key={user.uid}>{user.uid} <br/> {user.name}<br/><br/></div>
+	const Users=({users})=>users.map(U);
 	return {Users}
 }
 const Main=props=>{
-  	// const {users}=props;
+  	const {users}=props;
   	const {Users}=getProps(props);
 	return (
-		<div> Admin
-			<Users/>
+		<div> 
+			<UserBarCont/>
+			<h1>Admin</h1>
+			<Users users={users}/>
 		</div>
 	);
 }
