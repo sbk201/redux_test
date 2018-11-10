@@ -1,9 +1,7 @@
 import React from "react";
 import firebase from 'firebase/app';
 import "firebase/firestore";
-import "firebase/auth";
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import firebaseui from 'firebaseui'
+
 const config = {
     apiKey: "AIzaSyDfyjrFzDcgKr2ObU_q--O0eNy-vt-6b9s",
     authDomain: "cloud-ab742.firebaseapp.com",
@@ -15,26 +13,8 @@ const config = {
 firebase.initializeApp(config);
 const db=firebase.firestore();
 db.settings({timestampsInSnapshots: true});
-// db.collection("messages")
-    // .onSnapshot(data=>console.log(data))
 export const coll=name=>db.collection(name);
 
-
-const uiConfig= {
-  signInFlow: 'popup',
-  credentialHelper:firebaseui.auth.CredentialHelper.NONE,
-  signInOptions: [
-    {
-      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      requireDisplayName: false
-    },
-    firebase.auth.GithubAuthProvider.PROVIDER_ID,
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-  ],
-  callbacks: { signInSuccessWithAuthResult :()=>false}
-};
-export const authSignOut=(fn)=> firebase.auth().signOut().then(fn());
-export const FirebaseUI=()=> <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>;
 
 export default firebase
 
@@ -42,16 +22,3 @@ window.firebase=firebase;
 window.db =()=> db;
 window.dbBatch =()=> db.batch();
 window.coll=coll;
-/*
-var toNull=()=>firebase.firestore.FieldValue.delete();
-var batch=dbBatch();
-var messages=State.get().messages.map(age=>({id:age.id,removed:age.removed}))
-messages.forEach(({id,removed})=>{
-  const ref=coll('messages').doc(id);
-  const output_={private:toNull(),public:toNull()};
-  const output=removed? {...output_,private:true} : {...output_,public:true}
-  console.log(output)
-  batch.update(ref,output)
-})
-batch.commit().then(res=>console.log(res));
-*/

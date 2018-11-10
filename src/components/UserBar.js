@@ -1,7 +1,7 @@
 import React from "react";
 // import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import {authSignOut} from "../fireBase";
+import {authSignOut} from "../fireBaseUI";
 import { Button } from 'semantic-ui-react'
 
 

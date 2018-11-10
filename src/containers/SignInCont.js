@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import React, { Component } from "react";
 import {omit} from 'lodash';
 import { smart,updateUI } from '../Actions.js'
-import {FirebaseUI} from '../fireBase';
+import {FirebaseUI} from '../fireBaseUI';
 import {_Input} from '../init/global';
 import { Button } from 'semantic-ui-react'
 import { Redirect } from "react-router-dom";
