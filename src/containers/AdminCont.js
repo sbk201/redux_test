@@ -11,15 +11,18 @@ class AdminCont extends Component {
   }
   
   render(){
-    // const rest=pick(this.props,["data","updateUI", "pickedItems", "fetchSearch"])
-    return <Admin />
+    const rest=pick(this.props,["users"]);
+    if(!rest.users) return <div>Loading</div>
+    return <Admin {...rest}/>
   }
 }
 const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
   const loading= UI.status==='loading';
   const finished= UI.status==='finished';
+  const users=state.users;
   return {
+    users
     // data:state.main, UI, loading,finished
   }
 }
