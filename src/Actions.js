@@ -14,7 +14,8 @@ const toNull=firebase.firestore.FieldValue.delete;
 
 export const smart={
 	fetchTodos: ()=> async dispatch=>{
-		const data=(await coll('todos').get()).docs.map(e=>e.data());
+		const toData=doc=>({...doc.data(),id:doc.id});
+		const data=(await coll('todos').get()).docs.map(toData);
 		dispatch(getTodos(data));
 		console.log(data);
 	}
