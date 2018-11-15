@@ -2,7 +2,8 @@ import { connect } from "react-redux";
 import {updateUI} from "../Actions.js";
 import React, { Component } from "react";
 import FormFill from "../components/FormFill";
-import {switchFP,objLoop2,objLoop3} from "../init/global";
+import {switchFP} from "../init/global";
+import {mapValues,reduce} from "lodash";
 const contName="FormFill";
 
 class FormFillCont extends Component {
@@ -34,21 +35,22 @@ const getAllFormItem=(UI,updateUI)=>{
 	const checkNum=(x,message="Must be a Number")=>[!isInt(x),message];
 	const f=(it,id)=>it.find(e=>e.id===id);
 	const addition=ele=>({...ele,onChange:v=>updateUI({[ele.id]:v})});
-  const obj=(k,v)=>({[k]:v});
-  const setHide=raw=>objLoop3(([key,va])=>{
-      if(key==="hide") return obj(key,va(raw));
-      return obj(key,va);
-    });
-	const toValid=objLoop3(([key,va])=>{
-		if(key==="valid") return {"validationState":va};
-		return obj(key,va);
-	});
-  const setValid=item=> objLoop2(item,([key,va])=>{
-    if(key==="valid" || key==="help" ) {
-      return switchFP(UI[item.id],va);
-    }
-    return va;
-  });
+	const obj=(k,v)=>({[k]:v});
+	const setHide=raw=>item=>reduce(item,(res,va,key)=>{
+		const piece= key==="hide" ?
+		obj(key,va(raw)) : obj(key,va);
+		return Object.assign({},res,piece);
+	},{})
+	const toValid=item=>reduce(item,(res,va,key)=>{
+		const a= key==="valid" ? {validationState:va} : obj(key,va);
+		return Object.assign({},res,a);
+	},{})
+	const setValid=item=> mapValues(item,(va,key)=>{
+		if(key==="valid" || key==="help" ) {
+		  return switchFP(UI[item.id],va);
+		}
+		return va;
+	})
 	const raw=[
 		{
 			id:"age",
@@ -86,7 +88,8 @@ const getAllFormItem=(UI,updateUI)=>{
 			hide: it=> f(it,"age").valid!=="success",
 		}
 	].map(addition).map(setValid);
-	return raw.map(setHide(raw)).map(toValid);
+	const output=raw.map(setHide(raw)).map(toValid);
+	return output
 	// const allRaw=getAllFormItem(UI,updateUI).map(setValid);
 	
 };

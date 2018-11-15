@@ -1,5 +1,5 @@
 import {blankData} from "./initData"
-import {curry,flow,merge,cloneDeep as clone} from "lodash"; 
+import {curry,flow,merge,cloneDeep as clone,reduce,mapValues} from "lodash"; 
 import {format as dateFormat,differenceInDays} from 'date-fns'
 import store from '../index';
 window.differenceInDays=differenceInDays;
@@ -28,7 +28,7 @@ export const objMap2=(obj,fn)=> Object.entries(obj).map(([key,va])=>({[key]:fn([
 
 export const objLoop=(obj,fn)=> Object.entries(obj).reduce((acc,[key,va])=>(Object.assign({},acc,fn([key,va]))),{});
 export const objLoop2=(obj,fn)=> Object.entries(obj).reduce((acc,[key,va])=>(Object.assign({},acc,{[key]:fn([key,va])})),{});
-export const objLoop3=fn=>obj=> Object.entries(obj).reduce((acc,[key,va])=>(Object.assign({},acc,fn([key,va]))),{});
+// export const objLoop3=fn=>obj=> Object.entries(obj).reduce((acc,[key,va])=>(Object.assign({},acc,fn([key,va]))),{});
 export const sumOfObjectBy=(array,key)=>array.reduce((self,value)=>self+value[key],0)
 
 const toEntrie2=it=>Array.isArray(it)? it.map(e=>Object.entries(e)[0]) : Object.entries(it);
@@ -70,7 +70,7 @@ export const assignWhereArr =(_array,_args)=>{
   return loops(_array,toArr(_args));
 }
 
-window.lib={objMap,objMap2,objLoop,objLoop2,sumOfObjectBy,map,accum,statBy,toEntrie2,differenceInDays,assignWhere,assignWhereArr};
+window.lib={mapValues,reduce,objMap,objMap2,objLoop,objLoop2,sumOfObjectBy,map,accum,statBy,toEntrie2,differenceInDays,assignWhere,assignWhereArr};
 
 
 /*
