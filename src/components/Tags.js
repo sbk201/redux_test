@@ -1,21 +1,23 @@
 import React from "react";
 // import PropTypes from "prop-types";
+import {mapProps} from "../init/global";
 
-const getProps=({tags})=>{
-	const onDelete=id=>e=>console.log(`delete ${id}`);
-	const Item=({tag})=><button>{"x "+tag}</button>
-	const itemFn=(tag,i)=> <Item tag={tag} key={i}/>;
-	const Items=({tags})=>tags.map(itemFn);
-	
-	return {Items}
+const getProps=({pid})=>{
+	const onDelete=info=>e=>console.log(`deleting tag ${info}`);
+	const Items=mapProps(
+		pid=>(tag,i)=>
+		<span key={i}>
+			<button onClick={onDelete(`${tag} , ${pid}`)}>{"x "+tag}</button>
+		</span>)
+	return {Items};
 }
-const Todo=props=>{
-  	const {data}=props;
+const Tag=props=>{
+  	const {data,pid}=props;
   	const {Items}=getProps(props);
 	return (
 		<div>
-			<Items tags={data}/>
+			<Items tags={data} pid={pid}/>
 		</div>
 	);
 }
-export default Todo
+export default Tag

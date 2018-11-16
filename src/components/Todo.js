@@ -1,28 +1,15 @@
 import React from "react";
 import Tags from "./Tags";
 // import PropTypes from "prop-types";
-import {flow} from "lodash";
-import {map} from "lodash/fp";
+import {mapProp} from "../init/global";
 
 const getProps=props=>{
-	// const mapFn=itemArray=>item>=itemArray.map()
 	const onDelete=id=>e=>console.log(`delete ${id}`);
-	const Item=({todo})=><div>
-		<button onClick={onDelete(todo.id)}>X</button> {todo.id} , {todo.info}<br/><Tags data={todo.tags}/>
-	</div>;
-	const itemFn=(todo,i)=> <Item todo={todo} key={i}/>;
-	const Items=({todos})=>todos.map(itemFn);
-
-
-	// const mapFn=Item=>({todos})=>todos.map()
-	// const The=({todos})=>flow([
-			// map()
-		// ])(todos)
-	// const The=mapFn(
-		// ({todo})=><div>
-			{/*<button onClick={onDelete(todo.id)}>X</button> {todo.id} , {todo.info}<br/><Tags data={todo.tags}/>*/}
-		// </div>)
-		// ( (todo,i)=> <Item todo={todo} key={i}/> )
+	const Items=mapProp((todo,i)=>
+		<div key={i}>
+			<button onClick={onDelete(todo.id)}>X</button> {todo.id} , {todo.info}<br/>
+			<Tags data={todo.tags} pid={todo.id}/><br/>
+		</div>)
 	return {Items};
 };
 const Todo=props=>{
