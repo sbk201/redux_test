@@ -18,5 +18,8 @@ export const smart={
 		const data=(await coll('todos').get()).docs.map(toData);
 		dispatch(getTodos(data));
 		console.log(data);
-	}
+	},
+	postTodo: todo=> async dispatch=>{
+		console.log(todo);
+	},
 }

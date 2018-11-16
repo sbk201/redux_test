@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { smart } from "./Actions.js";
+// import { smart } from "./Actions.js";
 import React, { Component } from "react";
 import "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";

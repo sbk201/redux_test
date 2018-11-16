@@ -13,12 +13,14 @@ const getProps=props=>{
 	return {Items};
 };
 const Todo=props=>{
-  	const {todos}=props;
+  	const {todos,postTodo}=props;
   	const {Items}=getProps(props);
+    const onEnter= fn=> e=> e.keyCode === 13 && fn(e.target.value);
 	return (
 		<div> 
 			<h1>Todos component</h1>
 			<div><Items todos={todos}/></div>
+		    <input onKeyUp={onEnter(postTodo)}/>
 		</div>
 	);
 };
