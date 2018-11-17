@@ -26,7 +26,7 @@ switchFP(5,x=>[
 export const mapProp= fn=> obj=> Object.values(obj)[0].map(fn);
 export const mapProps= fn=> obj=> {
     const [array,...rest]=Object.values(obj);
-    return array.map(fn(rest));
+    return array.map((tag,i)=> fn(tag,i)(rest));
   };
 export const objMap=(obj,fn)=> Object.entries(obj).map(([key,va])=>fn([key,va]));
 export const objMap2=(obj,fn)=> Object.entries(obj).map(([key,va])=>({[key]:fn([key,va])}));

@@ -7,12 +7,34 @@ export const addMessage=message=> ( {type: "ADD_MESSAGE", ...message});
 export const delMessage=_id=> ( {type: "DELETE_MESSAGE", _id});
 export const setInputs=inputs=>({type: "SET_INPUTS",inputs});
 export const insertInputs=inputs=>({type: "INSERT_INPUTS",inputs});
+const receiveUserInfo=(userInfo={})=> ({type: "RECEIVE_USER_INFO", userInfo });
 
 export const getTodos=todos=>({type: "GET_TODOS", todos });
 
 const toNull=firebase.firestore.FieldValue.delete;
 
 export const smart={
+	checkUser:()=> {
+		return async dispatch=>{
+			firebase.auth().onAuthStateChanged(async user=> {
+				if(!user) return dispatch(receiveUserInfo({logged:false}));
+				const username_=(await coll('users').doc(user.uid).get());
+				const username= username_.data() ? username_.data().name : null;
+				dispatch(receiveUserInfo({...user,username,logged:true}))
+			})
+		}
+	},
+	updateUserInfo:name=>{
+		return async dispatch => {
+			// const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName:"UserBarConta"}));
+			const user = firebase.auth().currentUser;
+			const {uid}=user;
+			await user.updateProfile({displayName: name }).catch(console.error);
+	        await coll("users").doc(uid).set({name, uid,rold:"user"}).catch(console.error);
+	        console.log('updateUserInfo')
+			dispatch(receiveUserInfo({...user,username:name,logged:true}))
+	    }
+	},
 	fetchTodos: ()=> async dispatch=>{
 		const toData=doc=>({...doc.data(),id:doc.id});
 		const data=(await coll('todos').get()).docs.map(toData);

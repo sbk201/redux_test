@@ -5,7 +5,7 @@ import {mapProps} from "../init/global";
 const getProps=({pid})=>{
 	const onDelete=info=>e=>console.log(`deleting tag ${info}`);
 	const Items=mapProps(
-		pid=>(tag,i)=>
+		(tag,i)=>pid=>
 		<span key={i}>
 			<button onClick={onDelete(`${tag} , ${pid}`)}>{"x "+tag}</button>
 		</span>)
