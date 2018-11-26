@@ -14,6 +14,7 @@
     "react-bootstrap": "^0.32.3",
     "react-day-picker": "^7.2.4",
     "react-dom": "^16.2.0",
+    "react-firebaseui": "^3.1.2",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^1.1.5",

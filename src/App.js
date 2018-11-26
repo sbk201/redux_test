@@ -8,6 +8,7 @@ import UIGrids from "./components/UIGrids";
 import UINavbar from "./components/UINavbar";
 import FormFillCont from "./containers/FormFillCont";
 import TodoCont from "./containers/TodoCont";
+import SignInCont from "./containers/SignInCont";
 
 const mapStateToProps = (state) => {
 	return { };
@@ -34,6 +35,7 @@ class App extends Component {
 							<Route path="/gallery" component={Gallery} />
 							<Route path="/formFill" component={FormFillCont} />
 							<Route path="/todo" component={TodoCont} />
+							<Route path="/signin" component={SignInCont} />
 							<Route component={NoMatch} />
 						</Switch>
 					</div>

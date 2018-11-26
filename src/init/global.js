@@ -1,3 +1,4 @@
+import React from "react";
 import {blankData} from "./initData"
 import {curry,flow,merge,cloneDeep as clone,reduce,mapValues} from "lodash"; 
 import {format as dateFormat,differenceInDays} from 'date-fns'
@@ -10,6 +11,7 @@ export const rename=(obj,from,to)=>{
   const {[from]:_,...rest}=obj;
   return {...rest,[to]:_};
 }
+export const _Input=that=>({refer,...rest})=><input ref={ele=>that[refer]=ele} {...{...rest}}/>;
 export const switchFP=curry((val="",fp)=> {
   const res=fp(val).find(ele=>ele[0]);
   return res ? res[1] : null;

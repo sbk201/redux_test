@@ -25,7 +25,7 @@ class SignInCont extends Component {
     const {userInfo={}}=rest;
     const {username}=userInfo ||{};
     const logged=userInfo && userInfo.logged;
-    if(logged===null || logged===undefined ) return <div></div>
+    if(logged===null || logged===undefined ) return <div>loading</div>
     if(!logged) return <div>firebaseUI <FirebaseUI/></div>
     if(!username) return <div><Fill save={rest.updateUserInfo}/></div>
       console.log('redirect to home',userInfo,username)
