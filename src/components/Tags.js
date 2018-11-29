@@ -1,8 +1,8 @@
-import React from "react";
+import React,{Fragment as Frag} from "react";
 // import PropTypes from "prop-types";
 import {mapProps} from "../init/global";
 
-const getProps=({pid})=>{
+const getProps=({UI,updateUI})=>{
 	const onDelete=info=>e=>console.log(`deleting tag ${info}`);
 	const Items=mapProps(
 		(tag,i)=>pid=>
@@ -16,7 +16,7 @@ const Tag=props=>{
   	const {Items}=getProps(props);
 	return (
 		<div>
-			<Items tags={data} pid={pid}/>
+			<Items tags={data} pid={pid}/> <button > + </button>
 		</div>
 	);
 }

@@ -17,7 +17,7 @@ class TodoCont extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  // const UI=state.localUI[contName] || {};
+  const UI=state.localUI[contName] || {};
   const {todos}=state;
   return {
     todos
@@ -29,6 +29,7 @@ const mapDispatchToProps = (dispatch) => {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
     fetch:()=>dispatch(smart.fetchTodos()),
     postTodo:todo=>dispatch(smart.postTodo(todo)),
+    deleteTodo: id=>dispatch(smart.deleteTodo(id)),
   }
 }
 

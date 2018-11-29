@@ -37,11 +37,39 @@ export const smart={
 	},
 	fetchTodos: ()=> async dispatch=>{
 		const toData=doc=>({...doc.data(),id:doc.id});
-		const data=(await coll('todos').get()).docs.map(toData);
+		const w=['removed','==',false];
+		const data=(await coll('todos').where(...w).get()).docs.map(toData);
 		dispatch(getTodos(data));
 		console.log(data);
 	},
-	postTodo: todo=> async dispatch=>{
-		console.log(todo);
+	postTodo: text=> async dispatch=>{
+		const todo={createdDate:new Date(),info:text,removed:false,tags:[]};
+		const res=await coll('todos').add(todo);
+		console.log(res);
+	},
+	deleteTodo: id=> async dispatch=>{
+		console.log(id);
+		// const todo={createdDate:new Date(),info:text,removed:false,tags:[]};
+		// const res=await coll('todos').add(todo);
+		// console.log(res);
 	},
 }
+
+// const ref = path => firebase.database().ref(path)
+// const getValue = path => ref(path).once('value')
+// const mapSnapshotToEntities = snapshot => snapshot.val().map((value, id) => ({ id, ...value }))
+// const getEntities = path => getValue(path).then(mapSnapshotToEntities)
+
+// const resolvers = {
+//     Author: {
+//         posts(author) {
+//             return getEntities('posts').then(posts => filter(posts, { authorId: author.id }))
+//         },
+//     },
+
+//     Post: {
+//         author(post) {
+//             return getEntities('authors').then(posts => filter(authors, { id: authorId }))
+//         },
+//     },
+// };
