@@ -3,6 +3,7 @@ import {blankData} from "./initData"
 import {curry,flow,merge,cloneDeep as clone,reduce,mapValues} from "lodash"; 
 import {format as dateFormat,differenceInDays} from 'date-fns'
 import store from '../index';
+import {sort,sortBy, prop, pick, map, mapObjIndexed, pipe} from "ramda";
 window.differenceInDays=differenceInDays;
 global.cancelAnimationFrame = function(callback) {
   setTimeout(callback, 0);
@@ -40,7 +41,6 @@ export const sumOfObjectBy=(array,key)=>array.reduce((self,value)=>self+value[ke
 
 const toEntrie2=it=>Array.isArray(it)? it.map(e=>Object.entries(e)[0]) : Object.entries(it);
 export const accum=(target,fn)=> toEntrie2(target).reduce((self,pair)=>self+fn(pair),0);
-export const map=(target,fn)=> toEntrie2(target).map(pair=>fn(pair));
 export const statBy=curry((theKey,array)=>
   array.map(e=>e[theKey]).reduce((self,key)=>{
   const amount= self[key] ? self[key]+1 : 1;
@@ -77,8 +77,8 @@ export const assignWhereArr =(_array,_args)=>{
   return loops(_array,toArr(_args));
 }
 
-window.lib={mapValues,reduce,objMap,objMap2,objLoop,objLoop2,sumOfObjectBy,map,accum,statBy,toEntrie2,differenceInDays,assignWhere,assignWhereArr};
-
+window.lib={mapValues,reduce,objMap,objMap2,objLoop,objLoop2,sumOfObjectBy,accum,statBy,toEntrie2,differenceInDays,assignWhere,assignWhereArr};
+Object.assign(window,{...{mapObjIndexed, sort, sortBy, prop, pick, map, pipe}})
 
 /*
 Usage:

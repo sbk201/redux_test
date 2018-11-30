@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import {omit} from 'lodash';
+// import {omit} from 'lodash';
 import {updateUI,smart} from '../Actions.js'
 import React, { Component } from "react";
 import Todo from '../components/Todo'
@@ -17,7 +17,7 @@ class TodoCont extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  const UI=state.localUI[contName] || {};
+  // const UI=state.localUI[contName] || {};
   const {todos}=state;
   return {
     todos

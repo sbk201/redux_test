@@ -1,25 +1,41 @@
 import React from "react";
 import Tags from "./Tags";
 // import PropTypes from "prop-types";
-import {mapProp} from "../init/global";
+// import {mapProp} from "../init/global";
+import {format} from "date-fns"
+import {sortBy, prop, map, mapObjIndexed, pipe} from "ramda";
+		// var formatDate=function(v) {return dateFns.format(v,"DD/MM/YYYY HH:mm a")};
 
 const getProps=props=>{
-	const Items=mapProp((todo,i)=>
+	const Space= ()=>" ";
+	const Item= ( todo,i )=> 
 		<div key={i}>
-			<button onClick={()=>props.deleteTodo(todo.id)}>X</button> {todo.id} , {todo.info}<br/>
+			<button onClick={()=>props.deleteTodo( todo.id )}>X</button> <Space/>{todo.createdDate} <Space/>
+			 {todo.id} <br/>
+			{todo.info}<br/>
 			<Tags data={todo.tags} pid={todo.id}/><br/>
-		</div>)
+		</div>;
+	const Items=( {todos} )=>{
+		const formatDate= time=> format(time.toDate(),"DD/MM HH:mm a");
+		const toDate= (val,key)=> key==="createdDate" ? formatDate(val) : val;
+		const newTodos=pipe(
+			sortBy( prop( "createdDate" ) ),
+			map( mapObjIndexed( toDate ) ),
+			it=>console.log(it) || it
+		)( todos );
+		return newTodos.map( Item );
+ 	};
 	return {Items};
 };
 const Todo=props=>{
   	const {todos,postTodo}=props;
-  	const {Items}=getProps(props);
-    const onEnter= fn=> e=> e.keyCode === 13 && fn(e.target.value);
+  	const {Items}=getProps( props );
+	const onEnter= fn=> e=> e.keyCode === 13 && fn( e.target.value );
 	return (
 		<div> 
 			<h1>Todos component</h1>
 			<div><Items todos={todos}/></div>
-		    <input onKeyUp={onEnter(postTodo)}/>
+		    <input onKeyUp={onEnter( postTodo )}/>
 		</div>
 	);
 };

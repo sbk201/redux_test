@@ -15,6 +15,13 @@ module.exports = {
         "react"
     ],
     "rules": {
+        "space-in-parens": [
+            "error",
+            "always"
+        ],
+        "eslint array-bracket-spacing": [
+            "error", "always"
+        ],
         "indent": [
             "error",
             "tab"

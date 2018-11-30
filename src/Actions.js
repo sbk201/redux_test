@@ -11,7 +11,7 @@ const receiveUserInfo=(userInfo={})=> ({type: "RECEIVE_USER_INFO", userInfo });
 
 export const getTodos=todos=>({type: "GET_TODOS", todos });
 
-const toNull=firebase.firestore.FieldValue.delete;
+// const toNull=firebase.firestore.FieldValue.delete;
 
 export const smart={
 	checkUser:()=> {
@@ -40,7 +40,7 @@ export const smart={
 		const w=['removed','==',false];
 		const data=(await coll('todos').where(...w).get()).docs.map(toData);
 		dispatch(getTodos(data));
-		console.log(data);
+		// console.log(data);
 	},
 	postTodo: text=> async dispatch=>{
 		const todo={createdDate:new Date(),info:text,removed:false,tags:[]};
