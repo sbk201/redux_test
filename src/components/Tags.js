@@ -8,15 +8,16 @@ const getProps=({UI,updateUI})=>{
 		(tag,i)=>pid=>
 		<span key={i}>
 			<button onClick={onDelete(`${tag} , ${pid}`)}>{"x "+tag}</button>
-		</span>)
-	return {Items};
+		</span>);
+	const ButtonPost= ({onClick,pid,tags})=> <button onClick={e=>onClick({pid, tags:tags.concat("message")})}> + </button>;
+	return {Items, ButtonPost};
 }
 const Tag=props=>{
-  	const {data,pid}=props;
-  	const {Items}=getProps(props);
+  	const {data,pid,postTag}=props;
+  	const {Items ,ButtonPost}=getProps(props);
 	return (
 		<div>
-			<Items tags={data} pid={pid}/> <button > + </button>
+			<Items tags={data} pid={pid}/> <ButtonPost onClick={postTag} tags={data} pid={pid}/ >
 		</div>
 	);
 }

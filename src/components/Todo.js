@@ -6,13 +6,14 @@ import {format} from "date-fns"
 import {sortBy, prop, map, mapObjIndexed, pipe} from "ramda";
 
 const getProps=props=>{
+	const {postTag}=props;
 	const S= ()=>" ";
 	const Item= ( todo,i )=> 
 		<div key={i}>
 			<button onClick={()=>props.deleteTodo( todo.id )}>X</button> <S/>{todo.createdDate} <S/>
 			 {todo.id} <br/>
 			{todo.info}<br/>
-			<Tags data={todo.tags} pid={todo.id}/><br/>
+			<Tags data={todo.tags} pid={todo.id} postTag={postTag}/><br/>
 		</div>;
 	const Items=( {todos} )=>{
 		const formatDate= time=> format(time.toDate(),"DD/MM HH:mm a");
@@ -20,7 +21,6 @@ const getProps=props=>{
 		const newTodos=pipe(
 			sortBy( prop( "createdDate" ) ),
 			map( mapObjIndexed( toDate ) ),
-			it=>console.log(it) || it
 		)( todos );
 		return newTodos.map( Item );
  	};

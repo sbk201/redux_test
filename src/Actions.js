@@ -44,20 +44,23 @@ export const smart={
 		dispatch(getTodos(data));
 		console.log("fetch",data);
 	},
+	postTag: ({pid,tags})=> async dispatch=>{
+		coll('todos').doc(pid).update({tags});
+		console.log(pid,tags);
+	},
 	postTodo: text=> async dispatch=>{
 		const todo={createdDate:new Date(),info:text,removed:false,tags:[]};
 		const res=await coll('todos').add(todo);
 		console.log(res);
 	},
-	deleteTodo: id=> async dispatch=>{
-		console.log(id);
-		coll('todos').doc(id).update({removed:true});
-		console.log('deleted');
-		// const todo={createdDate:new Date(),info:text,removed:false,tags:[]};
-		// const res=await coll('todos').add(todo);
-		// console.log(res);
-	},
+	deleteTodo: id=> dispatch=> coll('todos').doc(id).update({removed:true}),
 }
+// search tag
+// coll('todos').where("tags", "array-contains", "second").get().then(ref=>{
+	// const data=ref.docs.map(doc=>doc.data());
+	// console.log(data)
+// })
+
 
 // const ref = path => firebase.database().ref(path)
 // const getValue = path => ref(path).once('value')

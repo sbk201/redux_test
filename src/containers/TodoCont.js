@@ -31,6 +31,7 @@ const mapDispatchToProps = (dispatch) => {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
     postTodo:todo=>dispatch(smart.postTodo(todo)),
     deleteTodo: id=>dispatch(smart.deleteTodo(id)),
+    postTag:tag=>dispatch(smart.postTag(tag)),
     listen:()=>dispatch(smart.listenTodos())
   }
 }
