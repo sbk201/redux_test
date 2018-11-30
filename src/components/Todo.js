@@ -4,13 +4,12 @@ import Tags from "./Tags";
 // import {mapProp} from "../init/global";
 import {format} from "date-fns"
 import {sortBy, prop, map, mapObjIndexed, pipe} from "ramda";
-		// var formatDate=function(v) {return dateFns.format(v,"DD/MM/YYYY HH:mm a")};
 
 const getProps=props=>{
-	const Space= ()=>" ";
+	const S= ()=>" ";
 	const Item= ( todo,i )=> 
 		<div key={i}>
-			<button onClick={()=>props.deleteTodo( todo.id )}>X</button> <Space/>{todo.createdDate} <Space/>
+			<button onClick={()=>props.deleteTodo( todo.id )}>X</button> <S/>{todo.createdDate} <S/>
 			 {todo.id} <br/>
 			{todo.info}<br/>
 			<Tags data={todo.tags} pid={todo.id}/><br/>

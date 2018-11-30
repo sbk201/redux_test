@@ -7,9 +7,11 @@ const contName="Todo";
 
 class TodoCont extends Component {
   componentDidMount() {
-    this.props.fetch();
+    this.props.listen();
   }
-  
+  componentWillUnmount() {
+    console.log('TodoCont destroyed');
+  }
   render(){
     return <div>
       <Todo {...this.props}/>
@@ -27,9 +29,9 @@ const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
-    fetch:()=>dispatch(smart.fetchTodos()),
     postTodo:todo=>dispatch(smart.postTodo(todo)),
     deleteTodo: id=>dispatch(smart.deleteTodo(id)),
+    listen:()=>dispatch(smart.listenTodos())
   }
 }
 

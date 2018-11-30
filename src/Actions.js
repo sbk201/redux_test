@@ -26,7 +26,6 @@ export const smart={
 	},
 	updateUserInfo:name=>{
 		return async dispatch => {
-			// const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName:"UserBarConta"}));
 			const user = firebase.auth().currentUser;
 			const {uid}=user;
 			await user.updateProfile({displayName: name }).catch(console.error);
@@ -35,12 +34,15 @@ export const smart={
 			dispatch(receiveUserInfo({...user,username:name,logged:true}))
 	    }
 	},
+	listenTodos: ()=> dispatch=>{
+		coll('todos').onSnapshot(()=>dispatch(smart.fetchTodos()))
+	},
 	fetchTodos: ()=> async dispatch=>{
 		const toData=doc=>({...doc.data(),id:doc.id});
 		const w=['removed','==',false];
 		const data=(await coll('todos').where(...w).get()).docs.map(toData);
 		dispatch(getTodos(data));
-		// console.log(data);
+		console.log("fetch",data);
 	},
 	postTodo: text=> async dispatch=>{
 		const todo={createdDate:new Date(),info:text,removed:false,tags:[]};
@@ -49,6 +51,8 @@ export const smart={
 	},
 	deleteTodo: id=> async dispatch=>{
 		console.log(id);
+		coll('todos').doc(id).update({removed:true});
+		console.log('deleted');
 		// const todo={createdDate:new Date(),info:text,removed:false,tags:[]};
 		// const res=await coll('todos').add(todo);
 		// console.log(res);
