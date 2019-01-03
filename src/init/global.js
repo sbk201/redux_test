@@ -5,6 +5,7 @@ import {format as dateFormat,differenceInDays} from 'date-fns'
 import store from '../index';
 import * as R from "ramda";
 // const {sort,sortBy, prop, pick, map, mapObjIndexed, pipe}=R;
+export const mapIndex= R.addIndex(R.map);
 window.differenceInDays=differenceInDays;
 global.cancelAnimationFrame = function(callback) {
   setTimeout(callback, 0);

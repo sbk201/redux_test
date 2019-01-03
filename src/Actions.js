@@ -1,5 +1,5 @@
 import {isDev} from "./init/global";
-import firebase,{coll} from './fireBase';
+import {coll} from './fireBase';
 // import store from "../index";
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
 export const getMessage=message=>({type: "GET_MESSAGE", message });
@@ -7,32 +7,22 @@ export const addMessage=message=> ( {type: "ADD_MESSAGE", ...message});
 export const delMessage=_id=> ( {type: "DELETE_MESSAGE", _id});
 export const setInputs=inputs=>({type: "SET_INPUTS",inputs});
 export const insertInputs=inputs=>({type: "INSERT_INPUTS",inputs});
-const receiveUserInfo=(userInfo={})=> ({type: "RECEIVE_USER_INFO", userInfo });
 
 export const getTodos=todos=>({type: "GET_TODOS", todos });
+export const getNews=news=>({type: "GET_NEWS", news });
 
 // const toNull=firebase.firestore.FieldValue.delete;
 
 export const smart={
-	checkUser:()=> {
-		return async dispatch=>{
-			firebase.auth().onAuthStateChanged(async user=> {
-				if(!user) return dispatch(receiveUserInfo({logged:false}));
-				const username_=(await coll('users').doc(user.uid).get());
-				const username= username_.data() ? username_.data().name : null;
-				dispatch(receiveUserInfo({...user,username,logged:true}))
-			})
-		}
+	listenNews: ()=> dispatch=>{
+		coll('newspaper').onSnapshot(()=>dispatch(smart.fetchNews()))
 	},
-	updateUserInfo:name=>{
-		return async dispatch => {
-			const user = firebase.auth().currentUser;
-			const {uid}=user;
-			await user.updateProfile({displayName: name }).catch(console.error);
-	        await coll("users").doc(uid).set({name, uid,rold:"user"}).catch(console.error);
-	        console.log('updateUserInfo')
-			dispatch(receiveUserInfo({...user,username:name,logged:true}))
-	    }
+	fetchNews: ()=> async dispatch=>{
+		const toData=doc=>({...doc.data(),id:doc.id});
+		// const w=['removed','==',false];
+		const data=(await coll('newspaper').limit(20).get()).docs.map(toData);
+		dispatch(getNews(data));
+		console.log("fetch",data);
 	},
 	listenTodos: ()=> dispatch=>{
 		coll('todos').onSnapshot(()=>dispatch(smart.fetchTodos()))
