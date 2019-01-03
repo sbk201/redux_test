@@ -3,7 +3,8 @@ import {blankData} from "./initData"
 import {curry,flow,merge,cloneDeep as clone,reduce,mapValues} from "lodash"; 
 import {format as dateFormat,differenceInDays} from 'date-fns'
 import store from '../index';
-import {sort,sortBy, prop, pick, map, mapObjIndexed, pipe} from "ramda";
+import * as R from "ramda";
+// const {sort,sortBy, prop, pick, map, mapObjIndexed, pipe}=R;
 window.differenceInDays=differenceInDays;
 global.cancelAnimationFrame = function(callback) {
   setTimeout(callback, 0);
@@ -78,7 +79,7 @@ export const assignWhereArr =(_array,_args)=>{
 }
 
 window.lib={mapValues,reduce,objMap,objMap2,objLoop,objLoop2,sumOfObjectBy,accum,statBy,toEntrie2,differenceInDays,assignWhere,assignWhereArr};
-Object.assign(window,{...{mapObjIndexed, sort, sortBy, prop, pick, map, pipe}})
+Object.assign(window,{...R})
 
 /*
 Usage:
