@@ -1,5 +1,6 @@
 import {isDev} from "./init/global";
 import {coll} from './fireBase';
+import {isEmpty, takeLast} from 'ramda';
 // import store from "../index";
 export const updateUI=cmd=>({type: "UPDATE_UI", ...cmd});
 export const getMessage=message=>({type: "GET_MESSAGE", message });
@@ -12,15 +13,20 @@ export const getTodos=todos=>({type: "GET_TODOS", todos });
 export const getNews=news=>({type: "GET_NEWS", news });
 
 // const toNull=firebase.firestore.FieldValue.delete;
-
 export const smart={
-	listenNews: ()=> dispatch=>{
-		coll('newspaper').onSnapshot(()=>dispatch(smart.fetchNews()))
-	},
-	fetchNews: ()=> async dispatch=>{
+	// fetchNewsInit: ()=>{
+		// const ref=coll('newspaper').orderBy("published", "desc");
+	// }
+	fetchNews: (page=1,entry=20)=> async dispatch=>{
 		const toData=doc=>({...doc.data(),id:doc.id});
 		// const w=['removed','==',false];
-		const data=(await coll('newspaper').limit(20).get()).docs.map(toData);
+		const ref=coll('newspaper').orderBy("published", "desc");
+		// console.log('page is :',page && page.author);
+		const limit= page*entry
+		console.log(page);
+		console.log(limit);
+		const allData=(await ref.limit(limit).get()).docs.map(toData);
+		const data=takeLast(entry, allData);
 		dispatch(getNews(data));
 		console.log("fetch",data);
 	},
