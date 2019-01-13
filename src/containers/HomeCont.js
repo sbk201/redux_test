@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import {updateUI,smart} from '../Actions.js'
+import {updateUI} from '../Actions.js'
 import React, { Component } from "react";
 import Home from '../components/Home'
 const contName="Home";

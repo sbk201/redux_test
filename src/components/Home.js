@@ -1,7 +1,7 @@
 import React,{Fragment as Frag} from "react";
 // import PropTypes from "prop-types";
 import {mapIndex} from '../init/global';
-import {is, multiply, pipe, lte, converge} from 'ramda';
+// import {pipe, converge} from 'ramda';
 import SalaryResult from './SalaryResult';
 import {Button} from 'react-bootstrap';
 const Input=({refer,...rest})=><input ref={ele=>this[refer]=ele} name={refer} {...{...rest}}/>;
@@ -15,7 +15,10 @@ const compute= UI=> {
 	const preHour= preDay/dutyHours;
 	return {preDay,preHour}
 }
-
+const upper= text=> {
+	if(!text || text==="") return "";
+	return text[0].toUpperCase() + text.slice(1);
+}
 const getProps=props=>{
 	const {updateUI, UI}= props;
 	const saveData= ({target})=> {
@@ -30,27 +33,24 @@ const getProps=props=>{
 		updateUI({mode});
 	};
 	const mode= (function (){
-		const theMode= UI&& UI.mode || "simple"
-		// console.log(UI,theMode);
+		const theMode= (UI&& UI.mode) || "simple"
 		const output= theMode[0].toUpperCase() + theMode.slice(1)
 		return output
 	})();
 	return {mode, saveData, rangeConfig, toggleMode, ...compute(UI)}
 }
 const Home=props=>{
-  	const {news,UI}=props;
+  	const {UI}=props;
   	// testing('test');
   	const {mode, saveData, preDay, preHour, rangeConfig, toggleMode}=getProps(props);
   	const dutyDaysConfig=rangeConfig({max:7, min:.5, step:.5,});
   	const dutyHoursConfig=rangeConfig({max:16, min:.5, step:.5,});
   	// const dutyDaysConfig={type:"range", max:7, min:.5, step:.5, style:{width:"30%"}, className:"slider"};
   	// const dutyHoursConfig={type:"range", max:16, min:.5, step:.5, style:{width:"30%"}, className:"slider"};
-  	console.log(UI)
-			// <NewsList list={news} />
 	return (
 		<div>
 			<h1>Salary Calculator</h1>
-			<Button bsStyle="primary" onClick={()=>toggleMode(UI.mode||"")}>{mode} Calculator</Button>
+			<Button bsStyle="primary" onClick={()=>toggleMode(UI.mode||"")}>{upper(UI.mode)} Calculator</Button>
 			<div> Salary<br/> <Input refer="salary" onChange={saveData} /> </div>
 			<div> Duty Days {UI.dutyDays}<br/> <Input refer="dutyDays" onChange={saveData} {...{...dutyDaysConfig}}/> <br/></div>
 			<div> Duty Hours {UI.dutyHours}<br/> <Input refer="dutyHours" onChange={saveData} {...{...dutyHoursConfig}}/> <br/></div>
