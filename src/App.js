@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 // import { smart } from "./Actions.js";
-import React, { Component } from "react";
+import React, { Component, Fragment as Frag} from "react";
 import "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomeCont from "./containers/HomeCont";
@@ -19,16 +19,16 @@ class App extends Component {
 	}
 	render(){
 		return (
-			<div>
+			<Frag>
 				<Router>
-					<div>
+					<Frag>
 						<Switch>
 							<Route exact path="/" component={HomeCont} />
 							<Route component={HomeCont} />
 						</Switch>
-					</div>
+					</Frag>
 				</Router>
-			</div>
+			</Frag>
 		);
 	}
 }

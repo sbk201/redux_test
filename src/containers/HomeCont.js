@@ -8,10 +8,11 @@ class HomeCont extends Component {
   componentDidMount() {
     // this.props.listen();
     this.props.updateUI({dutyDays:5, dutyHours:9})
+    // this.props.updateUI({salary:"1900"})
   }
   
   render(){
-    return <div><Home {...this.props}/></div>
+    return <Home {...this.props}/>
   }
 }
 const mapStateToProps = (state) => {
