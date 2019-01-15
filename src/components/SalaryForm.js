@@ -27,7 +27,7 @@ const Simple= ({props})=>{
   	const dutyHoursConfig=rangeConfig({max:16, min:.5, step:.5, refer:"dutyHours", onChange:saveData});
 	return (
 	<Frag>
-		<div> Salary<br/> <Input refer="salary" onChange={saveData} />  </div>
+		<div> Salary<br/> <Input refer="salary" onChange={saveData} defaultValue={UI.salary}/>  </div>
 		<div> Duty Days {UI.dutyDays}<br/> <Input {...dutyDaysConfig}/> <br/></div>
 		<div> Duty Hours {UI.dutyHours}<br/> <Input {...dutyHoursConfig}/> <br/></div>
 	</Frag>
@@ -39,8 +39,8 @@ const Advance= ({props})=>{
   	const dutyHoursConfig=rangeConfig({max:16, min:.5, step:.5, refer:"dutyHours", onChange:saveData});
 	return (
 	<Frag>
-		<div> Salary<br/> <Input refer="salary" onChange={saveData} />  </div>
-		<Input type="checkbox" refer="mpf" onChange={saveData}/> Included MPF?
+		<div> Salary<br/> <Input refer="salary" onChange={saveData} defaultValue={UI.salary}/>  </div>
+		<Input type="checkbox" refer="mpf" onChange={saveData} defaultChecked={UI.mpf}/> Included MPF?
 		<div> Duty Days {UI.dutyDays}<br/> <Input {...dutyDaysConfig}/> <br/></div>
 		<div> Duty Hours {UI.dutyHours}<br/> <Input {...dutyHoursConfig}/> <br/></div>
 	</Frag>
