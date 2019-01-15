@@ -6,7 +6,7 @@ import SalaryForm from './SalaryForm';
 import {Button} from 'react-bootstrap';
 
 const compute= UI=> {
-	const {mode, salary, dutyDays, dutyHours, mpf}= UI;
+	const {mode, salary, dutyDays, dutyHours, travelIndex, mpf}= UI;
 	if(!is(String,salary)) return;
 	if(mode=== 'advance') return advanceFn()
 	return simpleFn();
@@ -18,7 +18,7 @@ const compute= UI=> {
 	function advanceFn() {
 		const newSalary= mpf ? salary* .95 : salary;
 		const preDay= newSalary/dutyDays;
-		const preHour= preDay/dutyHours;
+		const preHour= preDay/(dutyHours);
 		return {preDay,preHour}
 	}
 }
