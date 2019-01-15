@@ -6,13 +6,21 @@ import SalaryForm from './SalaryForm';
 import {Button} from 'react-bootstrap';
 
 const compute= UI=> {
-	const {salary, dutyDays, dutyHours, mpf}= UI;
+	const {mode, salary, dutyDays, dutyHours, mpf}= UI;
 	if(!is(String,salary)) return;
-	const newSalary= mpf ? salary* .95 : salary;
-	const preDay= newSalary/dutyDays;
-	const preHour= preDay/dutyHours;
-			
-	return {preDay,preHour}
+	if(mode=== 'advance') return advanceFn()
+	return simpleFn();
+	function simpleFn() {
+		const preDay= salary/dutyDays;
+		const preHour= preDay/dutyHours;
+		return {preDay,preHour}
+	}
+	function advanceFn() {
+		const newSalary= mpf ? salary* .95 : salary;
+		const preDay= newSalary/dutyDays;
+		const preHour= preDay/dutyHours;
+		return {preDay,preHour}
+	}
 }
 const upper= text=> {
 	if(!text || text==="") return "";
