@@ -26,12 +26,13 @@ import {pipe, lte, is} from 'ramda';
 // const getProps=props=>{
 	// return {preDay, preHour}
 // }
-const SalaryResult= ({preDay, preHour})=>{
+const SalaryResult= ({preDay, preHour, totalHours})=>{
 	const check= target=> is(Number,target) && lte(0,target);
 	if(!check(preDay) || !check(preHour)) return <div>Please Fill</div>
 	const to= pipe(x=> x*10, Math.round, x=> x/10);
 	return (<Frag>
 		<h2>Result (Simple)</h2>
+		<div>Hour pre day {totalHours}</div>
 		<div>Pre Day ${to(preDay)}</div>
 		<div>Pre Hour ${to(preHour)}</div>
 	</Frag>)

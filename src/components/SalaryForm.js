@@ -1,6 +1,7 @@
 import React,{Fragment as Frag} from "react";
 // import PropTypes from "prop-types";
-import {cond, equals, always} from 'ramda';
+import {both, complement, is, pipe, cond, equals, always} from 'ramda';
+import {travelArray} from '../init/project';
 // import {Button} from 'react-bootstrap';
 const Input=({refer,...rest})=><input ref={ele=>this[refer]=ele} name={refer} {...{...rest}}/>;
 
@@ -10,18 +11,21 @@ const getProps=props=>{
 
 	const saveData= ({target})=> {
 		const name=target.getAttribute('name');
-		const value=cond([
+		const getValue=cond([
 			[equals('checkbox'), always(target.checked)],
 			[()=>true, always(target.value)],
-		])(target.type);
+		]);
+	const isValidNumber = both(is(Number), complement(equals(NaN)));
+	const canBeNumber= target=> isValidNumber(parseFloat(target)) ? parseFloat(target) : target
+		const value=pipe(getValue, canBeNumber)(target.type);
+		console.log('value is :',value);
+				
 		updateUI({[name]:value});
 	}
-	const travelArray= [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60,
-	 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180];
 	const rangeConfig_a= cmd=> 
 	({step:.5 , type:"range", className:"slider", style:{width:"30%"}, ...cmd });
-  	const rangeConfig= params=> rangeConfig_a({onChange:saveData, ...params, defaultValue:UI[params.refer]})
-	return {travelArray, saveData, rangeConfig, rangeConfig_a }
+  	const rangeConfig= params=> rangeConfig_a({onChange:saveData, defaultValue:UI[params.refer], ...params })
+	return {saveData, rangeConfig, rangeConfig_a }
 }
 const Simple= ({props})=>{
   	const {UI}=props;
@@ -37,7 +41,7 @@ const Simple= ({props})=>{
 )}
 const Advance= ({props})=>{
   	const {UI}=props;
-  	const {saveData, rangeConfig, travelArray}=getProps(props);
+  	const {saveData, rangeConfig}=getProps(props);
   	const dutyDaysConfig=rangeConfig({min:.5, max:7, refer:"dutyDays"});
   	const dutyHoursConfig=rangeConfig({min:.5, max:16, refer:"dutyHours"});
   	const travelIndexConfig=rangeConfig({min:0, max:24, step:1, refer:"travelIndex"});
