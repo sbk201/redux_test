@@ -42,7 +42,8 @@ const Advance= ({props})=>{
   	const {saveData, rangeConfig}=getProps(props);
   	const dutyDaysConfig=rangeConfig({min:.5, max:7, refer:"dutyDays"});
   	const dutyHoursConfig=rangeConfig({min:.5, max:16, refer:"dutyHours"});
-  	const travelIndexConfig=rangeConfig({min:0, max:24, step:1, refer:"travelIndex"});
+  	const travelIndexConfig=rangeConfig({min:0, max:30, step:1, refer:"travelIndex"});
+  	const travelCostConfig=rangeConfig({min:0, max:100, step:1, refer:"travelCost"});
 	return (
 	<Frag>
 		<div> Salary <Input refer="salary" onChange={saveData} defaultValue={UI.salary}/>  </div>
@@ -50,6 +51,7 @@ const Advance= ({props})=>{
 		<div> Duty Days {UI.dutyDays}<br/> <Input {...dutyDaysConfig}/> <br/></div>
 		<div> Duty Hours {UI.dutyHours}<br/> <Input {...dutyHoursConfig}/> <br/></div>
 		<div> Travel Time (Mins) {travelArray[UI.travelIndex]}<br/> <Input {...travelIndexConfig}/> <br/></div>
+		<div> Travel Cost (Day) ${UI.travelCost}<br/> <Input {...travelCostConfig}/> <br/></div>
 	</Frag>
 )}
 const SalaryForm=props=>{

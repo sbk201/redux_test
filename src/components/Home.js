@@ -1,13 +1,14 @@
 import React from "react";
 // import PropTypes from "prop-types";
-import {is} from 'ramda';
+import {is, dec, pipe, curry} from 'ramda';
 import SalaryResult from './SalaryResult';
 import SalaryForm from './SalaryForm';
 import {Button} from 'react-bootstrap';
 import {travelArray} from '../init/project';
 
 const compute= UI=> {
-	const {mode, salary, dutyDays, dutyHours, travelIndex, mpf}= UI;
+	const {mode, salary, dutyDays, dutyHours, travelIndex, travelCost, mpf}= UI;
+	const ifFn= curry( (condit, fn, value)=> condit? fn(value) : value )
 	if(!is(Number,salary)) return;
 	if(mode=== 'advance') return advanceFn();
 	return simpleFn();
@@ -18,9 +19,10 @@ const compute= UI=> {
 		return {preDay, preHour, totalHours}
 	}
 	function advanceFn() {
-		const newSalary= mpf ? salary* .95 : salary;
+		const forMpf= ifFn(mpf, x=> x* .95);
+		const newSalary= pipe(forMpf)(salary);
 		const totalHours= dutyHours+ travelArray[travelIndex]/60*2;
-		const preDay= newSalary/dutyDays;
+		const preDay= newSalary/dutyDays -travelCost;
 		const preHour= preDay/(dutyHours+ travelArray[travelIndex]/60*2);
 		return {preDay, preHour, totalHours}
 	}

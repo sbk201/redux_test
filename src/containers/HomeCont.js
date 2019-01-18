@@ -7,7 +7,9 @@ const contName="Home";
 class HomeCont extends Component {
   componentDidMount() {
     // this.props.listen();
-    this.props.updateUI({dutyDays:5, dutyHours:9, travelIndex:0});
+    const defaultConfig= {dutyDays:5, dutyHours:9, 
+      travelIndex:0, travelCost:0};
+    this.props.updateUI(defaultConfig);
     this.props.updateUI({salary:1500, mode:"advance"});
   }
   

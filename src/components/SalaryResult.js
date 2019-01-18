@@ -32,7 +32,7 @@ const SalaryResult= ({preDay, preHour, totalHours})=>{
 	const to= pipe(x=> x*10, Math.round, x=> x/10);
 	return (<Frag>
 		<h2>Result (Simple)</h2>
-		<div>Hour pre day {totalHours}</div>
+		<div>Hour pre day {to(totalHours)}</div>
 		<div>Pre Day ${to(preDay)}</div>
 		<div>Pre Hour ${to(preHour)}</div>
 	</Frag>)
