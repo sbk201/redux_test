@@ -15,15 +15,13 @@ const getProps=props=>{
 			[equals('checkbox'), always(target.checked)],
 			[()=>true, always(target.value)],
 		]);
-	const isValidNumber = both(is(Number), complement(equals(NaN)));
-	const canBeNumber= target=> isValidNumber(parseFloat(target)) ? parseFloat(target) : target
+		const isValidNumber = both(is(Number), complement(equals(NaN)));
+		const canBeNumber= target=> isValidNumber(parseFloat(target)) ? parseFloat(target) : target;
 		const value=pipe(getValue, canBeNumber)(target.type);
-		console.log('value is :',value);
-				
 		updateUI({[name]:value});
 	}
 	const rangeConfig_a= cmd=> 
-	({step:.5 , type:"range", className:"slider", style:{width:"30%"}, ...cmd });
+		({step:.5 , type:"range", className:"slider", style:{width:"30%"}, ...cmd });
   	const rangeConfig= params=> rangeConfig_a({onChange:saveData, defaultValue:UI[params.refer], ...params })
 	return {saveData, rangeConfig, rangeConfig_a }
 }
