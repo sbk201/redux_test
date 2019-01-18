@@ -8,7 +8,7 @@ class HomeCont extends Component {
   componentDidMount() {
     // this.props.listen();
     this.props.updateUI({dutyDays:5, dutyHours:9, travelIndex:0});
-    this.props.updateUI({salary:"1500", mode:"advance"});
+    this.props.updateUI({salary:1500, mode:"advance"});
   }
   
   render(){

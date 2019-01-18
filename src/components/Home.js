@@ -8,8 +8,8 @@ import {travelArray} from '../init/project';
 
 const compute= UI=> {
 	const {mode, salary, dutyDays, dutyHours, travelIndex, mpf}= UI;
-	if(!is(String,salary)) return;
-	if(mode=== 'advance') return advanceFn()
+	if(!is(Number,salary)) return;
+	if(mode=== 'advance') return advanceFn();
 	return simpleFn();
 	function simpleFn() {
 		const preDay= salary/dutyDays;
