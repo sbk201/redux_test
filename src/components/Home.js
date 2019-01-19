@@ -1,6 +1,6 @@
 import React from "react";
 // import PropTypes from "prop-types";
-import {is, dec, pipe, curry} from 'ramda';
+import {is, pipe, curry} from 'ramda';
 import SalaryResult from './SalaryResult';
 import SalaryForm from './SalaryForm';
 import {Button} from 'react-bootstrap';
