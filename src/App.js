@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import React, { Component, Fragment as Frag} from "react";
 import "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import UINavbar from "./components/UINavbar"
 import HomeCont from "./containers/HomeCont";
 
 const mapStateToProps = (state) => {
@@ -22,6 +23,7 @@ class App extends Component {
 			<Frag>
 				<Router>
 					<Frag>
+						<UINavbar/><br/><br/><br/>
 						<Switch>
 							<Route exact path="/" component={HomeCont} />
 							<Route component={HomeCont} />

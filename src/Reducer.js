@@ -13,17 +13,19 @@ const localUI = (state = {}, action) => {
 	}
 };
 
-const news= (state = [], action) => {
+const jobs= (state = [], action) => {
   switch (action.type) {
-  case "GET_NEWS":
-  return action.news;
+  case "GET_JOBS":
+  	return action.jobs;
+  case "ADD_JOB":
+  	return [...state,action.job];
   default:
     return state;
   }
 };
 
 const allReducers = combineReducers({
-  localUI,news
+  localUI,jobs
 })
 
 export default allReducers

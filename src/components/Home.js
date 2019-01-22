@@ -1,7 +1,7 @@
 import React from "react";
 // import PropTypes from "prop-types";
 import {is, pipe, curry} from 'ramda';
-import SalaryResult from './SalaryResult';
+import SalaryResultCont from '../containers/SalaryResultCont';
 import SalaryForm from './SalaryForm';
 import {Button} from 'react-bootstrap';
 import {travelArray} from '../init/project';
@@ -51,7 +51,7 @@ const Home=props=>{
 			<Button bsStyle="primary" onClick={()=>toggleMode(mode)}> {upper(mode)} Calculator</Button>
 			<SalaryForm {...{UI, updateUI, mode}}/>
 			<hr/>
-			<SalaryResult {...{mode, preDay, preHour, totalHours}}/>
+			<SalaryResultCont {...{mode, preDay, preHour, totalHours}}/>
 		</div>
 	);
 }

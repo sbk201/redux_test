@@ -9,6 +9,7 @@ export const insertInputs=inputs=>({type: "INSERT_INPUTS",inputs});
 
 export const getTodos=todos=>({type: "GET_TODOS", todos });
 export const getNews=news=>({type: "GET_NEWS", news });
+export const addJob=job=>({type: "ADD_JOB", job });
 
 // const toNull=firebase.firestore.FieldValue.delete;
 

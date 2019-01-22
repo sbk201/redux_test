@@ -1,5 +1,4 @@
 import React from "react";
-import brand from '../img/brand.png';
 import { Nav,NavItem,Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -9,7 +8,9 @@ const UINavbar=props=>{
 		<Navbar collapseOnSelect fixedTop>
 			<Navbar.Header>
 				<Navbar.Brand style={{paddingTop:"0.5rem",paddingBottom:"0.5rem"}}>
-					<Link to="/" style={{padding:"0.5rem"}}><img src={brand} style={{width:"2em"}} alt=""/></Link>
+					<Link to="/" style={{padding:"0.5rem"}}>
+					{/*<img src={brand} style={{width:"2em"}} alt=""/>*/}
+					</Link>
 					Main App
 				</Navbar.Brand>
 
@@ -18,9 +19,6 @@ const UINavbar=props=>{
 			<Navbar.Collapse>
 				<Nav>
 					<NavIt link="/gallery"> Gallery </NavIt>
-					<NavIt link="/formFill"> Form </NavIt>
-					<NavIt link="/todo"> Todo </NavIt>
-					<NavIt link="/signIn"> Signin </NavIt>
 					<NavIt link="/123123"> 404 </NavIt>
 				</Nav>
 				<Nav pullRight>
