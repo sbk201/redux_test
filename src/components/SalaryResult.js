@@ -8,14 +8,14 @@ const getProps=props=>{
 	return {addJob}
 }
 const SalaryResult= props=>{
-	const {preDay, preHour, totalHours}= props;
+	const {preDay, preHour, totalHours, jobs}= props;
 	const {addJob}= getProps(props);
 	return (<Frag>
 		<h2>Result</h2>
-		<button onClick={addJob}>+</button>
 		<div>Hour pre day {totalHours}</div>
 		<div>Pre Day ${preDay}</div>
 		<div>Pre Hour ${preHour}</div>
+		<button onClick={addJob}>+</button> Add to the list ({jobs.length} job)
 	</Frag>)
 }
 export default SalaryResult

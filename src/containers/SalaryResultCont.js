@@ -19,9 +19,9 @@ class SalaryResultCont extends Component {
 }
 const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
-  // const {}=state;
+  const {jobs}=state;
   return {
-    UI
+    UI, jobs
   }
 }
 const mapDispatchToProps = (dispatch) => {

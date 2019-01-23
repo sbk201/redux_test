@@ -27,30 +27,19 @@ const compute= UI=> {
 		return {preDay, preHour, totalHours}
 	}
 }
-const upper= text=> {
-	if(!text || text==="") return "";
-	return text[0].toUpperCase() + text.slice(1);
-}
 const getProps=props=>{
 	const {updateUI, UI}= props;
-	const toggleMode= mode_=> {
-		const mode= mode_ ==="advance" ? "simple" : "advance";
-		updateUI({mode});
-	};
-
-	const {preDay, preHour, totalHours}= compute(UI) || {};
-	const mode= (UI&& UI.mode) || "simple";
-	return {mode, toggleMode, preDay, preHour, totalHours}
+  	const mode= props.match.path.slice(1);
+	const computeObj={...UI, mode}
+	const {preDay, preHour, totalHours}= compute(computeObj) || {};
+	return {mode, preDay, preHour, totalHours}
 }
 const Home=props=>{
-	console.log(props);
   	const {UI, updateUI}=props;
-  	const mode= props.match.path.slice(1);
-  	const {preDay, preHour, totalHours, toggleMode}=getProps(props);
+  	const {mode, preDay, preHour, totalHours}=getProps(props);
 	return (
 		<div>
-			<h1>Salary Calculator</h1>
-			<Button bsStyle="primary" onClick={()=>toggleMode(mode)}> {upper(mode)} Calculator</Button>
+			<h1>Salary Calculator ({mode})</h1>
 			<SalaryForm {...{UI, updateUI, mode}}/>
 			<hr/>
 			<SalaryResultCont {...{mode, preDay, preHour, totalHours}}/>
