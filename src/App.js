@@ -14,6 +14,7 @@ const mapDispatchToProps = (dispatch) => {
 		// fetch:()=>dispatch(smart.getIdeas()),
 	};
 };
+const NotFound= ()=> <div>404 Not Found</div>
 class App extends Component {
 	componentDidMount() {
 		// this.props.fetch();
@@ -26,7 +27,9 @@ class App extends Component {
 						<UINavbar/><br/><br/><br/>
 						<Switch>
 							<Route exact path="/" component={HomeCont} />
-							<Route component={HomeCont} />
+							<Route exact path="/simple" component={HomeCont} />
+							<Route exact path="/advance" component={HomeCont} />
+							<Route component={NotFound} />
 						</Switch>
 					</Frag>
 				</Router>

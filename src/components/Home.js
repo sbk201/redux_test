@@ -43,8 +43,10 @@ const getProps=props=>{
 	return {mode, toggleMode, preDay, preHour, totalHours}
 }
 const Home=props=>{
+	console.log(props);
   	const {UI, updateUI}=props;
-  	const {mode, preDay, preHour, totalHours, toggleMode}=getProps(props);
+  	const mode= props.match.path.slice(1);
+  	const {preDay, preHour, totalHours, toggleMode}=getProps(props);
 	return (
 		<div>
 			<h1>Salary Calculator</h1>

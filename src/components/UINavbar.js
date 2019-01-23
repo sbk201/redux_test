@@ -35,16 +35,9 @@ class UINavbar extends Component {
 			</Navbar.Header>
 			<Navbar.Collapse onClick={clickExpanded}>
 				<Nav>
-					<NavIt link="/gallery"> Gallery </NavIt>
+					<NavIt link="/simple"> Simple </NavIt>
+					<NavIt link="/advance"> Advance </NavIt>
 					<NavIt link="/123123"> 404 </NavIt>
-				</Nav>
-				<Nav pullRight>
-					<NavItem eventKey={1} href="#">
-            			Link Right
-					</NavItem>
-					<NavItem eventKey={2} href="#">
-            			Link Right
-					</NavItem>
 				</Nav>
 			</Navbar.Collapse>
 		</Navbar>
