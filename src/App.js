@@ -5,6 +5,7 @@ import "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import UINavbar from "./components/UINavbar"
 import HomeCont from "./containers/HomeCont";
+import JobsCont from "./containers/JobsCont";
 
 const mapStateToProps = (state) => {
 	return { };
@@ -29,6 +30,7 @@ class App extends Component {
 							<Route exact path="/" component={HomeCont} />
 							<Route exact path="/simple" component={HomeCont} />
 							<Route exact path="/advance" component={HomeCont} />
+							<Route exact path="/jobs" component={JobsCont} />
 							<Route component={NotFound} />
 						</Switch>
 					</Frag>

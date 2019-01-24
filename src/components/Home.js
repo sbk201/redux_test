@@ -29,7 +29,7 @@ const compute= UI=> {
 }
 const getProps=props=>{
 	const {updateUI, UI}= props;
-  	const mode= props.match.path.slice(1);
+  	const mode= props.match.path.slice(1) || "simple";
 	const computeObj={...UI, mode}
 	const {preDay, preHour, totalHours}= compute(computeObj) || {};
 	return {mode, preDay, preHour, totalHours}
