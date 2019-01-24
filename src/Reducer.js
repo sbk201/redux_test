@@ -12,8 +12,11 @@ const localUI = (state = {}, action) => {
 		return state;
 	}
 };
-
-const jobs= (state = [], action) => {
+const deJob=[
+	{"preDay": 300, "preHour": 33.3, "totalHours": 9 },
+	{"preDay": 400, "preHour": 44.4, "totalHours": 9 },
+]
+const jobs= (state = deJob, action) => {
   switch (action.type) {
   case "GET_JOBS":
   	return action.jobs;
