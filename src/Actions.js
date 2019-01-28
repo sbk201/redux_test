@@ -9,11 +9,16 @@ export const insertInputs=inputs=>({type: "INSERT_INPUTS",inputs});
 
 export const getTodos=todos=>({type: "GET_TODOS", todos });
 export const getNews=news=>({type: "GET_NEWS", news });
-export const addJob=job=>({type: "ADD_JOB", job });
+const addJob=job=>({type: "ADD_JOB", job });
+const addCounter=()=>({type: "ADD_COUNTER" });
 
 // const toNull=firebase.firestore.FieldValue.delete;
 
 export const smart={
+	addJob:(job)=> dispatch=> {
+		dispatch(addJob(job));
+		dispatch(addCounter());
+	}
 	// listenNews: ()=> dispatch=>{
 	// 	coll('newspaper').onSnapshot(()=>dispatch(smart.fetchNews()))
 	// },

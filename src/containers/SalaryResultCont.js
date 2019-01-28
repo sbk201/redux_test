@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React, { Component } from "react";
-import { updateUI, addJob} from '../Actions.js';
+import { updateUI, smart} from '../Actions.js';
 import SalaryResult from '../components/SalaryResult';
 import {pipe, lte, is, evolve} from 'ramda';
 const contName="SalaryResultCont";
@@ -19,9 +19,9 @@ class SalaryResultCont extends Component {
 }
 const mapStateToProps = (state) => {
   const UI=state.localUI[contName] || {};
-  const {jobs}=state;
+  const {jobs, counter}=state;
   return {
-    UI, jobs
+    UI, jobs, counter
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch) => {
   const dispatchFn= fn=> params=> dispatch(fn(params));
   return {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
-    addJob: dispatchFn(addJob)
+    addJob: dispatchFn(smart.addJob)
   }
 }
 

@@ -3,8 +3,8 @@ import React,{Fragment as Frag} from "react";
 // import {mapIndex} from '../init/global';
 
 const getProps=props=>{
-	const {preDay, preHour, totalHours}= props;
-	const addJob= ()=> props.addJob({preDay, preHour, totalHours});
+	const {preDay, preHour, totalHours, counter}= props;
+	const addJob= ()=> props.addJob({preDay, preHour, totalHours, id:counter+1});
 	return {addJob}
 }
 const SalaryResult= props=>{

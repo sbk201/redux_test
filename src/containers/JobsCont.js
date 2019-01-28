@@ -6,6 +6,7 @@ const contName="Jobs";
 
 class JobsCont extends Component {
   componentDidMount() {
+    
   }
   
   render(){
@@ -21,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
     updateUI:cmd=>dispatchUI({...cmd,contName}),
-
+    
   }
 }
 
