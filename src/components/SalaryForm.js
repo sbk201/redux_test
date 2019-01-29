@@ -50,8 +50,8 @@ const Advance= ({props})=>{
 		Included MPF? <Input type="checkbox" refer="mpf" onChange={saveData} defaultChecked={UI.mpf}/>
 		<div> Duty Days {UI.dutyDays}<br/> <Input {...dutyDaysConfig}/> <br/></div>
 		<div> Duty Hours {UI.dutyHours}<br/> <Input {...dutyHoursConfig}/> <br/></div>
-		<div> Travel Time (Mins) {travelArray[UI.travelIndex]}<br/> <Input {...travelIndexConfig}/> <br/></div>
-		<div> Travel Cost (Day) ${UI.travelCost}<br/> <Input {...travelCostConfig}/> <br/></div>
+		<div> Travel Time Per Day (Mins){travelArray[UI.travelIndex]}<br/> <Input {...travelIndexConfig}/> <br/></div>
+		<div> Travel Cost Per Day ${UI.travelCost}<br/> <Input {...travelCostConfig}/> <br/></div>
 	</Frag>
 )}
 const SalaryForm=props=>{

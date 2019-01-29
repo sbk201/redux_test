@@ -13,8 +13,8 @@ const getProps=props=>{
 		{dataField: 'title', text: 'Title', sort: true},
 		// {dataField: 'id', text: 'ID'},
 		{dataField: 'totalHours', text: 'Total Hours', sort: true},
-		{dataField: 'preDay', text: 'Pre Day', sort: true},
-		{dataField: 'preHour', text: 'Pre Hour', sort: true},
+		{dataField: 'preDay', text: 'Pre Day($)', sort: true},
+		{dataField: 'preHour', text: 'Pre Hour($)', sort: true},
 		{dataField: 'url', text: 'URL'},
 	];
 	const afterSaveCell= (o, n, job) => updateJob(job);
@@ -24,11 +24,15 @@ const getProps=props=>{
 const Jobs=props=>{
   	const {columns, cellEdit}=getProps( props );
   	const {jobs}= props;
+	const defaultSorted = [{
+	  dataField: 'preHour',
+	  order: 'desc'
+	}];
 	// const onEnter= fn=> e=> e.keyCode === 13 && fn( e.target.value );
 	return (
 		<div> 
 			<h1>Jobs</h1>
-			<BootstrapTable keyField='id' data={ jobs } columns={ columns } cellEdit={ cellEdit }
+			<BootstrapTable keyField='id' data={ jobs } columns={ columns } cellEdit={ cellEdit } defaultSorted={defaultSorted}
  			striped hover condensed/>
 		</div>
 	);
