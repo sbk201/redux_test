@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import {updateUI} from '../Actions.js'
+import {updateUI, updateJob} from '../Actions.js'
 import React, { Component } from "react";
 import Jobs from '../components/Jobs'
 const contName="Jobs";
@@ -19,9 +19,11 @@ const mapStateToProps = (state) => {
   return { UI, jobs }
 }
 const mapDispatchToProps = (dispatch) => {
+  const dispatchFn= fn=> params=> dispatch(fn(params));
   const dispatchUI=cmd=>dispatch(updateUI({...cmd,contName}));
   return {
-    updateUI:cmd=>dispatchUI({...cmd,contName}),
+    updateUI: cmd=>dispatchUI({...cmd,contName}),
+    updateJob: dispatchFn(updateJob)
     
   }
 }

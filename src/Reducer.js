@@ -1,5 +1,6 @@
 import {mergeClone} from './init/global';
 import { combineReducers } from 'redux';
+import {map} from 'ramda';
 
 const localUI = (state = {}, action) => {
 	switch (action.type) {
@@ -13,11 +14,11 @@ const localUI = (state = {}, action) => {
 	}
 };
 const deJob=[
-	{id:95 , url:"", title:"5", "preDay": 300, "preHour": 33.3, "totalHours": 9},
-	{id:96 , url:"", title:"6", "preDay": 400, "preHour": 44.4, "totalHours": 9},
-	{id:97 , url:"", title:"7", "preDay": 500, "preHour": 20, "totalHours": 9},
-	{id:98 , url:"", title:"8", "preDay": 600, "preHour": 33.3, "totalHours": 9},
-	{id:99 , url:"", title:"little rich", "preDay": 700, "preHour": 44.4, "totalHours": 8},
+  {"id": 95, "url": "", "title": "little poor", "preDay": 300, "preHour": 33.3, "totalHours": 9 },
+  {"id": 96, "url": "", "title": "better", "preDay": 400, "preHour": 44.4, "totalHours": 9 },
+  {"id": 97, "url": "", "title": "poor", "preDay": 500, "preHour": 20, "totalHours": 9 },
+  {"id": 98, "url": "", "title": "okay", "preDay": 600, "preHour": 33.3, "totalHours": 9 },
+  {"id": 99, "url": "", "title": "little rich", "preDay": 700, "preHour": 44.4, "totalHours": 8 }
 ]
 const jobs= (state = deJob, action) => {
   switch (action.type) {
@@ -27,8 +28,10 @@ const jobs= (state = deJob, action) => {
   	const job=mergeClone(action.job, {url:"", title:""});
   	return [...state, job];
   case "UPDATE_JOB":
-  	const id=action.job
-  	return [...state,action.job];
+  	const {id}=action.job
+  	const mapFn= job=> job.id===id ? action.job : job;
+  	const combine= map(mapFn);
+  	return combine(state);
   default:
     return state;
   }

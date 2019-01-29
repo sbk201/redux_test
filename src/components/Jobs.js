@@ -8,6 +8,7 @@ import cellEditFactory from 'react-bootstrap-table2-editor';
 
 const mapIndex=addIndex(map);
 const getProps=props=>{
+	const {updateJob}= props;
 	const columns = [
 		{dataField: 'title', text: 'Title', sort: true},
 		// {dataField: 'id', text: 'ID'},
@@ -16,14 +17,13 @@ const getProps=props=>{
 		{dataField: 'preHour', text: 'Pre Hour', sort: true},
 		{dataField: 'url', text: 'URL'},
 	];
-  	const cellEdit=cellEditFactory({ mode: 'click', blurToSave:true});
-	const normalize= mapIndex((job,i)=>({...job, id:i, url:"", title:""}));
-	return {columns, normalize, cellEdit};
+	const afterSaveCell= (o, n, job) => updateJob(job);
+  	const cellEdit=cellEditFactory({ mode: 'click', blurToSave:true, afterSaveCell});
+	return {columns, cellEdit};
 };
 const Jobs=props=>{
-  	const {columns, normalize, cellEdit}=getProps( props );
+  	const {columns, cellEdit}=getProps( props );
   	const {jobs}= props;
-  	console.log(jobs);
 	// const onEnter= fn=> e=> e.keyCode === 13 && fn( e.target.value );
 	return (
 		<div> 
