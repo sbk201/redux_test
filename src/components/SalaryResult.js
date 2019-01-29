@@ -1,4 +1,5 @@
 import React,{Fragment as Frag} from "react";
+import { Link } from "react-router-dom";
 // import PropTypes from "prop-types";
 // import {mapIndex} from '../init/global';
 
@@ -15,7 +16,9 @@ const SalaryResult= props=>{
 		<div>Hour pre day {totalHours}</div>
 		<div>Pre Day ${preDay}</div>
 		<div>Pre Hour ${preHour}</div>
-		<button onClick={addJob}>+</button> Add to the list ({jobs.length} job)
+		<Link to="/jobs"> <button onClick={addJob}>+</button></Link>
+		 Add to the list ({jobs.length} job)
+		
 	</Frag>)
 }
 export default SalaryResult
