@@ -21,9 +21,9 @@ const compute= UI=> {
 	function advanceFn() {
 		const forMpf= ifFn(mpf, x=> x* .95);
 		const newSalary= pipe(forMpf)(salary);
-		const totalHours= dutyHours+ travelArray[travelIndex]/60*2;
+		const totalHours= dutyHours+ travelArray[travelIndex]/60;
 		const preDay= newSalary/dutyDays -travelCost;
-		const preHour= preDay/(dutyHours+ travelArray[travelIndex]/60*2);
+		const preHour= preDay/totalHours;
 		return {preDay, preHour, totalHours}
 	}
 }

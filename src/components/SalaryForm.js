@@ -42,7 +42,8 @@ const Advance= ({props})=>{
   	const {saveData, rangeConfig}=getProps(props);
   	const dutyDaysConfig=rangeConfig({min:.5, max:7, refer:"dutyDays"});
   	const dutyHoursConfig=rangeConfig({min:.5, max:16, refer:"dutyHours"});
-  	const travelIndexConfig=rangeConfig({min:0, max:30, step:1, refer:"travelIndex"});
+  	const travelMax=travelArray.length-1;
+  	const travelIndexConfig=rangeConfig({min:0, max:travelMax, step:1, refer:"travelIndex"});
   	const travelCostConfig=rangeConfig({min:0, max:100, step:1, refer:"travelCost"});
 	return (
 	<Frag>

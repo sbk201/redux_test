@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import {updateUI} from '../Actions.js'
 import React, { Component } from "react";
 import Home from '../components/Home'
+import {isEmpty} from 'ramda';
 const contName="Home";
 
 class HomeCont extends Component {
@@ -14,6 +15,7 @@ class HomeCont extends Component {
   }
   
   render(){
+    if(isEmpty(this.props.UI)) return <div>Loading</div>
     return <Home {...this.props}/>
   }
 }
