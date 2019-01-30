@@ -6,12 +6,10 @@ import {map, addIndex} from "ramda";
 import BootstrapTable from 'react-bootstrap-table-next';
 import cellEditFactory from 'react-bootstrap-table2-editor';
 
-const mapIndex=addIndex(map);
 const getProps=props=>{
 	const {updateJob}= props;
 	const columns = [
 		{dataField: 'title', text: 'Title', sort: true},
-		// {dataField: 'id', text: 'ID'},
 		{dataField: 'totalHours', text: 'Total Hours', sort: true},
 		{dataField: 'preDay', text: 'Pre Day($)', sort: true},
 		{dataField: 'preHour', text: 'Pre Hour($)', sort: true},

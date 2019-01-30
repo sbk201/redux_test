@@ -1,7 +1,6 @@
 import React,{Fragment as Frag} from "react";
 import { Link } from "react-router-dom";
 // import PropTypes from "prop-types";
-// import {mapIndex} from '../init/global';
 
 const getProps=props=>{
 	const {preDay, preHour, totalHours, counter}= props;

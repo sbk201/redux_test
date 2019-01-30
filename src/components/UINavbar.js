@@ -1,4 +1,4 @@
-import React, { Component, Fragment as Frag} from "react";
+import React, { Component} from "react";
 import { connect } from "react-redux";
 import { Nav,NavItem,Navbar } from "react-bootstrap";
 import {updateUI} from '../Actions.js'
