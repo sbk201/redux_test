@@ -7,6 +7,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import cellEditFactory from 'react-bootstrap-table2-editor';
 
 const getProps=props=>{
+	console.log(props);
 	const {updateJob}= props;
 	const columns = [
 		{dataField: 'title', text: 'Title', sort: true},

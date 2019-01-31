@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import UINavbar from "./components/UINavbar"
 import HomeCont from "./containers/HomeCont";
 import JobsCont from "./containers/JobsCont";
+import JobCont from "./containers/JobCont";
 
 const mapStateToProps = (state) => {
 	return { };
@@ -32,6 +33,7 @@ class App extends Component {
 							<Route exact path="/simple" component={HomeCont} />
 							<Route exact path="/advance" component={HomeCont} />
 							<Route exact path="/jobs" component={JobsCont} />
+							<Route path="/jobs/:id" component={JobCont} />
 							<Route component={NotFound} />
 						</Switch>
 					</Frag>
