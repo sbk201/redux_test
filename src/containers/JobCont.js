@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import {updateUI, updateJob} from '../Actions.js'
 import React, { Component } from "react";
 import Job from '../components/Job'
+import { merge} from 'ramda';
 const contName="Job";
 
 class JobsCont extends Component {
@@ -10,8 +11,11 @@ class JobsCont extends Component {
   }
   
   render(){
-    
-    return <Job {...this.props}/>
+    const props=this.props;
+    const id=parseInt(props.match.params.id);
+    const thisJob= props.jobs.find(job=> job.id===id);
+    const output=merge({thisJob})(props);
+    return <Job {...output}/>
   }
 }
 const mapStateToProps = (state) => {

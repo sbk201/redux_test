@@ -2,22 +2,28 @@ import React from "react";
 // import PropTypes from "prop-types";
 // import {mapProp} from "../init/global";
 // import {format} from "date-fns"
-import {map, addIndex} from "ramda";
-import BootstrapTable from 'react-bootstrap-table-next';
-import cellEditFactory from 'react-bootstrap-table2-editor';
+import {pipe, prop, map, addIndex} from "ramda";
 
 const getProps=props=>{
 	// const {updateJob}= props;
-	return {};
+	const mapIndex=addIndex(map);
+	const oneItem= ([title,value],index)=> <div key={index}>{title} , {value}</div>
+	const MyTable= pipe(
+		prop('thisJob'),
+		Object.entries,
+		mapIndex(oneItem)
+	)
+	return {MyTable};
 };
 const Jobs=props=>{
-  	// const {columns, cellEdit}=getProps( props );
-  	const {jobs}= props;
+  	const {MyTable}=getProps( props );
+  	const {thisJob}= props;
+  	console.log(thisJob)
 	// const onEnter= fn=> e=> e.keyCode === 13 && fn( e.target.value );
 	return (
 		<div> 
 			<h1>Just Job</h1>
-			
+			<MyTable thisJob={thisJob} />
 		</div>
 	);
 };
