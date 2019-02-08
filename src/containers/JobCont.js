@@ -15,6 +15,7 @@ class JobsCont extends Component {
     const id=parseInt(props.match.params.id);
     const thisJob= props.jobs.find(job=> job.id===id);
     const output=merge({thisJob})(props);
+    if(!thisJob) return <div>This Job doesn't exist.</div>
     return <Job {...output}/>
   }
 }
