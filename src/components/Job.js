@@ -3,6 +3,7 @@ import React from "react";
 // import {mapProp} from "../init/global";
 // import {format} from "date-fns"
 import {pipe, prop, map, addIndex} from "ramda";
+import { Link } from "react-router-dom";
 
 const getProps=props=>{
 	// const {updateJob}= props;
@@ -22,6 +23,7 @@ const Jobs=props=>{
 	// const onEnter= fn=> e=> e.keyCode === 13 && fn( e.target.value );
 	return (
 		<div> 
+			<Link to="/jobs"> <button>Back to List</button></Link>
 			<h1>Just Job</h1>
 			<MyTable thisJob={thisJob} />
 		</div>

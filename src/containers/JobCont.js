@@ -12,7 +12,7 @@ class JobsCont extends Component {
   
   render(){
     const props=this.props;
-    const id=parseInt(props.match.params.id);
+    const id=Number(props.match.params.id);
     const thisJob= props.jobs.find(job=> job.id===id);
     const output=merge({thisJob})(props);
     if(!thisJob) return <div>This Job doesn't exist.</div>
