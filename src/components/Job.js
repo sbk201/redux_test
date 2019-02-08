@@ -8,11 +8,12 @@ import { Link } from "react-router-dom";
 const getProps=props=>{
 	// const {updateJob}= props;
 	const mapIndex=addIndex(map);
-	const oneItem= ([title,value],index)=> <div key={index}>{title} , {value}</div>
+	const oneItem= ([title,value],index)=> <tr key={index}><td>{title}</td><td>{value}</td></tr>
 	const MyTable= pipe(
 		prop('thisJob'),
 		Object.entries,
-		mapIndex(oneItem)
+		mapIndex(oneItem),
+		dom=> <table><tbody>{dom}</tbody></table>
 	)
 	return {MyTable};
 };

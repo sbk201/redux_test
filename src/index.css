@@ -48,6 +48,9 @@ input {
   background: #4CAF50;
   cursor: pointer;
 }
+table td {
+  padding: 0 1rem;
+}
 * {
   font-size: 1.6rem;
 }
