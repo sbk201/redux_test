@@ -15,6 +15,7 @@ class SalaryResultCont extends Component {
     const to= pipe(x=> x*10, Math.round, x=> x/10);
     const compution= pipe(compute, evolve({preDay:to, preHour:to, totalHours:to}),
     )(props.form);
+    console.log("compution ",compution);
     const output=pipe(omit(['form']), merge(compution)
     )(props);
     const {preDay, preHour}= output;
@@ -49,7 +50,7 @@ const compute= form=> {
     const preDay= salary/dutyDays;
     const preHour= preDay/dutyHours;
     const totalHours= dutyHours;
-    return {preDay, preHour, totalHours}
+    return {preDay, preHour, totalHours, salary}
   }
   function advanceFn() {
     const forMpf= ifFn(mpf, x=> x* .95);
@@ -57,7 +58,7 @@ const compute= form=> {
     const totalHours= dutyHours+ travelArray[travelIndex]/60;
     const preDay= newSalary/dutyDays -travelCost;
     const preHour= preDay/totalHours;
-    return {preDay, preHour, totalHours}
+    return {preDay, preHour, totalHours, salary}
   }
 }
 export default connect(

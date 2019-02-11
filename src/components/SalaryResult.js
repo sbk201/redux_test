@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 // import PropTypes from "prop-types";
 
 const getProps=props=>{
-	const {preDay, preHour, totalHours, counter}= props;
-	const addJob= ()=> props.addJob({preDay, preHour, totalHours, id:counter+1});
+	const {preDay, preHour, totalHours, counter, salary}= props;
+	const addJob= ()=> props.addJob({preDay, preHour, totalHours, salary, id:counter+1});
 	return {addJob}
 }
 const SalaryResult= props=>{
