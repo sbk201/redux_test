@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment as Frag} from "react";
 // import PropTypes from "prop-types";
 // import {mapProp} from "../init/global";
 // import {format} from "date-fns"
@@ -24,17 +24,18 @@ const getProps=props=>{
 		dom=> <table><tbody>{dom}</tbody></table>
 	)
 	const toggleEdit=()=>updateUI({editing:!editing});
-	return { MyTable, toggleEdit, editing};
+	const editButton= editing ? <Frag/> : <button onClick={toggleEdit}>Edit</button>
+	return { MyTable, toggleEdit, editing, editButton};
 };
 const Jobs=props=>{
-	const { MyTable, toggleEdit, editing} = getProps(props);
+	const { MyTable, toggleEdit, editing, editButton} = getProps(props);
   	const {thisJob}= props;
 	// const onEnter= fn=> e=> e.keyCode === 13 && fn( e.target.value );
 	return (
 		<div> 
 			<Link to="/jobs"> <button>Back to List</button></Link>
 			<h1>Just Job</h1>
-			<button onClick={toggleEdit}>{editing ? "save" : "edit"}</button>
+			{editButton}
 			<MyTable thisJob={thisJob} />
 		</div>
 	);
