@@ -15,7 +15,7 @@ class SalaryResultCont extends Component {
     const to= pipe(x=> x*10, Math.round, x=> x/10);
     const compution= pipe(compute, evolve({preDay:to, preHour:to, totalHours:to}),
     )(props.form);
-    console.log("compution ",compution);
+    // console.log("compution ",compution);
     const output=pipe(omit(['form']), merge(compution)
     )(props);
     const {preDay, preHour}= output;

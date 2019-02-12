@@ -1,22 +1,40 @@
 import React from "react";
 // import PropTypes from "prop-types";
 // import {mapProp} from "../init/global";
-import {map, addIndex} from "ramda";
+import {map, pipe, evolve} from "ramda";
 import BootstrapTable from 'react-bootstrap-table-next';
 // import cellEditFactory from 'react-bootstrap-table2-editor';
 import { createBrowserHistory } from 'history';
-
+const getDomain= (url_, subdomain=false) => {
+    let url = url_.replace(/(https?:\/\/)?(www.)?/i, '');
+    if (!subdomain) {
+        url = url.split('.');
+        url = url.slice(url.length - 2).join('.');
+    }
+    if (url.indexOf('/') !== -1) {
+        return url.split('/')[0];
+    }
+    return url;
+}
 const getProps=props=>{
 	const {updateJob}= props;
 	const rowEvents = {
-	  onClick: (e, row, rowIndex) => {
-	  	const className=e.target.className;
-	  	const id= row.id;
+	  onClick: ({target}, row, rowIndex) => {
+	  	const className=target.className;
+	  	const {id, realUrl}= row;
 	  	if(className==="theButton") props.history.push(`/jobs/${id}`);
-	  	// console.log(, row, rowIndex)
-		
+	  	if(className==="url") {
+	  		if(!realUrl) return
+	  		console.warn(`stopped window open ${realUrl}`)
+	  		// window.open(realUrl,'_blank');
+	  		console.log(getDomain(realUrl));
+	  	}
 	  }
 	};
+  	const norm= pipe(
+		map(job=> ({...job, button:"View", realUrl:job.url})),
+		map(evolve({url:getDomain}))
+	) 
 	const buttonStyle={textAlign:"center", cursor: "pointer"};
 	const columns = [
 		{dataField: 'button', text: '', style: buttonStyle, classes:"theButton"},
@@ -25,16 +43,15 @@ const getProps=props=>{
 		// {dataField: 'totalHours', text: 'Total Hours', sort: true},
 		// {dataField: 'preDay', text: 'Pre Day($)', sort: true},
 		{dataField: 'preHour', text: 'Pre Hour($)', sort: true},
-		{dataField: 'url', text: 'URL'},
+		{dataField: 'url', text: 'URL', classes:"url", style:{cursor: "pointer"}},
 	];
 	// const afterSaveCell= (o, n, job) => updateJob(job);
   	// const cellEdit=cellEditFactory({ mode: 'click', blurToSave:true, afterSaveCell});
-	return {columns, rowEvents};
+	return {columns, rowEvents, norm};
 };
 const Jobs=props=>{
-  	const {columns, rowEvents}=getProps( props );
+  	const {columns, rowEvents, norm}=getProps( props );
   	const {jobs}= props;
-  	const norm= map(job=> ({...job, button:"View"}))
 	const defaultSorted = [{
 	  dataField: 'preHour',
 	  order: 'desc'
