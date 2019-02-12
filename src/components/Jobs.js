@@ -19,13 +19,13 @@ const getProps=props=>{
 	};
 	const buttonStyle={textAlign:"center", cursor: "pointer"};
 	const columns = [
+		{dataField: 'button', text: '', style: buttonStyle, classes:"theButton"},
 		{dataField: 'title', text: 'Title', sort: true},
 		{dataField: 'salary', text: 'Salary($)', sort: true},
 		// {dataField: 'totalHours', text: 'Total Hours', sort: true},
 		// {dataField: 'preDay', text: 'Pre Day($)', sort: true},
 		{dataField: 'preHour', text: 'Pre Hour($)', sort: true},
 		{dataField: 'url', text: 'URL'},
-		{dataField: 'button', text: '', style: buttonStyle, classes:"theButton"},
 	];
 	// const afterSaveCell= (o, n, job) => updateJob(job);
   	// const cellEdit=cellEditFactory({ mode: 'click', blurToSave:true, afterSaveCell});
