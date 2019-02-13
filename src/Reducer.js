@@ -14,11 +14,9 @@ const localUI = (state = {}, action) => {
 	}
 };
 const deJob=[
-  {"id": 95, salary:5000, "url": "https://www.google.com/", "title": "little poor", "preDay": 300, "preHour": 33.3, "totalHours": 9 },
-  {"id": 96, salary:6000, "url": "", "title": "better", "preDay": 400, "preHour": 44.4, "totalHours": 9 },
-  {"id": 97, salary:7000, "url": "", "title": "poor", "preDay": 500, "preHour": 20, "totalHours": 9 },
-  {"id": 98, salary:8000, "url": "", "title": "okay", "preDay": 600, "preHour": 33.3, "totalHours": 9 },
-  {"id": 99, salary:9000, "url": "", "title": "little rich", "preDay": 700, "preHour": 44.4, "totalHours": 8 }
+  {"id": 9997, salary:10000, "url": "https://hk.jobsdb.com/hk", "title": "Developer", "preDay": 300, "preHour": 100, "totalHours": 9 },
+  {"id": 9998, salary:11000, "url": "https://www.ctgoodjobs.hk/", "title": "Casher", "preDay": 400, "preHour": 200, "totalHours": 9 },
+  {"id": 9999, salary:12000, "url": "https://www.jobmarket.com.hk/", "title": "Sales", "preDay": 500, "preHour": 300, "totalHours": 9 },
 ]
 const jobs= (state = deJob, action) => {
   switch (action.type) {

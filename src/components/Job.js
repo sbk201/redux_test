@@ -26,10 +26,10 @@ const getProps=props=>{
 	)
 	const toggleEdit=()=>updateUI({editing:!editing});
 	const editButton= editing ? <Frag/> : <button onClick={toggleEdit}>Edit</button>
-	return { MyTable, toggleEdit, editing, editButton, toBeforeView};
+	return { MyTable, editButton, toBeforeView};
 };
 const Jobs=props=>{
-	const { MyTable, toggleEdit, editing, editButton, toBeforeView} = getProps(props);
+	const { MyTable, editButton, toBeforeView} = getProps(props);
   	const {thisJob}= props;
 	// const onEnter= fn=> e=> e.keyCode === 13 && fn( e.target.value );
 	return (

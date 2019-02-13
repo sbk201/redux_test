@@ -4,7 +4,6 @@ import React from "react";
 import {map, pipe, evolve} from "ramda";
 import BootstrapTable from 'react-bootstrap-table-next';
 // import cellEditFactory from 'react-bootstrap-table2-editor';
-import { createBrowserHistory } from 'history';
 const getDomain= (url_, subdomain=false) => {
     let url = url_.replace(/(https?:\/\/)?(www.)?/i, '');
     if (!subdomain) {
@@ -17,7 +16,7 @@ const getDomain= (url_, subdomain=false) => {
     return url;
 }
 const getProps=props=>{
-	const {updateJob, delJob}= props;
+	const {delJob}= props;
 	const rowEvents = {
 	  onClick: ({target}, row, rowIndex) => {
 	  	const className=target.className;
@@ -47,8 +46,6 @@ const getProps=props=>{
 		{dataField: 'url', text: 'URL', classes:"url", style:{cursor: "pointer"}},
 		{dataField: 'buttonDelete', text: '', style: buttonStyle, classes:"buttonDelete"},
 	];
-	// const afterSaveCell= (o, n, job) => updateJob(job);
-  	// const cellEdit=cellEditFactory({ mode: 'click', blurToSave:true, afterSaveCell});
 	return {columns, rowEvents, norm};
 };
 const Jobs=props=>{
