@@ -17,12 +17,13 @@ const getDomain= (url_, subdomain=false) => {
     return url;
 }
 const getProps=props=>{
-	const {updateJob}= props;
+	const {updateJob, delJob}= props;
 	const rowEvents = {
 	  onClick: ({target}, row, rowIndex) => {
 	  	const className=target.className;
 	  	const {id, realUrl}= row;
-	  	if(className==="theButton") props.history.push(`/jobs/${id}`);
+	  	if(className==="buttonView") props.history.push(`/jobs/${id}`);
+	  	if(className==="buttonDelete") window.confirm("Delete?") && delJob(id);
 	  	if(className==="url") {
 	  		if(!realUrl) return
 	  		console.warn(`stopped window open ${realUrl}`)
@@ -32,18 +33,19 @@ const getProps=props=>{
 	  }
 	};
   	const norm= pipe(
-		map(job=> ({...job, button:"View", realUrl:job.url})),
+		map(job=> ({...job, buttonView:"View", buttonDelete:"Delete", realUrl:job.url})),
 		map(evolve({url:getDomain}))
 	) 
 	const buttonStyle={textAlign:"center", cursor: "pointer"};
 	const columns = [
-		{dataField: 'button', text: '', style: buttonStyle, classes:"theButton"},
+		{dataField: 'buttonView', text: '', style: buttonStyle, classes:"buttonView"},
 		{dataField: 'title', text: 'Title', sort: true},
 		{dataField: 'salary', text: 'Salary($)', sort: true},
 		// {dataField: 'totalHours', text: 'Total Hours', sort: true},
 		// {dataField: 'preDay', text: 'Pre Day($)', sort: true},
 		{dataField: 'preHour', text: 'Pre Hour($)', sort: true},
 		{dataField: 'url', text: 'URL', classes:"url", style:{cursor: "pointer"}},
+		{dataField: 'buttonDelete', text: '', style: buttonStyle, classes:"buttonDelete"},
 	];
 	// const afterSaveCell= (o, n, job) => updateJob(job);
   	// const cellEdit=cellEditFactory({ mode: 'click', blurToSave:true, afterSaveCell});

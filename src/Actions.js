@@ -10,6 +10,7 @@ export const insertInputs=inputs=>({type: "INSERT_INPUTS",inputs});
 export const getTodos=todos=>({type: "GET_TODOS", todos });
 export const getNews=news=>({type: "GET_NEWS", news });
 export const updateJob=job=>({type: "UPDATE_JOB", job });
+export const delJob=id=>({type: "DELETE_JOB", id });
 const addJob=job=>({type: "ADD_JOB", job });
 const addCounter=()=>({type: "ADD_COUNTER" });
 

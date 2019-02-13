@@ -32,6 +32,8 @@ const jobs= (state = deJob, action) => {
   	const mapFn= job=> job.id===id ? action.job : job;
   	const combine= map(mapFn);
   	return combine(state);
+  case "DELETE_JOB":
+  	return state.filter(job=> job.id!==action.id);
   default:
     return state;
   }
