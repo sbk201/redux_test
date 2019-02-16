@@ -4,16 +4,14 @@ import React from "react";
 import {map, pipe, evolve} from "ramda";
 import BootstrapTable from 'react-bootstrap-table-next';
 // import cellEditFactory from 'react-bootstrap-table2-editor';
-const getDomain= (url_, subdomain=false) => {
-    let url = url_.replace(/(https?:\/\/)?(www.)?/i, '');
-    if (!subdomain) {
-        url = url.split('.');
-        url = url.slice(url.length - 2).join('.');
-    }
-    if (url.indexOf('/') !== -1) {
-        return url.split('/')[0];
-    }
-    return url;
+const getDomain= url=> {
+	const match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
+	if (match != null && match.length > 2 && typeof match[2] === 'string' && match[2].length > 0) {
+		return match[2];
+	}
+	else {
+		return null;
+	}
 }
 const getProps=props=>{
 	const {delJob}= props;
@@ -27,13 +25,13 @@ const getProps=props=>{
 	  		if(!realUrl) return
 	  		console.warn(`stopped window open ${realUrl}`)
 	  		// window.open(realUrl,'_blank');
-	  		console.log(getDomain(realUrl));
+			console.log(getDomain(realUrl));
 	  	}
 	  }
 	};
   	const norm= pipe(
 		map(job=> ({...job, buttonView:"View", buttonDelete:"Delete", realUrl:job.url})),
-		map(evolve({url:getDomain}))
+		map(evolve({ url: getDomain }))
 	) 
 	const buttonStyle={textAlign:"center", cursor: "pointer"};
 	const columns = [
