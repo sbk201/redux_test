@@ -133,8 +133,8 @@ assignWhere(object,[["a",v=>v+10],["b",v=>v*100]]) //{"a": 11, "b": 200, "c": 3 
 */
 
 export const mergeClone=(...arg)=>merge(...arg.map(clone));
-export const isDev=process.env.NODE_ENV==='development';
-
+export const isDev = process.env.REACT_APP_SERVER_ENV === 'development';
+console.log(isDev, process.env.REACT_APP_SERVER_ENV)
 export const uniqueArrKey = key => (ele, pos,self)=> self.findIndex(el2=>el2[key]===ele[key]) === pos;
 
 export const ranUnique=(_self,len,record)=>{
@@ -227,7 +227,10 @@ if(isDev) Object.assign(window,{localSet, localGet,State,flow,statBy});
 
 // https://stackoverflow.com/a/30452949/1507207
 export default {...State};
-
+const save = (state) => {
+  localSet("lastState",state)
+}
+export {save}
 ;(function() {
     var lastTime = 0;
     var vendors = ['ms', 'moz', 'webkit', 'o'];
