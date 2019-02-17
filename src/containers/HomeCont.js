@@ -9,9 +9,10 @@ class HomeCont extends Component {
   componentDidMount() {
     // this.props.listen();
     const defaultConfig= {dutyDays:5, dutyHours:9, 
-      travelIndex:0, travelCost:0};
-    this.props.updateUI(defaultConfig);
-    this.props.updateUI({salary:1500, mode:"advance"});
+      travelIndex: 0, travelCost: 0, salary:10000, mode:"simple"};
+    const outputConfig = this.props.UI || defaultConfig;
+    console.log(outputConfig);
+    this.props.updateUI(outputConfig);
   }
   
   render(){

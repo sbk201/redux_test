@@ -221,9 +221,10 @@ const State={
 		return this
 	},
 }
+const clearState=()=> {delete localStorage.lastState};
 // window.addEventListener('keyup', this.props.testFn);
 // window.removeEventListener('keyup', this.props.testFn);
-if(isDev) Object.assign(window,{localSet, localGet,State,flow,statBy});
+if (isDev) Object.assign(window, { clearState, localSet, localGet, State, flow, statBy });
 
 // https://stackoverflow.com/a/30452949/1507207
 export default {...State};

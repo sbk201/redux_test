@@ -13,12 +13,12 @@ const localUI = (state = {}, action) => {
 		return state;
 	}
 };
-const deJob=[
-  {"id": 9997, salary:10000, "url": "https://hk.jobsdb.com/hk", "title": "Developer", "preDay": 300, "preHour": 100, "totalHours": 9 },
-  {"id": 9998, salary:11000, "url": "https://www.ctgoodjobs.hk/", "title": "Casher", "preDay": 400, "preHour": 200, "totalHours": 9 },
-  {"id": 9999, salary:12000, "url": "https://www.jobmarket.com.hk/", "title": "Sales", "preDay": 500, "preHour": 300, "totalHours": 9 },
-]
-const jobs= (state = deJob, action) => {
+// const deJob=[
+//   {"id": 9997, salary:10000, "url": "https://hk.jobsdb.com/hk", "title": "Developer", "preDay": 300, "preHour": 100, "totalHours": 9 },
+//   {"id": 9998, salary:11000, "url": "https://www.ctgoodjobs.hk/", "title": "Casher", "preDay": 400, "preHour": 200, "totalHours": 9 },
+//   {"id": 9999, salary:12000, "url": "https://www.jobmarket.com.hk/", "title": "Sales", "preDay": 500, "preHour": 300, "totalHours": 9 },
+// ]
+const jobs= (state = [], action) => {
   switch (action.type) {
   case "GET_JOBS":
   	return action.jobs;

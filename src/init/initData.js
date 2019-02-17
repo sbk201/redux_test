@@ -1,6 +1,9 @@
 const blankData={
-	// apidata:
-	// {"created": "2013-11-04T13:26:13.772349", "id": 1, "image": "/media/img/1383571573.78.png", "modified": "2013-11-04T13:26:13.772310", "name": "Bulbasaur_red_blue", "pokemon": {"name": "bulbasaur", "resource_uri": "/api/v1/pokemon/1/"}, "resource_uri": "/api/v1/sprite/1/"}
+	jobs: [
+		{ "id": 9997, salary: 10000, "url": "https://hk.jobsdb.com/hk", "title": "Developer", "preDay": 300, "preHour": 100, "totalHours": 9 },
+		{ "id": 9998, salary: 11000, "url": "https://www.ctgoodjobs.hk/", "title": "Casher", "preDay": 400, "preHour": 200, "totalHours": 9 },
+		{ "id": 9999, salary: 12000, "url": "https://www.jobmarket.com.hk/", "title": "Sales", "preDay": 500, "preHour": 300, "totalHours": 9 },
+	]
 };
 const localGet=key=> {
   try{
@@ -21,7 +24,7 @@ const stateExport=stateSaved() || blankData;
 console.log(`state ${stateId || ''} exported`,stateExport);
 
 const lastState = () => {
-	const state = localGet('lastState') || {};
+	const state = localGet('lastState') || blankData;
 	return state
 }
 
