@@ -134,7 +134,6 @@ assignWhere(object,[["a",v=>v+10],["b",v=>v*100]]) //{"a": 11, "b": 200, "c": 3 
 
 export const mergeClone=(...arg)=>merge(...arg.map(clone));
 export const isDev = process.env.REACT_APP_SERVER_ENV === 'development';
-console.log(isDev, process.env.REACT_APP_SERVER_ENV)
 export const uniqueArrKey = key => (ele, pos,self)=> self.findIndex(el2=>el2[key]===ele[key]) === pos;
 
 export const ranUnique=(_self,len,record)=>{

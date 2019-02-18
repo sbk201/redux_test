@@ -30,8 +30,6 @@ const Simple= ({props})=>{
   	const {saveData, rangeConfig}=getProps(props);
   	const dutyDaysConfig=rangeConfig({max:7, min:.5, refer:"dutyDays"});
   	const dutyHoursConfig=rangeConfig({max:16, min:.5, refer:"dutyHours"});
-	console.log('dutyDaysConfig is :', dutyDaysConfig)
-  			
 	return (
 	<Frag>
 		<div> Salary <Input refer="salary" onChange={saveData} defaultValue={UI.salary}/>  </div>

@@ -4,14 +4,13 @@ import React, { Component } from "react";
 import Home from '../components/Home'
 import {isEmpty} from 'ramda';
 const contName="Home";
-
+const ifEmptyElse = (a, b) => isEmpty(a) ? b : a;
 class HomeCont extends Component {
   componentDidMount() {
     // this.props.listen();
     const defaultConfig= {dutyDays:5, dutyHours:9, 
       travelIndex: 0, travelCost: 0, salary:10000, mode:"simple"};
-    const outputConfig = this.props.UI || defaultConfig;
-    console.log(outputConfig);
+    const outputConfig = ifEmptyElse(this.props.UI, defaultConfig);
     this.props.updateUI(outputConfig);
   }
   

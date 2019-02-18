@@ -11,7 +11,6 @@ import thunkMiddleware from 'redux-thunk';
 import initData, { lastState } from "./init/initData";
 import {debounce} from "lodash";
 import App from "./App";
-console.log("test",lastState());
 const store = createStore(reducers, lastState(), applyMiddleware(thunkMiddleware));
 window.store=store;
 const recordState=()=>{

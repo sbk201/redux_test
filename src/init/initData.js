@@ -21,7 +21,7 @@ const stateSaved=()=>{
 	return stateSaved
 }
 const stateExport=stateSaved() || blankData;
-console.log(`state ${stateId || ''} exported`,stateExport);
+// console.log(`state ${stateId || ''} exported`,stateExport);
 
 const lastState = () => {
 	const state = localGet('lastState') || blankData;
