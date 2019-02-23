@@ -22,10 +22,9 @@ const getProps=props=>{
 	  	if(className==="buttonView") props.history.push(`/jobs/${id}`);
 	  	if(className==="buttonDelete") window.confirm("Delete?") && delJob(id);
 	  	if(className==="url") {
-	  		if(!realUrl) return
-	  		console.warn(`stopped window open ${realUrl}`)
-	  		// window.open(realUrl,'_blank');
-			console.log(getDomain(realUrl));
+	  		// if(!realUrl) return
+	  		// console.warn(`stopped window open ${realUrl}`)
+	  		window.open(realUrl,'_blank');
 	  	}
 	  }
 	};

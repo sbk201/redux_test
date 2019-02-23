@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Nav,NavItem,Navbar } from "react-bootstrap";
 import {updateUI} from '../Actions.js'
 import { Link } from "react-router-dom";
+import brand from '../calculator.png';
 import "react-dom";
 const contName="UINavbar";
 
@@ -25,10 +26,10 @@ class UINavbar extends Component {
 		<Navbar fixedTop onToggle={clickExpanded} expanded={expanded}>
 			<Navbar.Header>
 				<Navbar.Brand style={{paddingTop:"0.5rem",paddingBottom:"0.5rem"}}>
-					<Link to="/" style={{padding:"0.5rem"}}>
-					{/*<img src={brand} style={{width:"2em"}} alt=""/>*/}
+						<Link to="/" style={{ padding: "0.5rem", paddingLeft: "2rem", paddingRight: "4rem" }}>
+					<img src={brand} style={{width:"2em"}} alt=""/>
 					</Link>
-					Main App
+					{/*Main App*/}
 				</Navbar.Brand>
 
 				<Navbar.Toggle />

@@ -21,7 +21,7 @@ const getProps=props=>{
 		updateUI({[name]:value});
 	}
 	const rangeConfig_a= cmd=> 
-		({step:.5 , type:"range", className:"slider", style:{width:"30%"}, ...cmd });
+		({step:.5 , type:"range", className:"slider", style:{width:"50%"}, ...cmd });
   	const rangeConfig= params=> rangeConfig_a({onChange:saveData, defaultValue:UI[params.refer], ...params })
 	return {saveData, rangeConfig, rangeConfig_a }
 }

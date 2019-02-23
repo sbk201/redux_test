@@ -27,7 +27,7 @@ class App extends Component {
 			<Frag>
 				<Router>
 					<Frag>
-						<UINavbar/><br/><br/><br/>
+						<UINavbar />
 						<Switch>
 							<Route exact path="/" component={HomeCont} />
 							<Route exact path="/simple" component={HomeCont} />
