@@ -38,7 +38,6 @@ class UINavbar extends Component {
 					<NavIt link="/simple"> Simple </NavIt>
 					<NavIt link="/advance"> Advance </NavIt>
 					<NavIt link="/jobs"> Jobs </NavIt>
-					<NavIt link="/123123"> 404 </NavIt>
 				</Nav>
 			</Navbar.Collapse>
 		</Navbar>
