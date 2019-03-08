@@ -34,9 +34,9 @@ const Jobs=props=>{
 	// const onEnter= fn=> e=> e.keyCode === 13 && fn( e.target.value );
 	return (
 		<div> 
-			<Link to="/jobs"> <button onClick={toBeforeView}>Back to List</button></Link>
-			<h1>Just Job</h1>
-			{editButton}
+			<h1>Job Detail</h1>
+			<Link to="/jobs"> <button onClick={toBeforeView}>Back to List</button></Link><br/><br/>
+			<div>{editButton}</div><br/>
 			<MyTable thisJob={thisJob} />
 		</div>
 	);
