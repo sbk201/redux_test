@@ -26,7 +26,7 @@ class App extends Component {
 		return (
 			<Frag>
 				<Router>
-					<Frag>
+					<div style={{overflowX:"auto"}}>
 						<UINavbar />
 						<Switch>
 							<Route exact path="/" component={HomeCont} />
@@ -36,7 +36,7 @@ class App extends Component {
 							<Route path="/jobs/:id" component={JobCont} />
 							<Route component={NotFound} />
 						</Switch>
-					</Frag>
+					</div>
 				</Router>
 			</Frag>
 		);
